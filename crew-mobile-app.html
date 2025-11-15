@@ -507,6 +507,13 @@
             padding: 1.5rem;
         }
 
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.5rem;
+        }
+
         .timeline-item {
             display: flex;
             gap: 1rem;
@@ -608,10 +615,143 @@
             font-size: 0.875rem;
             margin-bottom: 1rem;
             transition: all 0.2s;
+            border: none;
+            cursor: pointer;
         }
 
         .back-button:hover {
             background: #e5e7eb;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .option-buttons {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .option-button {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .option-button:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .option-button.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .option-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .option-description {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .signature-pad {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            cursor: crosshair;
+            background: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #6b7280;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box-text {
+            font-size: 0.875rem;
+            color: #1e40af;
         }
     </style>
 </head>
@@ -623,7 +763,7 @@
             <div class="header-icons">
                 <div class="header-icon" onclick="showNotifications()">
                     <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
+                    <span class="notification-badge" id="notification-count">0</span>
                 </div>
                 <div class="header-icon" onclick="showProfile()">
                     <i class="fas fa-user-circle"></i>
@@ -637,7 +777,7 @@
             </div>
             <div class="status-item">
                 <i class="fas fa-briefcase"></i>
-                <span>2 Active Jobs</span>
+                <span id="active-jobs-count">0 Active Jobs</span>
             </div>
         </div>
     </div>
@@ -652,18 +792,18 @@
             <!-- Earnings Card -->
             <div class="earnings-card">
                 <div class="earnings-header">Today's Earnings</div>
-                <div class="earnings-amount">€245.50</div>
+                <div class="earnings-amount" id="today-earnings">€0.00</div>
                 <div class="earnings-stats">
                     <div class="earnings-stat">
-                        <div class="earnings-stat-value">3</div>
+                        <div class="earnings-stat-value" id="completed-count">0</div>
                         <div class="earnings-stat-label">Completed</div>
                     </div>
                     <div class="earnings-stat">
-                        <div class="earnings-stat-value">2</div>
+                        <div class="earnings-stat-value" id="in-progress-count">0</div>
                         <div class="earnings-stat-label">In Progress</div>
                     </div>
                     <div class="earnings-stat">
-                        <div class="earnings-stat-value">1</div>
+                        <div class="earnings-stat-value" id="upcoming-count">0</div>
                         <div class="earnings-stat-label">Upcoming</div>
                     </div>
                 </div>
@@ -675,68 +815,8 @@
                 <a href="#" class="section-link">View All</a>
             </div>
 
-            <!-- Active Job 1 -->
-            <div class="job-card active" onclick="showJobDetail('SX-375742')">
-                <div class="job-header">
-                    <div class="job-id">#SX-375742</div>
-                    <div class="job-badge in-progress">IN PROGRESS</div>
-                </div>
-                <div class="job-title">Air Conditioning Installation</div>
-                <div class="job-details">
-                    <div class="job-detail">
-                        <i class="fas fa-user"></i>
-                        <span>Maria Santos</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Rua das Flores 45, Lisboa</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-clock"></i>
-                        <span>Started 1h 23m ago</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-euro-sign"></i>
-                        <span>€85.00 (estimated 3h)</span>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="job-button primary" onclick="event.stopPropagation(); showJobDetail('SX-375742')">
-                        <i class="fas fa-clipboard-check"></i> Continue Work
-                    </button>
-                </div>
-            </div>
-
-            <!-- Active Job 2 -->
-            <div class="job-card active" onclick="showJobDetail('PX-377903')">
-                <div class="job-header">
-                    <div class="job-id">#PX-377903</div>
-                    <div class="job-badge in-progress">IN PROGRESS</div>
-                </div>
-                <div class="job-title">Bathroom Renovation - Tiling</div>
-                <div class="job-details">
-                    <div class="job-detail">
-                        <i class="fas fa-user"></i>
-                        <span>Ines Broncano</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Av. da República 123, Porto</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-clock"></i>
-                        <span>Started 45m ago</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-euro-sign"></i>
-                        <span>€120.00 (estimated 4h)</span>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="job-button primary" onclick="event.stopPropagation(); showJobDetail('PX-377903')">
-                        <i class="fas fa-clipboard-check"></i> Continue Work
-                    </button>
-                </div>
+            <div id="active-jobs-container">
+                <!-- Active jobs will be rendered here -->
             </div>
 
             <!-- Upcoming Jobs Section -->
@@ -744,35 +824,8 @@
                 <div class="section-title">Upcoming Jobs</div>
             </div>
 
-            <!-- Upcoming Job -->
-            <div class="job-card" onclick="showJobDetail('PX-377905')">
-                <div class="job-header">
-                    <div class="job-id">#PX-377905</div>
-                    <div class="job-badge scheduled">TOMORROW 9 AM</div>
-                </div>
-                <div class="job-title">Plumbing Repair - Kitchen Sink</div>
-                <div class="job-details">
-                    <div class="job-detail">
-                        <i class="fas fa-user"></i>
-                        <span>João Silva</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Rua do Comércio 78, Braga</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-euro-sign"></i>
-                        <span>€60.00 (estimated 2h)</span>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="job-button secondary" onclick="event.stopPropagation(); viewMap('PX-377905')">
-                        <i class="fas fa-map"></i> View Map
-                    </button>
-                    <button class="job-button secondary" onclick="event.stopPropagation(); contactCustomer('João Silva')">
-                        <i class="fas fa-phone"></i> Call
-                    </button>
-                </div>
+            <div id="upcoming-jobs-container">
+                <!-- Upcoming jobs will be rendered here -->
             </div>
         </div>
     </div>
@@ -784,120 +837,8 @@
                 <i class="fas fa-arrow-left"></i> Back to Jobs
             </button>
 
-            <div class="job-card active">
-                <div class="job-header">
-                    <div class="job-id" id="detail-job-id">#SX-375742</div>
-                    <div class="job-badge in-progress">IN PROGRESS</div>
-                </div>
-                <div class="job-title" id="detail-job-title">Air Conditioning Installation</div>
-                <div class="job-details">
-                    <div class="job-detail">
-                        <i class="fas fa-user"></i>
-                        <span id="detail-customer">Maria Santos</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span id="detail-address">Rua das Flores 45, Lisboa</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-clock"></i>
-                        <span id="detail-time">Started 1h 23m ago</span>
-                    </div>
-                    <div class="job-detail">
-                        <i class="fas fa-euro-sign"></i>
-                        <span id="detail-payment">€85.00 (estimated 3h)</span>
-                    </div>
-                </div>
-
-                <!-- Checklist Section -->
-                <div class="checklist-section">
-                    <div class="checklist-header">
-                        <div class="checklist-title">Service Checklist</div>
-                        <div class="checklist-progress">5/8 completed</div>
-                    </div>
-                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="checklist-text">Verify customer identity and service order</div>
-                    </div>
-                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="checklist-text">Inspect installation location</div>
-                    </div>
-                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="checklist-text">Take before photos</div>
-                    </div>
-                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="checklist-text">Install mounting bracket</div>
-                    </div>
-                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="checklist-text">Install indoor unit</div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox"></div>
-                        <div class="checklist-text">Connect refrigerant lines</div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox"></div>
-                        <div class="checklist-text">Test system operation</div>
-                    </div>
-                    <div class="checklist-item" onclick="toggleChecklist(this)">
-                        <div class="checklist-checkbox"></div>
-                        <div class="checklist-text">Customer walkthrough and sign-off</div>
-                    </div>
-                </div>
-
-                <!-- Photo Upload Section -->
-                <div class="photo-upload-section">
-                    <div class="checklist-header">
-                        <div class="checklist-title">Documentation Photos</div>
-                        <div class="checklist-progress">3/6 required</div>
-                    </div>
-                    <div class="photo-grid">
-                        <div class="photo-item">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3EBefore%3C/text%3E%3C/svg%3E" alt="Before">
-                            <div class="photo-label">Before - Location</div>
-                        </div>
-                        <div class="photo-item">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3EBracket%3C/text%3E%3C/svg%3E" alt="Bracket">
-                            <div class="photo-label">Bracket Installed</div>
-                        </div>
-                        <div class="photo-item">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3EUnit%3C/text%3E%3C/svg%3E" alt="Unit">
-                            <div class="photo-label">Unit Mounted</div>
-                        </div>
-                        <div class="photo-item add" onclick="addPhoto('refrigerant')">
-                            <i class="fas fa-camera fa-2x"></i>
-                        </div>
-                        <div class="photo-item add" onclick="addPhoto('testing')">
-                            <i class="fas fa-camera fa-2x"></i>
-                        </div>
-                        <div class="photo-item add" onclick="addPhoto('final')">
-                            <i class="fas fa-camera fa-2x"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="job-actions" style="margin-top: 1.5rem;">
-                    <button class="job-button primary" onclick="completeJob()">
-                        <i class="fas fa-check-circle"></i> Complete Job
-                    </button>
-                    <button class="job-button secondary" onclick="pauseJob()">
-                        <i class="fas fa-pause"></i> Pause
-                    </button>
-                </div>
+            <div id="job-detail-content">
+                <!-- Job detail will be rendered here -->
             </div>
         </div>
     </div>
@@ -1115,33 +1056,306 @@
                 <div class="modal-title">Notifications</div>
                 <button class="modal-close" onclick="closeModal('notifications')">×</button>
             </div>
+            <div class="modal-body" id="notifications-list">
+                <!-- Notifications will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Accept/Reject Job Modal -->
+    <div id="modal-accept-job" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">New Job Assignment</div>
+                <button class="modal-close" onclick="closeModal('accept-job')">×</button>
+            </div>
             <div class="modal-body">
-                <div class="timeline-item">
-                    <div class="timeline-icon" style="background: #fee2e2; color: #dc2626;">
-                        <i class="fas fa-exclamation"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">New job assigned for tomorrow</div>
-                        <div class="timeline-time">5 minutes ago</div>
-                    </div>
+                <div class="info-box">
+                    <div class="info-box-title">Job Details</div>
+                    <div class="info-box-text" id="accept-job-details"></div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon completed">
-                        <i class="fas fa-euro-sign"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">Payment received: €75.00</div>
-                        <div class="timeline-time">2 hours ago</div>
-                    </div>
+                <p style="margin-bottom: 1rem; color: #6b7280;">Would you like to accept this job assignment?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="job-button secondary" style="flex: 1;" onclick="showRejectJobModal()">
+                    <i class="fas fa-times"></i> Reject
+                </button>
+                <button class="job-button primary" style="flex: 1;" onclick="acceptJobConfirm()">
+                    <i class="fas fa-check"></i> Accept
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Job Modal -->
+    <div id="modal-reject-job" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Reject Job</div>
+                <button class="modal-close" onclick="closeModal('reject-job')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Reason for rejection</label>
+                    <select class="form-select" id="reject-reason">
+                        <option value="">Select a reason...</option>
+                        <option value="scheduling_conflict">Scheduling conflict</option>
+                        <option value="too_far">Location too far</option>
+                        <option value="not_qualified">Not qualified for this service</option>
+                        <option value="personal_emergency">Personal emergency</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-comment"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-title">New message from Maria Santos</div>
-                        <div class="timeline-time">Yesterday</div>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Additional notes (optional)</label>
+                    <textarea class="form-textarea" id="reject-notes" placeholder="Provide additional details..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="job-button secondary" style="flex: 1;" onclick="closeModal('reject-job')">Cancel</button>
+                <button class="job-button danger" style="flex: 1;" onclick="rejectJobConfirm()">
+                    <i class="fas fa-times"></i> Reject Job
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Details Modal -->
+    <div id="modal-job-details" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Job Details</div>
+                <button class="modal-close" onclick="closeModal('job-details')">×</button>
+            </div>
+            <div class="modal-body" id="job-details-content">
+                <!-- Job details will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Photo Modal -->
+    <div id="modal-add-photo" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Add Photo</div>
+                <button class="modal-close" onclick="closeModal('add-photo')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="option-buttons">
+                    <button class="option-button" onclick="capturePhoto('camera')">
+                        <div class="option-icon" style="background: #dbeafe; color: #3b82f6;">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Take Photo</div>
+                            <div class="option-description">Use camera to capture photo</div>
+                        </div>
+                    </button>
+                    <button class="option-button" onclick="capturePhoto('gallery')">
+                        <div class="option-icon" style="background: #d1fae5; color: #10b981;">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Choose from Gallery</div>
+                            <div class="option-description">Select existing photo</div>
+                        </div>
+                    </button>
+                </div>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label class="form-label">Photo Type</label>
+                    <select class="form-select" id="photo-type">
+                        <option value="before">Before - Initial State</option>
+                        <option value="progress">Progress - Work in Progress</option>
+                        <option value="after">After - Completion</option>
+                        <option value="issue">Issue - Problem Found</option>
+                        <option value="materials">Materials - Parts Used</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Label (optional)</label>
+                    <input type="text" class="form-input" id="photo-label" placeholder="e.g., Bracket Installed">
+                </div>
+                <input type="file" id="photo-file-input" accept="image/*" capture="environment" style="display: none;" onchange="handlePhotoSelected()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div id="modal-add-note" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Add Note</div>
+                <button class="modal-close" onclick="closeModal('add-note')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Service Note</label>
+                    <textarea class="form-textarea" id="note-text" placeholder="Enter notes about the service, findings, or actions taken..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="job-button secondary" style="flex: 1;" onclick="closeModal('add-note')">Cancel</button>
+                <button class="job-button primary" style="flex: 1;" onclick="saveNote()">
+                    <i class="fas fa-save"></i> Save Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complete Job Modal -->
+    <div id="modal-complete-job" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Complete Job</div>
+                <button class="modal-close" onclick="closeModal('complete-job')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-box">
+                    <div class="info-box-title">Completion Checklist</div>
+                    <div class="info-box-text">Verify all items before completing the job</div>
+                </div>
+
+                <div class="checklist-item completed" style="margin-bottom: 0.75rem;">
+                    <div class="checklist-checkbox"><i class="fas fa-check"></i></div>
+                    <div class="checklist-text">All service tasks completed</div>
+                </div>
+                <div class="checklist-item" id="photos-check" style="margin-bottom: 0.75rem;">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">Required photos taken</div>
+                </div>
+                <div class="checklist-item" id="cleanup-check" style="margin-bottom: 0.75rem;">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">Work area cleaned up</div>
+                </div>
+                <div class="checklist-item" id="customer-check" style="margin-bottom: 0.75rem;">
+                    <div class="checklist-checkbox"></div>
+                    <div class="checklist-text">Customer walkthrough completed</div>
+                </div>
+
+                <p style="margin-top: 1.5rem; color: #6b7280; font-size: 0.875rem;">
+                    The customer will be asked to review and sign the Work Completion Form (WCF) to confirm the service quality.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="job-button secondary" style="flex: 1;" onclick="closeModal('complete-job')">Cancel</button>
+                <button class="job-button primary" style="flex: 1;" onclick="requestCustomerSignature()">
+                    <i class="fas fa-signature"></i> Request Signature
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pause Job Modal -->
+    <div id="modal-pause-job" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Pause Job</div>
+                <button class="modal-close" onclick="closeModal('pause-job')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Reason for pause</label>
+                    <select class="form-select" id="pause-reason">
+                        <option value="break">Taking a break</option>
+                        <option value="materials">Waiting for materials</option>
+                        <option value="customer">Waiting for customer</option>
+                        <option value="equipment">Equipment issue</option>
+                        <option value="weather">Weather conditions</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes (optional)</label>
+                    <textarea class="form-textarea" id="pause-notes" placeholder="Additional details..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="job-button secondary" style="flex: 1;" onclick="closeModal('pause-job')">Cancel</button>
+                <button class="job-button primary" style="flex: 1;" onclick="pauseJobConfirm()">
+                    <i class="fas fa-pause"></i> Pause Job
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Customer Modal -->
+    <div id="modal-contact-customer" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Contact Customer</div>
+                <button class="modal-close" onclick="closeModal('contact-customer')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-box" style="margin-bottom: 1.5rem;">
+                    <div class="info-box-title" id="contact-customer-name"></div>
+                    <div class="info-box-text" id="contact-customer-phone"></div>
+                </div>
+
+                <div class="option-buttons">
+                    <button class="option-button" onclick="callCustomer()">
+                        <div class="option-icon" style="background: #d1fae5; color: #10b981;">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Call Customer</div>
+                            <div class="option-description">Start a phone call</div>
+                        </div>
+                    </button>
+                    <button class="option-button" onclick="messageCustomer()">
+                        <div class="option-icon" style="background: #dbeafe; color: #3b82f6;">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Send Message</div>
+                            <div class="option-description">Send a text message</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation/Map Modal -->
+    <div id="modal-navigation" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Navigation</div>
+                <button class="modal-close" onclick="closeModal('navigation')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-box" style="margin-bottom: 1.5rem;">
+                    <div class="info-box-title">Destination</div>
+                    <div class="info-box-text" id="navigation-address"></div>
+                </div>
+
+                <div class="option-buttons">
+                    <button class="option-button" onclick="openGoogleMaps()">
+                        <div class="option-icon" style="background: #fee2e2; color: #dc2626;">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Google Maps</div>
+                            <div class="option-description">Open in Google Maps</div>
+                        </div>
+                    </button>
+                    <button class="option-button" onclick="openWaze()">
+                        <div class="option-icon" style="background: #dbeafe; color: #3b82f6;">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Waze</div>
+                            <div class="option-description">Open in Waze</div>
+                        </div>
+                    </button>
+                    <button class="option-button" onclick="openAppleMaps()">
+                        <div class="option-icon" style="background: #e5e7eb; color: #374151;">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Apple Maps</div>
+                            <div class="option-description">Open in Apple Maps</div>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1167,7 +1381,37 @@
         </div>
     </div>
 
+    <!-- State Management -->
+    <script src="yellowgrid-state.js"></script>
+
     <script>
+        // Global variables
+        let currentJobId = null;
+        const TECHNICIAN_ID = 'PRO-1547';
+
+        // Initialize app
+        function initApp() {
+            // Set current user
+            window.ygState.state.currentUser = {
+                type: 'crew',
+                id: TECHNICIAN_ID
+            };
+            window.ygState.save();
+
+            // Load initial data
+            refreshJobsView();
+            updateNotificationBadge();
+            updateEarnings();
+        }
+
+        // Listen for state changes
+        window.addEventListener('yellowgrid-state-changed', function() {
+            refreshJobsView();
+            updateNotificationBadge();
+            updateEarnings();
+        });
+
+        // View navigation
         function showView(viewName) {
             // Hide all views
             document.querySelectorAll('.view').forEach(view => {
@@ -1187,90 +1431,454 @@
             event.currentTarget.classList.add('active');
         }
 
+        // Refresh jobs view
+        function refreshJobsView() {
+            const myJobs = window.ygState.getServicesForTechnician(TECHNICIAN_ID);
+
+            // Separate active and upcoming jobs
+            const activeJobs = myJobs.filter(j => j.status === 'in_progress');
+            const upcomingJobs = myJobs.filter(j => j.status === 'scheduled' || j.status === 'accepted');
+
+            // Update counts
+            document.getElementById('active-jobs-count').textContent =
+                `${activeJobs.length} Active Job${activeJobs.length !== 1 ? 's' : ''}`;
+            document.getElementById('in-progress-count').textContent = activeJobs.length;
+            document.getElementById('upcoming-count').textContent = upcomingJobs.length;
+
+            // Render active jobs
+            const activeContainer = document.getElementById('active-jobs-container');
+            if (activeJobs.length === 0) {
+                activeContainer.innerHTML = '<div class="empty-state"><i class="fas fa-briefcase"></i><p>No active jobs</p></div>';
+            } else {
+                activeContainer.innerHTML = activeJobs.map(job => renderJobCard(job, true)).join('');
+            }
+
+            // Render upcoming jobs
+            const upcomingContainer = document.getElementById('upcoming-jobs-container');
+            if (upcomingJobs.length === 0) {
+                upcomingContainer.innerHTML = '<div class="empty-state"><i class="fas fa-calendar"></i><p>No upcoming jobs</p></div>';
+            } else {
+                upcomingContainer.innerHTML = upcomingJobs.map(job => renderJobCard(job, false)).join('');
+            }
+        }
+
+        // Render job card
+        function renderJobCard(job, isActive) {
+            const timeText = isActive ? `Started ${getTimeAgo(job.checkedInAt || job.createdAt)}` :
+                             `${formatDate(job.schedule.date)} at ${job.schedule.startTime}`;
+
+            return `
+                <div class="job-card ${isActive ? 'active' : ''}" onclick="showJobDetail('${job.id}')">
+                    <div class="job-header">
+                        <div class="job-id">#${job.id}</div>
+                        <div class="job-badge ${isActive ? 'in-progress' : 'scheduled'}">
+                            ${isActive ? 'IN PROGRESS' : 'SCHEDULED'}
+                        </div>
+                    </div>
+                    <div class="job-title">${job.type}</div>
+                    <div class="job-details">
+                        <div class="job-detail">
+                            <i class="fas fa-user"></i>
+                            <span>${job.customer.name}</span>
+                        </div>
+                        <div class="job-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${job.customer.address}</span>
+                        </div>
+                        <div class="job-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>${timeText}</span>
+                        </div>
+                        <div class="job-detail">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>€${job.pricing.amount.toFixed(2)} (estimated ${job.schedule.estimatedHours}h)</span>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        ${isActive ? `
+                            <button class="job-button primary" onclick="event.stopPropagation(); showJobDetail('${job.id}')">
+                                <i class="fas fa-clipboard-check"></i> Continue Work
+                            </button>
+                        ` : `
+                            <button class="job-button secondary" onclick="event.stopPropagation(); viewMap('${job.id}')">
+                                <i class="fas fa-map"></i> View Map
+                            </button>
+                            <button class="job-button secondary" onclick="event.stopPropagation(); contactCustomer('${job.id}')">
+                                <i class="fas fa-phone"></i> Call
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show job detail
         function showJobDetail(jobId) {
-            const jobs = {
-                'SX-375742': {
-                    id: '#SX-375742',
-                    title: 'Air Conditioning Installation',
-                    customer: 'Maria Santos',
-                    address: 'Rua das Flores 45, Lisboa',
-                    time: 'Started 1h 23m ago',
-                    payment: '€85.00 (estimated 3h)'
-                },
-                'PX-377903': {
-                    id: '#PX-377903',
-                    title: 'Bathroom Renovation - Tiling',
-                    customer: 'Ines Broncano',
-                    address: 'Av. da República 123, Porto',
-                    time: 'Started 45m ago',
-                    payment: '€120.00 (estimated 4h)'
-                },
-                'PX-377905': {
-                    id: '#PX-377905',
-                    title: 'Plumbing Repair - Kitchen Sink',
-                    customer: 'João Silva',
-                    address: 'Rua do Comércio 78, Braga',
-                    time: 'Tomorrow 9 AM',
-                    payment: '€60.00 (estimated 2h)'
+            currentJobId = jobId;
+            const job = window.ygState.getService(jobId);
+            if (!job) return;
+
+            // If job is scheduled, start it
+            if (job.status === 'scheduled' || job.status === 'accepted') {
+                if (confirm(`Start working on this job?\n\n${job.type}\n${job.customer.name}\n${job.customer.address}`)) {
+                    window.ygState.checkIn(jobId);
                 }
-            };
-
-            const job = jobs[jobId];
-            if (job) {
-                document.getElementById('detail-job-id').textContent = job.id;
-                document.getElementById('detail-job-title').textContent = job.title;
-                document.getElementById('detail-customer').textContent = job.customer;
-                document.getElementById('detail-address').textContent = job.address;
-                document.getElementById('detail-time').textContent = job.time;
-                document.getElementById('detail-payment').textContent = job.payment;
-
-                document.getElementById('view-jobs').classList.remove('active');
-                document.getElementById('view-job-detail').classList.add('active');
+                return;
             }
+
+            const completed = job.checklist.filter(c => c.completed).length;
+            const total = job.checklist.length;
+
+            const detailHTML = `
+                <div class="job-card active">
+                    <div class="job-header">
+                        <div class="job-id">#${job.id}</div>
+                        <div class="job-badge in-progress">IN PROGRESS</div>
+                    </div>
+                    <div class="job-title">${job.type}</div>
+                    <div class="job-details">
+                        <div class="job-detail">
+                            <i class="fas fa-user"></i>
+                            <span>${job.customer.name}</span>
+                        </div>
+                        <div class="job-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${job.customer.address}</span>
+                        </div>
+                        <div class="job-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>Started ${getTimeAgo(job.checkedInAt || job.createdAt)}</span>
+                        </div>
+                        <div class="job-detail">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>€${job.pricing.amount.toFixed(2)} (estimated ${job.schedule.estimatedHours}h)</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="job-actions" style="margin-top: 1rem;">
+                        <button class="job-button secondary" onclick="contactCustomer('${job.id}')">
+                            <i class="fas fa-phone"></i> Contact
+                        </button>
+                        <button class="job-button secondary" onclick="viewMap('${job.id}')">
+                            <i class="fas fa-map"></i> Map
+                        </button>
+                        <button class="job-button secondary" onclick="showAddNoteModal('${job.id}')">
+                            <i class="fas fa-sticky-note"></i> Note
+                        </button>
+                    </div>
+
+                    <!-- Checklist Section -->
+                    ${job.checklist && job.checklist.length > 0 ? `
+                    <div class="checklist-section">
+                        <div class="checklist-header">
+                            <div class="checklist-title">Service Checklist</div>
+                            <div class="checklist-progress">${completed}/${total} completed</div>
+                        </div>
+                        ${job.checklist.map(item => `
+                            <div class="checklist-item ${item.completed ? 'completed' : ''}" onclick="toggleChecklistItem('${job.id}', ${item.id})">
+                                <div class="checklist-checkbox">
+                                    ${item.completed ? '<i class="fas fa-check"></i>' : ''}
+                                </div>
+                                <div class="checklist-text">${item.text}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+
+                    <!-- Photo Upload Section -->
+                    <div class="photo-upload-section">
+                        <div class="checklist-header">
+                            <div class="checklist-title">Documentation Photos</div>
+                            <div class="checklist-progress">${job.photos.length}/6 recommended</div>
+                        </div>
+                        <div class="photo-grid">
+                            ${job.photos.map(photo => `
+                                <div class="photo-item">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3E${photo.type}%3C/text%3E%3C/svg%3E" alt="${photo.label}">
+                                    <div class="photo-label">${photo.label}</div>
+                                </div>
+                            `).join('')}
+                            ${job.photos.length < 6 ? Array(6 - job.photos.length).fill(0).map(() => `
+                                <div class="photo-item add" onclick="showAddPhotoModal('${job.id}')">
+                                    <i class="fas fa-camera fa-2x"></i>
+                                </div>
+                            `).join('') : ''}
+                        </div>
+                    </div>
+
+                    <div class="job-actions" style="margin-top: 1.5rem;">
+                        <button class="job-button primary" onclick="showCompleteJobModal('${job.id}')">
+                            <i class="fas fa-check-circle"></i> Complete Job
+                        </button>
+                        <button class="job-button secondary" onclick="showPauseJobModal('${job.id}')">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('job-detail-content').innerHTML = detailHTML;
+            document.getElementById('view-jobs').classList.remove('active');
+            document.getElementById('view-job-detail').classList.add('active');
         }
 
-        function toggleChecklist(element) {
-            element.classList.toggle('completed');
-
-            // Update progress
-            const completed = document.querySelectorAll('.checklist-item.completed').length;
-            const total = document.querySelectorAll('.checklist-item').length;
-            document.querySelector('.checklist-progress').textContent = `${completed}/${total} completed`;
+        // Toggle checklist item
+        function toggleChecklistItem(jobId, itemId) {
+            window.ygState.toggleChecklistItem(jobId, itemId);
+            showJobDetail(jobId); // Refresh view
         }
 
-        function addPhoto(type) {
-            alert(`Opening camera to take ${type} photo...`);
+        // Photo management
+        function showAddPhotoModal(jobId) {
+            currentJobId = jobId;
+            document.getElementById('modal-add-photo').classList.add('active');
         }
 
-        function completeJob() {
-            if (confirm('Mark this job as completed? Customer will be asked to sign off.')) {
-                alert('Job completion process started. Redirecting to customer sign-off...');
+        function capturePhoto(source) {
+            // Trigger file input
+            document.getElementById('photo-file-input').click();
+        }
+
+        function handlePhotoSelected() {
+            const fileInput = document.getElementById('photo-file-input');
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const type = document.getElementById('photo-type').value;
+            const label = document.getElementById('photo-label').value || type.charAt(0).toUpperCase() + type.slice(1);
+
+            // Add photo to state
+            window.ygState.addPhoto(currentJobId, {
+                type: type,
+                label: label,
+                url: 'placeholder'
+            });
+
+            // Close modal and reset
+            closeModal('add-photo');
+            document.getElementById('photo-label').value = '';
+            fileInput.value = '';
+
+            // Refresh job detail
+            showJobDetail(currentJobId);
+        }
+
+        // Note management
+        function showAddNoteModal(jobId) {
+            currentJobId = jobId;
+            document.getElementById('modal-add-note').classList.add('active');
+        }
+
+        function saveNote() {
+            const noteText = document.getElementById('note-text').value.trim();
+            if (!noteText) {
+                alert('Please enter a note');
+                return;
             }
+
+            window.ygState.addNote(currentJobId, noteText);
+            closeModal('add-note');
+            document.getElementById('note-text').value = '';
+            alert('Note saved successfully');
         }
 
-        function pauseJob() {
-            if (confirm('Pause this job? You can resume it later.')) {
-                alert('Job paused. Timer stopped.');
-                showView('jobs');
+        // Complete job
+        function showCompleteJobModal(jobId) {
+            currentJobId = jobId;
+            const job = window.ygState.getService(jobId);
+
+            // Update checklist items in modal
+            const photosCheck = document.getElementById('photos-check');
+            const cleanupCheck = document.getElementById('cleanup-check');
+            const customerCheck = document.getElementById('customer-check');
+
+            // Check if photos requirement is met
+            if (job.photos.length >= 3) {
+                photosCheck.classList.add('completed');
+            } else {
+                photosCheck.classList.remove('completed');
             }
+
+            document.getElementById('modal-complete-job').classList.add('active');
         }
 
+        function requestCustomerSignature() {
+            if (!currentJobId) return;
+
+            const job = window.ygState.getService(currentJobId);
+
+            // Check requirements
+            if (job.photos.length < 3) {
+                alert('Please take at least 3 photos before completing the job');
+                return;
+            }
+
+            // Update job status
+            window.ygState.checkOut(currentJobId);
+
+            closeModal('complete-job');
+            showView('jobs');
+
+            alert('Job marked as complete!\n\nThe customer has been notified and will be asked to sign the Work Completion Form (WCF).\n\nYou will receive payment once the WCF is signed.');
+        }
+
+        // Pause job
+        function showPauseJobModal(jobId) {
+            currentJobId = jobId;
+            document.getElementById('modal-pause-job').classList.add('active');
+        }
+
+        function pauseJobConfirm() {
+            const reason = document.getElementById('pause-reason').value;
+            const notes = document.getElementById('pause-notes').value;
+
+            if (!reason) {
+                alert('Please select a reason');
+                return;
+            }
+
+            // Add note about pause
+            window.ygState.addNote(currentJobId, `Job paused: ${reason}${notes ? ' - ' + notes : ''}`);
+
+            closeModal('pause-job');
+            document.getElementById('pause-notes').value = '';
+            showView('jobs');
+
+            alert('Job paused. Timer stopped.');
+        }
+
+        // Contact customer
+        function contactCustomer(jobId) {
+            const job = window.ygState.getService(jobId);
+            if (!job) return;
+
+            currentJobId = jobId;
+            document.getElementById('contact-customer-name').textContent = job.customer.name;
+            document.getElementById('contact-customer-phone').textContent = job.customer.phone;
+            document.getElementById('modal-contact-customer').classList.add('active');
+        }
+
+        function callCustomer() {
+            const job = window.ygState.getService(currentJobId);
+            if (!job) return;
+
+            window.location.href = `tel:${job.customer.phone}`;
+            closeModal('contact-customer');
+        }
+
+        function messageCustomer() {
+            const job = window.ygState.getService(currentJobId);
+            if (!job) return;
+
+            window.location.href = `sms:${job.customer.phone}`;
+            closeModal('contact-customer');
+        }
+
+        // Navigation
         function viewMap(jobId) {
-            alert(`Opening map navigation to job ${jobId}...`);
+            const job = window.ygState.getService(jobId);
+            if (!job) return;
+
+            currentJobId = jobId;
+            document.getElementById('navigation-address').textContent = job.customer.address;
+            document.getElementById('modal-navigation').classList.add('active');
         }
 
-        function contactCustomer(name) {
-            alert(`Calling ${name}...`);
+        function openGoogleMaps() {
+            const job = window.ygState.getService(currentJobId);
+            if (!job) return;
+
+            const address = encodeURIComponent(job.customer.address);
+            window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
+            closeModal('navigation');
         }
 
+        function openWaze() {
+            const job = window.ygState.getService(currentJobId);
+            if (!job) return;
+
+            const address = encodeURIComponent(job.customer.address);
+            window.open(`https://waze.com/ul?q=${address}`, '_blank');
+            closeModal('navigation');
+        }
+
+        function openAppleMaps() {
+            const job = window.ygState.getService(currentJobId);
+            if (!job) return;
+
+            const address = encodeURIComponent(job.customer.address);
+            window.open(`http://maps.apple.com/?q=${address}`, '_blank');
+            closeModal('navigation');
+        }
+
+        // Notifications
         function showNotifications() {
+            const notifications = window.ygState.getUnreadNotifications();
+            const notificationsList = document.getElementById('notifications-list');
+
+            if (notifications.length === 0) {
+                notificationsList.innerHTML = '<div class="empty-state"><i class="fas fa-bell"></i><p>No new notifications</p></div>';
+            } else {
+                notificationsList.innerHTML = notifications.map(n => `
+                    <div class="timeline-item">
+                        <div class="timeline-icon ${n.type === 'assignment' ? '' : 'completed'}">
+                            <i class="fas fa-${getNotificationIcon(n.type)}"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">${n.message}</div>
+                            <div class="timeline-time">${getTimeAgo(n.timestamp)}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
             document.getElementById('modal-notifications').classList.add('active');
         }
 
+        function getNotificationIcon(type) {
+            const icons = {
+                'assignment': 'briefcase',
+                'message': 'comment',
+                'payment': 'euro-sign',
+                'wcf_signed': 'signature',
+                'job_accepted': 'check',
+                'job_rejected': 'times',
+                'photo': 'camera',
+                'reschedule': 'calendar'
+            };
+            return icons[type] || 'bell';
+        }
+
+        function updateNotificationBadge() {
+            const count = window.ygState.getUnreadNotifications().length;
+            const badge = document.getElementById('notification-count');
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+
+        // Earnings
+        function updateEarnings() {
+            const myJobs = window.ygState.getServicesForTechnician(TECHNICIAN_ID);
+            const today = new Date().toISOString().split('T')[0];
+
+            const completedToday = myJobs.filter(j =>
+                j.status === 'completed' &&
+                j.checkedOutAt &&
+                j.checkedOutAt.startsWith(today)
+            );
+
+            const totalEarnings = completedToday.reduce((sum, j) => sum + j.pricing.amount, 0);
+            document.getElementById('today-earnings').textContent = `€${totalEarnings.toFixed(2)}`;
+            document.getElementById('completed-count').textContent = completedToday.length;
+        }
+
+        // Profile
         function showProfile() {
             showView('profile');
         }
 
+        // Modal management
         function closeModal(modalName) {
             document.getElementById('modal-' + modalName).classList.remove('active');
         }
@@ -1283,6 +1891,35 @@
                 }
             });
         });
+
+        // Utility functions
+        function getTimeAgo(timestamp) {
+            if (!timestamp) return 'just now';
+
+            const now = new Date();
+            const then = new Date(timestamp);
+            const diff = Math.floor((now - then) / 1000); // seconds
+
+            if (diff < 60) return 'just now';
+            if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)}h ${Math.floor((diff % 3600) / 60)}m ago`;
+            return `${Math.floor(diff / 86400)}d ago`;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            if (date.toDateString() === today.toDateString()) return 'Today';
+            if (date.toDateString() === tomorrow.toDateString()) return 'Tomorrow';
+
+            return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>

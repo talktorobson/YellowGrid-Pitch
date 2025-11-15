@@ -846,6 +846,277 @@
             color: #9ca3af;
         }
 
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal.large {
+            max-width: 800px;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-star {
+            color: #d1d5db;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rating-star:hover,
+        .rating-star.active {
+            color: #fbbf24;
+        }
+
+        .tracking-map {
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .tracking-status {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-title {
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-text {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .document-preview {
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .document-preview i {
+            font-size: 4rem;
+            color: #991b1b;
+            margin-bottom: 1rem;
+        }
+
+        .document-preview-text {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .message-thread {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .thread-message {
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .thread-message.from-me {
+            background: #eff6ff;
+        }
+
+        .thread-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .thread-author {
+            font-weight: 600;
+            color: #111827;
+            font-size: 0.875rem;
+        }
+
+        .thread-time {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .thread-body {
+            color: #374151;
+            font-size: 0.875rem;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 display: none;
@@ -862,6 +1133,15 @@
             .chat-window {
                 width: calc(100vw - 2rem);
                 right: 1rem;
+            }
+
+            .modal {
+                max-width: 100%;
+                margin: 0.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -892,7 +1172,7 @@
                 <div class="nav-item" onclick="showView('services')">
                     <i class="fas fa-tools"></i>
                     <span>My Services</span>
-                    <span class="nav-badge">2</span>
+                    <span class="nav-badge" id="services-badge">0</span>
                 </div>
                 <div class="nav-item" onclick="showView('history')">
                     <i class="fas fa-history"></i>
@@ -901,7 +1181,7 @@
                 <div class="nav-item" onclick="showView('messages')">
                     <i class="fas fa-envelope"></i>
                     <span>Messages</span>
-                    <span class="nav-badge">3</span>
+                    <span class="nav-badge" id="messages-badge">0</span>
                 </div>
                 <div class="nav-item" onclick="showView('documents')">
                     <i class="fas fa-file-alt"></i>
@@ -927,7 +1207,7 @@
                         <i class="fas fa-bell"></i>
                         Notifications
                     </button>
-                    <button class="header-button primary" onclick="newServiceRequest()">
+                    <button class="header-button primary" onclick="openNewServiceRequest()">
                         <i class="fas fa-plus"></i>
                         New Service Request
                     </button>
@@ -942,76 +1222,11 @@
                     </a>
 
                     <!-- Alert Banner -->
-                    <div class="alert-banner">
-                        <i class="fas fa-exclamation-triangle alert-icon"></i>
-                        <div class="alert-content">
-                            <div class="alert-title">Action Required</div>
-                            <div class="alert-text">Your air conditioning installation is scheduled for today at 2:00 PM. Please ensure someone is home.</div>
-                        </div>
-                        <button class="alert-action">View Details</button>
-                    </div>
+                    <div id="alert-container"></div>
 
                     <!-- Stats Grid -->
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-value">2</div>
-                                    <div class="stat-label">Active Services</div>
-                                </div>
-                                <div class="stat-icon blue">
-                                    <i class="fas fa-tools"></i>
-                                </div>
-                            </div>
-                            <div class="stat-change positive">
-                                <i class="fas fa-arrow-up"></i> 1 in progress today
-                            </div>
-                        </div>
-
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-value">7</div>
-                                    <div class="stat-label">Completed Services</div>
-                                </div>
-                                <div class="stat-icon green">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                            </div>
-                            <div class="stat-change positive">
-                                <i class="fas fa-arrow-up"></i> 100% satisfaction rate
-                            </div>
-                        </div>
-
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-value">€3,420</div>
-                                    <div class="stat-label">Total Spent</div>
-                                </div>
-                                <div class="stat-icon purple">
-                                    <i class="fas fa-euro-sign"></i>
-                                </div>
-                            </div>
-                            <div class="stat-change">
-                                <i class="fas fa-clock"></i> €0 outstanding
-                            </div>
-                        </div>
-
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <div>
-                                    <div class="stat-value">3</div>
-                                    <div class="stat-label">Unread Messages</div>
-                                </div>
-                                <div class="stat-icon yellow">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                            </div>
-                            <div class="stat-change">
-                                <i class="fas fa-comment"></i> 1 from support team
-                            </div>
-                        </div>
+                    <div class="stats-grid" id="stats-grid">
+                        <!-- Stats will be loaded dynamically -->
                     </div>
 
                     <!-- Active Services -->
@@ -1020,82 +1235,8 @@
                             <div class="card-title">Active Services</div>
                             <a class="card-action" onclick="showView('services')">View All</a>
                         </div>
-
-                        <div class="service-card">
-                            <div class="service-header">
-                                <div class="service-id">#SX-375742</div>
-                                <div class="service-badge in-progress">IN PROGRESS</div>
-                            </div>
-                            <div class="service-title">Air Conditioning Installation</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Today, 2:00 PM - 5:00 PM</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-user"></i>
-                                    <span>Technician: João Ferreira</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Rua das Flores 45, Lisboa</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span>€850.00</span>
-                                </div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 60%"></div>
-                            </div>
-                            <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
-                                Installation 60% complete - Unit mounted, testing in progress
-                            </div>
-                            <div class="service-actions">
-                                <button class="service-button primary" onclick="trackService('SX-375742')">
-                                    <i class="fas fa-map-marker-alt"></i> Track Progress
-                                </button>
-                                <button class="service-button secondary" onclick="contactTechnician('João Ferreira')">
-                                    <i class="fas fa-comment"></i> Message Technician
-                                </button>
-                                <button class="service-button secondary" onclick="reschedule('SX-375742')">
-                                    <i class="fas fa-calendar-alt"></i> Reschedule
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="service-card scheduled">
-                            <div class="service-header">
-                                <div class="service-id">#PX-377903</div>
-                                <div class="service-badge scheduled">SCHEDULED</div>
-                            </div>
-                            <div class="service-title">Bathroom Renovation - Tiling</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Tomorrow, 9:00 AM - 1:00 PM</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-user"></i>
-                                    <span>Technician: TBD</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Rua das Flores 45, Lisboa</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span>€1,200.00</span>
-                                </div>
-                            </div>
-                            <div class="service-actions">
-                                <button class="service-button primary" onclick="viewDetails('PX-377903')">
-                                    <i class="fas fa-eye"></i> View Details
-                                </button>
-                                <button class="service-button secondary" onclick="reschedule('PX-377903')">
-                                    <i class="fas fa-calendar-alt"></i> Reschedule
-                                </button>
-                            </div>
+                        <div id="active-services-list">
+                            <!-- Services will be loaded dynamically -->
                         </div>
                     </div>
 
@@ -1105,25 +1246,8 @@
                             <div class="card-title">Recent Messages</div>
                             <a class="card-action" onclick="showView('messages')">View All</a>
                         </div>
-
-                        <div class="message-list">
-                            <div class="message-card unread">
-                                <div class="message-header">
-                                    <div class="message-from">João Ferreira (Technician)</div>
-                                    <div class="message-time">10 min ago</div>
-                                </div>
-                                <div class="message-subject">Installation Update</div>
-                                <div class="message-preview">Hi Maria, I've mounted the unit successfully. Now testing the system. Should be done in 30 minutes.</div>
-                            </div>
-
-                            <div class="message-card unread">
-                                <div class="message-header">
-                                    <div class="message-from">YellowGrid Support</div>
-                                    <div class="message-time">2 hours ago</div>
-                                </div>
-                                <div class="message-subject">Appointment Reminder</div>
-                                <div class="message-preview">Your air conditioning installation is scheduled for today at 2:00 PM. Please ensure access to the installation area.</div>
-                            </div>
+                        <div id="recent-messages-list" class="message-list">
+                            <!-- Messages will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -1134,60 +1258,8 @@
                         <div class="card-header">
                             <div class="card-title">All Services</div>
                         </div>
-
-                        <div class="service-card">
-                            <div class="service-header">
-                                <div class="service-id">#SX-375742</div>
-                                <div class="service-badge in-progress">IN PROGRESS</div>
-                            </div>
-                            <div class="service-title">Air Conditioning Installation</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Today, 2:00 PM - 5:00 PM</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-user"></i>
-                                    <span>Technician: João Ferreira</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span>€850.00</span>
-                                </div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 60%"></div>
-                            </div>
-                            <div class="service-actions">
-                                <button class="service-button primary">
-                                    <i class="fas fa-map-marker-alt"></i> Track Progress
-                                </button>
-                                <button class="service-button secondary">
-                                    <i class="fas fa-comment"></i> Message
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="service-card scheduled">
-                            <div class="service-header">
-                                <div class="service-id">#PX-377903</div>
-                                <div class="service-badge scheduled">SCHEDULED</div>
-                            </div>
-                            <div class="service-title">Bathroom Renovation - Tiling</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Tomorrow, 9:00 AM - 1:00 PM</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-user"></i>
-                                    <span>Technician: TBD</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span>€1,200.00</span>
-                                </div>
-                            </div>
+                        <div id="all-services-list">
+                            <!-- Services will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -1198,46 +1270,8 @@
                         <div class="card-header">
                             <div class="card-title">Service History</div>
                         </div>
-
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-icon completed">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Electrical Installation - #SX-375701</div>
-                                    <div class="timeline-time">Completed Nov 12, 2024</div>
-                                    <div class="timeline-description">
-                                        New electrical outlets installed in living room. Rated 5★ - Excellent service!
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="timeline-item">
-                                <div class="timeline-icon completed">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Plumbing Repair - #PX-377654</div>
-                                    <div class="timeline-time">Completed Nov 8, 2024</div>
-                                    <div class="timeline-description">
-                                        Kitchen sink leak fixed. Very professional and quick. Rated 5★
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="timeline-item">
-                                <div class="timeline-icon completed">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="timeline-content">
-                                    <div class="timeline-title">AC Maintenance - #SX-375689</div>
-                                    <div class="timeline-time">Completed Oct 28, 2024</div>
-                                    <div class="timeline-description">
-                                        Annual AC maintenance and cleaning. System running perfectly. Rated 5★
-                                    </div>
-                                </div>
-                            </div>
+                        <div id="history-list">
+                            <!-- History will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -1248,43 +1282,8 @@
                         <div class="card-header">
                             <div class="card-title">Messages</div>
                         </div>
-
-                        <div class="message-list">
-                            <div class="message-card unread">
-                                <div class="message-header">
-                                    <div class="message-from">João Ferreira (Technician)</div>
-                                    <div class="message-time">10 min ago</div>
-                                </div>
-                                <div class="message-subject">Installation Update</div>
-                                <div class="message-preview">Hi Maria, I've mounted the unit successfully. Now testing the system. Should be done in 30 minutes.</div>
-                            </div>
-
-                            <div class="message-card unread">
-                                <div class="message-header">
-                                    <div class="message-from">YellowGrid Support</div>
-                                    <div class="message-time">2 hours ago</div>
-                                </div>
-                                <div class="message-subject">Appointment Reminder</div>
-                                <div class="message-preview">Your air conditioning installation is scheduled for today at 2:00 PM.</div>
-                            </div>
-
-                            <div class="message-card unread">
-                                <div class="message-header">
-                                    <div class="message-from">YellowGrid Billing</div>
-                                    <div class="message-time">Yesterday</div>
-                                </div>
-                                <div class="message-subject">Payment Confirmation</div>
-                                <div class="message-preview">Your payment of €850.00 for service #SX-375742 has been received.</div>
-                            </div>
-
-                            <div class="message-card">
-                                <div class="message-header">
-                                    <div class="message-from">YellowGrid Support</div>
-                                    <div class="message-time">Nov 12</div>
-                                </div>
-                                <div class="message-subject">Service Completed</div>
-                                <div class="message-preview">Your electrical installation has been completed. Please rate your experience.</div>
-                            </div>
+                        <div id="all-messages-list" class="message-list">
+                            <!-- Messages will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -1295,55 +1294,8 @@
                         <div class="card-header">
                             <div class="card-title">Documents & Invoices</div>
                         </div>
-
-                        <div class="document-grid">
-                            <div class="document-card">
-                                <div class="document-icon pdf">
-                                    <i class="fas fa-file-pdf"></i>
-                                </div>
-                                <div class="document-name">Contract #SX-375742</div>
-                                <div class="document-meta">Nov 15, 2024</div>
-                            </div>
-
-                            <div class="document-card">
-                                <div class="document-icon pdf">
-                                    <i class="fas fa-file-invoice"></i>
-                                </div>
-                                <div class="document-name">Invoice #SX-375742</div>
-                                <div class="document-meta">Nov 15, 2024</div>
-                            </div>
-
-                            <div class="document-card">
-                                <div class="document-icon image">
-                                    <i class="fas fa-images"></i>
-                                </div>
-                                <div class="document-name">Work Photos</div>
-                                <div class="document-meta">Nov 15, 2024</div>
-                            </div>
-
-                            <div class="document-card">
-                                <div class="document-icon pdf">
-                                    <i class="fas fa-file-contract"></i>
-                                </div>
-                                <div class="document-name">Warranty Certificate</div>
-                                <div class="document-meta">Nov 15, 2024</div>
-                            </div>
-
-                            <div class="document-card">
-                                <div class="document-icon pdf">
-                                    <i class="fas fa-file-invoice"></i>
-                                </div>
-                                <div class="document-name">Invoice #SX-375701</div>
-                                <div class="document-meta">Nov 12, 2024</div>
-                            </div>
-
-                            <div class="document-card">
-                                <div class="document-icon pdf">
-                                    <i class="fas fa-file-invoice"></i>
-                                </div>
-                                <div class="document-name">Invoice #PX-377654</div>
-                                <div class="document-meta">Nov 8, 2024</div>
-                            </div>
+                        <div id="documents-grid" class="document-grid">
+                            <!-- Documents will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -1354,71 +1306,8 @@
                         <div class="card-header">
                             <div class="card-title">Payment History</div>
                         </div>
-
-                        <div class="service-card completed">
-                            <div class="service-header">
-                                <div class="service-id">#SX-375742</div>
-                                <div class="service-badge completed">PAID</div>
-                            </div>
-                            <div class="service-title">Air Conditioning Installation</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Paid: Nov 14, 2024</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-credit-card"></i>
-                                    <span>Visa •••• 4532</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span style="color: #10b981; font-weight: 600;">€850.00</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="service-card completed">
-                            <div class="service-header">
-                                <div class="service-id">#SX-375701</div>
-                                <div class="service-badge completed">PAID</div>
-                            </div>
-                            <div class="service-title">Electrical Installation</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Paid: Nov 12, 2024</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-credit-card"></i>
-                                    <span>Visa •••• 4532</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span style="color: #10b981; font-weight: 600;">€420.00</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="service-card completed">
-                            <div class="service-header">
-                                <div class="service-id">#PX-377654</div>
-                                <div class="service-badge completed">PAID</div>
-                            </div>
-                            <div class="service-title">Plumbing Repair</div>
-                            <div class="service-details">
-                                <div class="service-detail">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Paid: Nov 8, 2024</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-credit-card"></i>
-                                    <span>Visa •••• 4532</span>
-                                </div>
-                                <div class="service-detail">
-                                    <i class="fas fa-euro-sign"></i>
-                                    <span style="color: #10b981; font-weight: 600;">€180.00</span>
-                                </div>
-                            </div>
+                        <div id="payments-list">
+                            <!-- Payments will be loaded dynamically -->
                         </div>
                     </div>
                 </div>
@@ -1451,26 +1340,282 @@
                 <div class="chat-header-title">Customer Support</div>
                 <button class="chat-close" onclick="toggleChat()">×</button>
             </div>
-            <div class="chat-messages">
+            <div class="chat-messages" id="chatMessages">
                 <div class="chat-message">
                     <div class="chat-avatar">
                         <i class="fas fa-robot"></i>
                     </div>
                     <div class="chat-bubble">
-                        Hi Maria! How can I help you today? 😊
+                        Hi Maria! How can I help you today?
                     </div>
                 </div>
             </div>
             <div class="chat-input-area">
-                <input type="text" class="chat-input" placeholder="Type your message...">
-                <button class="chat-send">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                <button class="chat-send" onclick="sendChatMessage()">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Modals -->
+    <!-- New Service Request Modal -->
+    <div class="modal-overlay" id="modal-new-service">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">New Service Request</div>
+                <button class="modal-close" onclick="closeModal('modal-new-service')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="new-service-form">
+                    <div class="form-group">
+                        <label class="form-label">Service Type</label>
+                        <select class="form-select" id="service-type" required>
+                            <option value="">Select service type...</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="HVAC">HVAC/Air Conditioning</option>
+                            <option value="Appliance Repair">Appliance Repair</option>
+                            <option value="General Maintenance">General Maintenance</option>
+                            <option value="Renovation">Renovation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-textarea" id="service-description" placeholder="Please describe the service you need..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred Date</label>
+                        <input type="date" class="form-input" id="service-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred Time</label>
+                        <select class="form-select" id="service-time" required>
+                            <option value="">Select time...</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-new-service')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitNewServiceRequest()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Details Modal -->
+    <div class="modal-overlay" id="modal-service-details">
+        <div class="modal large">
+            <div class="modal-header">
+                <div class="modal-title">Service Details</div>
+                <button class="modal-close" onclick="closeModal('modal-service-details')">&times;</button>
+            </div>
+            <div class="modal-body" id="service-details-content">
+                <!-- Content loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-service-details')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Track Progress Modal -->
+    <div class="modal-overlay" id="modal-track-progress">
+        <div class="modal large">
+            <div class="modal-header">
+                <div class="modal-title">Track Service Progress</div>
+                <button class="modal-close" onclick="closeModal('modal-track-progress')">&times;</button>
+            </div>
+            <div class="modal-body" id="track-progress-content">
+                <!-- Content loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-track-progress')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Technician Modal -->
+    <div class="modal-overlay" id="modal-message-technician">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Message Technician</div>
+                <button class="modal-close" onclick="closeModal('modal-message-technician')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="technician-info" style="margin-bottom: 1.5rem;"></div>
+                <form id="message-technician-form">
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-input" id="message-subject" placeholder="Message subject..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-textarea" id="message-body" placeholder="Type your message..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-message-technician')">Cancel</button>
+                <button class="btn btn-primary" onclick="sendTechnicianMessage()">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reschedule Appointment Modal -->
+    <div class="modal-overlay" id="modal-reschedule">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Reschedule Appointment</div>
+                <button class="modal-close" onclick="closeModal('modal-reschedule')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="reschedule-service-info" style="margin-bottom: 1.5rem;"></div>
+                <form id="reschedule-form">
+                    <div class="form-group">
+                        <label class="form-label">New Date</label>
+                        <input type="date" class="form-input" id="reschedule-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">New Time</label>
+                        <select class="form-select" id="reschedule-time" required>
+                            <option value="">Select time...</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Reason for Rescheduling (Optional)</label>
+                        <textarea class="form-textarea" id="reschedule-reason" placeholder="Please let us know why you need to reschedule..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-reschedule')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitReschedule()">Confirm Reschedule</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Document Modal -->
+    <div class="modal-overlay" id="modal-view-document">
+        <div class="modal large">
+            <div class="modal-header">
+                <div class="modal-title" id="document-title">Document</div>
+                <button class="modal-close" onclick="closeModal('modal-view-document')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="document-preview">
+                    <i class="fas fa-file-pdf"></i>
+                    <div class="document-preview-text">Document preview would be displayed here</div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-view-document')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rate Service Modal -->
+    <div class="modal-overlay" id="modal-rate-service">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Rate Your Service</div>
+                <button class="modal-close" onclick="closeModal('modal-rate-service')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="rating-service-info" style="margin-bottom: 1.5rem;"></div>
+                <form id="rating-form">
+                    <div class="form-group">
+                        <label class="form-label">Your Rating</label>
+                        <div class="rating-stars" id="rating-stars">
+                            <i class="fas fa-star rating-star" data-rating="1"></i>
+                            <i class="fas fa-star rating-star" data-rating="2"></i>
+                            <i class="fas fa-star rating-star" data-rating="3"></i>
+                            <i class="fas fa-star rating-star" data-rating="4"></i>
+                            <i class="fas fa-star rating-star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Review (Optional)</label>
+                        <textarea class="form-textarea" id="rating-review" placeholder="Tell us about your experience..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-rate-service')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitRating()">Submit Rating</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Detail Modal -->
+    <div class="modal-overlay" id="modal-message-detail">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Message</div>
+                <button class="modal-close" onclick="closeModal('modal-message-detail')">&times;</button>
+            </div>
+            <div class="modal-body" id="message-detail-content">
+                <!-- Content loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-message-detail')">Close</button>
+                <button class="btn btn-primary" onclick="replyToMessage()">Reply</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="yellowgrid-state.js"></script>
     <script>
+        // Global variables
+        let currentServiceId = null;
+        let currentRating = 0;
+        const CUSTOMER_EMAIL = 'maria.santos@email.com';
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current user
+            window.ygState.state.currentUser = {
+                type: 'customer',
+                email: CUSTOMER_EMAIL
+            };
+            window.ygState.save();
+
+            // Load initial data
+            refreshDashboard();
+            refreshAllViews();
+
+            // Set up rating stars
+            setupRatingStars();
+
+            // Listen for state changes
+            window.addEventListener('yellowgrid-state-changed', function() {
+                refreshAllViews();
+            });
+        });
+
+        // Navigation
         function showView(viewName) {
             // Hide all views
             document.querySelectorAll('.view').forEach(view => {
@@ -1488,32 +1633,817 @@
                 item.classList.remove('active');
             });
             event.currentTarget.classList.add('active');
+
+            // Refresh view content
+            refreshView(viewName);
         }
 
+        // Refresh all views
+        function refreshAllViews() {
+            refreshDashboard();
+            refreshServices();
+            refreshHistory();
+            refreshMessages();
+            refreshDocuments();
+            refreshPayments();
+            updateBadges();
+        }
+
+        function refreshView(viewName) {
+            switch(viewName) {
+                case 'dashboard':
+                    refreshDashboard();
+                    break;
+                case 'services':
+                    refreshServices();
+                    break;
+                case 'history':
+                    refreshHistory();
+                    break;
+                case 'messages':
+                    refreshMessages();
+                    break;
+                case 'documents':
+                    refreshDocuments();
+                    break;
+                case 'payments':
+                    refreshPayments();
+                    break;
+            }
+        }
+
+        // Dashboard refresh
+        function refreshDashboard() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+
+            // Update stats
+            const activeServices = services.filter(s => s.status === 'in_progress' || s.status === 'scheduled');
+            const completedServices = services.filter(s => s.status === 'completed');
+            const totalSpent = services.filter(s => s.pricing.paid).reduce((sum, s) => sum + s.pricing.amount, 0);
+
+            // Count unread messages
+            let unreadCount = 0;
+            services.forEach(service => {
+                if (service.messages) {
+                    unreadCount += service.messages.filter(m => !m.read && m.fromType !== 'customer').length;
+                }
+            });
+
+            const statsHtml = `
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">${activeServices.length}</div>
+                            <div class="stat-label">Active Services</div>
+                        </div>
+                        <div class="stat-icon blue">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> ${activeServices.filter(s => s.status === 'in_progress').length} in progress today
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">${completedServices.length}</div>
+                            <div class="stat-label">Completed Services</div>
+                        </div>
+                        <div class="stat-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 100% satisfaction rate
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">€${totalSpent.toFixed(2)}</div>
+                            <div class="stat-label">Total Spent</div>
+                        </div>
+                        <div class="stat-icon purple">
+                            <i class="fas fa-euro-sign"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change">
+                        <i class="fas fa-clock"></i> €0 outstanding
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">${unreadCount}</div>
+                            <div class="stat-label">Unread Messages</div>
+                        </div>
+                        <div class="stat-icon yellow">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change">
+                        <i class="fas fa-comment"></i> From technicians & support
+                    </div>
+                </div>
+            `;
+            document.getElementById('stats-grid').innerHTML = statsHtml;
+
+            // Update alert banner
+            const inProgressToday = activeServices.filter(s => {
+                const today = new Date().toISOString().split('T')[0];
+                return s.schedule.date === today && s.status === 'in_progress';
+            });
+
+            let alertHtml = '';
+            if (inProgressToday.length > 0) {
+                const service = inProgressToday[0];
+                alertHtml = `
+                    <div class="alert-banner">
+                        <i class="fas fa-exclamation-triangle alert-icon"></i>
+                        <div class="alert-content">
+                            <div class="alert-title">Service In Progress</div>
+                            <div class="alert-text">${service.type} is currently being performed. Progress: ${service.progress}%</div>
+                        </div>
+                        <button class="alert-action" onclick="viewServiceDetails('${service.id}')">View Details</button>
+                    </div>
+                `;
+            }
+            document.getElementById('alert-container').innerHTML = alertHtml;
+
+            // Update active services list
+            const activeServicesHtml = activeServices.map(service => renderServiceCard(service)).join('');
+            document.getElementById('active-services-list').innerHTML = activeServicesHtml || '<div class="empty-state"><div class="empty-state-text">No active services</div></div>';
+
+            // Update recent messages
+            let allMessages = [];
+            services.forEach(service => {
+                if (service.messages) {
+                    service.messages.forEach(msg => {
+                        allMessages.push({...msg, serviceId: service.id});
+                    });
+                }
+            });
+            allMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            const recentMessages = allMessages.slice(0, 3);
+
+            const messagesHtml = recentMessages.map(msg => renderMessageCard(msg)).join('');
+            document.getElementById('recent-messages-list').innerHTML = messagesHtml || '<div class="empty-state"><div class="empty-state-text">No messages</div></div>';
+        }
+
+        // Render service card
+        function renderServiceCard(service) {
+            const statusClass = service.status === 'in_progress' ? 'in-progress' :
+                              service.status === 'scheduled' ? 'scheduled' : 'completed';
+            const statusText = service.status === 'in_progress' ? 'IN PROGRESS' :
+                             service.status === 'scheduled' ? 'SCHEDULED' : 'COMPLETED';
+
+            const technicianName = service.technician ? service.technician.name : 'TBD';
+            const progressBar = service.status === 'in_progress' ? `
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${service.progress}%"></div>
+                </div>
+                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+                    ${service.progress}% complete
+                </div>
+            ` : '';
+
+            const actions = service.status === 'in_progress' ? `
+                <button class="service-button primary" onclick="trackService('${service.id}')">
+                    <i class="fas fa-map-marker-alt"></i> Track Progress
+                </button>
+                <button class="service-button secondary" onclick="messageTechnician('${service.id}')">
+                    <i class="fas fa-comment"></i> Message Technician
+                </button>
+                <button class="service-button secondary" onclick="rescheduleService('${service.id}')">
+                    <i class="fas fa-calendar-alt"></i> Reschedule
+                </button>
+            ` : service.status === 'scheduled' ? `
+                <button class="service-button primary" onclick="viewServiceDetails('${service.id}')">
+                    <i class="fas fa-eye"></i> View Details
+                </button>
+                <button class="service-button secondary" onclick="rescheduleService('${service.id}')">
+                    <i class="fas fa-calendar-alt"></i> Reschedule
+                </button>
+            ` : `
+                <button class="service-button primary" onclick="rateService('${service.id}')">
+                    <i class="fas fa-star"></i> Rate Service
+                </button>
+                <button class="service-button secondary" onclick="viewServiceDetails('${service.id}')">
+                    <i class="fas fa-eye"></i> View Details
+                </button>
+            `;
+
+            return `
+                <div class="service-card ${statusClass}">
+                    <div class="service-header">
+                        <div class="service-id">#${service.id}</div>
+                        <div class="service-badge ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="service-title">${service.type}</div>
+                    <div class="service-details">
+                        <div class="service-detail">
+                            <i class="fas fa-calendar"></i>
+                            <span>${formatDate(service.schedule.date)}, ${service.schedule.startTime}</span>
+                        </div>
+                        <div class="service-detail">
+                            <i class="fas fa-user"></i>
+                            <span>Technician: ${technicianName}</span>
+                        </div>
+                        <div class="service-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${service.customer.address}</span>
+                        </div>
+                        <div class="service-detail">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>€${service.pricing.amount.toFixed(2)}</span>
+                        </div>
+                    </div>
+                    ${progressBar}
+                    <div class="service-actions">
+                        ${actions}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render message card
+        function renderMessageCard(msg) {
+            const unreadClass = msg.read ? '' : 'unread';
+            const timeAgo = getTimeAgo(msg.timestamp);
+
+            return `
+                <div class="message-card ${unreadClass}" onclick="viewMessage('${msg.serviceId}', ${msg.id})">
+                    <div class="message-header">
+                        <div class="message-from">${msg.from}</div>
+                        <div class="message-time">${timeAgo}</div>
+                    </div>
+                    <div class="message-subject">${msg.subject}</div>
+                    <div class="message-preview">${msg.body}</div>
+                </div>
+            `;
+        }
+
+        // Refresh services view
+        function refreshServices() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+            const activeServices = services.filter(s => s.status !== 'completed');
+
+            const servicesHtml = activeServices.map(service => renderServiceCard(service)).join('');
+            document.getElementById('all-services-list').innerHTML = servicesHtml || '<div class="empty-state"><div class="empty-state-text">No active services</div></div>';
+        }
+
+        // Refresh history view
+        function refreshHistory() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+            const completedServices = services.filter(s => s.status === 'completed');
+
+            const historyHtml = completedServices.map(service => `
+                <div class="timeline-item">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">${service.type} - #${service.id}</div>
+                        <div class="timeline-time">Completed ${formatDate(service.schedule.date)}</div>
+                        <div class="timeline-description">
+                            Service completed successfully. €${service.pricing.amount.toFixed(2)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('history-list').innerHTML = historyHtml ? `<div class="timeline">${historyHtml}</div>` : '<div class="empty-state"><div class="empty-state-text">No service history</div></div>';
+        }
+
+        // Refresh messages view
+        function refreshMessages() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+            let allMessages = [];
+            services.forEach(service => {
+                if (service.messages) {
+                    service.messages.forEach(msg => {
+                        allMessages.push({...msg, serviceId: service.id});
+                    });
+                }
+            });
+            allMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            const messagesHtml = allMessages.map(msg => renderMessageCard(msg)).join('');
+            document.getElementById('all-messages-list').innerHTML = messagesHtml || '<div class="empty-state"><div class="empty-state-text">No messages</div></div>';
+        }
+
+        // Refresh documents view
+        function refreshDocuments() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+
+            const documentsHtml = services.map(service => `
+                <div class="document-card" onclick="viewDocument('Contract #${service.id}')">
+                    <div class="document-icon pdf">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="document-name">Contract #${service.id}</div>
+                    <div class="document-meta">${formatDate(service.schedule.date)}</div>
+                </div>
+                ${service.pricing.paid ? `
+                <div class="document-card" onclick="viewDocument('Invoice #${service.id}')">
+                    <div class="document-icon pdf">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="document-name">Invoice #${service.id}</div>
+                    <div class="document-meta">${formatDate(service.schedule.date)}</div>
+                </div>
+                ` : ''}
+                ${service.photos && service.photos.length > 0 ? `
+                <div class="document-card" onclick="viewDocument('Work Photos - ${service.id}')">
+                    <div class="document-icon image">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="document-name">Work Photos</div>
+                    <div class="document-meta">${service.photos.length} photos</div>
+                </div>
+                ` : ''}
+            `).join('');
+
+            document.getElementById('documents-grid').innerHTML = documentsHtml || '<div class="empty-state"><div class="empty-state-text">No documents</div></div>';
+        }
+
+        // Refresh payments view
+        function refreshPayments() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+            const paidServices = services.filter(s => s.pricing.paid);
+
+            const paymentsHtml = paidServices.map(service => `
+                <div class="service-card completed">
+                    <div class="service-header">
+                        <div class="service-id">#${service.id}</div>
+                        <div class="service-badge completed">PAID</div>
+                    </div>
+                    <div class="service-title">${service.type}</div>
+                    <div class="service-details">
+                        <div class="service-detail">
+                            <i class="fas fa-calendar"></i>
+                            <span>Paid: ${formatDate(service.schedule.date)}</span>
+                        </div>
+                        <div class="service-detail">
+                            <i class="fas fa-credit-card"></i>
+                            <span>${service.pricing.paymentMethod}</span>
+                        </div>
+                        <div class="service-detail">
+                            <i class="fas fa-euro-sign"></i>
+                            <span style="color: #10b981; font-weight: 600;">€${service.pricing.amount.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('payments-list').innerHTML = paymentsHtml || '<div class="empty-state"><div class="empty-state-text">No payment history</div></div>';
+        }
+
+        // Update badges
+        function updateBadges() {
+            const services = window.ygState.getServicesForCustomer(CUSTOMER_EMAIL);
+            const activeCount = services.filter(s => s.status !== 'completed').length;
+
+            let unreadCount = 0;
+            services.forEach(service => {
+                if (service.messages) {
+                    unreadCount += service.messages.filter(m => !m.read && m.fromType !== 'customer').length;
+                }
+            });
+
+            document.getElementById('services-badge').textContent = activeCount;
+            document.getElementById('messages-badge').textContent = unreadCount;
+        }
+
+        // Modal management
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // New service request
+        function openNewServiceRequest() {
+            openModal('modal-new-service');
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('service-date').min = today;
+        }
+
+        function submitNewServiceRequest() {
+            const type = document.getElementById('service-type').value;
+            const description = document.getElementById('service-description').value;
+            const date = document.getElementById('service-date').value;
+            const time = document.getElementById('service-time').value;
+
+            if (!type || !description || !date || !time) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            alert(`Service request submitted!\n\nType: ${type}\nDate: ${date} at ${time}\n\nWe will contact you shortly to confirm your appointment.`);
+            closeModal('modal-new-service');
+
+            // Reset form
+            document.getElementById('new-service-form').reset();
+        }
+
+        // View service details
+        function viewServiceDetails(serviceId) {
+            const service = window.ygState.getService(serviceId);
+            if (!service) return;
+
+            const content = `
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Service ID</div>
+                        <div class="info-value">#${service.id}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Status</div>
+                        <div class="info-value">${service.status.replace('_', ' ').toUpperCase()}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Service Type</div>
+                        <div class="info-value">${service.type}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Scheduled Date</div>
+                        <div class="info-value">${formatDate(service.schedule.date)}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Time</div>
+                        <div class="info-value">${service.schedule.startTime} - ${service.schedule.endTime}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Technician</div>
+                        <div class="info-value">${service.technician ? service.technician.name : 'TBD'}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Location</div>
+                        <div class="info-value">${service.customer.address}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Price</div>
+                        <div class="info-value">€${service.pricing.amount.toFixed(2)}</div>
+                    </div>
+                </div>
+                ${service.progress > 0 ? `
+                    <div style="margin-top: 1.5rem;">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Progress: ${service.progress}%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${service.progress}%"></div>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+
+            document.getElementById('service-details-content').innerHTML = content;
+            openModal('modal-service-details');
+        }
+
+        // Track service
+        function trackService(serviceId) {
+            const service = window.ygState.getService(serviceId);
+            if (!service) return;
+
+            const content = `
+                <div class="tracking-map">
+                    <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+                    <div style="color: #6b7280;">Live tracking map would be displayed here</div>
+                </div>
+                <div class="tracking-status">
+                    <div class="status-title">Current Status: ${service.status.replace('_', ' ').toUpperCase()}</div>
+                    <div class="status-text">Progress: ${service.progress}% complete</div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Technician</div>
+                        <div class="info-value">${service.technician.name}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Phone</div>
+                        <div class="info-value">${service.technician.phone}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Estimated Completion</div>
+                        <div class="info-value">${service.schedule.endTime}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Location</div>
+                        <div class="info-value">${service.customer.address}</div>
+                    </div>
+                </div>
+                ${service.checklist && service.checklist.length > 0 ? `
+                    <div style="margin-top: 1.5rem;">
+                        <div style="font-weight: 600; margin-bottom: 1rem;">Checklist Progress</div>
+                        ${service.checklist.map(item => `
+                            <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: ${item.completed ? '#d1fae5' : '#f3f4f6'}; border-radius: 8px; margin-bottom: 0.5rem;">
+                                <i class="fas fa-${item.completed ? 'check-circle' : 'circle'}" style="color: ${item.completed ? '#10b981' : '#9ca3af'};"></i>
+                                <span style="color: #374151;">${item.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            `;
+
+            document.getElementById('track-progress-content').innerHTML = content;
+            openModal('modal-track-progress');
+        }
+
+        // Message technician
+        function messageTechnician(serviceId) {
+            const service = window.ygState.getService(serviceId);
+            if (!service || !service.technician) {
+                alert('No technician assigned to this service yet.');
+                return;
+            }
+
+            currentServiceId = serviceId;
+
+            const techInfo = `
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">${service.technician.name}</div>
+                    <div style="font-size: 0.875rem; color: #6b7280;">Service: ${service.type} (#${service.id})</div>
+                </div>
+            `;
+
+            document.getElementById('technician-info').innerHTML = techInfo;
+            openModal('modal-message-technician');
+        }
+
+        function sendTechnicianMessage() {
+            const subject = document.getElementById('message-subject').value;
+            const body = document.getElementById('message-body').value;
+
+            if (!subject || !body) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const service = window.ygState.getService(currentServiceId);
+
+            window.ygState.addMessage(currentServiceId, {
+                from: 'Maria Santos',
+                fromType: 'customer',
+                to: service.technician.name,
+                toType: 'technician',
+                subject: subject,
+                body: body
+            });
+
+            alert('Message sent successfully!');
+            closeModal('modal-message-technician');
+
+            // Reset form
+            document.getElementById('message-technician-form').reset();
+        }
+
+        // Reschedule service
+        function rescheduleService(serviceId) {
+            const service = window.ygState.getService(serviceId);
+            if (!service) return;
+
+            currentServiceId = serviceId;
+
+            const serviceInfo = `
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">${service.type}</div>
+                    <div style="font-size: 0.875rem; color: #6b7280;">
+                        Current appointment: ${formatDate(service.schedule.date)} at ${service.schedule.startTime}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('reschedule-service-info').innerHTML = serviceInfo;
+
+            // Set minimum date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('reschedule-date').min = tomorrow.toISOString().split('T')[0];
+
+            openModal('modal-reschedule');
+        }
+
+        function submitReschedule() {
+            const date = document.getElementById('reschedule-date').value;
+            const time = document.getElementById('reschedule-time').value;
+            const reason = document.getElementById('reschedule-reason').value;
+
+            if (!date || !time) {
+                alert('Please select a new date and time');
+                return;
+            }
+
+            window.ygState.rescheduleService(currentServiceId, {
+                date: date,
+                startTime: time
+            });
+
+            alert(`Appointment rescheduled!\n\nNew date: ${date} at ${time}\n\nYou will receive a confirmation shortly.`);
+            closeModal('modal-reschedule');
+
+            // Reset form
+            document.getElementById('reschedule-form').reset();
+        }
+
+        // View document
+        function viewDocument(documentName) {
+            document.getElementById('document-title').textContent = documentName;
+            openModal('modal-view-document');
+        }
+
+        // Rate service
+        function rateService(serviceId) {
+            const service = window.ygState.getService(serviceId);
+            if (!service) return;
+
+            currentServiceId = serviceId;
+            currentRating = 0;
+
+            const serviceInfo = `
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">${service.type}</div>
+                    <div style="font-size: 0.875rem; color: #6b7280;">
+                        Completed: ${formatDate(service.schedule.date)}
+                    </div>
+                    ${service.technician ? `
+                        <div style="font-size: 0.875rem; color: #6b7280;">
+                            Technician: ${service.technician.name}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            document.getElementById('rating-service-info').innerHTML = serviceInfo;
+
+            // Reset stars
+            document.querySelectorAll('.rating-star').forEach(star => {
+                star.classList.remove('active');
+            });
+
+            openModal('modal-rate-service');
+        }
+
+        function setupRatingStars() {
+            document.querySelectorAll('.rating-star').forEach(star => {
+                star.addEventListener('click', function() {
+                    currentRating = parseInt(this.dataset.rating);
+                    updateStarDisplay();
+                });
+            });
+        }
+
+        function updateStarDisplay() {
+            document.querySelectorAll('.rating-star').forEach(star => {
+                const starRating = parseInt(star.dataset.rating);
+                if (starRating <= currentRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function submitRating() {
+            if (currentRating === 0) {
+                alert('Please select a rating');
+                return;
+            }
+
+            const review = document.getElementById('rating-review').value;
+
+            alert(`Thank you for your feedback!\n\nRating: ${currentRating} stars${review ? '\nReview: ' + review : ''}\n\nYour feedback helps us improve our service.`);
+
+            closeModal('modal-rate-service');
+
+            // Reset form
+            document.getElementById('rating-form').reset();
+            currentRating = 0;
+            updateStarDisplay();
+        }
+
+        // View message
+        function viewMessage(serviceId, messageId) {
+            const service = window.ygState.getService(serviceId);
+            if (!service) return;
+
+            const message = service.messages.find(m => m.id === messageId);
+            if (!message) return;
+
+            // Mark as read
+            window.ygState.markMessageRead(serviceId, messageId);
+
+            const content = `
+                <div class="message-thread">
+                    <div class="thread-message">
+                        <div class="thread-header">
+                            <div class="thread-author">${message.from}</div>
+                            <div class="thread-time">${getTimeAgo(message.timestamp)}</div>
+                        </div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #374151;">${message.subject}</div>
+                        <div class="thread-body">${message.body}</div>
+                    </div>
+                </div>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; font-size: 0.875rem; color: #6b7280;">
+                    <i class="fas fa-info-circle"></i> Related to service: ${service.type} (#${service.id})
+                </div>
+            `;
+
+            document.getElementById('message-detail-content').innerHTML = content;
+            openModal('modal-message-detail');
+        }
+
+        function replyToMessage() {
+            alert('Reply functionality would open the messaging interface');
+            closeModal('modal-message-detail');
+        }
+
+        // Chat functionality
         function toggleChat() {
             const chatWindow = document.getElementById('chatWindow');
             chatWindow.classList.toggle('active');
         }
 
-        function newServiceRequest() {
-            alert('Opening new service request form...');
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
         }
 
-        function trackService(serviceId) {
-            alert(`Opening real-time tracking for service ${serviceId}...`);
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const messagesContainer = document.getElementById('chatMessages');
+
+            // Add user message
+            const userMessageHtml = `
+                <div class="chat-message user">
+                    <div class="chat-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="chat-bubble">${message}</div>
+                </div>
+            `;
+            messagesContainer.insertAdjacentHTML('beforeend', userMessageHtml);
+
+            // Clear input
+            input.value = '';
+
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Simulate response
+            setTimeout(() => {
+                const responseHtml = `
+                    <div class="chat-message">
+                        <div class="chat-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="chat-bubble">Thank you for your message! A support representative will respond shortly.</div>
+                    </div>
+                `;
+                messagesContainer.insertAdjacentHTML('beforeend', responseHtml);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
         }
 
-        function contactTechnician(name) {
-            alert(`Opening chat with ${name}...`);
-            toggleChat();
+        // Utility functions
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            if (date.toDateString() === today.toDateString()) {
+                return 'Today';
+            } else if (date.toDateString() === tomorrow.toDateString()) {
+                return 'Tomorrow';
+            } else {
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
         }
 
-        function reschedule(serviceId) {
-            alert(`Opening rescheduling calendar for service ${serviceId}...`);
-        }
+        function getTimeAgo(timestamp) {
+            const now = new Date();
+            const time = new Date(timestamp);
+            const diff = Math.floor((now - time) / 1000); // seconds
 
-        function viewDetails(serviceId) {
-            alert(`Viewing detailed information for service ${serviceId}...`);
+            if (diff < 60) return 'Just now';
+            if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+            if (diff < 86400) return Math.floor(diff / 3600) + ' hours ago';
+            if (diff < 604800) return Math.floor(diff / 86400) + ' days ago';
+
+            return time.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }
     </script>
 </body>
