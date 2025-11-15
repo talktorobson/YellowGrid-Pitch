@@ -891,21 +891,21 @@
         <span class="scenario-badge badge-simple">Interactive</span>
       </div>
 
-      <div class="scenario-card complex" onclick="window.location.href='operator-cockpit.html'">
+      <div class="scenario-card complex" onclick="navigateTo('operator-cockpit.html')">
         <div class="scenario-icon">🎛️</div>
         <h3>Operator Cockpit</h3>
         <p>Full CPC dashboard with KPIs, critical actions, priority tasks, AI assistant, and service execution management.</p>
         <span class="scenario-badge badge-complex">Full Experience</span>
       </div>
 
-      <div class="scenario-card" onclick="window.location.href='crew-mobile-app.html'">
+      <div class="scenario-card" onclick="navigateTo('crew-mobile-app.html')">
         <div class="scenario-icon">📱</div>
         <h3>Crew Mobile App</h3>
         <p>Mobile interface for field technicians: job management, checklists, photo uploads, earnings tracking, and navigation.</p>
         <span class="scenario-badge badge-simple">Full Experience</span>
       </div>
 
-      <div class="scenario-card" onclick="window.location.href='customer-portal.html'">
+      <div class="scenario-card" onclick="navigateTo('customer-portal.html')">
         <div class="scenario-icon">👤</div>
         <h3>Customer Portal</h3>
         <p>Customer dashboard: track services, view history, manage payments, documents, messages, and chat support.</p>
@@ -4032,6 +4032,17 @@
         }
       ]
     };
+
+    // Navigation helper for external pages
+    function navigateTo(page) {
+      try {
+        console.log('Navigating to:', page);
+        window.location.href = page;
+      } catch (error) {
+        console.error('Navigation error:', error);
+        alert('Navigation error. Please try clicking the link again or contact support.');
+      }
+    }
 
     function startDemo(type) {
       currentDemo = type;
