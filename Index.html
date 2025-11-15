@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YellowGrid – Every installation on the grid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --yellow: #ffcb32;
+      --yellow-soft: #ffe79a;
+      --bg-dark: #0f1722;
+      --bg-darker: #070c12;
+      --bg-alt: #131b26;
+      --card-bg: #161f2b;
+      --accent-green: #46d38a;
+      --accent-red: #ff6b6b;
+      --text-main: #e5ecf7;
+      --text-muted: #9ba4b5;
+      --border-subtle: #222b39;
+      --grid-line: #222a35;
+      --shadow-soft: 0 22px 45px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #172133 0, #05070b 55%);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .max-w {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(22px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 10, 18, 0.9),
+        rgba(5, 10, 18, 0.5),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, var(--yellow), #ffdf80);
+      display: grid;
+      place-items: center;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(255, 203, 50, 0.45);
+    }
+    .logo-mark::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: 7px;
+      border: 2px solid rgba(0, 0, 0, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+    .logo-mark-grid {
+      width: 14px;
+      height: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 1px;
+      z-index: 1;
+    }
+    .logo-mark-cell {
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.28);
+    }
+    .logo-mark-cell--active {
+      background: #fff7d1;
+    }
+    .logo-text-main {
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      font-size: 1.06rem;
+    }
+    .logo-text-sub {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.3rem;
+      align-items: center;
+      font-size: 0.86rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      padding: 0.2rem 0;
+    }
+    .nav-links a:hover {
+      color: #f7fbff;
+    }
+    .pill {
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.18rem 0.6rem;
+      background: rgba(255, 203, 50, 0.12);
+      border: 1px solid rgba(255, 203, 50, 0.45);
+      color: var(--yellow-soft);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+    main {
+      flex: 1;
+      padding-bottom: 4rem;
+    }
+    .hero {
+      padding: 3.2rem 0 2rem;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+      gap: 3.1rem;
+      align-items: center;
+    }
+    @media (max-width: 840px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.4rem;
+      }
+    }
+    .hero-eyebrow {
+      margin-bottom: 0.9rem;
+    }
+    .hero-title {
+      font-size: clamp(2.3rem, 3.2vw + 1.6rem, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.9rem;
+    }
+    .hero-title span {
+      color: var(--yellow);
+    }
+    .hero-subtitle {
+      max-width: 520px;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      margin-bottom: 1.6rem;
+    }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+    .btn {
+      border-radius: var(--radius-pill);
+      padding: 0.65rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 520;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        color var(--transition-fast);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--yellow), #ffd769);
+      color: #1b1305;
+      box-shadow: 0 14px 36px rgba(255, 203, 50, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 42px rgba(255, 203, 50, 0.5);
+    }
+    .btn-ghost {
+      background: rgba(15, 23, 34, 0.85);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .btn-ghost:hover {
+      background: rgba(23, 33, 48, 0.9);
+    }
+    .hero-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .hero-meta strong {
+      color: #f9fbff;
+      font-weight: 500;
+    }
+    /* Hero demo card */
+    .demo-card {
+      background: radial-gradient(circle at top left, #1c2839 0, #0c1016 52%);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow-soft);
+      padding: 1.4rem 1.4rem 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% -10%, rgba(255, 203, 50, 0.22), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .demo-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .demo-top-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .demo-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+    .demo-title {
+      font-size: 0.95rem;
+      font-weight: 550;
+    }
+    .demo-kpis {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+    .demo-kpi {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: rgba(11, 15, 24, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text-muted);
+    }
+    .demo-kpi strong {
+      font-size: 0.8rem;
+      color: #f9fbff;
+      font-weight: 600;
+    }
+    .demo-kpi span.badge-green {
+      color: var(--accent-green);
+    }
+    .demo-kpi span.badge-red {
+      color: var(--accent-red);
+    }
+    /* Grid mock */
+    .grid-shell {
+      position: relative;
+      background: radial-gradient(circle at top left, #1f2937 0, #05070b 75%);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      padding: 1rem;
+      margin-bottom: 0.9rem;
+      z-index: 1;
+    }
+    .grid-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .grid-header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: #f9fbff;
+    }
+    .grid-header-tabs {
+      display: flex;
+      gap: 0.4rem;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      padding: 0.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .grid-tab {
+      padding: 0.15rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      cursor: default;
+    }
+    .grid-tab--active {
+      background: var(--yellow);
+      color: #1b1305;
+      font-weight: 520;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+      padding: 0.35rem;
+      background: radial-gradient(circle at top left, #1f2937 0, #020307 75%);
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+    .grid-cell {
+      position: relative;
+      border-radius: 6px;
+      border: 1px solid var(--grid-line);
+      background: rgba(15, 23, 42, 0.9);
+      height: 34px;
+      overflow: hidden;
+    }
+    .grid-slot {
+      position: absolute;
+      inset: 3px;
+      border-radius: 4px;
+      font-size: 0.64rem;
+      padding: 0.15rem 0.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+    .grid-slot--assigned {
+      background: linear-gradient(135deg, var(--yellow), #ffe38a);
+      color: #1b1305;
+    }
+    .grid-slot--candidate {
+      background: rgba(55, 65, 81, 0.9);
+      color: var(--text-main);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+    .grid-slot-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-green);
+      flex-shrink: 0;
+    }
+    .grid-slot-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .grid-slot-time {
+      font-variant-numeric: tabular-nums;
+      opacity: 0.8;
+    }
+    .demo-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      gap: 0.75rem;
+    }
+    .demo-footer-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .demo-footer-pill {
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .demo-footer-pill span {
+      font-size: 0.7rem;
+    }
+    .demo-footer-pill strong {
+      font-size: 0.75rem;
+    }
+    .demo-tagline {
+      font-size: 0.74rem;
+      max-width: 220px;
+      text-align: right;
+    }
+    /* Sections */
+    section {
+      padding: 2.6rem 0 0;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.7rem;
+    }
+    .section-eyebrow {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+    .section-title {
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      max-width: 520px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .features-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .feature-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.05rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(255, 203, 50, 0.17), transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+    .feature-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 203, 50, 0.11);
+      border: 1px solid rgba(255, 203, 50, 0.5);
+      font-size: 0.9rem;
+    }
+    .feature-title {
+      font-size: 0.94rem;
+      font-weight: 550;
+    }
+    .feature-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .feature-meta {
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .feature-meta strong {
+      color: var(--accent-green);
+      font-weight: 500;
+    }
+    /* How it works */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1.8fr;
+      gap: 1.7rem;
+    }
+    @media (max-width: 900px) {
+      .steps-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .step-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .step-content h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+    .step-content p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+    .step-content p span {
+      color: var(--yellow-soft);
+    }
+    .steps-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 1.1rem 1.1rem 1rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .steps-card h4 {
+      font-size: 0.9rem;
+      color: #f9fbff;
+    }
+    .badge-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.12rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+    .steps-metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .steps-metric {
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.74rem;
+    }
+    /* Demo teaser */
+    .demo-section {
+      margin-top: 2.8rem;
+      padding: 2.3rem 1.4rem;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, #1c2535 0, #05070b 65%);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.4fr);
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 880px) {
+      .demo-section {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .demo-copy h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.4rem;
+    }
+    .demo-copy p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+    .demo-copy ul {
+      list-style: none;
+      margin: 0.3rem 0 1rem;
+      padding-left: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .demo-copy li {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+    .demo-copy li span {
+      color: var(--accent-green);
+      margin-top: 0.06rem;
+    }
+    .demo-copy .small {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .demo-mock {
+      background: #05070b;
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-mock::before {
+      content: "Live demo teaser";
+      position: absolute;
+      top: 0.7rem;
+      right: 1rem;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(148, 163, 184, 0.8);
+    }
+    .demo-mock-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .demo-window-dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .demo-window-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.4);
+    }
+    .demo-window-dot:nth-child(1) {
+      background: #f87171;
+    }
+    .demo-window-dot:nth-child(2) {
+      background: #facc15;
+    }
+    .demo-window-dot:nth-child(3) {
+      background: #4ade80;
+    }
+    .demo-mock-body {
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: radial-gradient(circle at top left, #111827 0, #020617 65%);
+      padding: 0.7rem;
+      display: grid;
+      grid-template-columns: 1.3fr 1.7fr;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+    }
+    @media (max-width: 640px) {
+      .demo-mock-body {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .demo-panel {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .demo-panel-title {
+      font-size: 0.78rem;
+      color: #e5ecf7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .demo-list {
+      margin-top: 0.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .demo-list-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text-muted);
+    }
+    .demo-list-row span.label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .badge-status {
+      padding: 0.08rem 0.46rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+    .badge-status--green {
+      border-color: rgba(74, 222, 128, 0.7);
+      color: #4ade80;
+    }
+    .badge-status--amber {
+      border-color: rgba(251, 191, 36, 0.7);
+      color: #facc15;
+    }
+    .badge-status--red {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fb7185;
+    }
+    footer {
+      padding: 2.8rem 0 2.4rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      margin-top: 3.2rem;
+      background: radial-gradient(circle at bottom, #111827 0, #020308 60%);
+    }
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1.4rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      align-items: center;
+    }
+    .footer-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    .footer-cta small {
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="max-w">
+        <nav class="nav">
+          <div class="logo">
+            <div class="logo-mark">
+              <div class="logo-mark-grid">
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell logo-mark-cell--active"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+              </div>
+            </div>
+            <div>
+              <div class="logo-text-main">YellowGrid</div>
+              <div class="logo-text-sub">Service execution</div>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a href="#problem">Problem</a>
+            <a href="#how">How it works</a>
+            <a href="#modules">Modules</a>
+            <a href="#demo">Live demo</a>
+            <button class="btn btn-primary" type="button">
+              Book a demo
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="max-w hero-grid">
+          <div>
+            <div class="hero-eyebrow">
+              <span class="pill">
+                <span>New</span>
+                <span>Service Execution for Installations</span>
+              </span>
+            </div>
+            <h1 class="hero-title">
+              Every <span>installation</span><br />on the grid.
+            </h1>
+            <p class="hero-subtitle">
+              YellowGrid is a crew-centric service execution platform that connects
+              projects, service orders, providers and calendars into one operational
+              grid – from product sold to product installed.
+            </p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" type="button">
+                ▶ Watch 90s product tour
+              </button>
+              <button class="btn btn-ghost" type="button">
+                Book a live control-tower demo
+              </button>
+            </div>
+            <div class="hero-meta">
+              <strong>Clear dates. Fair crews. Less firefighting.</strong> Designed
+              for retailers & brands running large-scale installations.
+            </div>
+          </div>
+          <div>
+            <div class="demo-card">
+              <div class="demo-top">
+                <div class="demo-top-left">
+                  <div class="demo-label">Operations snapshot</div>
+                  <div class="demo-title">Today’s installation grid</div>
+                </div>
+                <div class="demo-kpis">
+                  <div class="demo-kpi">
+                    <span class="badge-green">●</span>
+                    <span>On-time</span>
+                    <strong>94%</strong>
+                  </div>
+                  <div class="demo-kpi">
+                    <span class="badge-red">●</span>
+                    <span>At risk</span>
+                    <strong>7</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-shell">
+                <div class="grid-header">
+                  <div class="grid-header-title">
+                    <span>🗓</span>
+                    <span>Grid view · Crews by day</span>
+                  </div>
+                  <div class="grid-header-tabs">
+                    <div class="grid-tab grid-tab--active">Installations</div>
+                    <div class="grid-tab">TV &amp; WCF</div>
+                    <div class="grid-tab">Warranty</div>
+                  </div>
+                </div>
+                <div class="grid">
+                  <!-- row is just conceptual – it's a 7xN grid -->
+                  <div class="grid-cell">
+                    <div class="grid-slot grid-slot--assigned">
+                      <div class="grid-slot-dot"></div>
+                      <div class="grid-slot-label">Crew A · Store 014</div>
+                      <div class="grid-slot-time">09:30</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot grid-slot--candidate">
+                      <div class="grid-slot-label">Candidate slot</div>
+                      <div class="grid-slot-time">10:15</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot grid-slot--assigned">
+                      <div class="grid-slot-dot"></div>
+                      <div class="grid-slot-label">Crew B · TV + Install</div>
+                      <div class="grid-slot-time">11:00</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <!-- second conceptual row -->
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot grid-slot--assigned">
+                      <div class="grid-slot-dot"></div>
+                      <div class="grid-slot-label">Crew D · Kitchen</div>
+                      <div class="grid-slot-time">14:30</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot grid-slot--candidate">
+                      <div class="grid-slot-label">Rework window</div>
+                      <div class="grid-slot-time">15:15</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot grid-slot--assigned">
+                      <div class="grid-slot-dot"></div>
+                      <div class="grid-slot-label">Crew F · Store 221</div>
+                      <div class="grid-slot-time">16:00</div>
+                    </div>
+                  </div>
+                  <!-- fill others -->
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                  <div class="grid-cell"></div>
+                </div>
+              </div>
+              <div class="demo-footer">
+                <div class="demo-footer-pills">
+                  <div class="demo-footer-pill">
+                    <span>⚡</span><span>Auto-matched crews</span>
+                  </div>
+                  <div class="demo-footer-pill">
+                    <span>🧩</span><span>TV → Install → WCF journey</span>
+                  </div>
+                  <div class="demo-footer-pill">
+                    <span>👁</span><span>Control-tower visibility</span>
+                  </div>
+                </div>
+                <div class="demo-tagline">
+                  From promise date to signed WCF – all on one grid.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Problem & value -->
+      <section id="problem">
+        <div class="max-w">
+          <div class="section-header">
+            <div class="section-eyebrow">Why YellowGrid</div>
+            <h2 class="section-title">The mess between “sold” and “installed”.</h2>
+            <p class="section-subtitle">
+              Sales promise dates. Providers juggle WhatsApp and spreadsheets.
+              Ops teams fight fires. YellowGrid takes the chaos after the sale and
+              turns it into one predictable grid of work.
+            </p>
+          </div>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">🧭</div>
+              <h3 class="feature-title">One grid, not ten tools</h3>
+              <p class="feature-text">
+                Projects, service orders, providers, crews and calendars in one
+                place. No more hunting across emails, Excel tabs and local tools.
+              </p>
+              <p class="feature-meta">
+                <strong>Result:</strong> one version of the truth for operations.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">🧑‍🔧</div>
+              <h3 class="feature-title">Crew-centric matching</h3>
+              <p class="feature-text">
+                YellowGrid scores and assigns jobs based on skills, zones,
+                documents, risk and performance – not just who shouts loudest on
+                the phone.
+              </p>
+              <p class="feature-meta">
+                <strong>Result:</strong> fewer failed visits, fairer distribution.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">⏱</div>
+              <h3 class="feature-title">Buffers built-in, not in someone’s head</h3>
+              <p class="feature-text">
+                Global/advance, static and commute buffers enforced automatically.
+                Promise dates reflect real capacity, not wishful thinking.
+              </p>
+              <p class="feature-meta">
+                <strong>Result:</strong> fewer cancellations and “no-show” calls.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">🛰</div>
+              <h3 class="feature-title">Control tower for field operations</h3>
+              <p class="feature-text">
+                Live view of unassigned, at-risk and overdue jobs. Tasks and
+                alerts created automatically when something goes wrong.
+              </p>
+              <p class="feature-meta">
+                <strong>Result:</strong> operators steer, not just react.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📑</div>
+              <h3 class="feature-title">WCFs, photos and contracts in context</h3>
+              <p class="feature-text">
+                Work Closing Forms, photos, videos and signatures sit next to the
+                job and journey they belong to – not buried in random folders.
+              </p>
+              <p class="feature-meta">
+                <strong>Result:</strong> faster disputes resolution, less admin.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📊</div>
+              <h3 class="feature-title">Metrics that operators actually use</h3>
+              <p class="feature-text">
+                Lead times, capacity usage, rework and claims per provider, store,
+                region or product line – all mapped back to the grid.
+              </p>
+              <p class="feature-meta">
+                <strong>Result:</strong> real conversations with providers, backed
+                by data.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <!-- How it works -->
+      <section id="how">
+        <div class="max-w">
+          <div class="section-header">
+            <div class="section-eyebrow">How it works</div>
+            <h2 class="section-title">From sales order to signed WCF.</h2>
+            <p class="section-subtitle">
+              YellowGrid plugs into your sales and ERP stack, then orchestrates
+              everything between “Order captured” and “Installation accepted”.
+            </p>
+          </div>
+          <div class="steps-grid">
+            <div class="steps-list">
+              <div class="step-item">
+                <div class="step-badge">1</div>
+                <div class="step-content">
+                  <h4>Intake from sales &amp; master data</h4>
+                  <p>
+                    Service orders arrive from your sales front (Pyxis / Tempo /
+                    POS / e-com) with products, addresses and windows. YellowGrid
+                    enriches them with <span>journey templates, rules and
+                    buffers</span>.
+                  </p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-badge">2</div>
+                <div class="step-content">
+                  <h4>Match &amp; schedule on the grid</h4>
+                  <p>
+                    The matching engine filters eligible providers, scores crews
+                    and proposes slots that respect capacity, zones and buffer
+                    rules – visible as colored cells on the grid.
+                  </p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-badge">3</div>
+                <div class="step-content">
+                  <h4>Execute, close and learn</h4>
+                  <p>
+                    Crews work from the YellowGrid app: jobs, check-in/out, TV
+                    result, WCF and photos. Operators track exceptions, tasks and
+                    SLAs. Insights feed back into provider scoring and rules.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <aside class="steps-card">
+              <div>
+                <span class="badge-inline">Demo scenario</span>
+              </div>
+              <h4>“TV → Installation → WCF” journey</h4>
+              <p>
+                In our live demo we’ll walk through a classic case: a complex
+                product that requires a Technical Visit before installation, plus
+                a Work Closing Form and potential warranty rework.
+              </p>
+              <div class="steps-metric-row">
+                <div class="steps-metric">
+                  TV ➝ Install lead time: <strong>+3 to +7 days</strong>
+                </div>
+                <div class="steps-metric">
+                  On-time installs: <strong>+18%</strong> after 90 days
+                </div>
+                <div class="steps-metric">
+                  Cancellations: <strong>−25%</strong>
+                </div>
+              </div>
+              <p>
+                YellowGrid keeps this journey consistent across countries, providers
+                and products – with one grid, one set of rules and a clear audit
+                trail.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <!-- Modules -->
+      <section id="modules">
+        <div class="max-w">
+          <div class="section-header">
+            <div class="section-eyebrow">Product overview</div>
+            <h2 class="section-title">Modules of the YellowGrid platform.</h2>
+            <p class="section-subtitle">
+              Start small with core grid visibility, then light up the full
+              control tower: matching, capacity, execution, documents and insights.
+            </p>
+          </div>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">🛰</div>
+              <h3 class="feature-title">Control Tower</h3>
+              <p class="feature-text">
+                Live views of unassigned, at-risk and overdue jobs. Task queues
+                for operators, with filters by country, store, provider and
+                product line.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">🎯</div>
+              <h3 class="feature-title">Match</h3>
+              <p class="feature-text">
+                Matching engine for providers and crews, with transparent funnel:
+                who was considered, filtered, scored and finally chosen – and why.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📅</div>
+              <h3 class="feature-title">Capacity</h3>
+              <p class="feature-text">
+                Calendars and capacity per provider, crew, zone and service type.
+                Buffers and blackout rules enforced at slot level.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📦</div>
+              <h3 class="feature-title">Projects</h3>
+              <p class="feature-text">
+                Multi-step journeys (TV, install, WCF, warranty, rework) with
+                dependencies, freezes and rescheduling rules.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">👷</div>
+              <h3 class="feature-title">Crew</h3>
+              <p class="feature-text">
+                Provider and crew administration: zones, skills, documents,
+                certifications and risk status in one place.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📲</div>
+              <h3 class="feature-title">Execute</h3>
+              <p class="feature-text">
+                Mobile app for crews: job list, check-in/out, TV outcomes, WCF
+                signatures, photos, rework and on-site rescheduling.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📁</div>
+              <h3 class="feature-title">Docs</h3>
+              <p class="feature-text">
+                Contracts, WCFs, photos, videos and audio – stored in context of
+                each project and service order, ready for ERP and claims.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">📈</div>
+              <h3 class="feature-title">Insights</h3>
+              <p class="feature-text">
+                Operational metrics you can act on: lead times, capacity usage,
+                provider scorecards, rework and claim rates.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">🔗</div>
+              <h3 class="feature-title">Connect</h3>
+              <p class="feature-text">
+                Integrations with sales fronts, ERPs, master data and notification
+                systems. YellowGrid focuses on execution; your systems keep
+                ownership of customers and billing.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <!-- Demo teaser -->
+      <section id="demo">
+        <div class="max-w demo-section">
+          <div class="demo-copy">
+            <h3>See the grid in action.</h3>
+            <p>
+              In a 20-minute live session we’ll plug a real service order flow into
+              YellowGrid and walk through the grid: from intake to crew app and
+              back.
+            </p>
+            <ul>
+              <li>
+                <span>✓</span>
+                <div>Control tower view of today’s and tomorrow’s installations</div>
+              </li>
+              <li>
+                <span>✓</span>
+                <div>Auto-matching of crews based on your rules and buffers</div>
+              </li>
+              <li>
+                <span>✓</span>
+                <div>Technician app flow: TV, installation, WCF, rework</div>
+              </li>
+              <li>
+                <span>✓</span>
+                <div>How YellowGrid fits next to your existing systems</div>
+              </li>
+            </ul>
+            <div class="hero-cta">
+              <button class="btn btn-primary" type="button">
+                Request live demo
+              </button>
+              <button class="btn btn-ghost" type="button">
+                Download 1-pager
+              </button>
+            </div>
+            <p class="small">
+              No generic slideware. We use a real flow and show you the decisions
+              YellowGrid takes at each step.
+            </p>
+          </div>
+          <div class="demo-mock">
+            <div class="demo-mock-header">
+              <div class="demo-window-dots">
+                <div class="demo-window-dot"></div>
+                <div class="demo-window-dot"></div>
+                <div class="demo-window-dot"></div>
+              </div>
+              <span>yellowgrid.live · Demo environment</span>
+            </div>
+            <div class="demo-mock-body">
+              <div class="demo-panel">
+                <div class="demo-panel-title">
+                  <span>Jobs today · Store 014</span>
+                  <span class="badge-status badge-status--green">stable</span>
+                </div>
+                <div class="demo-list">
+                  <div class="demo-list-row">
+                    <span class="label">TV · Kitchen install check</span>
+                    <span>Crew B · 09:00</span>
+                  </div>
+                  <div class="demo-list-row">
+                    <span class="label">Install · Induction hob</span>
+                    <span>Crew A · 11:30</span>
+                  </div>
+                  <div class="demo-list-row">
+                    <span class="label">Rework · Door adjustment</span>
+                    <span>Crew D · 16:00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="demo-panel">
+                <div class="demo-panel-title">
+                  <span>Assignment funnel · Job #AHS-45812</span>
+                  <span class="badge-status badge-status--amber">auto</span>
+                </div>
+                <div class="demo-list">
+                  <div class="demo-list-row">
+                    <span class="label">Provider L · Zone 2</span>
+                    <span>score 82 · ✅ docs OK</span>
+                  </div>
+                  <div class="demo-list-row">
+                    <span class="label">Provider F · Zone 1</span>
+                    <span>score 77 · ⚠ buffer breach</span>
+                  </div>
+                  <div class="demo-list-row">
+                    <span class="label">Provider C · Zone 2</span>
+                    <span>score 69 · ❌ risk flagged</span>
+                  </div>
+                </div>
+                <div style="margin-top:0.45rem; font-size:0.7rem; color:var(--text-muted);">
+                  YellowGrid keeps a full explanation of why each provider was
+                  selected, filtered or rejected — ready for provider reviews and
+                  disputes.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="max-w footer-grid">
+        <div>
+          <div class="logo">
+            <div class="logo-mark">
+              <div class="logo-mark-grid">
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell logo-mark-cell--active"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+                <div class="logo-mark-cell"></div>
+              </div>
+            </div>
+            <div>
+              <div class="logo-text-main">YellowGrid</div>
+              <div class="logo-text-sub">From sold to installed</div>
+            </div>
+          </div>
+          <p style="margin-top:0.7rem; max-width:360px;">
+            YellowGrid helps retailers and brands orchestrate product installations
+            at scale – with clear dates, fair crews and fewer surprises.
+          </p>
+        </div>
+        <div class="footer-cta">
+          <div>
+            <button class="btn btn-primary" type="button">
+              Talk to us
+            </button>
+          </div>
+          <div>
+            <small>
+              Prefer email? Drop a note to <strong>hello@yellowgrid.app</strong> and
+              we’ll share a short product video.
+            </small>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
