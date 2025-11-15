@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YellowGrid Pro - Crew Mobile App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            max-width: 428px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .mobile-header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.15);
+            padding: 0.5rem 0.75rem;
+            border-radius: 20px;
+            flex: 1;
+            font-size: 0.875rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .content-area {
+            padding: 1rem;
+        }
+
+        .earnings-card {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .earnings-header {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .earnings-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .earnings-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .earnings-stat {
+            text-align: center;
+        }
+
+        .earnings-stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .earnings-stat-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .section-link {
+            color: #3b82f6;
+            font-size: 0.875rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .job-card.active {
+            border: 2px solid #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+
+        .job-id {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 0.9rem;
+        }
+
+        .job-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .job-badge.in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .job-badge.scheduled {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .job-badge.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .job-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .job-detail i {
+            width: 16px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .job-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .job-button.primary {
+            background: #10b981;
+            color: white;
+        }
+
+        .job-button.primary:hover {
+            background: #059669;
+        }
+
+        .job-button.secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .job-button.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .job-button.danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .checklist-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .checklist-title {
+            font-weight: 600;
+            color: #111827;
+            font-size: 0.9rem;
+        }
+
+        .checklist-progress {
+            font-size: 0.875rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: #f3f4f6;
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .checklist-text {
+            flex: 1;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        .photo-upload-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-item.add {
+            border: 2px dashed #d1d5db;
+            color: #9ca3af;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem;
+            text-align: center;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem 0;
+            max-width: 428px;
+            margin: 0 auto;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+            color: #9ca3af;
+            font-size: 0.7rem;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: #3b82f6;
+        }
+
+        .nav-item i {
+            font-size: 1.25rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -24px;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #eff6ff;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .timeline-icon.completed {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-time {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            background: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="header-top">
+            <div class="header-title">YellowGrid Pro</div>
+            <div class="header-icons">
+                <div class="header-icon" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="header-icon" onclick="showProfile()">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+        </div>
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-indicator"></span>
+                <span>On Duty</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-briefcase"></i>
+                <span>2 Active Jobs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs View -->
+    <div id="view-jobs" class="view active">
+        <div class="content-area">
+            <a href="demo-interactive.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Demo
+            </a>
+
+            <!-- Earnings Card -->
+            <div class="earnings-card">
+                <div class="earnings-header">Today's Earnings</div>
+                <div class="earnings-amount">€245.50</div>
+                <div class="earnings-stats">
+                    <div class="earnings-stat">
+                        <div class="earnings-stat-value">3</div>
+                        <div class="earnings-stat-label">Completed</div>
+                    </div>
+                    <div class="earnings-stat">
+                        <div class="earnings-stat-value">2</div>
+                        <div class="earnings-stat-label">In Progress</div>
+                    </div>
+                    <div class="earnings-stat">
+                        <div class="earnings-stat-value">1</div>
+                        <div class="earnings-stat-label">Upcoming</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Jobs Section -->
+            <div class="section-header">
+                <div class="section-title">Active Jobs</div>
+                <a href="#" class="section-link">View All</a>
+            </div>
+
+            <!-- Active Job 1 -->
+            <div class="job-card active" onclick="showJobDetail('SX-375742')">
+                <div class="job-header">
+                    <div class="job-id">#SX-375742</div>
+                    <div class="job-badge in-progress">IN PROGRESS</div>
+                </div>
+                <div class="job-title">Air Conditioning Installation</div>
+                <div class="job-details">
+                    <div class="job-detail">
+                        <i class="fas fa-user"></i>
+                        <span>Maria Santos</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Rua das Flores 45, Lisboa</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>Started 1h 23m ago</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <span>€85.00 (estimated 3h)</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="job-button primary" onclick="event.stopPropagation(); showJobDetail('SX-375742')">
+                        <i class="fas fa-clipboard-check"></i> Continue Work
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Job 2 -->
+            <div class="job-card active" onclick="showJobDetail('PX-377903')">
+                <div class="job-header">
+                    <div class="job-id">#PX-377903</div>
+                    <div class="job-badge in-progress">IN PROGRESS</div>
+                </div>
+                <div class="job-title">Bathroom Renovation - Tiling</div>
+                <div class="job-details">
+                    <div class="job-detail">
+                        <i class="fas fa-user"></i>
+                        <span>Ines Broncano</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Av. da República 123, Porto</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>Started 45m ago</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <span>€120.00 (estimated 4h)</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="job-button primary" onclick="event.stopPropagation(); showJobDetail('PX-377903')">
+                        <i class="fas fa-clipboard-check"></i> Continue Work
+                    </button>
+                </div>
+            </div>
+
+            <!-- Upcoming Jobs Section -->
+            <div class="section-header" style="margin-top: 2rem;">
+                <div class="section-title">Upcoming Jobs</div>
+            </div>
+
+            <!-- Upcoming Job -->
+            <div class="job-card" onclick="showJobDetail('PX-377905')">
+                <div class="job-header">
+                    <div class="job-id">#PX-377905</div>
+                    <div class="job-badge scheduled">TOMORROW 9 AM</div>
+                </div>
+                <div class="job-title">Plumbing Repair - Kitchen Sink</div>
+                <div class="job-details">
+                    <div class="job-detail">
+                        <i class="fas fa-user"></i>
+                        <span>João Silva</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Rua do Comércio 78, Braga</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <span>€60.00 (estimated 2h)</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <button class="job-button secondary" onclick="event.stopPropagation(); viewMap('PX-377905')">
+                        <i class="fas fa-map"></i> View Map
+                    </button>
+                    <button class="job-button secondary" onclick="event.stopPropagation(); contactCustomer('João Silva')">
+                        <i class="fas fa-phone"></i> Call
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Detail View -->
+    <div id="view-job-detail" class="view">
+        <div class="content-area">
+            <button class="back-button" onclick="showView('jobs')">
+                <i class="fas fa-arrow-left"></i> Back to Jobs
+            </button>
+
+            <div class="job-card active">
+                <div class="job-header">
+                    <div class="job-id" id="detail-job-id">#SX-375742</div>
+                    <div class="job-badge in-progress">IN PROGRESS</div>
+                </div>
+                <div class="job-title" id="detail-job-title">Air Conditioning Installation</div>
+                <div class="job-details">
+                    <div class="job-detail">
+                        <i class="fas fa-user"></i>
+                        <span id="detail-customer">Maria Santos</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="detail-address">Rua das Flores 45, Lisboa</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-clock"></i>
+                        <span id="detail-time">Started 1h 23m ago</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <span id="detail-payment">€85.00 (estimated 3h)</span>
+                    </div>
+                </div>
+
+                <!-- Checklist Section -->
+                <div class="checklist-section">
+                    <div class="checklist-header">
+                        <div class="checklist-title">Service Checklist</div>
+                        <div class="checklist-progress">5/8 completed</div>
+                    </div>
+                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="checklist-text">Verify customer identity and service order</div>
+                    </div>
+                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="checklist-text">Inspect installation location</div>
+                    </div>
+                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="checklist-text">Take before photos</div>
+                    </div>
+                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="checklist-text">Install mounting bracket</div>
+                    </div>
+                    <div class="checklist-item completed" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="checklist-text">Install indoor unit</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div class="checklist-text">Connect refrigerant lines</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div class="checklist-text">Test system operation</div>
+                    </div>
+                    <div class="checklist-item" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div class="checklist-text">Customer walkthrough and sign-off</div>
+                    </div>
+                </div>
+
+                <!-- Photo Upload Section -->
+                <div class="photo-upload-section">
+                    <div class="checklist-header">
+                        <div class="checklist-title">Documentation Photos</div>
+                        <div class="checklist-progress">3/6 required</div>
+                    </div>
+                    <div class="photo-grid">
+                        <div class="photo-item">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3EBefore%3C/text%3E%3C/svg%3E" alt="Before">
+                            <div class="photo-label">Before - Location</div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3EBracket%3C/text%3E%3C/svg%3E" alt="Bracket">
+                            <div class="photo-label">Bracket Installed</div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%239ca3af'%3EUnit%3C/text%3E%3C/svg%3E" alt="Unit">
+                            <div class="photo-label">Unit Mounted</div>
+                        </div>
+                        <div class="photo-item add" onclick="addPhoto('refrigerant')">
+                            <i class="fas fa-camera fa-2x"></i>
+                        </div>
+                        <div class="photo-item add" onclick="addPhoto('testing')">
+                            <i class="fas fa-camera fa-2x"></i>
+                        </div>
+                        <div class="photo-item add" onclick="addPhoto('final')">
+                            <i class="fas fa-camera fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-actions" style="margin-top: 1.5rem;">
+                    <button class="job-button primary" onclick="completeJob()">
+                        <i class="fas fa-check-circle"></i> Complete Job
+                    </button>
+                    <button class="job-button secondary" onclick="pauseJob()">
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings View -->
+    <div id="view-earnings" class="view">
+        <div class="content-area">
+            <div class="section-header">
+                <div class="section-title">Earnings Overview</div>
+            </div>
+
+            <div class="earnings-card">
+                <div class="earnings-header">Total This Week</div>
+                <div class="earnings-amount">€1,247.50</div>
+                <div class="earnings-stats">
+                    <div class="earnings-stat">
+                        <div class="earnings-stat-value">18</div>
+                        <div class="earnings-stat-label">Jobs</div>
+                    </div>
+                    <div class="earnings-stat">
+                        <div class="earnings-stat-value">52h</div>
+                        <div class="earnings-stat-label">Hours</div>
+                    </div>
+                    <div class="earnings-stat">
+                        <div class="earnings-stat-value">€24</div>
+                        <div class="earnings-stat-label">Avg/Hour</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-value">€5,340</div>
+                    <div class="stat-label">This Month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">€18,920</div>
+                    <div class="stat-label">This Year</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">4.9★</div>
+                    <div class="stat-label">Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">147</div>
+                    <div class="stat-label">Total Jobs</div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 1.5rem;">
+                <div class="section-title">Recent Payments</div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-id">#SX-375701</div>
+                    <div class="job-badge completed">PAID</div>
+                </div>
+                <div class="job-title">Electrical Installation</div>
+                <div class="job-details">
+                    <div class="job-detail">
+                        <i class="fas fa-calendar"></i>
+                        <span>Yesterday, 15:30</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>2.5 hours</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <span style="color: #10b981; font-weight: 600;">€75.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-id">#PX-377801</div>
+                    <div class="job-badge completed">PAID</div>
+                </div>
+                <div class="job-title">Plumbing Repair</div>
+                <div class="job-details">
+                    <div class="job-detail">
+                        <i class="fas fa-calendar"></i>
+                        <span>Nov 13, 11:20</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>1.5 hours</span>
+                    </div>
+                    <div class="job-detail">
+                        <i class="fas fa-euro-sign"></i>
+                        <span style="color: #10b981; font-weight: 600;">€52.50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History View -->
+    <div id="view-history" class="view">
+        <div class="content-area">
+            <div class="section-header">
+                <div class="section-title">Job History</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon completed">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Electrical Installation - #SX-375701</div>
+                    <div class="timeline-time">Yesterday, 15:30 • €75.00</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon completed">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Plumbing Repair - #PX-377801</div>
+                    <div class="timeline-time">Nov 13, 11:20 • €52.50</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon completed">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">AC Installation - #SX-375689</div>
+                    <div class="timeline-time">Nov 12, 09:00 • €95.00</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon completed">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Bathroom Tiling - #PX-377654</div>
+                    <div class="timeline-time">Nov 11, 14:45 • €120.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile View -->
+    <div id="view-profile" class="view">
+        <div class="content-area">
+            <div class="section-header">
+                <div class="section-title">Profile Settings</div>
+            </div>
+
+            <div style="text-align: center; padding: 2rem 0;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1e3a8a); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">João Ferreira</div>
+                <div style="color: #6b7280; margin-bottom: 0.25rem;">Pro ID: #PRO-1547</div>
+                <div style="color: #10b981; font-weight: 600;">⭐ 4.9 Rating (147 jobs)</div>
+            </div>
+
+            <div class="job-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-wrench" style="color: #9ca3af;"></i>
+                        <span>Skills & Certifications</span>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: #9ca3af;"></i>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-calendar-alt" style="color: #9ca3af;"></i>
+                        <span>Availability Schedule</span>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: #9ca3af;"></i>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-bell" style="color: #9ca3af;"></i>
+                        <span>Notification Settings</span>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: #9ca3af;"></i>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-life-ring" style="color: #9ca3af;"></i>
+                        <span>Help & Support</span>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: #9ca3af;"></i>
+                </div>
+            </div>
+
+            <button class="job-button danger" style="width: 100%; margin-top: 2rem;">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div id="modal-notifications" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Notifications</div>
+                <button class="modal-close" onclick="closeModal('notifications')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="timeline-item">
+                    <div class="timeline-icon" style="background: #fee2e2; color: #dc2626;">
+                        <i class="fas fa-exclamation"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">New job assigned for tomorrow</div>
+                        <div class="timeline-time">5 minutes ago</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Payment received: €75.00</div>
+                        <div class="timeline-time">2 hours ago</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">New message from Maria Santos</div>
+                        <div class="timeline-time">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showView('jobs')">
+            <i class="fas fa-briefcase"></i>
+            <span>Jobs</span>
+        </div>
+        <div class="nav-item" onclick="showView('earnings')">
+            <i class="fas fa-euro-sign"></i>
+            <span>Earnings</span>
+        </div>
+        <div class="nav-item" onclick="showView('history')">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </div>
+        <div class="nav-item" onclick="showView('profile')">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <script>
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            // Show selected view
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function showJobDetail(jobId) {
+            const jobs = {
+                'SX-375742': {
+                    id: '#SX-375742',
+                    title: 'Air Conditioning Installation',
+                    customer: 'Maria Santos',
+                    address: 'Rua das Flores 45, Lisboa',
+                    time: 'Started 1h 23m ago',
+                    payment: '€85.00 (estimated 3h)'
+                },
+                'PX-377903': {
+                    id: '#PX-377903',
+                    title: 'Bathroom Renovation - Tiling',
+                    customer: 'Ines Broncano',
+                    address: 'Av. da República 123, Porto',
+                    time: 'Started 45m ago',
+                    payment: '€120.00 (estimated 4h)'
+                },
+                'PX-377905': {
+                    id: '#PX-377905',
+                    title: 'Plumbing Repair - Kitchen Sink',
+                    customer: 'João Silva',
+                    address: 'Rua do Comércio 78, Braga',
+                    time: 'Tomorrow 9 AM',
+                    payment: '€60.00 (estimated 2h)'
+                }
+            };
+
+            const job = jobs[jobId];
+            if (job) {
+                document.getElementById('detail-job-id').textContent = job.id;
+                document.getElementById('detail-job-title').textContent = job.title;
+                document.getElementById('detail-customer').textContent = job.customer;
+                document.getElementById('detail-address').textContent = job.address;
+                document.getElementById('detail-time').textContent = job.time;
+                document.getElementById('detail-payment').textContent = job.payment;
+
+                document.getElementById('view-jobs').classList.remove('active');
+                document.getElementById('view-job-detail').classList.add('active');
+            }
+        }
+
+        function toggleChecklist(element) {
+            element.classList.toggle('completed');
+
+            // Update progress
+            const completed = document.querySelectorAll('.checklist-item.completed').length;
+            const total = document.querySelectorAll('.checklist-item').length;
+            document.querySelector('.checklist-progress').textContent = `${completed}/${total} completed`;
+        }
+
+        function addPhoto(type) {
+            alert(`Opening camera to take ${type} photo...`);
+        }
+
+        function completeJob() {
+            if (confirm('Mark this job as completed? Customer will be asked to sign off.')) {
+                alert('Job completion process started. Redirecting to customer sign-off...');
+            }
+        }
+
+        function pauseJob() {
+            if (confirm('Pause this job? You can resume it later.')) {
+                alert('Job paused. Timer stopped.');
+                showView('jobs');
+            }
+        }
+
+        function viewMap(jobId) {
+            alert(`Opening map navigation to job ${jobId}...`);
+        }
+
+        function contactCustomer(name) {
+            alert(`Calling ${name}...`);
+        }
+
+        function showNotifications() {
+            document.getElementById('modal-notifications').classList.add('active');
+        }
+
+        function showProfile() {
+            showView('profile');
+        }
+
+        function closeModal(modalName) {
+            document.getElementById('modal-' + modalName).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

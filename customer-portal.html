@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YellowGrid - Customer Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .logo-area {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-profile {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-email {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .nav-item.active {
+            background: #eff6ff;
+            color: #3b82f6;
+            border-right: 3px solid #3b82f6;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-button {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .header-button.primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .header-button.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .header-button.secondary {
+            background: white;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .header-button.secondary:hover {
+            background: #f9fafb;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        .alert-banner {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 1px solid #fbbf24;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .alert-icon {
+            color: #d97706;
+            font-size: 1.5rem;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.25rem;
+        }
+
+        .alert-text {
+            color: #78350f;
+            font-size: 0.875rem;
+        }
+
+        .alert-action {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #92400e;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .alert-action:hover {
+            background: #fffbeb;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .stat-icon.green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .stat-icon.yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .stat-icon.purple {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .stat-change.positive {
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .card-action {
+            color: #3b82f6;
+            font-size: 0.875rem;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .card-action:hover {
+            text-decoration: underline;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .service-card.completed {
+            border-left-color: #10b981;
+        }
+
+        .service-card.scheduled {
+            border-left-color: #f59e0b;
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .service-id {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .service-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .service-badge.in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .service-badge.scheduled {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .service-badge.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .service-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .service-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .service-detail i {
+            color: #9ca3af;
+        }
+
+        .progress-bar {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .progress-fill.completed {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .service-button {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .service-button.primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .service-button.primary:hover {
+            background: #2563eb;
+        }
+
+        .service-button.secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .service-button.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -32px;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #eff6ff;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-icon.completed {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .timeline-icon.pending {
+            background: #f3f4f6;
+            color: #9ca3af;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-time {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .message-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .message-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .message-card.unread {
+            border-left-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-from {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .message-subject {
+            font-size: 0.875rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-preview {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .document-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .document-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .document-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: #dbeafe;
+            color: #1e40af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .document-icon.pdf {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .document-icon.image {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .document-name {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .document-meta {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 400px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .chat-header-title {
+            font-weight: 600;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .chat-bubble {
+            background: #f3f4f6;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            max-width: 70%;
+        }
+
+        .chat-message.user .chat-bubble {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        .chat-send {
+            padding: 0.75rem 1.25rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .chat-send:hover {
+            background: #059669;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            background: #e5e7eb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9ca3af;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state-text {
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-window {
+                width: calc(100vw - 2rem);
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-area">
+                <div class="logo">YellowGrid</div>
+            </div>
+
+            <div class="user-profile">
+                <div class="user-info">
+                    <div class="user-avatar">MS</div>
+                    <div class="user-details">
+                        <div class="user-name">Maria Santos</div>
+                        <div class="user-email">maria.santos@email.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-item active" onclick="showView('dashboard')">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="showView('services')">
+                    <i class="fas fa-tools"></i>
+                    <span>My Services</span>
+                    <span class="nav-badge">2</span>
+                </div>
+                <div class="nav-item" onclick="showView('history')">
+                    <i class="fas fa-history"></i>
+                    <span>Service History</span>
+                </div>
+                <div class="nav-item" onclick="showView('messages')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                    <span class="nav-badge">3</span>
+                </div>
+                <div class="nav-item" onclick="showView('documents')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Documents</span>
+                </div>
+                <div class="nav-item" onclick="showView('payments')">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payments</span>
+                </div>
+                <div class="nav-item" onclick="showView('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="header-title">Customer Portal</div>
+                <div class="header-actions">
+                    <button class="header-button secondary">
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                    </button>
+                    <button class="header-button primary" onclick="newServiceRequest()">
+                        <i class="fas fa-plus"></i>
+                        New Service Request
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <!-- Dashboard View -->
+                <div id="view-dashboard" class="view active">
+                    <a href="demo-interactive.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Demo
+                    </a>
+
+                    <!-- Alert Banner -->
+                    <div class="alert-banner">
+                        <i class="fas fa-exclamation-triangle alert-icon"></i>
+                        <div class="alert-content">
+                            <div class="alert-title">Action Required</div>
+                            <div class="alert-text">Your air conditioning installation is scheduled for today at 2:00 PM. Please ensure someone is home.</div>
+                        </div>
+                        <button class="alert-action">View Details</button>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">Active Services</div>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                            </div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 1 in progress today
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value">7</div>
+                                    <div class="stat-label">Completed Services</div>
+                                </div>
+                                <div class="stat-icon green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 100% satisfaction rate
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value">€3,420</div>
+                                    <div class="stat-label">Total Spent</div>
+                                </div>
+                                <div class="stat-icon purple">
+                                    <i class="fas fa-euro-sign"></i>
+                                </div>
+                            </div>
+                            <div class="stat-change">
+                                <i class="fas fa-clock"></i> €0 outstanding
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">Unread Messages</div>
+                                </div>
+                                <div class="stat-icon yellow">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                            </div>
+                            <div class="stat-change">
+                                <i class="fas fa-comment"></i> 1 from support team
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Services -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Active Services</div>
+                            <a class="card-action" onclick="showView('services')">View All</a>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <div class="service-id">#SX-375742</div>
+                                <div class="service-badge in-progress">IN PROGRESS</div>
+                            </div>
+                            <div class="service-title">Air Conditioning Installation</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Today, 2:00 PM - 5:00 PM</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Technician: João Ferreira</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Rua das Flores 45, Lisboa</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span>€850.00</span>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+                                Installation 60% complete - Unit mounted, testing in progress
+                            </div>
+                            <div class="service-actions">
+                                <button class="service-button primary" onclick="trackService('SX-375742')">
+                                    <i class="fas fa-map-marker-alt"></i> Track Progress
+                                </button>
+                                <button class="service-button secondary" onclick="contactTechnician('João Ferreira')">
+                                    <i class="fas fa-comment"></i> Message Technician
+                                </button>
+                                <button class="service-button secondary" onclick="reschedule('SX-375742')">
+                                    <i class="fas fa-calendar-alt"></i> Reschedule
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-card scheduled">
+                            <div class="service-header">
+                                <div class="service-id">#PX-377903</div>
+                                <div class="service-badge scheduled">SCHEDULED</div>
+                            </div>
+                            <div class="service-title">Bathroom Renovation - Tiling</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Tomorrow, 9:00 AM - 1:00 PM</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Technician: TBD</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Rua das Flores 45, Lisboa</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span>€1,200.00</span>
+                                </div>
+                            </div>
+                            <div class="service-actions">
+                                <button class="service-button primary" onclick="viewDetails('PX-377903')">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                                <button class="service-button secondary" onclick="reschedule('PX-377903')">
+                                    <i class="fas fa-calendar-alt"></i> Reschedule
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Messages -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Recent Messages</div>
+                            <a class="card-action" onclick="showView('messages')">View All</a>
+                        </div>
+
+                        <div class="message-list">
+                            <div class="message-card unread">
+                                <div class="message-header">
+                                    <div class="message-from">João Ferreira (Technician)</div>
+                                    <div class="message-time">10 min ago</div>
+                                </div>
+                                <div class="message-subject">Installation Update</div>
+                                <div class="message-preview">Hi Maria, I've mounted the unit successfully. Now testing the system. Should be done in 30 minutes.</div>
+                            </div>
+
+                            <div class="message-card unread">
+                                <div class="message-header">
+                                    <div class="message-from">YellowGrid Support</div>
+                                    <div class="message-time">2 hours ago</div>
+                                </div>
+                                <div class="message-subject">Appointment Reminder</div>
+                                <div class="message-preview">Your air conditioning installation is scheduled for today at 2:00 PM. Please ensure access to the installation area.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services View -->
+                <div id="view-services" class="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">All Services</div>
+                        </div>
+
+                        <div class="service-card">
+                            <div class="service-header">
+                                <div class="service-id">#SX-375742</div>
+                                <div class="service-badge in-progress">IN PROGRESS</div>
+                            </div>
+                            <div class="service-title">Air Conditioning Installation</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Today, 2:00 PM - 5:00 PM</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Technician: João Ferreira</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span>€850.00</span>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <div class="service-actions">
+                                <button class="service-button primary">
+                                    <i class="fas fa-map-marker-alt"></i> Track Progress
+                                </button>
+                                <button class="service-button secondary">
+                                    <i class="fas fa-comment"></i> Message
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-card scheduled">
+                            <div class="service-header">
+                                <div class="service-id">#PX-377903</div>
+                                <div class="service-badge scheduled">SCHEDULED</div>
+                            </div>
+                            <div class="service-title">Bathroom Renovation - Tiling</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Tomorrow, 9:00 AM - 1:00 PM</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Technician: TBD</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span>€1,200.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History View -->
+                <div id="view-history" class="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Service History</div>
+                        </div>
+
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon completed">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Electrical Installation - #SX-375701</div>
+                                    <div class="timeline-time">Completed Nov 12, 2024</div>
+                                    <div class="timeline-description">
+                                        New electrical outlets installed in living room. Rated 5★ - Excellent service!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon completed">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Plumbing Repair - #PX-377654</div>
+                                    <div class="timeline-time">Completed Nov 8, 2024</div>
+                                    <div class="timeline-description">
+                                        Kitchen sink leak fixed. Very professional and quick. Rated 5★
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon completed">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">AC Maintenance - #SX-375689</div>
+                                    <div class="timeline-time">Completed Oct 28, 2024</div>
+                                    <div class="timeline-description">
+                                        Annual AC maintenance and cleaning. System running perfectly. Rated 5★
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages View -->
+                <div id="view-messages" class="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Messages</div>
+                        </div>
+
+                        <div class="message-list">
+                            <div class="message-card unread">
+                                <div class="message-header">
+                                    <div class="message-from">João Ferreira (Technician)</div>
+                                    <div class="message-time">10 min ago</div>
+                                </div>
+                                <div class="message-subject">Installation Update</div>
+                                <div class="message-preview">Hi Maria, I've mounted the unit successfully. Now testing the system. Should be done in 30 minutes.</div>
+                            </div>
+
+                            <div class="message-card unread">
+                                <div class="message-header">
+                                    <div class="message-from">YellowGrid Support</div>
+                                    <div class="message-time">2 hours ago</div>
+                                </div>
+                                <div class="message-subject">Appointment Reminder</div>
+                                <div class="message-preview">Your air conditioning installation is scheduled for today at 2:00 PM.</div>
+                            </div>
+
+                            <div class="message-card unread">
+                                <div class="message-header">
+                                    <div class="message-from">YellowGrid Billing</div>
+                                    <div class="message-time">Yesterday</div>
+                                </div>
+                                <div class="message-subject">Payment Confirmation</div>
+                                <div class="message-preview">Your payment of €850.00 for service #SX-375742 has been received.</div>
+                            </div>
+
+                            <div class="message-card">
+                                <div class="message-header">
+                                    <div class="message-from">YellowGrid Support</div>
+                                    <div class="message-time">Nov 12</div>
+                                </div>
+                                <div class="message-subject">Service Completed</div>
+                                <div class="message-preview">Your electrical installation has been completed. Please rate your experience.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents View -->
+                <div id="view-documents" class="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Documents & Invoices</div>
+                        </div>
+
+                        <div class="document-grid">
+                            <div class="document-card">
+                                <div class="document-icon pdf">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="document-name">Contract #SX-375742</div>
+                                <div class="document-meta">Nov 15, 2024</div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon pdf">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <div class="document-name">Invoice #SX-375742</div>
+                                <div class="document-meta">Nov 15, 2024</div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon image">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                                <div class="document-name">Work Photos</div>
+                                <div class="document-meta">Nov 15, 2024</div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon pdf">
+                                    <i class="fas fa-file-contract"></i>
+                                </div>
+                                <div class="document-name">Warranty Certificate</div>
+                                <div class="document-meta">Nov 15, 2024</div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon pdf">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <div class="document-name">Invoice #SX-375701</div>
+                                <div class="document-meta">Nov 12, 2024</div>
+                            </div>
+
+                            <div class="document-card">
+                                <div class="document-icon pdf">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <div class="document-name">Invoice #PX-377654</div>
+                                <div class="document-meta">Nov 8, 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments View -->
+                <div id="view-payments" class="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Payment History</div>
+                        </div>
+
+                        <div class="service-card completed">
+                            <div class="service-header">
+                                <div class="service-id">#SX-375742</div>
+                                <div class="service-badge completed">PAID</div>
+                            </div>
+                            <div class="service-title">Air Conditioning Installation</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Paid: Nov 14, 2024</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Visa •••• 4532</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span style="color: #10b981; font-weight: 600;">€850.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="service-card completed">
+                            <div class="service-header">
+                                <div class="service-id">#SX-375701</div>
+                                <div class="service-badge completed">PAID</div>
+                            </div>
+                            <div class="service-title">Electrical Installation</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Paid: Nov 12, 2024</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Visa •••• 4532</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span style="color: #10b981; font-weight: 600;">€420.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="service-card completed">
+                            <div class="service-header">
+                                <div class="service-id">#PX-377654</div>
+                                <div class="service-badge completed">PAID</div>
+                            </div>
+                            <div class="service-title">Plumbing Repair</div>
+                            <div class="service-details">
+                                <div class="service-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Paid: Nov 8, 2024</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Visa •••• 4532</span>
+                                </div>
+                                <div class="service-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span style="color: #10b981; font-weight: 600;">€180.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div id="view-settings" class="view">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Account Settings</div>
+                        </div>
+
+                        <div class="empty-state">
+                            <i class="fas fa-cog"></i>
+                            <div class="empty-state-title">Settings Panel</div>
+                            <div class="empty-state-text">Configure your account preferences, notifications, and payment methods</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-title">Customer Support</div>
+                <button class="chat-close" onclick="toggleChat()">×</button>
+            </div>
+            <div class="chat-messages">
+                <div class="chat-message">
+                    <div class="chat-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-bubble">
+                        Hi Maria! How can I help you today? 😊
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" placeholder="Type your message...">
+                <button class="chat-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            // Show selected view
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.classList.toggle('active');
+        }
+
+        function newServiceRequest() {
+            alert('Opening new service request form...');
+        }
+
+        function trackService(serviceId) {
+            alert(`Opening real-time tracking for service ${serviceId}...`);
+        }
+
+        function contactTechnician(name) {
+            alert(`Opening chat with ${name}...`);
+            toggleChat();
+        }
+
+        function reschedule(serviceId) {
+            alert(`Opening rescheduling calendar for service ${serviceId}...`);
+        }
+
+        function viewDetails(serviceId) {
+            alert(`Viewing detailed information for service ${serviceId}...`);
+        }
+    </script>
+</body>
+</html>
