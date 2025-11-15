@@ -863,18 +863,32 @@
         <span class="scenario-badge badge-simple">Interactive</span>
       </div>
 
+      <div class="scenario-card" onclick="startDemo('tvQuotation')">
+        <div class="scenario-icon">📐</div>
+        <h3>Technical Visit & Quotation</h3>
+        <p>Customer needs assessment. Technician measures, creates report, and generates detailed quotation.</p>
+        <span class="scenario-badge badge-simple">Interactive</span>
+      </div>
+
+      <div class="scenario-card" onclick="startDemo('package')">
+        <div class="scenario-icon">🛁</div>
+        <h3>Package with TV Confirmation</h3>
+        <p>Bathroom renovation requiring confirmation visit before installation begins.</p>
+        <span class="scenario-badge badge-simple">Interactive</span>
+      </div>
+
       <div class="scenario-card complex" onclick="startDemo('complex')">
         <div class="scenario-icon">🏗️</div>
         <h3>Complex Multi-Service</h3>
         <p>Full kitchen renovation with 8 service orders, multiple crews, quality gates, and sequenced execution.</p>
-        <span class="scenario-badge badge-complex">Advanced</span>
+        <span class="scenario-badge badge-complex">Interactive</span>
       </div>
 
-      <div class="scenario-card" onclick="alert('Coming soon! Explore the Simple Installation first.')">
+      <div class="scenario-card" onclick="startDemo('rework')">
         <div class="scenario-icon">🔄</div>
         <h3>Rework Scenario</h3>
         <p>Installation fails WCF. See how the platform handles service recovery and customer satisfaction.</p>
-        <span class="scenario-badge badge-simple">Coming Soon</span>
+        <span class="scenario-badge badge-simple">Interactive</span>
       </div>
     </div>
 
@@ -1644,6 +1658,2351 @@
                     <button class="btn btn-secondary" onclick="window.location.href='index.html'">
                       ← Back to Home
                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ],
+
+      // Technical Visit & Quotation Workflow
+      tvQuotation: [
+        // Step 0: Customer requests technical visit
+        {
+          title: "Customer Requests Assessment",
+          progress: 0,
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🏪</div>
+                    <div>
+                      <h3>Customer View</h3>
+                      <p>In-Store Request</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Technical Visit Request</h4>
+
+                  <div class="customer-card">
+                    <h5 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Kitchen Countertop Installation</h5>
+                    <div class="job-detail-row">
+                      <span>📏</span>
+                      <span>Need: Professional measurements</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>🏠</span>
+                      <span>Property: 456 Oak Avenue, House</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>📝</span>
+                      <span>Scope: Granite countertop + sink cutout</span>
+                    </div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                      <p style="font-size: 0.9rem; color: var(--text-muted);">
+                        ✓ Certified technician will assess site<br>
+                        ✓ Detailed technical report provided<br>
+                        ✓ Accurate quotation based on measurements
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>What happens next?</h4>
+                    <p>A qualified technician will visit your property to take precise measurements, assess installation complexity, and identify any special requirements.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎯</div>
+                    <div>
+                      <h3>System Processing</h3>
+                      <p>TV Service Order Created</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Service Order Created</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ Request Received</h5>
+                      <p>Technical Visit requested for countertop</p>
+                      <small>10:15 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #TV-5921 Created</h5>
+                      <p>Service Type: Technical Visit & Quotation</p>
+                      <small>10:15:10 AM</small>
+                    </div>
+                    <div class="tracking-step pending">
+                      <h5>⏳ Technician Matching</h5>
+                      <p>Finding certified technician in Zone 3...</p>
+                      <small>In progress...</small>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>💡 Requirements</h4>
+                    <p>
+                      YellowGrid matching criteria:<br>
+                      • Countertop installation certification<br>
+                      • Zone 3 coverage<br>
+                      • Measurement equipment<br>
+                      • Available within 48 hours
+                    </p>
+                  </div>
+
+                  <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                      🎯 Match Technician →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 1: Technician matched and scheduled
+        {
+          title: "Technician Matched & Scheduled",
+          progress: 20,
+          notification: {
+            title: "Technician Assigned",
+            body: "Marco from Provider TechPro has been assigned for technical visit",
+            action: "View details"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">👷</div>
+                    <div>
+                      <h3>Technician Notification</h3>
+                      <p>Provider TechPro Dashboard</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Technician</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>10:16</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div class="mobile-header">
+                          <h4>New TV Assignment</h4>
+                          <div class="notification-badge">1</div>
+                        </div>
+
+                        <div class="job-card-mobile">
+                          <h5>🔔 Technical Visit Assigned</h5>
+                          <div class="job-detail-row">
+                            <span>📏</span>
+                            <span>Countertop Measurement</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📅</span>
+                            <span>Nov 19, 2025 - 2:00 PM</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📍</span>
+                            <span>456 Oak Ave, Zone 3 (12.5 km)</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Estimated: 1 hour</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>🛠</span>
+                            <span>Bring: Laser measure, tablet</span>
+                          </div>
+                          <div class="job-actions">
+                            <button class="btn-mobile-primary">Accept</button>
+                            <button class="btn-mobile-secondary">View Details</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📱</div>
+                    <div>
+                      <h3>Customer Notification</h3>
+                      <p>SMS Confirmation</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Appointment Confirmed</h4>
+
+                  <div class="customer-card" style="background: rgba(74, 158, 255, 0.1); border: 2px solid rgba(74, 158, 255, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                      <span style="font-size: 2rem;">💬</span>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">From: YellowGrid</div>
+                        <div style="font-size: 0.85rem;">Today 10:18 AM</div>
+                      </div>
+                    </div>
+                    <p style="line-height: 1.6; font-size: 0.95rem;">
+                      Hi Michael! Your technical visit is scheduled for <strong>Tuesday, Nov 19 at 2:00 PM</strong>.
+                      Technician Marco will measure your kitchen for the countertop installation. Please ensure the area is accessible.
+                    </p>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">What to Expect</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
+                      • Technician will take precise measurements<br>
+                      • Photos of installation area<br>
+                      • Assessment of plumbing/electrical needs<br>
+                      • Technical report generated on-site<br>
+                      • Detailed quotation provided within 2 hours
+                    </p>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>Preparation Tips</h4>
+                    <p>Clear countertop area. Remove items from cabinets if possible. Note any special requests or concerns to discuss with technician.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 2: Technician on-site measuring
+        {
+          title: "On-Site Inspection & Measurement",
+          progress: 40,
+          notification: {
+            title: "Technician Checked In",
+            body: "Marco has arrived and is conducting measurements",
+            action: "View progress"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📐</div>
+                    <div>
+                      <h3>Technician App</h3>
+                      <p>Active Assessment</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Technician</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>14:12</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div class="mobile-header">
+                          <h4>Technical Visit</h4>
+                          <div style="background: var(--accent-green); padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.75rem;">
+                            IN PROGRESS
+                          </div>
+                        </div>
+
+                        <div class="job-card-mobile">
+                          <h5>SO #TV-5921 - Countertop Assessment</h5>
+                          <div class="job-detail-row">
+                            <span>👤</span>
+                            <span>Customer: Michael Roberts</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>🏠</span>
+                            <span>456 Oak Avenue</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Checked in: 2:05 PM</span>
+                          </div>
+                        </div>
+
+                        <h5 style="margin: 1rem 0 0.75rem;">Measurements</h5>
+                        <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+                          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem;">
+                            <div>
+                              <span style="color: var(--text-muted);">Length:</span><br>
+                              <strong>3.85m</strong>
+                            </div>
+                            <div>
+                              <span style="color: var(--text-muted);">Width:</span><br>
+                              <strong>0.62m</strong>
+                            </div>
+                            <div>
+                              <span style="color: var(--text-muted);">Backsplash:</span><br>
+                              <strong>0.15m</strong>
+                            </div>
+                            <div>
+                              <span style="color: var(--text-muted);">Sink Cutout:</span><br>
+                              <strong>Required</strong>
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 style="margin-bottom: 0.75rem;">Photos (4)</h5>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                        </div>
+
+                        <h5 style="margin-bottom: 0.75rem;">Notes</h5>
+                        <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem; font-size: 0.85rem;">
+                          <p>• Existing countertop removal needed<br>
+                          • Plumbing accessible for sink<br>
+                          • Wall reinforcement recommended<br>
+                          • Customer prefers Kashmir White granite</p>
+                        </div>
+
+                        <div class="job-actions" style="margin-top: 1rem;">
+                          <button class="btn-mobile-primary">📋 Generate Report</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Operator View</h3>
+                      <p>Live Monitoring</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Active Technical Visits</h4>
+
+                  <div class="customer-card" style="background: rgba(74, 158, 255, 0.1); border: 2px solid var(--accent-blue);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                      <div>
+                        <h5 style="font-size: 1.1rem;">#TV-5921 - Countertop Assessment</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Michael Roberts, 456 Oak Ave</p>
+                      </div>
+                      <div style="background: var(--accent-blue); padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">
+                        IN PROGRESS
+                      </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Checked In</div>
+                        <div style="font-size: 1rem; font-weight: 600;">2:05 PM</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Time on Site</div>
+                        <div style="font-size: 1rem; font-weight: 600;">7 min</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Photos</div>
+                        <div style="font-size: 1rem; font-weight: 600;">4</div>
+                      </div>
+                    </div>
+
+                    <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem;">
+                      <h5 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Data Captured</h5>
+                      <p style="font-size: 0.85rem; color: var(--text-muted);">
+                        ✓ Measurements entered<br>
+                        ✓ Photos uploaded (4)<br>
+                        ✓ Customer notes added<br>
+                        ⏳ Technical report pending
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>Today's TV Performance</h4>
+                    <p>
+                      <strong>Completed:</strong> 5 technical visits<br>
+                      <strong>In Progress:</strong> 2 (including this one)<br>
+                      <strong>Avg. Report Time:</strong> 18 minutes<br>
+                      <strong>Quote Acceptance:</strong> 87%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 3: Technical report generated
+        {
+          title: "Technical Report Generated",
+          progress: 60,
+          notification: {
+            title: "Report Ready",
+            body: "Technical report has been auto-generated from field data. Quotation being calculated.",
+            action: "Review report"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📋</div>
+                    <div>
+                      <h3>Technical Report</h3>
+                      <p>Auto-Generated Document</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Technical Visit Report #TV-5921</h4>
+
+                  <div class="customer-card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                      <div>
+                        <h5 style="font-size: 1rem;">Customer: Michael Roberts</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">456 Oak Avenue</p>
+                      </div>
+                      <div style="text-align: right;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Visit Date</div>
+                        <div style="font-size: 0.95rem; font-weight: 600;">Nov 19, 2025</div>
+                      </div>
+                    </div>
+
+                    <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+                      <h5 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Scope of Work</h5>
+                      <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
+                        Granite countertop installation for kitchen including removal of existing countertop,
+                        fabrication and installation of Kashmir White granite with sink cutout.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Measurements</h5>
+                    <table style="width: 100%; font-size: 0.9rem;">
+                      <tr>
+                        <td style="padding: 0.5rem 0; color: var(--text-muted);">Total Length:</td>
+                        <td style="padding: 0.5rem 0; font-weight: 600; text-align: right;">3.85 meters</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0; color: var(--text-muted);">Width:</td>
+                        <td style="padding: 0.5rem 0; font-weight: 600; text-align: right;">0.62 meters</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0; color: var(--text-muted);">Backsplash Height:</td>
+                        <td style="padding: 0.5rem 0; font-weight: 600; text-align: right;">0.15 meters</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0; color: var(--text-muted);">Total Area:</td>
+                        <td style="padding: 0.5rem 0; font-weight: 600; text-align: right;">2.39 m²</td>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Special Requirements</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      ✓ Sink cutout required (undermount, 60cm)<br>
+                      ✓ Existing countertop removal included<br>
+                      ✓ Wall reinforcement recommended (east wall)<br>
+                      ⚠ Access stairs narrow - careful handling required
+                    </div>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Material Recommendation</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
+                      <strong>Kashmir White Granite</strong> - Durable, elegant finish.
+                      Thickness: 3cm. Polished finish. Customer approved color sample on-site.
+                    </p>
+                  </div>
+
+                  <div style="text-align: center; margin-top: 1.5rem;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">
+                      Report generated automatically from field data<br>
+                      Technician: Marco Silva | Provider: TechPro
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">💰</div>
+                    <div>
+                      <h3>Quotation Engine</h3>
+                      <p>Automated Pricing</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Quote Calculation in Progress</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ Measurements Processed</h5>
+                      <p>Total area: 2.39 m² calculated</p>
+                      <small>2:25 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Material Pricing</h5>
+                      <p>Kashmir White granite: $185/m²</p>
+                      <small>2:25 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Labor Calculated</h5>
+                      <p>Removal + Install + Sink cutout: 8 hours</p>
+                      <small>2:25 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Additional Services</h5>
+                      <p>Wall reinforcement + disposal included</p>
+                      <small>2:26 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>🔨 Final Quote Ready</h5>
+                      <p>Quote #Q-5921 generated</p>
+                      <small>2:26 PM</small>
+                    </div>
+                  </div>
+
+                  <div class="customer-card" style="background: rgba(255, 203, 50, 0.1); border: 2px solid var(--yellow); margin-top: 1.5rem;">
+                    <h5 style="margin-bottom: 1rem; color: var(--yellow);">Quote Summary</h5>
+                    <table style="width: 100%; font-size: 0.9rem;">
+                      <tr>
+                        <td style="padding: 0.5rem 0;">Granite (2.39 m² @ $185/m²)</td>
+                        <td style="padding: 0.5rem 0; text-align: right;">$442</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0;">Fabrication & Installation</td>
+                        <td style="padding: 0.5rem 0; text-align: right;">$680</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0;">Sink Cutout</td>
+                        <td style="padding: 0.5rem 0; text-align: right;">$120</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0;">Removal & Disposal</td>
+                        <td style="padding: 0.5rem 0; text-align: right;">$95</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0;">Wall Reinforcement</td>
+                        <td style="padding: 0.5rem 0; text-align: right;">$180</td>
+                      </tr>
+                      <tr style="border-top: 2px solid var(--yellow); font-weight: 700; font-size: 1.1rem;">
+                        <td style="padding: 1rem 0 0 0;">Total</td>
+                        <td style="padding: 1rem 0 0 0; text-align: right; color: var(--yellow);">$1,517</td>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                      📧 Send to Customer →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 4: Customer receives and reviews quote
+        {
+          title: "Customer Reviews Quotation",
+          progress: 80,
+          notification: {
+            title: "Quote Sent",
+            body: "Quotation sent to customer via email and SMS link",
+            action: "View customer portal"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📱</div>
+                    <div>
+                      <h3>Customer Portal</h3>
+                      <p>Quote Review</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>16:30</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📋</div>
+                          <h4>Your Quotation is Ready</h4>
+                          <p style="font-size: 0.85rem; color: var(--text-muted);">Quote #Q-5921</p>
+                        </div>
+
+                        <div class="customer-card">
+                          <h5 style="margin-bottom: 0.75rem;">Kashmir White Granite Countertop</h5>
+                          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Based on technical visit Nov 19, 2025
+                          </p>
+
+                          <div style="background: rgba(255, 203, 50, 0.15); border-radius: 12px; padding: 1.25rem; text-align: center; margin-bottom: 1rem;">
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">Total Price</div>
+                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--yellow);">$1,517</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Including all materials & labor</div>
+                          </div>
+
+                          <h5 style="font-size: 0.85rem; margin-bottom: 0.5rem;">What's Included:</h5>
+                          <div style="font-size: 0.85rem; line-height: 1.8; color: var(--text-muted);">
+                            ✓ Kashmir White granite (2.39 m²)<br>
+                            ✓ Professional fabrication<br>
+                            ✓ Complete installation<br>
+                            ✓ Sink cutout (60cm undermount)<br>
+                            ✓ Old countertop removal<br>
+                            ✓ Wall reinforcement<br>
+                            ✓ Cleanup & disposal<br>
+                            ✓ 2-year warranty
+                          </div>
+                        </div>
+
+                        <div class="info-panel" style="margin-bottom: 1rem;">
+                          <h4>Next Steps</h4>
+                          <p style="font-size: 0.85rem;">
+                            Approve this quote to schedule your installation.
+                            We'll contact you within 24 hours to arrange a convenient date.
+                          </p>
+                        </div>
+
+                        <div class="job-actions">
+                          <button class="btn-mobile-primary">✓ Approve Quote</button>
+                          <button class="btn-mobile-secondary">Request Changes</button>
+                        </div>
+
+                        <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
+                          Questions? Call 1-800-YELLOW-G
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Operator Dashboard</h3>
+                      <p>Quote Status Tracking</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Pending Quote Approvals</h4>
+
+                  <table class="so-table">
+                    <thead>
+                      <tr>
+                        <th>Quote #</th>
+                        <th>Customer</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="background: rgba(255, 203, 50, 0.1);">
+                        <td><strong>Q-5921</strong></td>
+                        <td>M. Roberts</td>
+                        <td><strong>$1,517</strong></td>
+                        <td><span class="status-dot dot-orange"></span>Awaiting Approval</td>
+                      </tr>
+                      <tr>
+                        <td>Q-5918</td>
+                        <td>A. Chen</td>
+                        <td>$2,340</td>
+                        <td><span class="status-dot dot-blue"></span>Under Review</td>
+                      </tr>
+                      <tr style="background: rgba(70, 211, 138, 0.1);">
+                        <td>Q-5915</td>
+                        <td>S. Martinez</td>
+                        <td>$890</td>
+                        <td><span class="status-dot dot-green"></span>Approved</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 1.5rem;">
+                    <div class="stat-card">
+                      <div class="stat-label">Quotes Sent Today</div>
+                      <div class="stat-value">12</div>
+                      <div class="stat-change stat-positive">↑ 3 vs yesterday</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-label">Approval Rate</div>
+                      <div class="stat-value">87%</div>
+                      <div class="stat-change stat-positive">↑ 5% this month</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-label">Avg. Response Time</div>
+                      <div class="stat-value">4.2h</div>
+                      <div class="stat-change stat-positive">↓ 1.1h faster</div>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>Quote #Q-5921 Details</h4>
+                    <p>
+                      <strong>Sent:</strong> Nov 19, 4:28 PM<br>
+                      <strong>Viewed:</strong> Nov 19, 4:30 PM (2 min after send)<br>
+                      <strong>Technician:</strong> Marco Silva - Provider TechPro<br>
+                      <strong>Conversion Probability:</strong> 89% (based on engagement)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 5: Quote approved - conversion to installation SO
+        {
+          title: "Quote Approved - Installation Scheduled",
+          progress: 100,
+          notification: {
+            title: "Quote Approved!",
+            body: "Customer approved quote. Installation SO created automatically. Scheduling in progress.",
+            action: "View installation order"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">✅</div>
+                    <div>
+                      <h3>Customer Confirmation</h3>
+                      <p>Quote Approved</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.15); border: 2px solid var(--accent-green); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">✅</div>
+                    <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-green);">Quote Approved!</h4>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">Thank you for choosing YellowGrid</p>
+                    <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem; text-align: left;">
+                      <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Approved Amount</div>
+                      <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">$1,517</div>
+                      <div style="font-size: 0.85rem; line-height: 1.6;">
+                        <strong>Next Steps:</strong><br>
+                        ✓ Your installation is being scheduled<br>
+                        ✓ You'll receive appointment details within 24h<br>
+                        ✓ Payment due upon completion
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Order Summary</h5>
+                    <div class="job-detail-row">
+                      <span>📋</span>
+                      <span>Service Order #SO-45923 created</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>🏠</span>
+                      <span>456 Oak Avenue</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>📦</span>
+                      <span>Kashmir White Granite Countertop</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>⏱</span>
+                      <span>Estimated: 1 day installation</span>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>Documents</h4>
+                    <p style="font-size: 0.9rem;">
+                      📄 Technical Report #TV-5921<br>
+                      💰 Quote #Q-5921 (Approved)<br>
+                      📋 Installation Order #SO-45923<br>
+                      <br>
+                      <span style="color: var(--accent-blue); cursor: pointer;">Download all documents →</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎉</div>
+                    <div>
+                      <h3>System Automation</h3>
+                      <p>Quote-to-Installation Flow</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Automated Workflow Triggered</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ Quote Approved by Customer</h5>
+                      <p>Michael Roberts approved $1,517 quote</p>
+                      <small>Nov 19, 6:45 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Installation SO Created</h5>
+                      <p>SO #45923 auto-generated from quote data</p>
+                      <small>6:45:05 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Materials Ordered</h5>
+                      <p>Kashmir White granite reserved from supplier</p>
+                      <small>6:45:12 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Crew Matching Started</h5>
+                      <p>Finding certified granite installers in Zone 3</p>
+                      <small>6:45:20 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ TV Service Closed</h5>
+                      <p>TV #TV-5921 marked complete, payment released to TechPro</p>
+                      <small>6:45:30 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>🔨 Installation Scheduling</h5>
+                      <p>Coordinating material delivery + crew availability</p>
+                      <small>In progress...</small>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>📊 TV-to-Installation Metrics</h4>
+                    <p>
+                      <strong>Quote Approved:</strong> 2h 17min after TV completion<br>
+                      <strong>Conversion Time:</strong> Instant (automated)<br>
+                      <strong>Data Reused:</strong> 100% (no re-entry)<br>
+                      <strong>Next Step:</strong> Installation crew will be assigned within 12 hours
+                    </p>
+                  </div>
+
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1); border: 2px solid var(--accent-green); margin-top: 1.5rem;">
+                    <div style="text-align: center;">
+                      <h5 style="color: var(--accent-green); margin-bottom: 0.5rem;">Complete Workflow Success!</h5>
+                      <p style="font-size: 0.9rem; color: var(--text-muted);">
+                        From technical visit request to approved installation order<br>
+                        <strong>Total time:</strong> 1 day 8 hours | <strong>Customer touches:</strong> 2 (request + approve)
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="resetDemo()">
+                      🔄 Try Another Scenario
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                      ← Back to Home
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ],
+
+      // Installation Package with TV Confirmation Workflow
+      package: [
+        // Step 0: Customer orders bathroom renovation package
+        {
+          title: "Package Order Received",
+          progress: 0,
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛁</div>
+                    <div>
+                      <h3>Customer Purchase</h3>
+                      <p>Bathroom Renovation Package</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Package Selected</h4>
+
+                  <div class="customer-card">
+                    <h5 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Complete Bathroom Refresh Package</h5>
+                    <div class="job-detail-row">
+                      <span>🚿</span>
+                      <span>Shower installation + vanity + toilet</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>💰</span>
+                      <span>Package Price: $4,850</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>📍</span>
+                      <span>789 Pine Street, Apt 12C</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>⚠</span>
+                      <span>Requires confirmation visit first</span>
+                    </div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                      <p style="font-size: 0.9rem; color: var(--text-muted);">
+                        <strong>What's included:</strong><br>
+                        ✓ Technical Visit to confirm measurements<br>
+                        ✓ Walk-in shower with glass doors<br>
+                        ✓ Modern vanity unit with sink<br>
+                        ✓ Dual-flush toilet<br>
+                        ✓ Complete installation & plumbing
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>Two-Phase Process</h4>
+                    <p>First, a technician will visit to confirm all measurements and site conditions. Once approved, installation will be scheduled.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎯</div>
+                    <div>
+                      <h3>System Processing</h3>
+                      <p>Multi-SO Creation</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Package Decomposition</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ Order Received</h5>
+                      <p>Bathroom Refresh Package purchased</p>
+                      <small>Nov 15, 11:30 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #TV-6001 Created</h5>
+                      <p>Technical Visit for confirmation</p>
+                      <small>11:30:08 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #45950 Created (Blocked)</h5>
+                      <p>Installation - waiting for TV approval</p>
+                      <small>11:30:10 AM</small>
+                    </div>
+                    <div class="tracking-step pending">
+                      <h5>⏳ TV Scheduling</h5>
+                      <p>Finding technician for confirmation visit...</p>
+                      <small>In progress...</small>
+                    </div>
+                  </div>
+
+                  <div class="customer-card" style="background: rgba(167, 139, 250, 0.1); border: 2px solid var(--accent-purple);">
+                    <h5 style="margin-bottom: 0.75rem; color: var(--accent-purple);">Service Order Dependencies</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>TV-6001:</strong> Confirmation Visit<br>
+                      <span style="color: var(--accent-green);">└─ Status: Scheduling</span><br>
+                      <br>
+                      <strong>SO-45950:</strong> Installation<br>
+                      <span style="color: var(--text-muted);">└─ Blocked by: TV-6001 approval</span>
+                    </div>
+                  </div>
+
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                      🎯 Schedule TV Visit →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 1: TV scheduled
+        {
+          title: "Confirmation Visit Scheduled",
+          progress: 15,
+          notification: {
+            title: "TV Scheduled",
+            body: "Confirmation visit scheduled for Nov 17 at 3:00 PM",
+            action: "View appointment"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📱</div>
+                    <div>
+                      <h3>Customer Notification</h3>
+                      <p>SMS Confirmation</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(74, 158, 255, 0.1); border: 2px solid rgba(74, 158, 255, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                      <span style="font-size: 2rem;">💬</span>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">From: YellowGrid</div>
+                        <div style="font-size: 0.85rem;">Nov 15, 11:35 AM</div>
+                      </div>
+                    </div>
+                    <p style="line-height: 1.6; font-size: 0.95rem;">
+                      Hi Emma! Your bathroom refresh package is confirmed. A technician will visit on <strong>Friday, Nov 17 at 3:00 PM</strong> to verify measurements and site conditions. Installation will be scheduled after approval. Track: <span style="color: var(--accent-blue);">track.yellowgrid.app/tv-6001</span>
+                    </p>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Confirmation Visit Details</h5>
+                    <div class="job-detail-row">
+                      <span>📅</span>
+                      <span>Friday, Nov 17, 2025 - 3:00 PM</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>⏱</span>
+                      <span>Duration: ~30 minutes</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>👤</span>
+                      <span>Technician: Carlos (Provider InstallPro)</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>📋</span>
+                      <span>Will verify: space, plumbing, electrical</span>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>Why the confirmation visit?</h4>
+                    <p>For complex packages, we verify all site conditions match the package requirements before scheduling the full installation. This prevents delays and ensures we have everything ready.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Operator Dashboard</h3>
+                      <p>Package Tracking</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Package Service Orders</h4>
+
+                  <table class="so-table">
+                    <thead>
+                      <tr>
+                        <th>SO #</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="background: rgba(74, 158, 255, 0.1);">
+                        <td><strong>TV-6001</strong></td>
+                        <td>Confirmation Visit</td>
+                        <td>Nov 17, 3:00 PM</td>
+                        <td><span class="status-dot dot-blue"></span>Scheduled</td>
+                      </tr>
+                      <tr style="opacity: 0.6;">
+                        <td>SO-45950</td>
+                        <td>Installation</td>
+                        <td>Pending TV approval</td>
+                        <td><span class="status-dot dot-orange"></span>Blocked</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="customer-card" style="margin-top: 1.5rem;">
+                    <h5 style="margin-bottom: 0.75rem;">Package: Bathroom Refresh</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.6;">
+                      <strong>Customer:</strong> Emma Wilson<br>
+                      <strong>Address:</strong> 789 Pine Street, Apt 12C<br>
+                      <strong>Value:</strong> $4,850<br>
+                      <strong>Progress:</strong> TV Phase (15%)<br>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>Workflow Logic</h4>
+                    <p>
+                      Installation SO-45950 is automatically blocked until TV-6001 is completed and approved. If TV finds issues, the package can be adjusted before installation begins.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 2: TV completed, site approved
+        {
+          title: "Site Confirmed - Installation Released",
+          progress: 35,
+          notification: {
+            title: "Confirmation Complete",
+            body: "Site verified successfully. Installation SO released for scheduling.",
+            action: "View results"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">✅</div>
+                    <div>
+                      <h3>TV Completion</h3>
+                      <p>Site Verified</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Technician</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.15); border: 2px solid var(--accent-green);">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                      <div style="font-size: 3rem;">✅</div>
+                      <h4 style="color: var(--accent-green); margin-bottom: 0.25rem;">Site Confirmed</h4>
+                      <p style="font-size: 0.85rem; color: var(--text-muted);">TV #TV-6001 Complete</p>
+                    </div>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Verification Results</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      ✅ Bathroom dimensions verified (2.4m x 1.8m)<br>
+                      ✅ Plumbing connections accessible<br>
+                      ✅ Electrical outlets adequate<br>
+                      ✅ Drain position matches specifications<br>
+                      ✅ Wall structure suitable for fixtures<br>
+                      ✅ No modifications required
+                    </div>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Photos Captured (6)</h5>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                      <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</div>
+                      <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</div>
+                      <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</div>
+                      <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</div>
+                      <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</div>
+                      <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📸</div>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>Technician Notes</h4>
+                    <p style="font-size: 0.9rem;">
+                      "Site is perfect for installation. All package items can be installed as planned. Customer mentioned preference for glass shower door instead of curtain - already included in package. Ready to proceed."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎯</div>
+                    <div>
+                      <h3>Automatic Workflow</h3>
+                      <p>SO Release Triggered</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Dependency Resolution</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ TV-6001 Marked Complete</h5>
+                      <p>Technician confirmed site approval</p>
+                      <small>Nov 17, 3:25 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Photos & Report Uploaded</h5>
+                      <p>6 photos and verification data synced</p>
+                      <small>3:25:10 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO-45950 Unblocked</h5>
+                      <p>Installation SO released from hold</p>
+                      <small>3:25:15 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Crew Matching Started</h5>
+                      <p>Finding bathroom installation crew...</p>
+                      <small>3:25:20 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>🔨 Materials Reserved</h5>
+                      <p>Shower, vanity, toilet allocated from warehouse</p>
+                      <small>3:25:30 PM</small>
+                    </div>
+                  </div>
+
+                  <div class="customer-card" style="background: rgba(255, 203, 50, 0.1); border: 2px solid var(--yellow); margin-top: 1.5rem;">
+                    <h5 style="color: var(--yellow); margin-bottom: 0.75rem;">Status Update</h5>
+                    <table style="width: 100%; font-size: 0.9rem;">
+                      <tr>
+                        <td style="padding: 0.5rem 0;">TV-6001:</td>
+                        <td style="padding: 0.5rem 0; text-align: right; color: var(--accent-green); font-weight: 600;">✅ Complete</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0;">SO-45950:</td>
+                        <td style="padding: 0.5rem 0; text-align: right; color: var(--accent-blue); font-weight: 600;">🔄 Scheduling</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 0.5rem 0;">Customer Notification:</td>
+                        <td style="padding: 0.5rem 0; text-align: right; font-weight: 600;">⏳ Pending</td>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                      👷 Match Installation Crew →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 3: Installation crew matched
+        {
+          title: "Installation Crew Assigned",
+          progress: 50,
+          notification: {
+            title: "Crew Matched",
+            body: "BathPro Crew Team assigned for full bathroom installation",
+            action: "View crew details"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">👷</div>
+                    <div>
+                      <h3>Crew Notification</h3>
+                      <p>Provider BathPro</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Crew</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>15:28</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div class="mobile-header">
+                          <h4>New Assignment</h4>
+                          <div class="notification-badge">1</div>
+                        </div>
+
+                        <div class="job-card-mobile">
+                          <h5>🔔 Large Job - Bathroom Package</h5>
+                          <div class="job-detail-row">
+                            <span>🛁</span>
+                            <span>Full Bathroom Installation</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📅</span>
+                            <span>Nov 22, 2025 - 9:00 AM</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📍</span>
+                            <span>789 Pine St, Apt 12C (6.8 km)</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Estimated: Full day (8h)</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>💰</span>
+                            <span>Value: $4,850</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📦</span>
+                            <span>Items: Shower + Vanity + Toilet</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>👥</span>
+                            <span>Team size: 2 technicians recommended</span>
+                          </div>
+                          <div class="job-actions">
+                            <button class="btn-mobile-primary">Accept Job</button>
+                            <button class="btn-mobile-secondary">View Full Details</button>
+                          </div>
+                        </div>
+
+                        <div style="background: rgba(74, 158, 255, 0.1); border-radius: 12px; padding: 1rem; margin-top: 1rem;">
+                          <h5 style="font-size: 0.85rem; margin-bottom: 0.5rem;">Pre-Visit Notes</h5>
+                          <p style="font-size: 0.8rem; color: var(--text-muted);">
+                            • Site confirmed by TV on Nov 17<br>
+                            • All materials ready at warehouse<br>
+                            • Apartment 12C - use service elevator<br>
+                            • Customer prefers glass shower doors
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎯</div>
+                    <div>
+                      <h3>Operator View</h3>
+                      <p>Crew Matching Results</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Crew Selection</h4>
+
+                  <table class="so-table">
+                    <thead>
+                      <tr>
+                        <th>Crew</th>
+                        <th>Specialization</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="background: rgba(70, 211, 138, 0.1);">
+                        <td><strong>BathPro Team</strong></td>
+                        <td>Bathroom Specialist</td>
+                        <td><span style="color: var(--accent-green);">96/100</span></td>
+                        <td><span class="status-dot dot-green"></span>Selected</td>
+                      </tr>
+                      <tr>
+                        <td>GeneralFix Crew C</td>
+                        <td>Multi-service</td>
+                        <td>84/100</td>
+                        <td><span class="status-dot dot-orange"></span>Available</td>
+                      </tr>
+                      <tr style="opacity: 0.6;">
+                        <td>PlumbPro Team 2</td>
+                        <td>Plumbing only</td>
+                        <td>78/100</td>
+                        <td><span class="status-dot dot-red"></span>Filtered</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>Why BathPro Team?</h4>
+                    <p>
+                      <strong>Top match for complex bathroom installations:</strong><br>
+                      ✓ Bathroom renovation certification<br>
+                      ✓ 2-person team available<br>
+                      ✓ 94% completion rate on packages<br>
+                      ✓ Shower door installation expertise<br>
+                      ✓ Available Nov 22 (5 days lead time)<br>
+                      ✓ Previous TV report pre-loaded
+                    </p>
+                  </div>
+
+                  <div class="customer-card" style="margin-top: 1.5rem;">
+                    <h5 style="margin-bottom: 0.75rem;">Installation Timeline</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.6;">
+                      <strong>Scheduled:</strong> Friday, Nov 22, 2025<br>
+                      <strong>Start Time:</strong> 9:00 AM<br>
+                      <strong>Duration:</strong> 8 hours (full day)<br>
+                      <strong>Crew:</strong> 2 technicians<br>
+                      <strong>Materials:</strong> Ready for pickup Nov 21
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 4: Customer notified, installation scheduled
+        {
+          title: "Installation Day Confirmed",
+          progress: 65,
+          notification: {
+            title: "Installation Scheduled",
+            body: "Customer notified. Installation confirmed for Nov 22 at 9:00 AM",
+            action: "View notification"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📱</div>
+                    <div>
+                      <h3>Customer Notification</h3>
+                      <p>Installation Scheduled</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(74, 158, 255, 0.1); border: 2px solid rgba(74, 158, 255, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                      <span style="font-size: 2rem;">💬</span>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">From: YellowGrid</div>
+                        <div style="font-size: 0.85rem;">Nov 17, 3:30 PM</div>
+                      </div>
+                    </div>
+                    <p style="line-height: 1.6; font-size: 0.95rem;">
+                      Great news Emma! Your bathroom has been verified and your installation is scheduled for <strong>Friday, Nov 22 at 9:00 AM</strong>. The BathPro team (2 technicians) will complete your shower, vanity, and toilet installation in one day. They'll call 30 min before arrival.
+                    </p>
+                  </div>
+
+                  <div class="customer-card">
+                    <div class="appointment-header">
+                      <div>
+                        <div class="appointment-date">22</div>
+                        <div class="appointment-month">November</div>
+                      </div>
+                      <div style="text-align: right;">
+                        <div style="font-size: 1.5rem; font-weight: 700;">9:00 AM</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Full day - 8 hours</div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                      <h5 style="margin-bottom: 0.75rem;">What to Expect</h5>
+                      <div style="font-size: 0.9rem; line-height: 1.8; color: var(--text-muted);">
+                        • 2-person professional team<br>
+                        • Installation of all 3 fixtures<br>
+                        • Plumbing connections & testing<br>
+                        • Cleanup included<br>
+                        • Digital sign-off at completion
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>Preparation Checklist</h4>
+                    <p>
+                      ☐ Clear bathroom of personal items<br>
+                      ☐ Ensure service elevator access<br>
+                      ☐ Water main location accessible<br>
+                      ☐ Someone 18+ home for sign-off
+                    </p>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Package Progress</h5>
+                    <div class="tracking-timeline">
+                      <div class="tracking-step">
+                        <h5>✅ Package Purchased</h5>
+                        <small>Nov 15</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>✅ Site Confirmed</h5>
+                        <small>Nov 17</small>
+                      </div>
+                      <div class="tracking-step pending">
+                        <h5>Installation Day</h5>
+                        <small>Nov 22 - Upcoming</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Operator Control Tower</h3>
+                      <p>Package Status</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Package Workflow Complete</h4>
+
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1); border: 2px solid var(--accent-green);">
+                    <h5 style="color: var(--accent-green); margin-bottom: 0.75rem;">All Pre-Installation Steps Complete</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      ✅ Package order received<br>
+                      ✅ TV visit scheduled<br>
+                      ✅ Site confirmed & approved<br>
+                      ✅ Installation SO released<br>
+                      ✅ Crew assigned (BathPro)<br>
+                      ✅ Materials reserved<br>
+                      ✅ Customer notified<br>
+                      ✅ Ready for execution
+                    </div>
+                  </div>
+
+                  <div class="dashboard-grid" style="grid-template-columns: repeat(2, 1fr); margin-top: 1.5rem;">
+                    <div class="stat-card">
+                      <div class="stat-label">Package Value</div>
+                      <div class="stat-value">$4,850</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-label">Time to Schedule</div>
+                      <div class="stat-value">7 days</div>
+                      <div class="stat-change stat-positive">On target</div>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>📊 Package Performance</h4>
+                    <p>
+                      <strong>Order to TV:</strong> 2 days<br>
+                      <strong>TV to Installation:</strong> 5 days<br>
+                      <strong>Total Lead Time:</strong> 7 days<br>
+                      <strong>Service Orders:</strong> 2 (1 complete, 1 scheduled)<br>
+                      <strong>Customer Touches:</strong> 3 (order, TV confirm, install confirm)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 5: Installation in progress
+        {
+          title: "Installation in Progress",
+          progress: 85,
+          notification: {
+            title: "Crew On-Site",
+            body: "BathPro team has checked in. Installation is underway.",
+            action: "Monitor progress"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🔨</div>
+                    <div>
+                      <h3>Crew Mobile App</h3>
+                      <p>Active Installation</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Crew</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>12:15</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div class="mobile-header">
+                          <h4>Bathroom Installation</h4>
+                          <div style="background: var(--accent-green); padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.75rem;">
+                            IN PROGRESS
+                          </div>
+                        </div>
+
+                        <div class="job-card-mobile">
+                          <h5>SO #45950 - Bathroom Refresh Package</h5>
+                          <div class="job-detail-row">
+                            <span>👤</span>
+                            <span>Customer: Emma Wilson</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📍</span>
+                            <span>789 Pine St, Apt 12C</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Checked in: 9:05 AM (3h 10min ago)</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>👥</span>
+                            <span>Team: Mike + Carlos</span>
+                          </div>
+                        </div>
+
+                        <h5 style="margin: 1rem 0 0.75rem;">Installation Checklist</h5>
+                        <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Remove old fixtures</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Install shower base & drain</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Connect plumbing for shower</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Install vanity unit</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" style="width: 18px; height: 18px;">
+                              <span class="pulse">Install glass shower doors</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" style="width: 18px; height: 18px;">
+                              <span>Install toilet</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" style="width: 18px; height: 18px;">
+                              <span>Test all fixtures & clean up</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div style="background: rgba(255, 203, 50, 0.15); border-radius: 12px; padding: 1rem; text-align: center;">
+                          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Progress</div>
+                          <div style="font-size: 2rem; font-weight: 700; color: var(--yellow);">70%</div>
+                          <div style="font-size: 0.8rem; color: var(--text-muted);">Est. completion: 4:30 PM</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Live Monitoring</h3>
+                      <p>Operator Dashboard</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Active Installations</h4>
+
+                  <div class="customer-card" style="background: rgba(255, 203, 50, 0.1); border: 2px solid var(--yellow);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                      <div>
+                        <h5 style="font-size: 1.1rem;">#45950 - Bathroom Package</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Emma Wilson, 789 Pine St Apt 12C</p>
+                      </div>
+                      <div style="background: var(--yellow); color: #1b1305; padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">
+                        70% COMPLETE
+                      </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Time on Site</div>
+                        <div style="font-size: 1rem; font-weight: 600;">3h 10min</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Team Size</div>
+                        <div style="font-size: 1rem; font-weight: 600;">2 techs</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Photos</div>
+                        <div style="font-size: 1rem; font-weight: 600;">8</div>
+                      </div>
+                    </div>
+
+                    <div class="tracking-timeline">
+                      <div class="tracking-step">
+                        <h5>✅ Checked In</h5>
+                        <small>9:05 AM</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>✅ Demolition Complete</h5>
+                        <small>10:20 AM</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>✅ Shower & Vanity Installed</h5>
+                        <small>12:00 PM</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>🔨 Glass Doors In Progress</h5>
+                        <small>12:15 PM - Now</small>
+                      </div>
+                      <div class="tracking-step pending">
+                        <h5>⏳ Toilet & Testing</h5>
+                        <small>Est. 3:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>📊 Package Execution</h4>
+                    <p>
+                      <strong>Linked TV Visit:</strong> TV-6001 (completed Nov 17)<br>
+                      <strong>Pre-Visit Photos:</strong> 6 reference images available<br>
+                      <strong>Current Progress:</strong> On schedule<br>
+                      <strong>Issues Reported:</strong> None<br>
+                      <strong>Est. Completion:</strong> 4:30 PM (on time)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+
+        // Step 6: WCF signed, both SOs closed
+        {
+          title: "Package Complete - All SOs Closed",
+          progress: 100,
+          notification: {
+            title: "Package Complete!",
+            body: "Customer signed WCF. Both TV and Installation SOs closed successfully.",
+            action: "View completion"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">✅</div>
+                    <div>
+                      <h3>Customer Sign-Off</h3>
+                      <p>WCF Digital Signature</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.15); border: 2px solid var(--accent-green); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">✅</div>
+                    <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-green);">Bathroom Complete!</h4>
+                    <p style="color: var(--text-muted);">Installation finished and approved</p>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Work Completed</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      ✅ Walk-in shower with glass doors<br>
+                      ✅ Modern vanity unit with sink<br>
+                      ✅ Dual-flush toilet installed<br>
+                      ✅ All plumbing connected & tested<br>
+                      ✅ Full cleanup completed<br>
+                      ✅ Fixtures demonstrated to customer
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(70, 211, 138, 0.15); border: 2px dashed var(--accent-green); border-radius: 12px; padding: 1.25rem; text-align: center; margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-muted);">Customer Signature</p>
+                    <div style="font-family: 'Brush Script MT', cursive; font-size: 2rem; color: var(--accent-green); margin-bottom: 0.5rem;">
+                      Emma Wilson
+                    </div>
+                    <small style="color: var(--text-muted);">Signed: Nov 22, 2025 4:35 PM</small>
+                  </div>
+
+                  <div class="customer-card">
+                    <h5 style="margin-bottom: 0.75rem;">Package Summary</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.6;">
+                      <strong>Package:</strong> Bathroom Refresh<br>
+                      <strong>Value:</strong> $4,850<br>
+                      <strong>Timeline:</strong> 7 days (order to completion)<br>
+                      <strong>Service Orders:</strong> 2 (TV + Installation)<br>
+                      <strong>Quality:</strong> Approved first try<br>
+                      <strong>Warranty:</strong> 2 years
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>📄 Your Documents</h4>
+                    <p style="font-size: 0.9rem;">
+                      All documents sent to your email:<br>
+                      • Confirmation visit report (TV-6001)<br>
+                      • Installation completion certificate (SO-45950)<br>
+                      • Before & after photos (14 total)<br>
+                      • Warranty information<br>
+                      • Care & maintenance guide
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎉</div>
+                    <div>
+                      <h3>Package Closed</h3>
+                      <p>System Automation</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Automated Package Closure</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ WCF Signed by Customer</h5>
+                      <p>Emma Wilson approved installation</p>
+                      <small>Nov 22, 4:35 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #45950 Closed</h5>
+                      <p>Installation marked complete</p>
+                      <small>4:35:05 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Package Finalized</h5>
+                      <p>Both TV-6001 and SO-45950 completed</p>
+                      <small>4:35:10 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Payment Released</h5>
+                      <p>$4,850 distributed to BathPro (install) + InstallPro (TV)</p>
+                      <small>4:35:15 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Customer Notifications Sent</h5>
+                      <p>Thank you SMS + email with documents</p>
+                      <small>4:35:20 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Performance Updated</h5>
+                      <p>Crew scores updated, warranty registered</p>
+                      <small>4:35:30 PM</small>
+                    </div>
+                  </div>
+
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1); border: 2px solid var(--accent-green); margin-top: 1.5rem;">
+                    <h5 style="color: var(--accent-green); margin-bottom: 0.75rem;">Package Performance Metrics</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>Total Duration:</strong> 7 days (order to completion)<br>
+                      <strong>Service Orders:</strong> 2 executed flawlessly<br>
+                      <strong>Crew Coordination:</strong> 2 providers, zero conflicts<br>
+                      <strong>Customer Satisfaction:</strong> Signed first try<br>
+                      <strong>TV-to-Install Delay:</strong> 5 days (optimal)<br>
+                      <strong>Dependency Management:</strong> Automatic, zero manual intervention<br>
+                      <strong>On-Time Delivery:</strong> 100%
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>🎯 Key Success Factors</h4>
+                    <p>
+                      1. <strong>TV Confirmation prevented issues</strong> - Site verified before materials ordered<br>
+                      2. <strong>Automatic dependency resolution</strong> - Installation auto-released after TV approval<br>
+                      3. <strong>Data reuse across SOs</strong> - TV measurements/photos shared with install crew<br>
+                      4. <strong>Package-aware crew matching</strong> - Selected bathroom specialists, not generalists
+                    </p>
+                  </div>
+
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="resetDemo()">
+                      🔄 Try Another Scenario
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                      ← Back to Home
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ],
+
+      // Complex Multi-Service Installation Workflow - Kitchen Renovation
+      complex: [
+        {
+          title: "Complex Order - 8 Service Orders Created",
+          progress: 0,
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🏗️</div><div><h3>Customer Order</h3><p>Full Kitchen Renovation</p></div></div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card">
+                    <h5>Complete Kitchen Renovation Package</h5>
+                    <p style="margin: 0.75rem 0; color: var(--text-muted);">8-service coordinated installation with dependencies</p>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>Services included:</strong><br>
+                      1. Demolition (old kitchen removal)<br>
+                      2. Plumbing rough-in<br>
+                      3. Electrical work<br>
+                      4. Cabinet installation<br>
+                      5. Countertop (granite)<br>
+                      6. Appliance installation (5 items)<br>
+                      7. Backsplash tiling<br>
+                      8. Final inspection & quality gate
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🎯</div><div><h3>System Orchestration</h3><p>Dependency Graph Created</p></div></div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(167, 139, 250, 0.1); border: 2px solid var(--accent-purple);">
+                    <h5 style="color: var(--accent-purple);">8 Service Orders - Sequenced Execution</h5>
+                    <div style="font-size: 0.85rem; line-height: 1.8; font-family: monospace;">
+                      SO-7001 Demolition → Ready<br>
+                      SO-7002 Plumbing → Blocked by SO-7001<br>
+                      SO-7003 Electrical → Blocked by SO-7001<br>
+                      SO-7004 Cabinets → Blocked by SO-7002, SO-7003<br>
+                      SO-7005 Countertop → Blocked by SO-7004<br>
+                      SO-7006 Appliances → Blocked by SO-7002, SO-7003<br>
+                      SO-7007 Backsplash → Blocked by SO-7005<br>
+                      SO-7008 Inspection → Blocked by all above
+                    </div>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">Start Demolition →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          title: "Step 1-2: Demolition & Rough-In Complete",
+          progress: 25,
+          notification: { title: "Plumbing & Electrical Released", body: "Demolition complete. Parallel rough-in work starting.", action: "View" },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🔨</div><div><h3>Progress Update</h3></div></div>
+                  <span class="view-badge badge-crew">Field</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1);">
+                    <h5>✅ Demolition Complete (SO-7001)</h5>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Old cabinets, countertops removed. Space ready for rough-in work.</p>
+                  </div>
+                  <div class="customer-card" style="background: rgba(255, 203, 50, 0.1);">
+                    <h5>🔄 Plumbing Rough-In (SO-7002) - In Progress</h5>
+                    <p style="font-size: 0.9rem;">Installing supply lines for sink, dishwasher, refrigerator.</p>
+                  </div>
+                  <div class="customer-card" style="background: rgba(255, 203, 50, 0.1);">
+                    <h5>🔄 Electrical Work (SO-7003) - In Progress</h5>
+                    <p style="font-size: 0.9rem;">Outlets, lighting circuits, appliance connections.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🛰</div><div><h3>Operator View</h3></div></div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <div class="info-panel">
+                    <h4>Parallel Execution</h4>
+                    <p>Plumbing and electrical crews working simultaneously. Both must complete before cabinet installation can begin.</p>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">Complete Rough-In →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          title: "Step 3-4: Cabinets & Countertop Installed",
+          progress: 50,
+          notification: { title: "Major Milestones", body: "Cabinets and granite countertop installed successfully", action: "View" },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🏗️</div><div><h3>Installation Progress</h3></div></div>
+                  <span class="view-badge badge-crew">Field</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1);">
+                    <h5>✅ Cabinets Installed (SO-7004)</h5>
+                    <p style="font-size: 0.9rem;">Upper and lower cabinets mounted, leveled, secured.</p>
+                  </div>
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1);">
+                    <h5>✅ Granite Countertop (SO-7005)</h5>
+                    <p style="font-size: 0.9rem;">Countertop fabricated and installed with sink cutouts.</p>
+                  </div>
+                  <div class="info-panel">
+                    <h4>Next: Appliances & Backsplash</h4>
+                    <p>Appliance installation can proceed now. Backsplash waits for countertop completion.</p>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">Install Appliances →</button>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">📊</div><div><h3>Project Status</h3></div></div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <div style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>Completed:</strong> 5 of 8 SOs<br>
+                    <strong>In Progress:</strong> 0<br>
+                    <strong>Pending:</strong> 3 (Appliances, Backsplash, Inspection)<br>
+                    <strong>Timeline:</strong> Day 4 of 6<br>
+                    <strong>Status:</strong> On schedule
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          title: "Final Steps: Appliances, Backsplash, Inspection",
+          progress: 100,
+          notification: { title: "Kitchen Complete!", body: "All 8 service orders completed. Quality gate passed.", action: "View" },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">✅</div><div><h3>Project Complete</h3></div></div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.15); border: 2px solid var(--accent-green); text-align: center;">
+                    <div style="font-size: 3rem;">✅</div>
+                    <h4 style="color: var(--accent-green);">Kitchen Renovation Complete!</h4>
+                  </div>
+                  <div class="customer-card">
+                    <h5>All Services Completed:</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      ✅ Demolition (SO-7001)<br>
+                      ✅ Plumbing (SO-7002)<br>
+                      ✅ Electrical (SO-7003)<br>
+                      ✅ Cabinets (SO-7004)<br>
+                      ✅ Countertop (SO-7005)<br>
+                      ✅ Appliances (SO-7006) - 5 units<br>
+                      ✅ Backsplash (SO-7007)<br>
+                      ✅ Final Inspection (SO-7008)
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🎉</div><div><h3>Orchestration Success</h3></div></div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(167, 139, 250, 0.1); border: 2px solid var(--accent-purple);">
+                    <h5 style="color: var(--accent-purple);">Complex Workflow Metrics</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>Total SOs:</strong> 8 coordinated<br>
+                      <strong>Crews:</strong> 6 different providers<br>
+                      <strong>Dependencies:</strong> 12 automatic resolutions<br>
+                      <strong>Duration:</strong> 6 days<br>
+                      <strong>Delays:</strong> 0<br>
+                      <strong>Manual Interventions:</strong> 0
+                    </div>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="resetDemo()">🔄 Try Another Scenario</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ],
+
+      // Rework Scenario - Service Recovery
+      rework: [
+        {
+          title: "Installation Failed WCF - Issue Reported",
+          progress: 0,
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">⚠️</div><div><h3>WCF Rejection</h3><p>Customer Refused Sign-Off</p></div></div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(255, 107, 107, 0.1); border: 2px solid var(--accent-red);">
+                    <h5 style="color: var(--accent-red);">Installation Issue Reported</h5>
+                    <p style="margin: 0.75rem 0;">Oven installation - SO #48100</p>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>Issue:</strong> Oven door not closing properly<br>
+                      <strong>Customer:</strong> Lisa Chen<br>
+                      <strong>Crew:</strong> TechFix Team B<br>
+                      <strong>Date:</strong> Nov 20, 2025
+                    </div>
+                  </div>
+                  <div class="info-panel">
+                    <h4>What happens now?</h4>
+                    <p>YellowGrid automatically creates a rework service order to resolve the issue at no extra cost.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🎯</div><div><h3>Automatic Rework Creation</h3></div></div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>❌ WCF Rejected</h5>
+                      <p>Customer refused to sign - door alignment issue</p>
+                      <small>Nov 20, 4:30 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #48100 → Pending Rework</h5>
+                      <p>Original SO status updated</p>
+                      <small>4:30:05 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Rework SO #RW-48100 Created</h5>
+                      <p>High priority rework order generated</p>
+                      <small>4:30:10 PM</small>
+                    </div>
+                    <div class="tracking-step pending">
+                      <h5>⏳ Crew Assignment</h5>
+                      <p>Matching crew for rework visit...</p>
+                      <small>In progress...</small>
+                    </div>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">Assign Rework Crew →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          title: "Rework Crew Assigned - Expedited Scheduling",
+          progress: 33,
+          notification: { title: "Rework Scheduled", body: "Senior crew assigned. Rework visit tomorrow morning.", action: "View" },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">📱</div><div><h3>Customer Notification</h3></div></div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(74, 158, 255, 0.1); border: 2px solid var(--accent-blue);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                      <span style="font-size: 2rem;">💬</span>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">From: YellowGrid</div>
+                        <div style="font-size: 0.85rem;">Nov 20, 5:00 PM</div>
+                      </div>
+                    </div>
+                    <p style="line-height: 1.6; font-size: 0.95rem;">
+                      Hi Lisa, we apologize for the installation issue. Our senior technician will visit <strong>tomorrow at 10:00 AM</strong> to fix the oven door alignment at no charge. Thank you for your patience.
+                    </p>
+                  </div>
+                  <div class="info-panel">
+                    <h4>Priority Service</h4>
+                    <p>Rework orders get expedited scheduling (within 24 hours) and senior crew assignment.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">👷</div><div><h3>Senior Crew Assigned</h3></div></div>
+                  <span class="view-badge badge-crew">Crew</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card">
+                    <h5>Rework Assignment - SO #RW-48100</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8; margin-top: 0.75rem;">
+                      <strong>Crew:</strong> ProFix Senior Team (93/100 score)<br>
+                      <strong>Technician:</strong> David Lee (10 years exp.)<br>
+                      <strong>Scheduled:</strong> Nov 21, 10:00 AM<br>
+                      <strong>Priority:</strong> High<br>
+                      <strong>Original Issue:</strong> Door alignment<br>
+                      <strong>Previous Crew Notes:</strong> Available for review
+                    </div>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="nextStep()">Complete Rework →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          title: "Rework Complete - Both SOs Closed",
+          progress: 100,
+          notification: { title: "Rework Success!", body: "Issue resolved. Customer approved. Original and rework SOs closed.", action: "View" },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">✅</div><div><h3>Customer Approval</h3></div></div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.15); border: 2px solid var(--accent-green); text-align: center;">
+                    <div style="font-size: 3rem;">✅</div>
+                    <h4 style="color: var(--accent-green);">Issue Resolved!</h4>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Oven door now working perfectly</p>
+                  </div>
+                  <div style="background: rgba(70, 211, 138, 0.15); border: 2px dashed var(--accent-green); border-radius: 12px; padding: 1.25rem; text-align: center; margin-top: 1.5rem;">
+                    <p style="font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-muted);">Customer Signature</p>
+                    <div style="font-family: 'Brush Script MT', cursive; font-size: 2rem; color: var(--accent-green); margin-bottom: 0.5rem;">Lisa Chen</div>
+                    <small style="color: var(--text-muted);">Signed: Nov 21, 10:35 AM</small>
+                  </div>
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>Resolution Summary</h4>
+                    <p style="font-size: 0.9rem;">
+                      • Door hinges realigned<br>
+                      • Seal checked and adjusted<br>
+                      • Full testing completed<br>
+                      • Time: 25 minutes<br>
+                      • No charge to customer
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title"><div class="view-icon">🎉</div><div><h3>Service Recovery Complete</h3></div></div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ Rework Completed</h5>
+                      <p>Senior technician fixed alignment issue</p>
+                      <small>Nov 21, 10:35 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ WCF Signed</h5>
+                      <p>Customer approved rework</p>
+                      <small>10:35 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #RW-48100 Closed</h5>
+                      <p>Rework service order completed</p>
+                      <small>10:35:05 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ SO #48100 Closed</h5>
+                      <p>Original service order finalized</p>
+                      <small>10:35:10 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Crew Performance Updated</h5>
+                      <p>Original crew flagged, rework crew rewarded</p>
+                      <small>10:35:15 AM</small>
+                    </div>
+                  </div>
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1); border: 2px solid var(--accent-green); margin-top: 1.5rem;">
+                    <h5 style="color: var(--accent-green);">Rework Metrics</h5>
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>Issue Detected:</strong> Nov 20, 4:30 PM<br>
+                      <strong>Rework Scheduled:</strong> Nov 21, 10:00 AM<br>
+                      <strong>Resolution Time:</strong> 17.5 hours<br>
+                      <strong>Customer Downtime:</strong> Minimized<br>
+                      <strong>Additional Cost:</strong> $0 to customer<br>
+                      <strong>Final Outcome:</strong> Customer satisfied
+                    </div>
+                  </div>
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>🔄 Service Recovery Success</h4>
+                    <p>
+                      YellowGrid's automatic rework system:<br>
+                      • Instant SO creation on WCF rejection<br>
+                      • Expedited scheduling (< 24h)<br>
+                      • Senior crew assignment<br>
+                      • Zero customer friction<br>
+                      • Performance tracking for quality improvement
+                    </p>
+                  </div>
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="resetDemo()">🔄 Try Another Scenario</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.html'">← Back to Home</button>
                   </div>
                 </div>
               </div>
