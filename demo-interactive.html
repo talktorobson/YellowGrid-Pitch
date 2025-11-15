@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YellowGrid Interactive Demo - Walk Through Real Workflows</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --yellow: #ffcb32;
+      --yellow-soft: #ffe79a;
+      --bg-dark: #0f1722;
+      --bg-darker: #070c12;
+      --bg-alt: #131b26;
+      --card-bg: #161f2b;
+      --accent-green: #46d38a;
+      --accent-blue: #4a9eff;
+      --accent-purple: #a78bfa;
+      --accent-orange: #fb923c;
+      --accent-red: #ff6b6b;
+      --text-main: #e5ecf7;
+      --text-muted: #9ba4b5;
+      --border-subtle: #222b39;
+      --shadow-soft: 0 22px 45px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #172133 0, #05070b 55%);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--yellow), #ffdf80);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(255, 203, 50, 0.45);
+      font-weight: 700;
+      color: #1b1305;
+      font-size: 1.2rem;
+    }
+
+    .logo-text h1 {
+      font-size: 1.3rem;
+      font-weight: 650;
+    }
+
+    .logo-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      transition: all var(--transition-fast);
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      background: rgba(255, 203, 50, 0.1);
+      color: var(--yellow);
+    }
+
+    .demo-intro {
+      text-align: center;
+      margin-bottom: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .demo-intro h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+
+    .demo-intro p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .interactive-notice {
+      background: linear-gradient(135deg, rgba(255, 203, 50, 0.15), rgba(255, 203, 50, 0.05));
+      border: 2px solid rgba(255, 203, 50, 0.3);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .interactive-notice h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--yellow);
+    }
+
+    .interactive-notice p {
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    /* Scenario Selection */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .scenario-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-green), #4ade80);
+    }
+
+    .scenario-card.complex::before {
+      background: linear-gradient(90deg, var(--accent-purple), #c4b5fd);
+    }
+
+    .scenario-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--yellow);
+      box-shadow: 0 12px 40px rgba(255, 203, 50, 0.2);
+    }
+
+    .scenario-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .scenario-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .scenario-badge {
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-simple {
+      background: rgba(70, 211, 138, 0.2);
+      color: var(--accent-green);
+    }
+
+    .badge-complex {
+      background: rgba(167, 139, 250, 0.2);
+      color: var(--accent-purple);
+    }
+
+    /* Interactive Demo Area */
+    .demo-area {
+      display: none;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .demo-area.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .demo-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .demo-title-area h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .demo-title-area p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--yellow), #ffd769);
+      color: #1b1305;
+      box-shadow: 0 4px 12px rgba(255, 203, 50, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 203, 50, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-alt);
+      border-color: var(--yellow);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: 2rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--bg-alt);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--yellow), #ffd769);
+      border-radius: 999px;
+      transition: width 0.5s ease-out;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .progress-step.active {
+      background: rgba(255, 203, 50, 0.1);
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    .progress-step.completed {
+      color: var(--accent-green);
+    }
+
+    /* Main Demo Layout */
+    .demo-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .demo-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stakeholder-view {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .view-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .view-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .view-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: rgba(255, 203, 50, 0.15);
+      border: 1px solid rgba(255, 203, 50, 0.3);
+    }
+
+    .view-title h3 {
+      font-size: 1.1rem;
+    }
+
+    .view-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .view-badge {
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-customer {
+      background: rgba(74, 158, 255, 0.2);
+      color: var(--accent-blue);
+    }
+
+    .badge-crew {
+      background: rgba(251, 146, 60, 0.2);
+      color: var(--accent-orange);
+    }
+
+    .badge-operator {
+      background: rgba(167, 139, 250, 0.2);
+      color: var(--accent-purple);
+    }
+
+    .view-content {
+      padding: 1.5rem;
+    }
+
+    /* Mobile App Mockup */
+    .mobile-mockup {
+      background: #000;
+      border-radius: 30px;
+      padding: 12px;
+      max-width: 360px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-screen {
+      background: var(--bg-darker);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .mobile-status-bar {
+      height: 44px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem;
+      font-size: 0.75rem;
+    }
+
+    .mobile-content {
+      padding: 1rem;
+      min-height: 500px;
+    }
+
+    .mobile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .mobile-header h4 {
+      font-size: 1.3rem;
+    }
+
+    .notification-badge {
+      background: var(--accent-red);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Job Card in Mobile */
+    .job-card-mobile {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .job-card-mobile h5 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .job-detail-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .job-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-mobile {
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-mobile-primary {
+      background: var(--accent-green);
+      color: white;
+    }
+
+    .btn-mobile-secondary {
+      background: var(--bg-alt);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Operator Dashboard */
+    .dashboard-grid {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .stat-change {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .stat-positive {
+      color: var(--accent-green);
+    }
+
+    .stat-negative {
+      color: var(--accent-red);
+    }
+
+    /* Service Order Table */
+    .so-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .so-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .so-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+    }
+
+    .so-table tr:hover {
+      background: rgba(255, 203, 50, 0.05);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .dot-green {
+      background: var(--accent-green);
+    }
+
+    .dot-orange {
+      background: var(--accent-orange);
+    }
+
+    .dot-blue {
+      background: var(--accent-blue);
+    }
+
+    .dot-red {
+      background: var(--accent-red);
+    }
+
+    /* Notification Toast */
+    .notification-toast {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      max-width: 400px;
+      transform: translateX(500px);
+      transition: transform 0.3s ease-out;
+      z-index: 1000;
+    }
+
+    .notification-toast.show {
+      transform: translateX(0);
+    }
+
+    .notification-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: rgba(70, 211, 138, 0.2);
+    }
+
+    .notification-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .notification-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .notification-action {
+      font-size: 0.85rem;
+      color: var(--yellow);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .notification-action:hover {
+      text-decoration: underline;
+    }
+
+    /* Customer Portal */
+    .customer-card {
+      background: var(--bg-alt);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .appointment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1.25rem;
+    }
+
+    .appointment-date {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--yellow);
+    }
+
+    .appointment-month {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .tracking-timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .tracking-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-green), var(--border-subtle));
+    }
+
+    .tracking-step {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .tracking-step::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.25rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 0 4px rgba(70, 211, 138, 0.2);
+    }
+
+    .tracking-step.pending::before {
+      background: var(--border-subtle);
+      box-shadow: 0 0 0 4px rgba(34, 43, 57, 0.5);
+    }
+
+    .tracking-step h5 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .tracking-step p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .tracking-step small {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Info Panel */
+    .info-panel {
+      background: rgba(74, 158, 255, 0.1);
+      border-left: 4px solid var(--accent-blue);
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-panel h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-blue);
+    }
+
+    .info-panel p {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Animations */
+    .pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <div class="logo-mark">YG</div>
+        <div class="logo-text">
+          <h1>YellowGrid Interactive Demo</h1>
+          <p>Experience the Platform</p>
+        </div>
+      </div>
+      <a href="index.html" class="back-link">
+        ← Back to Home
+      </a>
+    </div>
+
+    <div class="demo-intro">
+      <h2>Step Into Each Stakeholder's Shoes</h2>
+      <p>Experience YellowGrid from three perspectives: see what customers track, how crews work in the field, and what operators manage in the control tower. Click through real workflows step by step.</p>
+    </div>
+
+    <div class="interactive-notice">
+      <h3>🎮 Fully Interactive Demo</h3>
+      <p>Click buttons, advance through steps, and see how actions trigger the next stakeholder in real-time</p>
+    </div>
+
+    <!-- Scenario Selection -->
+    <div id="scenarioSelection" class="scenario-grid">
+      <div class="scenario-card" onclick="startDemo('simple')">
+        <div class="scenario-icon">🔧</div>
+        <h3>Simple Installation</h3>
+        <p>Customer orders dishwasher. See the complete journey from order to installation and WCF signature.</p>
+        <span class="scenario-badge badge-simple">Interactive</span>
+      </div>
+
+      <div class="scenario-card complex" onclick="startDemo('complex')">
+        <div class="scenario-icon">🏗️</div>
+        <h3>Complex Multi-Service</h3>
+        <p>Full kitchen renovation with 8 service orders, multiple crews, quality gates, and sequenced execution.</p>
+        <span class="scenario-badge badge-complex">Advanced</span>
+      </div>
+
+      <div class="scenario-card" onclick="alert('Coming soon! Explore the Simple Installation first.')">
+        <div class="scenario-icon">🔄</div>
+        <h3>Rework Scenario</h3>
+        <p>Installation fails WCF. See how the platform handles service recovery and customer satisfaction.</p>
+        <span class="scenario-badge badge-simple">Coming Soon</span>
+      </div>
+    </div>
+
+    <!-- Interactive Demo Area - Simple Installation -->
+    <div id="demoSimple" class="demo-area">
+      <div class="demo-controls">
+        <div class="demo-title-area">
+          <h2>Simple Installation: Dishwasher</h2>
+          <p>Complete workflow from customer order to signed WCF</p>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-secondary" onclick="resetDemo()">← Choose Different Scenario</button>
+          <button class="btn btn-primary" onclick="nextStep()" id="nextBtn">
+            Next Step →
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div class="progress-steps">
+          <div class="progress-step active" id="step0">Order</div>
+          <div class="progress-step" id="step1">Matching</div>
+          <div class="progress-step" id="step2">Schedule</div>
+          <div class="progress-step" id="step3">Install</div>
+          <div class="progress-step" id="step4">Complete</div>
+        </div>
+      </div>
+
+      <!-- Current Step Content -->
+      <div id="stepContent"></div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification-toast" id="notificationToast">
+      <div class="notification-header">
+        <div class="notification-icon" id="notifIcon">✓</div>
+        <div>
+          <div class="notification-title" id="notifTitle">Action Completed</div>
+        </div>
+      </div>
+      <div class="notification-body" id="notifBody"></div>
+      <div class="notification-action" id="notifAction"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let currentDemo = '';
+
+    const stepContent = {
+      simple: [
+        // Step 0: Customer places order
+        {
+          title: "Customer Places Order",
+          progress: 0,
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛒</div>
+                    <div>
+                      <h3>Customer View</h3>
+                      <p>In-Store Experience</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Purchase Summary</h4>
+
+                  <div class="customer-card">
+                    <h5 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Bosch Serie 4 Dishwasher</h5>
+                    <div class="job-detail-row">
+                      <span>📦</span>
+                      <span>Model: SMV4HTX31E</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>💰</span>
+                      <span>Price: $899 + Installation $150</span>
+                    </div>
+                    <div class="job-detail-row">
+                      <span>📍</span>
+                      <span>Delivery: 123 Main St, Apt 4B</span>
+                    </div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                      <p style="font-size: 0.9rem; color: var(--text-muted);">
+                        ✓ Professional installation included<br>
+                        ✓ You'll receive installation date within 24 hours
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>What happens next?</h4>
+                    <p>Your installation is being automatically scheduled. You'll receive an SMS with your appointment details shortly.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎯</div>
+                    <div>
+                      <h3>Behind the Scenes</h3>
+                      <p>YellowGrid Processing</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Automated Workflow</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ Order Received</h5>
+                      <p>POS system sent order to YellowGrid</p>
+                      <small>2:30 PM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Service Order Created</h5>
+                      <p>SO #45812 generated for dishwasher installation</p>
+                      <small>2:30:15 PM</small>
+                    </div>
+                    <div class="tracking-step pending">
+                      <h5>⏳ Crew Matching</h5>
+                      <p>Finding qualified crew in Zone 2...</p>
+                      <small>In progress...</small>
+                    </div>
+                  </div>
+
+                  <div class="info-panel">
+                    <h4>💡 What's Happening</h4>
+                    <p>YellowGrid is analyzing available crews based on: location (Zone 2), skills (plumbing), certifications, and performance score. This happens automatically in seconds.</p>
+                  </div>
+
+                  <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="nextStep()">
+                      🎯 Watch Crew Matching →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        // Step 1: Crew Matching
+        {
+          title: "Crew Matching & Assignment",
+          progress: 25,
+          notification: {
+            title: "Crew Matched!",
+            body: "Crew A from Provider L has been assigned to installation #45812",
+            action: "View details"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎯</div>
+                    <div>
+                      <h3>Operator View</h3>
+                      <p>Matching Engine Results</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Crew Matching Results</h4>
+
+                  <table class="so-table">
+                    <thead>
+                      <tr>
+                        <th>Crew</th>
+                        <th>Zone</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="background: rgba(70, 211, 138, 0.1);">
+                        <td><strong>Crew A - Provider L</strong></td>
+                        <td>Zone 2 ✓</td>
+                        <td><span style="color: var(--accent-green);">92/100</span></td>
+                        <td><span class="status-dot dot-green"></span>Selected</td>
+                      </tr>
+                      <tr>
+                        <td>Crew B - Provider M</td>
+                        <td>Zone 2 ✓</td>
+                        <td>87/100</td>
+                        <td><span class="status-dot dot-orange"></span>Available</td>
+                      </tr>
+                      <tr style="opacity: 0.6;">
+                        <td>Crew F - Provider K</td>
+                        <td>Zone 3 ✗</td>
+                        <td>89/100</td>
+                        <td><span class="status-dot dot-red"></span>Filtered out</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>Why Crew A?</h4>
+                    <p>
+                      <strong>Top scorer:</strong> 92/100 based on:<br>
+                      ✓ Zone 2 coverage (perfect match)<br>
+                      ✓ Plumbing skills certified<br>
+                      ✓ Performance: 96% on-time completion<br>
+                      ✓ Available Nov 18, 10:00 AM<br>
+                      ✓ No buffer violations
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">👷</div>
+                    <div>
+                      <h3>Crew Notification</h3>
+                      <p>Provider L Dashboard</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Crew</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>9:41</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div class="mobile-header">
+                          <h4>New Assignment</h4>
+                          <div class="notification-badge">1</div>
+                        </div>
+
+                        <div class="job-card-mobile">
+                          <h5>🔔 New Job Assigned</h5>
+                          <div class="job-detail-row">
+                            <span>📦</span>
+                            <span>Dishwasher Installation</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📅</span>
+                            <span>Nov 18, 2025 - 10:00 AM</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📍</span>
+                            <span>123 Main St, Zone 2 (8.2 km)</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Estimated: 2 hours</span>
+                          </div>
+                          <div class="job-actions">
+                            <button class="btn-mobile-primary">Accept</button>
+                            <button class="btn-mobile-secondary">View Details</button>
+                          </div>
+                        </div>
+
+                        <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+                          Auto-accept in 2 hours if no action
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        // Step 2: Scheduled & Customer Notified
+        {
+          title: "Scheduled & Customer Notified",
+          progress: 50,
+          notification: {
+            title: "Installation Scheduled",
+            body: "Customer has been notified via SMS. Appointment confirmed for Nov 18 at 10:00 AM",
+            action: "View customer notification"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">📱</div>
+                    <div>
+                      <h3>Customer View</h3>
+                      <p>SMS & Tracking Portal</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">SMS Notification Received</h4>
+
+                  <div class="customer-card" style="background: rgba(74, 158, 255, 0.1); border: 2px solid rgba(74, 158, 255, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                      <span style="font-size: 2rem;">💬</span>
+                      <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">From: YellowGrid</div>
+                        <div style="font-size: 0.85rem;">Today 2:32 PM</div>
+                      </div>
+                    </div>
+                    <p style="line-height: 1.6; font-size: 0.95rem;">
+                      Hi Sarah! Your dishwasher installation is scheduled for <strong>Monday, Nov 18 at 10:00 AM</strong>.
+                      Technician John from Crew A will call 30 min before arrival. Track your appointment:
+                      <span style="color: var(--accent-blue);">track.yellowgrid.app/45812</span>
+                    </p>
+                  </div>
+
+                  <h4 style="margin: 1.5rem 0 1rem;">Tracking Portal</h4>
+
+                  <div class="customer-card">
+                    <div class="appointment-header">
+                      <div>
+                        <div class="appointment-date">18</div>
+                        <div class="appointment-month">November</div>
+                      </div>
+                      <div style="text-align: right;">
+                        <div style="font-size: 1.5rem; font-weight: 700;">10:00 AM</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">2 hour window</div>
+                      </div>
+                    </div>
+
+                    <div class="tracking-timeline">
+                      <div class="tracking-step">
+                        <h5>Order Confirmed</h5>
+                        <p>Dishwasher purchased in-store</p>
+                        <small>Nov 15, 2:30 PM</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>Installation Scheduled</h5>
+                        <p>Crew A assigned - John Silva, Certified Technician</p>
+                        <small>Nov 15, 2:32 PM</small>
+                      </div>
+                      <div class="tracking-step pending">
+                        <h5>Installation Day</h5>
+                        <p>Technician will arrive between 10:00-12:00 AM</p>
+                        <small>Nov 18 - Upcoming</small>
+                      </div>
+                      <div class="tracking-step pending">
+                        <h5>Completion & Sign-off</h5>
+                        <p>Review work and sign digitally</p>
+                        <small>Pending</small>
+                      </div>
+                    </div>
+
+                    <div class="info-panel">
+                      <h4>Need to reschedule?</h4>
+                      <p>Call us at 1-800-YELLOW-G or reply to the SMS</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Operator Control Tower</h3>
+                      <p>Today's Schedule</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="stat-card">
+                      <div class="stat-label">Scheduled Today</div>
+                      <div class="stat-value">24</div>
+                      <div class="stat-change stat-positive">↑ 12% vs yesterday</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-label">On-time Rate</div>
+                      <div class="stat-value">94%</div>
+                      <div class="stat-change stat-positive">↑ 2% this week</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-label">At Risk</div>
+                      <div class="stat-value">3</div>
+                      <div class="stat-change stat-negative">↓ 5 resolved</div>
+                    </div>
+                  </div>
+
+                  <h4 style="margin: 1.5rem 0 1rem;">Upcoming - Nov 18</h4>
+
+                  <table class="so-table">
+                    <thead>
+                      <tr>
+                        <th>Time</th>
+                        <th>Service Order</th>
+                        <th>Crew</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="background: rgba(255, 203, 50, 0.1);">
+                        <td>10:00 AM</td>
+                        <td><strong>#45812 - Dishwasher</strong></td>
+                        <td>Crew A</td>
+                        <td><span class="status-dot dot-blue"></span>Scheduled</td>
+                      </tr>
+                      <tr>
+                        <td>11:30 AM</td>
+                        <td>#45820 - Oven Install</td>
+                        <td>Crew B</td>
+                        <td><span class="status-dot dot-blue"></span>Scheduled</td>
+                      </tr>
+                      <tr>
+                        <td>2:00 PM</td>
+                        <td>#45789 - Kitchen Rework</td>
+                        <td>Crew D</td>
+                        <td><span class="status-dot dot-orange"></span>At Risk</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>All systems ready for Nov 18</h4>
+                    <p>No conflicts detected. All crews confirmed. Customer notifications sent.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        // Step 3: Installation Day
+        {
+          title: "Installation Day - Field Execution",
+          progress: 75,
+          notification: {
+            title: "Crew Checked In",
+            body: "John from Crew A has checked in at customer location. Installation in progress.",
+            action: "Monitor installation"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">👷</div>
+                    <div>
+                      <h3>Crew Mobile App</h3>
+                      <p>Field Execution</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-crew">Crew Lead</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>10:05</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <div class="mobile-header">
+                          <h4>Active Job</h4>
+                          <div style="background: var(--accent-green); padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.75rem;">
+                            IN PROGRESS
+                          </div>
+                        </div>
+
+                        <div class="job-card-mobile">
+                          <h5>SO #45812 - Dishwasher Installation</h5>
+                          <div class="job-detail-row">
+                            <span>👤</span>
+                            <span>Customer: Sarah Johnson</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📍</span>
+                            <span>123 Main St, Apt 4B</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>📦</span>
+                            <span>Bosch Serie 4 SMV4HTX31E</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Checked in: 10:05 AM</span>
+                          </div>
+                        </div>
+
+                        <h5 style="margin: 1rem 0 0.75rem; font-size: 0.95rem;">Checklist</h5>
+                        <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem;">
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Check-in at location</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Verify product on-site</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" checked disabled style="width: 18px; height: 18px;">
+                              <span style="text-decoration: line-through; color: var(--text-muted);">Disconnect old unit</span>
+                            </label>
+                          </div>
+                          <div style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" style="width: 18px; height: 18px;">
+                              <span class="pulse">Install new dishwasher</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                              <input type="checkbox" style="width: 18px; height: 18px;">
+                              <span>Test all cycles</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="job-actions" style="margin-top: 1rem;">
+                          <button class="btn-mobile-primary">📸 Add Photo</button>
+                          <button class="btn-mobile-secondary">📝 Add Note</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🛰</div>
+                    <div>
+                      <h3>Live Operator View</h3>
+                      <p>Real-time Monitoring</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">Operator</span>
+                </div>
+                <div class="view-content">
+                  <h4 style="margin-bottom: 1rem;">Active Installations - Live</h4>
+
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.1); border: 2px solid var(--accent-green);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                      <div>
+                        <h5 style="font-size: 1.1rem;">#45812 - Dishwasher Installation</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Sarah Johnson, 123 Main St</p>
+                      </div>
+                      <div style="background: var(--accent-green); padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;">
+                        IN PROGRESS
+                      </div>
+                    </div>
+
+                    <div class="tracking-timeline">
+                      <div class="tracking-step">
+                        <h5>✅ Crew Dispatched</h5>
+                        <p>John left depot at 9:45 AM</p>
+                        <small>9:45 AM</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>✅ Checked In</h5>
+                        <p>Arrived on-site, customer greeted</p>
+                        <small>10:05 AM</small>
+                      </div>
+                      <div class="tracking-step">
+                        <h5>🔨 Installation Active</h5>
+                        <p>Progress: 60% complete</p>
+                        <small>10:42 AM - Now</small>
+                      </div>
+                      <div class="tracking-step pending">
+                        <h5>⏳ Testing & WCF</h5>
+                        <p>Estimated completion: 11:30 AM</p>
+                        <small>Upcoming</small>
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-alt); border-radius: 12px;">
+                      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Time on Site</span>
+                        <span style="font-size: 0.9rem; font-weight: 600;">37 minutes</span>
+                      </div>
+                      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Est. Completion</span>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green);">On Track</span>
+                      </div>
+                      <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Photos Uploaded</span>
+                        <span style="font-size: 0.9rem; font-weight: 600;">3</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>📊 Today's Progress</h4>
+                    <p>
+                      <strong>Completed:</strong> 8 installations<br>
+                      <strong>In Progress:</strong> 3 installations (including this one)<br>
+                      <strong>Scheduled:</strong> 13 remaining today<br>
+                      <strong>On-time Rate:</strong> 95% (above target)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        // Step 4: WCF & Completion
+        {
+          title: "Work Closing Form & Completion",
+          progress: 100,
+          notification: {
+            title: "Installation Complete!",
+            body: "Customer signed WCF. Service order closed successfully. Payment processed.",
+            action: "View completion report"
+          },
+          content: `
+            <div class="demo-layout">
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">✅</div>
+                    <div>
+                      <h3>Customer Signature</h3>
+                      <p>Digital WCF on Crew Tablet</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-customer">Customer</span>
+                </div>
+                <div class="view-content">
+                  <div class="mobile-mockup">
+                    <div class="mobile-screen">
+                      <div class="mobile-status-bar">
+                        <span>11:28</span>
+                        <span>⚡ 📶 ●●●●</span>
+                      </div>
+                      <div class="mobile-content">
+                        <h4 style="margin-bottom: 1rem; text-align: center;">Work Closing Form</h4>
+
+                        <div class="customer-card">
+                          <h5 style="margin-bottom: 0.75rem;">Installation Summary</h5>
+                          <div class="job-detail-row">
+                            <span>📦</span>
+                            <span>Dishwasher - Bosch Serie 4</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>👷</span>
+                            <span>Technician: John Silva</span>
+                          </div>
+                          <div class="job-detail-row">
+                            <span>⏱</span>
+                            <span>Duration: 1h 23min</span>
+                          </div>
+                        </div>
+
+                        <h5 style="margin: 1rem 0 0.75rem;">Work Completed</h5>
+                        <div style="background: var(--bg-alt); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+                          <p style="font-size: 0.85rem; line-height: 1.6;">
+                            ✓ Disconnected old dishwasher<br>
+                            ✓ Installed Bosch Serie 4 unit<br>
+                            ✓ Connected water supply & drainage<br>
+                            ✓ Tested all cycles - working perfectly<br>
+                            ✓ Cleaned installation area<br>
+                            ✓ Demonstrated operation to customer
+                          </p>
+                        </div>
+
+                        <h5 style="margin-bottom: 0.75rem;">Photos (3)</h5>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                          <div style="aspect-ratio: 1; background: var(--bg-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📸</div>
+                        </div>
+
+                        <div style="background: rgba(70, 211, 138, 0.15); border: 2px dashed var(--accent-green); border-radius: 12px; padding: 1.25rem; text-align: center;">
+                          <p style="font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-muted);">Customer Signature</p>
+                          <div style="font-family: 'Brush Script MT', cursive; font-size: 2rem; color: var(--accent-green); margin-bottom: 0.5rem;">
+                            Sarah Johnson
+                          </div>
+                          <small style="color: var(--text-muted);">Signed: Nov 18, 2025 11:28 AM</small>
+                        </div>
+
+                        <div style="margin-top: 1rem; text-align: center;">
+                          <p style="font-size: 0.85rem; color: var(--accent-green); font-weight: 600;">
+                            ✓ Work Accepted - Thank you!
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stakeholder-view">
+                <div class="view-header">
+                  <div class="view-title">
+                    <div class="view-icon">🎉</div>
+                    <div>
+                      <h3>Service Order Closed</h3>
+                      <p>All Stakeholders Updated</p>
+                    </div>
+                  </div>
+                  <span class="view-badge badge-operator">System</span>
+                </div>
+                <div class="view-content">
+                  <div class="customer-card" style="background: rgba(70, 211, 138, 0.15); border: 2px solid var(--accent-green);">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                      <div style="font-size: 3rem; margin-bottom: 0.5rem;">✅</div>
+                      <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-green);">Installation Complete!</h4>
+                      <p style="color: var(--text-muted);">SO #45812 closed successfully</p>
+                    </div>
+                  </div>
+
+                  <h4 style="margin: 1.5rem 0 1rem;">Automated Actions Triggered</h4>
+
+                  <div class="tracking-timeline">
+                    <div class="tracking-step">
+                      <h5>✅ WCF Uploaded to ERP</h5>
+                      <p>Document sent to backend system with photos</p>
+                      <small>11:28 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Payment Released</h5>
+                      <p>$150 installation fee released to Provider L</p>
+                      <small>11:29 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Customer Notified</h5>
+                      <p>Thank you SMS sent with warranty info</p>
+                      <small>11:29 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Crew Performance Updated</h5>
+                      <p>Crew A: On-time completion, customer satisfaction</p>
+                      <small>11:30 AM</small>
+                    </div>
+                    <div class="tracking-step">
+                      <h5>✅ Next Job Notified</h5>
+                      <p>Crew A's next appointment starts at 1:00 PM</p>
+                      <small>11:30 AM</small>
+                    </div>
+                  </div>
+
+                  <div class="info-panel" style="margin-top: 1.5rem;">
+                    <h4>📊 Project Metrics</h4>
+                    <p>
+                      <strong>Start to Finish:</strong> 3 days (order to completion)<br>
+                      <strong>Installation Time:</strong> 1h 23min (under estimate)<br>
+                      <strong>Customer Satisfaction:</strong> Signed first try<br>
+                      <strong>Provider Score Impact:</strong> Crew A +2 points
+                    </p>
+                  </div>
+
+                  <div class="action-buttons" style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="resetDemo()">
+                      🔄 Try Another Scenario
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                      ← Back to Home
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ]
+    };
+
+    function startDemo(type) {
+      currentDemo = type;
+      currentStep = 0;
+      document.getElementById('scenarioSelection').style.display = 'none';
+      document.getElementById('demoSimple').classList.add('active');
+      renderStep();
+    }
+
+    function resetDemo() {
+      currentDemo = '';
+      currentStep = 0;
+      document.getElementById('scenarioSelection').style.display = 'grid';
+      document.getElementById('demoSimple').classList.remove('active');
+      hideNotification();
+    }
+
+    function nextStep() {
+      if (currentStep < stepContent[currentDemo].length - 1) {
+        currentStep++;
+        renderStep();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function renderStep() {
+      const step = stepContent[currentDemo][currentStep];
+
+      // Update progress bar
+      document.getElementById('progressFill').style.width = step.progress + '%';
+
+      // Update step indicators
+      for (let i = 0; i < 5; i++) {
+        const stepEl = document.getElementById('step' + i);
+        stepEl.classList.remove('active', 'completed');
+        if (i < currentStep) {
+          stepEl.classList.add('completed');
+        } else if (i === currentStep) {
+          stepEl.classList.add('active');
+        }
+      }
+
+      // Update content
+      document.getElementById('stepContent').innerHTML = step.content;
+      document.getElementById('stepContent').classList.add('fade-in');
+
+      // Update next button
+      const nextBtn = document.getElementById('nextBtn');
+      if (currentStep === stepContent[currentDemo].length - 1) {
+        nextBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'inline-flex';
+      }
+
+      // Show notification if exists
+      if (step.notification) {
+        setTimeout(() => showNotification(step.notification), 800);
+      }
+    }
+
+    function showNotification(notif) {
+      document.getElementById('notifTitle').textContent = notif.title;
+      document.getElementById('notifBody').textContent = notif.body;
+      document.getElementById('notifAction').textContent = notif.action;
+      document.getElementById('notificationToast').classList.add('show');
+
+      setTimeout(() => {
+        hideNotification();
+      }, 5000);
+    }
+
+    function hideNotification() {
+      document.getElementById('notificationToast').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
