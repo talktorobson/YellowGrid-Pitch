@@ -29,6 +29,9 @@
       margin: 0;
       padding: 0;
     }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
@@ -135,9 +138,70 @@
     .nav-links a {
       color: var(--text-muted);
       padding: 0.2rem 0;
+      position: relative;
+      transition: color var(--transition-fast);
     }
     .nav-links a:hover {
       color: #f7fbff;
+    }
+    .nav-links a.active {
+      color: var(--yellow);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--yellow);
+      transition: width var(--transition-fast);
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background: rgba(5, 10, 18, 0.98);
+        backdrop-filter: blur(22px);
+        flex-direction: column;
+        padding: 5rem 2rem 2rem;
+        gap: 2rem;
+        align-items: flex-start;
+        transition: right 0.3s ease-out;
+        box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .nav-links.active {
+        right: 0;
+      }
+      .nav-links a {
+        font-size: 1.1rem;
+        width: 100%;
+      }
+      .nav-links .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
     .pill {
       border-radius: var(--radius-pill);
@@ -795,6 +859,85 @@
     .footer-cta small {
       font-size: 0.75rem;
     }
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow), #ffd769);
+      color: #1b1305;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 14px 36px rgba(255, 203, 50, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+      z-index: 100;
+    }
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(255, 203, 50, 0.5);
+    }
+    /* Enhanced button styles */
+    .btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn:active::before {
+      width: 300px;
+      height: 300px;
+    }
+    /* Focus styles for accessibility */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: 4px;
+    }
+    /* Loading animation for demo */
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    .grid-slot--assigned .grid-slot-dot {
+      animation: pulse 2s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
@@ -821,7 +964,10 @@
               <div class="logo-text-sub">Service execution</div>
             </div>
           </div>
-          <div class="nav-links">
+          <button class="mobile-menu-btn" aria-label="Toggle menu">
+            ☰
+          </button>
+          <div class="nav-links" id="navLinks">
             <a href="#problem">Problem</a>
             <a href="#how">How it works</a>
             <a href="#modules">Modules</a>
@@ -978,11 +1124,11 @@
         </div>
       </section>
       <!-- Problem & value -->
-      <section id="problem">
+      <section id="problem" class="fade-in">
         <div class="max-w">
           <div class="section-header">
             <div class="section-eyebrow">Why YellowGrid</div>
-            <h2 class="section-title">The mess between “sold” and “installed”.</h2>
+            <h2 class="section-title">The mess between "sold" and "installed".</h2>
             <p class="section-subtitle">
               Sales promise dates. Providers juggle WhatsApp and spreadsheets.
               Ops teams fight fires. YellowGrid takes the chaos after the sale and
@@ -1062,7 +1208,7 @@
         </div>
       </section>
       <!-- How it works -->
-      <section id="how">
+      <section id="how" class="fade-in">
         <div class="max-w">
           <div class="section-header">
             <div class="section-eyebrow">How it works</div>
@@ -1140,7 +1286,7 @@
         </div>
       </section>
       <!-- Modules -->
-      <section id="modules">
+      <section id="modules" class="fade-in">
         <div class="max-w">
           <div class="section-header">
             <div class="section-eyebrow">Product overview</div>
@@ -1229,7 +1375,7 @@
         </div>
       </section>
       <!-- Demo teaser -->
-      <section id="demo">
+      <section id="demo" class="fade-in">
         <div class="max-w demo-section">
           <div class="demo-copy">
             <h3>See the grid in action.</h3>
@@ -1372,5 +1518,120 @@
       </div>
     </footer>
   </div>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-to-top" aria-label="Scroll to top">
+    ↑
+  </button>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      const isOpen = navLinks.classList.contains('active');
+      mobileMenuBtn.textContent = isOpen ? '✕' : '☰';
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.textContent = '☰';
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.textContent = '☰';
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Scroll to top button
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Scroll animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    fadeElements.forEach(element => {
+      observer.observe(element);
+    });
+
+    // Active navigation highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === `#${current}`) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Enhanced button ripple effect on click
+    document.querySelectorAll('.btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+
+        this.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+  </script>
 </body>
 </html>
