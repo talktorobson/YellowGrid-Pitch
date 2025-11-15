@@ -695,7 +695,7 @@
             display: none !important;
         }
 
-        /* Table Styles - add these from the original */
+        /* Table Styles */
         .table-container {
             background: white;
             border-radius: 0.5rem;
@@ -892,6 +892,245 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            animation: fadeIn 0.2s;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0.25rem;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #1f2937;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .info-value {
+            color: #1f2937;
+            font-size: 0.875rem;
+        }
+
+        .tech-option {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tech-option:hover {
+            border-color: #2563eb;
+            background: #f0f9ff;
+        }
+
+        .tech-option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .tech-skills {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .tech-rating {
+            font-size: 0.875rem;
+            color: #f59e0b;
+        }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .contact-option {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .contact-option:hover {
+            border-color: #2563eb;
+            background: #f0f9ff;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .signature-pad {
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            background: #f9fafb;
+            cursor: crosshair;
+            width: 100%;
+            height: 200px;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
     </style>
 </head>
 <body>
@@ -910,9 +1149,9 @@
             </div>
             <div class="sidebar-icon" onclick="showTab('tasks')" id="btn-tasks" title="Tasks">
                 <i class="fas fa-tasks"></i>
-                <span class="sidebar-badge">12</span>
+                <span class="sidebar-badge" id="tasks-badge">12</span>
             </div>
-            <div class="sidebar-icon" title="Settings">
+            <div class="sidebar-icon" onclick="alert('Settings feature coming soon!')" title="Settings">
                 <i class="fas fa-cog"></i>
             </div>
         </div>
@@ -926,9 +1165,9 @@
                     <span class="badge">AI Assistant Active</span>
                 </div>
                 <div class="header-right">
-                    <div class="bell-icon">
+                    <div class="bell-icon" onclick="alert('No new notifications')">
                         <i class="fas fa-bell"></i>
-                        <span class="bell-badge">12</span>
+                        <span class="bell-badge" id="notification-count">12</span>
                     </div>
                     <div class="avatar">SO</div>
                 </div>
@@ -944,28 +1183,28 @@
                             <div class="metric-header">
                                 <i class="fas fa-file-signature metric-icon"></i>
                             </div>
-                            <div class="metric-value">156</div>
+                            <div class="metric-value" id="metric-prescheduled">156</div>
                             <div class="metric-label">Pre-Scheduled</div>
                         </div>
                         <div class="metric-card green-2">
                             <div class="metric-header">
                                 <i class="fas fa-calendar-check metric-icon"></i>
                             </div>
-                            <div class="metric-value">89</div>
+                            <div class="metric-value" id="metric-scheduled">89</div>
                             <div class="metric-label">Scheduled</div>
                         </div>
                         <div class="metric-card green-3">
                             <div class="metric-header">
                                 <i class="fas fa-tools metric-icon"></i>
                             </div>
-                            <div class="metric-value">34</div>
+                            <div class="metric-value" id="metric-inprogress">34</div>
                             <div class="metric-label">In Progress</div>
                         </div>
                         <div class="metric-card green-4">
                             <div class="metric-header">
                                 <i class="fas fa-file-contract metric-icon"></i>
                             </div>
-                            <div class="metric-value">23</div>
+                            <div class="metric-value" id="metric-wcf">23</div>
                             <div class="metric-label">Awaiting WCF</div>
                         </div>
                     </div>
@@ -978,57 +1217,8 @@
                                 <i class="fas fa-exclamation-circle" style="color: #ef4444;"></i>
                                 Critical Actions
                             </h2>
-                            <div class="card-content">
-                                <div class="alert-item" onclick="quickAction('contact-customer', 'PX-377903', 'Ines Broncano')">
-                                    <div class="alert-left">
-                                        <i class="fas fa-file-signature alert-icon red"></i>
-                                        <div class="alert-text">
-                                            <div class="alert-title">Contract Not Signed (>72h)</div>
-                                            <div class="alert-subtitle">Customer signature needed</div>
-                                        </div>
-                                    </div>
-                                    <div class="alert-count">12</div>
-                                </div>
-                                <div class="alert-item" onclick="quickAction('assign-pro', 'SX-375742', 'Fernando Checa')">
-                                    <div class="alert-left">
-                                        <i class="fas fa-user-slash alert-icon orange"></i>
-                                        <div class="alert-text">
-                                            <div class="alert-title">Pro Allocation Failed</div>
-                                            <div class="alert-subtitle">Manual assignment required</div>
-                                        </div>
-                                    </div>
-                                    <div class="alert-count">8</div>
-                                </div>
-                                <div class="alert-item" onclick="quickAction('pro-no-show', 'SX-379364', 'Jose Leon')">
-                                    <div class="alert-left">
-                                        <i class="fas fa-calendar-times alert-icon red"></i>
-                                        <div class="alert-text">
-                                            <div class="alert-title">Pro No-Show / Late</div>
-                                            <div class="alert-subtitle">Pro didn't check-in on time</div>
-                                        </div>
-                                    </div>
-                                    <div class="alert-count">3</div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-left">
-                                        <i class="fas fa-signature alert-icon yellow"></i>
-                                        <div class="alert-text">
-                                            <div class="alert-title">WCF Not Signed (>48h)</div>
-                                            <div class="alert-subtitle">Customer signature needed</div>
-                                        </div>
-                                    </div>
-                                    <div class="alert-count">7</div>
-                                </div>
-                                <div class="alert-item">
-                                    <div class="alert-left">
-                                        <i class="fas fa-exclamation-triangle alert-icon orange"></i>
-                                        <div class="alert-text">
-                                            <div class="alert-title">WCF Signed with Reserves</div>
-                                            <div class="alert-subtitle">Issues reported - action needed</div>
-                                        </div>
-                                    </div>
-                                    <div class="alert-count">5</div>
-                                </div>
+                            <div class="card-content" id="critical-actions-list">
+                                <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
 
@@ -1038,102 +1228,8 @@
                                 <i class="fas fa-star" style="color: #f59e0b;"></i>
                                 High Priority (Next 24h)
                             </h2>
-                            <div class="card-content">
-                                <div class="priority-task">
-                                    <div class="task-header">
-                                        <div class="task-left">
-                                            <div class="task-id">
-                                                #PX-377903
-                                                <span class="task-badge">CONTRACT</span>
-                                            </div>
-                                            <div class="task-client">Ines Broncano • Bathroom Reno</div>
-                                        </div>
-                                        <div class="task-right">
-                                            <div class="task-value">€3,850</div>
-                                            <div class="task-date">Tomorrow 9 AM</div>
-                                        </div>
-                                    </div>
-                                    <div class="task-actions">
-                                        <button class="task-button" onclick="quickAction('contact-customer', 'PX-377903', 'Ines Broncano')">
-                                            <i class="fas fa-phone"></i> Call
-                                        </button>
-                                        <button class="task-button green">
-                                            <i class="fab fa-whatsapp"></i> Message
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="priority-task">
-                                    <div class="task-header">
-                                        <div class="task-left">
-                                            <div class="task-id">
-                                                #SX-375742
-                                                <span class="task-badge">NO PRO</span>
-                                            </div>
-                                            <div class="task-client">Fernando Checa • Kitchen Cabinets</div>
-                                        </div>
-                                        <div class="task-right">
-                                            <div class="task-value">€1,950</div>
-                                            <div class="task-date">Today 2 PM</div>
-                                        </div>
-                                    </div>
-                                    <div class="task-actions">
-                                        <button class="task-button" onclick="quickAction('assign-pro', 'SX-375742', 'Fernando Checa')">
-                                            <i class="fas fa-user-plus"></i> Assign
-                                        </button>
-                                        <button class="task-button green">
-                                            <i class="fab fa-whatsapp"></i> Message
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="priority-task">
-                                    <div class="task-header">
-                                        <div class="task-left">
-                                            <div class="task-id">
-                                                #SX-379364
-                                                <span class="task-badge">NO-SHOW</span>
-                                            </div>
-                                            <div class="task-client">Jose Leon • Wardrobe Install</div>
-                                        </div>
-                                        <div class="task-right">
-                                            <div class="task-value">€685</div>
-                                            <div class="task-date">Today 10 AM</div>
-                                        </div>
-                                    </div>
-                                    <div class="task-actions">
-                                        <button class="task-button" onclick="quickAction('pro-no-show', 'SX-379364', 'Jose Leon')">
-                                            <i class="fas fa-phone-slash"></i> Handle
-                                        </button>
-                                        <button class="task-button green">
-                                            <i class="fab fa-whatsapp"></i> Message
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="priority-task">
-                                    <div class="task-header">
-                                        <div class="task-left">
-                                            <div class="task-id">
-                                                #SX-379342
-                                                <span class="task-badge">EXTRA COST</span>
-                                            </div>
-                                            <div class="task-client">Antonio Diaz • Plumbing</div>
-                                        </div>
-                                        <div class="task-right">
-                                            <div class="task-value">€820</div>
-                                            <div class="task-date">Today (now)</div>
-                                        </div>
-                                    </div>
-                                    <div class="task-actions">
-                                        <button class="task-button">
-                                            <i class="fas fa-euro-sign"></i> Review
-                                        </button>
-                                        <button class="task-button green">
-                                            <i class="fab fa-whatsapp"></i> Confirm
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="card-content" id="priority-tasks-list">
+                                <!-- Will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -1145,10 +1241,10 @@
                         <div class="table-header">
                             <h2 class="table-title">Service Execution Management</h2>
                             <div class="table-actions">
-                                <button class="btn btn-blue">
+                                <button class="btn btn-blue" onclick="alert('Filter feature coming soon!')">
                                     <i class="fas fa-filter"></i> Filter
                                 </button>
-                                <button class="btn btn-green">
+                                <button class="btn btn-green" onclick="alert('Sort feature coming soon!')">
                                     <i class="fas fa-sort"></i> Sort
                                 </button>
                             </div>
@@ -1167,117 +1263,16 @@
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: 600;">#PX-377903</td>
-                                        <td><span class="status-badge scheduled">Scheduled</span></td>
-                                        <td>Ines Broncano<br><span style="font-size: 0.75rem; color: #6b7280;">+34 696 124 147</span></td>
-                                        <td style="font-size: 0.85rem;">Bathroom Renovation<br><span style="color: #6b7280; font-size: 0.75rem;">Tile + Plumbing + Fixtures</span></td>
-                                        <td style="font-weight: bold; color: #16a34a;">€3,850</td>
-                                        <td style="font-size: 0.8rem;">Tomorrow 9 AM<br>🔍 Not assigned</td>
-                                        <td><span style="color: #dc2626; font-weight: 600; font-size: 0.8rem;">Contract not signed (72h)</span></td>
-                                        <td>
-                                            <div class="action-icons">
-                                                <i class="fas fa-phone action-icon blue" title="Call" onclick="quickAction('contact-customer', 'PX-377903', 'Ines Broncano')"></i>
-                                                <i class="fab fa-whatsapp action-icon green" title="WhatsApp"></i>
-                                                <i class="fas fa-envelope action-icon purple" title="Email"></i>
-                                                <i class="fas fa-file-contract action-icon orange" title="Resend Contract"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: 600;">#SX-375742</td>
-                                        <td><span class="status-badge scheduled">Scheduled</span></td>
-                                        <td>Fernando Checa<br><span style="font-size: 0.75rem; color: #6b7280;">+34 661 975 131</span></td>
-                                        <td style="font-size: 0.85rem;">Kitchen Cabinets<br><span style="color: #6b7280; font-size: 0.75rem;">Installation + Electrical</span></td>
-                                        <td style="font-weight: bold; color: #16a34a;">€1,950</td>
-                                        <td style="font-size: 0.8rem;">Today 2 PM<br>🔍 Assignment needed</td>
-                                        <td><span style="color: #dc2626; font-weight: 600; font-size: 0.8rem;">Auto-assignment failed</span></td>
-                                        <td>
-                                            <div class="action-icons">
-                                                <i class="fas fa-user-plus action-icon blue" title="Assign Pro" onclick="quickAction('assign-pro', 'SX-375742', 'Fernando Checa')"></i>
-                                                <i class="fab fa-whatsapp action-icon green" title="WhatsApp"></i>
-                                                <i class="fas fa-calendar action-icon purple" title="Reschedule"></i>
-                                                <i class="fas fa-phone action-icon orange" title="Call"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: 600;">#SX-379364</td>
-                                        <td><span class="status-badge confirmed">Confirmed</span></td>
-                                        <td>Jose Leon Gañan<br><span style="font-size: 0.75rem; color: #6b7280;">+34 657 569 490</span></td>
-                                        <td style="font-size: 0.85rem;">Wardrobe Install<br><span style="color: #6b7280; font-size: 0.75rem;">Large 3-door custom</span></td>
-                                        <td style="font-weight: bold; color: #16a34a;">€685</td>
-                                        <td style="font-size: 0.8rem;">Today 10 AM<br>👷 Manuel Silva</td>
-                                        <td><span style="color: #dc2626; font-weight: 600; font-size: 0.8rem;">Pro no check-in</span></td>
-                                        <td>
-                                            <div class="action-icons">
-                                                <i class="fas fa-phone action-icon blue" title="Call Pro"></i>
-                                                <i class="fab fa-whatsapp action-icon green" title="WhatsApp"></i>
-                                                <i class="fas fa-user-times action-icon orange" title="Reassign"></i>
-                                                <i class="fas fa-envelope action-icon purple" title="Email"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: 600;">#SX-379342</td>
-                                        <td><span class="status-badge in-progress">In Progress</span></td>
-                                        <td>Antonio Diaz<br><span style="font-size: 0.75rem; color: #6b7280;">+34 676 746 765</span></td>
-                                        <td style="font-size: 0.85rem;">Plumbing Repair<br><span style="color: #6b7280; font-size: 0.75rem;">Water heater install</span></td>
-                                        <td style="font-weight: bold; color: #16a34a;">€820<br><span style="font-size: 0.7rem; color: #dc2626;">+€280</span></td>
-                                        <td style="font-size: 0.8rem;">Today (now)<br>👷 Carlos Mendes</td>
-                                        <td><span style="color: #dc2626; font-weight: 600; font-size: 0.8rem;">Extra cost request</span></td>
-                                        <td>
-                                            <div class="action-icons">
-                                                <i class="fas fa-euro-sign action-icon purple" title="Review Cost"></i>
-                                                <i class="fab fa-whatsapp action-icon green" title="WhatsApp"></i>
-                                                <i class="fas fa-phone action-icon blue" title="Call Pro"></i>
-                                                <i class="fas fa-check action-icon orange" title="Approve"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: 600;">#SX-379363</td>
-                                        <td><span class="status-badge distributed">Distributed</span></td>
-                                        <td>Sonia Alonso<br><span style="font-size: 0.75rem; color: #6b7280;">+34 619 148 443</span></td>
-                                        <td style="font-size: 0.85rem;">Central Heating<br><span style="color: #6b7280; font-size: 0.75rem;">Incident resolution</span></td>
-                                        <td style="font-weight: bold; color: #16a34a;">€420</td>
-                                        <td style="font-size: 0.8rem;">Oct 9, 10 AM<br>⏳ Awaiting acceptance</td>
-                                        <td><span style="color: #f59e0b; font-weight: 600; font-size: 0.8rem;">Awaiting Pro confirm</span></td>
-                                        <td>
-                                            <div class="action-icons">
-                                                <i class="fas fa-clock action-icon blue" title="Monitor"></i>
-                                                <i class="fab fa-whatsapp action-icon green" title="WhatsApp"></i>
-                                                <i class="fas fa-user-plus action-icon purple" title="Reassign"></i>
-                                                <i class="fas fa-phone action-icon orange" title="Call"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: 600;">#SX-380125</td>
-                                        <td><span class="status-badge scheduled">Scheduled</span></td>
-                                        <td>Maria Santos<br><span style="font-size: 0.75rem; color: #6b7280;">+34 689 234 567</span></td>
-                                        <td style="font-size: 0.85rem;">Hardwood Flooring<br><span style="color: #6b7280; font-size: 0.75rem;">Complete installation</span></td>
-                                        <td style="font-weight: bold; color: #16a34a;">€2,340</td>
-                                        <td style="font-size: 0.8rem;">Oct 3, 9 AM<br>👷 João Silva</td>
-                                        <td><span style="color: #10b981; font-weight: 600; font-size: 0.8rem;">On track</span></td>
-                                        <td>
-                                            <div class="action-icons">
-                                                <i class="fas fa-eye action-icon blue" title="View"></i>
-                                                <i class="fab fa-whatsapp action-icon green" title="WhatsApp"></i>
-                                                <i class="fas fa-phone action-icon purple" title="Call"></i>
-                                                <i class="fas fa-calendar action-icon orange" title="Schedule"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="services-table-body">
+                                    <!-- Will be populated by JavaScript -->
                                 </tbody>
                             </table>
                         </div>
                         <div class="table-footer">
-                            <div style="font-size: 0.875rem; color: #374151;">Showing 6 of 302 total tasks</div>
+                            <div style="font-size: 0.875rem; color: #374151;" id="table-info">Showing services...</div>
                             <div class="pagination">
                                 <button><i class="fas fa-chevron-left"></i></button>
-                                <span style="padding: 0 1rem;">Page 1 of 51</span>
+                                <span style="padding: 0 1rem;">Page 1 of 1</span>
                                 <button><i class="fas fa-chevron-right"></i></button>
                             </div>
                         </div>
@@ -1323,16 +1318,16 @@
 
             <div class="chat-quick-actions">
                 <button class="quick-action-btn red" onclick="sendQuickMessage('contracts')">
-                    📝 Contracts
+                    Contracts
                 </button>
                 <button class="quick-action-btn purple" onclick="sendQuickMessage('assign pros')">
-                    👷 Assign Pros
+                    Assign Pros
                 </button>
                 <button class="quick-action-btn blue" onclick="sendQuickMessage('daily summary')">
-                    📊 Daily Summary
+                    Daily Summary
                 </button>
                 <button class="quick-action-btn green" onclick="sendQuickMessage('wcf status')">
-                    ✏️ WCF Status
+                    WCF Status
                 </button>
             </div>
 
@@ -1347,7 +1342,28 @@
         </div>
     </div>
 
+    <!-- Modals will be inserted here dynamically -->
+    <div id="modal-container"></div>
+
+    <!-- State Management Script -->
+    <script src="yellowgrid-state.js"></script>
+
     <script>
+        // Global state reference
+        let state = window.ygState;
+
+        // Initialize UI on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshDashboard();
+            refreshServiceTable();
+        });
+
+        // Listen for state changes
+        window.addEventListener('yellowgrid-state-changed', function() {
+            refreshDashboard();
+            refreshServiceTable();
+        });
+
         // Tab Management
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
@@ -1359,6 +1375,677 @@
             });
             const targetBtn = document.getElementById('btn-' + tabName);
             if (targetBtn) targetBtn.classList.add('active');
+        }
+
+        // Refresh Dashboard Metrics
+        function refreshDashboard() {
+            const services = state.getAllServices();
+
+            // Update metrics
+            const scheduled = services.filter(s => s.status === 'scheduled').length;
+            const inProgress = services.filter(s => s.status === 'in_progress').length;
+            const awaitingWCF = services.filter(s => s.status === 'awaiting_wcf').length;
+
+            document.getElementById('metric-scheduled').textContent = scheduled;
+            document.getElementById('metric-inprogress').textContent = inProgress;
+            document.getElementById('metric-wcf').textContent = awaitingWCF;
+
+            // Refresh critical actions
+            refreshCriticalActions();
+
+            // Refresh priority tasks
+            refreshPriorityTasks();
+        }
+
+        // Refresh Critical Actions
+        function refreshCriticalActions() {
+            const container = document.getElementById('critical-actions-list');
+            const services = state.getAllServices();
+
+            // Count critical issues
+            const unsignedContracts = services.filter(s => !s.contractSigned && s.status === 'scheduled').length;
+            const noProAssigned = services.filter(s => !s.technician && s.status === 'scheduled').length;
+            const awaitingWCF = services.filter(s => s.status === 'awaiting_wcf').length;
+
+            container.innerHTML = `
+                <div class="alert-item" onclick="handleCriticalAction('unsigned-contracts')">
+                    <div class="alert-left">
+                        <i class="fas fa-file-signature alert-icon red"></i>
+                        <div class="alert-text">
+                            <div class="alert-title">Contract Not Signed (>72h)</div>
+                            <div class="alert-subtitle">Customer signature needed</div>
+                        </div>
+                    </div>
+                    <div class="alert-count">${unsignedContracts}</div>
+                </div>
+                <div class="alert-item" onclick="handleCriticalAction('no-pro-assigned')">
+                    <div class="alert-left">
+                        <i class="fas fa-user-slash alert-icon orange"></i>
+                        <div class="alert-text">
+                            <div class="alert-title">Pro Allocation Failed</div>
+                            <div class="alert-subtitle">Manual assignment required</div>
+                        </div>
+                    </div>
+                    <div class="alert-count">${noProAssigned}</div>
+                </div>
+                <div class="alert-item" onclick="handleCriticalAction('no-show')">
+                    <div class="alert-left">
+                        <i class="fas fa-calendar-times alert-icon red"></i>
+                        <div class="alert-text">
+                            <div class="alert-title">Pro No-Show / Late</div>
+                            <div class="alert-subtitle">Pro didn't check-in on time</div>
+                        </div>
+                    </div>
+                    <div class="alert-count">3</div>
+                </div>
+                <div class="alert-item" onclick="handleCriticalAction('wcf-unsigned')">
+                    <div class="alert-left">
+                        <i class="fas fa-signature alert-icon yellow"></i>
+                        <div class="alert-text">
+                            <div class="alert-title">WCF Not Signed (>48h)</div>
+                            <div class="alert-subtitle">Customer signature needed</div>
+                        </div>
+                    </div>
+                    <div class="alert-count">${awaitingWCF}</div>
+                </div>
+            `;
+        }
+
+        // Refresh Priority Tasks
+        function refreshPriorityTasks() {
+            const container = document.getElementById('priority-tasks-list');
+            const services = state.getAllServices();
+
+            // Get high priority services (unsigned contracts, no pro, etc.)
+            const priorityServices = services.filter(s =>
+                !s.contractSigned || !s.technician
+            ).slice(0, 5);
+
+            container.innerHTML = priorityServices.map(service => {
+                const badge = !service.contractSigned ? 'CONTRACT' :
+                             !service.technician ? 'NO PRO' : 'URGENT';
+                const badgeColor = !service.contractSigned ? 'CONTRACT' : 'NO PRO';
+
+                return `
+                    <div class="priority-task">
+                        <div class="task-header">
+                            <div class="task-left">
+                                <div class="task-id">
+                                    #${service.id}
+                                    <span class="task-badge">${badge}</span>
+                                </div>
+                                <div class="task-client">${service.customer.name} • ${service.type}</div>
+                            </div>
+                            <div class="task-right">
+                                <div class="task-value">€${service.pricing.amount.toFixed(0)}</div>
+                                <div class="task-date">${formatDate(service.schedule.date)}</div>
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="task-button" onclick="openContactCustomerModal('${service.id}')">
+                                <i class="fas fa-phone"></i> Call
+                            </button>
+                            <button class="task-button green" onclick="contactCustomer('${service.id}', 'whatsapp')">
+                                <i class="fab fa-whatsapp"></i> Message
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Refresh Service Table
+        function refreshServiceTable() {
+            const tbody = document.getElementById('services-table-body');
+            const services = state.getAllServices();
+
+            tbody.innerHTML = services.map(service => {
+                const statusClass = service.status.replace('_', '-');
+                const statusText = service.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+                let actionNeeded = 'On track';
+                let actionColor = '#10b981';
+
+                if (!service.contractSigned) {
+                    actionNeeded = 'Contract not signed (72h)';
+                    actionColor = '#dc2626';
+                } else if (!service.technician && service.status === 'scheduled') {
+                    actionNeeded = 'Auto-assignment failed';
+                    actionColor = '#dc2626';
+                } else if (service.status === 'awaiting_wcf') {
+                    actionNeeded = 'Awaiting WCF signature';
+                    actionColor = '#f59e0b';
+                }
+
+                return `
+                    <tr>
+                        <td style="font-weight: 600;">#${service.id}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>${service.customer.name}<br><span style="font-size: 0.75rem; color: #6b7280;">${service.customer.phone}</span></td>
+                        <td style="font-size: 0.85rem;">${service.type}</td>
+                        <td style="font-weight: bold; color: #16a34a;">€${service.pricing.amount.toFixed(0)}</td>
+                        <td style="font-size: 0.8rem;">${formatDate(service.schedule.date)}<br>${service.technician ? '👷 ' + service.technician.name : '🔍 Not assigned'}</td>
+                        <td><span style="color: ${actionColor}; font-weight: 600; font-size: 0.8rem;">${actionNeeded}</span></td>
+                        <td>
+                            <div class="action-icons">
+                                <i class="fas fa-eye action-icon blue" title="View Details" onclick="openViewDetailsModal('${service.id}')"></i>
+                                <i class="fas fa-user-plus action-icon purple" title="Assign Pro" onclick="openAssignProModal('${service.id}')"></i>
+                                <i class="fas fa-calendar action-icon orange" title="Reschedule" onclick="openRescheduleModal('${service.id}')"></i>
+                                <i class="fas fa-sticky-note action-icon green" title="Add Note" onclick="openAddNoteModal('${service.id}')"></i>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('table-info').textContent = `Showing ${services.length} services`;
+        }
+
+        // Format date helper
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            if (date.toDateString() === today.toDateString()) {
+                return 'Today';
+            } else if (date.toDateString() === tomorrow.toDateString()) {
+                return 'Tomorrow';
+            } else {
+                return date.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
+            }
+        }
+
+        // Modal Management
+        function showModal(html) {
+            const container = document.getElementById('modal-container');
+            container.innerHTML = html;
+        }
+
+        function closeModal() {
+            const container = document.getElementById('modal-container');
+            container.innerHTML = '';
+        }
+
+        // Handle Critical Action Click
+        function handleCriticalAction(actionType) {
+            const services = state.getAllServices();
+            let targetService = null;
+
+            switch(actionType) {
+                case 'unsigned-contracts':
+                    targetService = services.find(s => !s.contractSigned && s.status === 'scheduled');
+                    if (targetService) openSignContractModal(targetService.id);
+                    break;
+                case 'no-pro-assigned':
+                    targetService = services.find(s => !s.technician && s.status === 'scheduled');
+                    if (targetService) openAssignProModal(targetService.id);
+                    break;
+                case 'wcf-unsigned':
+                    targetService = services.find(s => s.status === 'awaiting_wcf');
+                    if (targetService) openHandleWCFModal(targetService.id);
+                    break;
+                default:
+                    alert('Feature coming soon!');
+            }
+        }
+
+        // Open Assign Pro Modal
+        function openAssignProModal(serviceId) {
+            const service = state.getService(serviceId);
+            const availableTechs = state.getAvailableTechnicians();
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Assign Technician - ${service.id}</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Service Details</label>
+                                <div class="info-row">
+                                    <span class="info-label">Customer</span>
+                                    <span class="info-value">${service.customer.name}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Service</span>
+                                    <span class="info-value">${service.type}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Date</span>
+                                    <span class="info-value">${service.schedule.date} at ${service.schedule.startTime}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Available Technicians</label>
+                                <div id="tech-list">
+                                    ${availableTechs.map(tech => `
+                                        <div class="tech-option" onclick="selectTechnician('${tech.id}', '${serviceId}')">
+                                            <div class="tech-name">${tech.name}</div>
+                                            <div class="tech-skills">${tech.skills.join(', ')}</div>
+                                            <div class="tech-rating">⭐ ${tech.rating} • ${tech.activeJobs.length} active jobs</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+        }
+
+        function selectTechnician(techId, serviceId) {
+            if (state.assignTechnician(serviceId, techId)) {
+                closeModal();
+                alert('Technician assigned successfully!');
+            } else {
+                alert('Failed to assign technician');
+            }
+        }
+
+        // Open Reschedule Modal
+        function openRescheduleModal(serviceId) {
+            const service = state.getService(serviceId);
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Reschedule Service - ${service.id}</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Current Schedule</label>
+                                <p>${service.schedule.date} at ${service.schedule.startTime}</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">New Date</label>
+                                <input type="date" class="form-input" id="new-date" value="${service.schedule.date}">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">New Time</label>
+                                <input type="time" class="form-input" id="new-time" value="${service.schedule.startTime}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                            <button class="btn btn-blue" onclick="rescheduleService('${serviceId}')">Reschedule</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+        }
+
+        function rescheduleService(serviceId) {
+            const newDate = document.getElementById('new-date').value;
+            const newTime = document.getElementById('new-time').value;
+
+            if (state.rescheduleService(serviceId, { date: newDate, startTime: newTime })) {
+                closeModal();
+                alert('Service rescheduled successfully!');
+            } else {
+                alert('Failed to reschedule service');
+            }
+        }
+
+        // Open Contact Customer Modal
+        function openContactCustomerModal(serviceId) {
+            const service = state.getService(serviceId);
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Contact Customer</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Customer Details</label>
+                                <div class="info-row">
+                                    <span class="info-label">Name</span>
+                                    <span class="info-value">${service.customer.name}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Phone</span>
+                                    <span class="info-value">${service.customer.phone}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Email</span>
+                                    <span class="info-value">${service.customer.email}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Choose Contact Method</label>
+                                <div class="contact-options">
+                                    <div class="contact-option" onclick="contactCustomer('${serviceId}', 'call')">
+                                        <div class="contact-icon" style="color: #2563eb;">📞</div>
+                                        <div class="contact-label">Call</div>
+                                    </div>
+                                    <div class="contact-option" onclick="contactCustomer('${serviceId}', 'sms')">
+                                        <div class="contact-icon" style="color: #8b5cf6;">💬</div>
+                                        <div class="contact-label">SMS</div>
+                                    </div>
+                                    <div class="contact-option" onclick="contactCustomer('${serviceId}', 'whatsapp')">
+                                        <div class="contact-icon" style="color: #16a34a;">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </div>
+                                        <div class="contact-label">WhatsApp</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+        }
+
+        function contactCustomer(serviceId, method) {
+            const service = state.getService(serviceId);
+            closeModal();
+
+            switch(method) {
+                case 'call':
+                    alert(`Calling ${service.customer.name} at ${service.customer.phone}`);
+                    break;
+                case 'sms':
+                    alert(`Opening SMS to ${service.customer.name}`);
+                    break;
+                case 'whatsapp':
+                    alert(`Opening WhatsApp chat with ${service.customer.name}`);
+                    break;
+            }
+        }
+
+        // Open View Details Modal
+        function openViewDetailsModal(serviceId) {
+            const service = state.getService(serviceId);
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Service Details - ${service.id}</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Customer Information</label>
+                                <div class="info-row">
+                                    <span class="info-label">Name</span>
+                                    <span class="info-value">${service.customer.name}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Phone</span>
+                                    <span class="info-value">${service.customer.phone}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Email</span>
+                                    <span class="info-value">${service.customer.email}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Address</span>
+                                    <span class="info-value">${service.customer.address}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Service Information</label>
+                                <div class="info-row">
+                                    <span class="info-label">Type</span>
+                                    <span class="info-value">${service.type}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Status</span>
+                                    <span class="info-value">${service.status}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Date</span>
+                                    <span class="info-value">${service.schedule.date} at ${service.schedule.startTime}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Technician</span>
+                                    <span class="info-value">${service.technician ? service.technician.name : 'Not assigned'}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Pricing</label>
+                                <div class="info-row">
+                                    <span class="info-label">Amount</span>
+                                    <span class="info-value">€${service.pricing.amount.toFixed(2)}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Payment Status</span>
+                                    <span class="info-value">${service.pricing.paid ? 'Paid' : 'Pending'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-blue" onclick="closeModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+        }
+
+        // Open Sign Contract Modal
+        function openSignContractModal(serviceId) {
+            const service = state.getService(serviceId);
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Sign Contract - ${service.id}</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Service Agreement</label>
+                                <p>Service: ${service.type}</p>
+                                <p>Customer: ${service.customer.name}</p>
+                                <p>Amount: €${service.pricing.amount.toFixed(2)}</p>
+                                <p>Date: ${service.schedule.date}</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Terms & Conditions</label>
+                                <p style="font-size: 0.875rem; color: #6b7280;">
+                                    By signing this contract, the customer agrees to the terms and conditions of the service agreement.
+                                    Payment is due upon completion of service.
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Customer Signature</label>
+                                <canvas class="signature-pad" id="signature-pad" width="540" height="200"></canvas>
+                                <button class="btn btn-secondary" onclick="clearSignature()" style="margin-top: 0.5rem;">Clear</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                            <button class="btn btn-blue" onclick="signContract('${serviceId}')">Sign Contract</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+
+            // Initialize signature pad
+            setTimeout(() => {
+                initSignaturePad();
+            }, 100);
+        }
+
+        let signaturePad = null;
+        function initSignaturePad() {
+            const canvas = document.getElementById('signature-pad');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDrawing) {
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+                }
+            });
+
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+            });
+
+            signaturePad = canvas;
+        }
+
+        function clearSignature() {
+            if (signaturePad) {
+                const ctx = signaturePad.getContext('2d');
+                ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
+            }
+        }
+
+        function signContract(serviceId) {
+            if (state.signContract(serviceId)) {
+                closeModal();
+                alert('Contract signed successfully!');
+            } else {
+                alert('Failed to sign contract');
+            }
+        }
+
+        // Open Handle WCF Modal
+        function openHandleWCFModal(serviceId) {
+            const service = state.getService(serviceId);
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Handle WCF - ${service.id}</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Service Information</label>
+                                <div class="info-row">
+                                    <span class="info-label">Service</span>
+                                    <span class="info-value">${service.type}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Customer</span>
+                                    <span class="info-value">${service.customer.name}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Technician</span>
+                                    <span class="info-value">${service.technician ? service.technician.name : 'N/A'}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Quality Assessment</label>
+                                <select class="form-select" id="wcf-quality">
+                                    <option value="approved">Approved - No Issues</option>
+                                    <option value="approved_with_reserves">Approved with Reserves</option>
+                                    <option value="rejected">Rejected - Needs Rework</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-textarea" id="wcf-notes" placeholder="Add any notes or observations..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                            <button class="btn btn-danger" onclick="handleWCF('${serviceId}', 'rejected')">Reject</button>
+                            <button class="btn btn-blue" onclick="handleWCF('${serviceId}', 'approved')">Approve</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+        }
+
+        function handleWCF(serviceId, action) {
+            const quality = document.getElementById('wcf-quality').value;
+            const notes = document.getElementById('wcf-notes').value;
+
+            if (state.signWCF(serviceId, { quality, notes, customerApproval: action === 'approved' })) {
+                closeModal();
+                alert(`WCF ${action === 'approved' ? 'approved' : 'rejected'} successfully!`);
+            } else {
+                alert('Failed to process WCF');
+            }
+        }
+
+        // Open Add Note Modal
+        function openAddNoteModal(serviceId) {
+            const service = state.getService(serviceId);
+
+            const html = `
+                <div class="modal-overlay" onclick="if(event.target === this) closeModal()">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Add Note - ${service.id}</h2>
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Service</label>
+                                <p>${service.type} - ${service.customer.name}</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Note</label>
+                                <textarea class="form-textarea" id="note-text" placeholder="Enter your note here..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                            <button class="btn btn-blue" onclick="addNote('${serviceId}')">Add Note</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showModal(html);
+        }
+
+        function addNote(serviceId) {
+            const noteText = document.getElementById('note-text').value;
+
+            if (noteText.trim() && state.addNote(serviceId, noteText)) {
+                closeModal();
+                alert('Note added successfully!');
+            } else {
+                alert('Please enter a note');
+            }
         }
 
         // Chat Management
@@ -1425,59 +2112,38 @@
         }
 
         function addBotMessage(text) {
-            const messagesDiv = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message bot';
-
-            messageDiv.innerHTML = `
-                <div class="message-content">
-                    <div class="bot-label">
-                        <i class="fas fa-robot"></i>
-                        <span>AI Assistant</span>
-                    </div>
-                    <div class="message-text">${text}</div>
-                </div>
-            `;
-
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            addChatMessage('bot', text);
         }
 
         function generateBotResponse(message) {
             const lower = message.toLowerCase();
 
             if (lower.includes('daily summary') || lower.includes('summary')) {
-                return `<strong>📊 Daily Summary</strong><br><br>
+                return `<strong>Daily Summary</strong><br><br>
                     <strong>Actions Completed Today:</strong><br>
-                    ✓ #PX-377903 - Contract signed via SMS (10:15 AM)<br>
-                    ✓ #SX-375742 - Pro assigned (11:30 AM)<br>
-                    ✓ #SX-379364 - No-show handled (12:45 PM)<br>
-                    ✓ #SX-379342 - Extra cost approved (2:20 PM)<br>
-                    <br><strong>📈 Performance:</strong><br>
-                    • 5 projects resolved<br>
-                    • €7,585 total value<br>
-                    • 12 customer contacts<br>
-                    • 95% resolution rate`;
+                    ✓ 5 projects resolved<br>
+                    ✓ €7,585 total value<br>
+                    ✓ 12 customer contacts<br>
+                    ✓ 95% resolution rate<br>
+                    <br><strong>Pending Actions:</strong><br>
+                    • 12 contracts awaiting signature<br>
+                    • 8 projects need Pro assignment<br>
+                    • 7 WCF pending signatures`;
             } else if (lower.includes('contract')) {
-                return 'You have 12 contracts awaiting signature (>72h). Most urgent: <strong>#PX-377903</strong> - Ines Broncano (€3,850). Would you like me to help contact this customer?';
+                const services = state.getAllServices();
+                const unsigned = services.filter(s => !s.contractSigned && s.status === 'scheduled').length;
+                return `You have ${unsigned} contracts awaiting signature (>72h). Would you like me to help contact these customers?`;
             } else if (lower.includes('pro') || lower.includes('assign')) {
-                return 'Found 8 projects needing Pro assignment. Most urgent: <strong>#SX-375742</strong> - Fernando Checa (€1,950, today 2 PM). I found 3 matching Pros. Assign now?';
+                const services = state.getAllServices();
+                const noTech = services.filter(s => !s.technician && s.status === 'scheduled').length;
+                return `Found ${noTech} projects needing Pro assignment. Would you like to see available technicians?`;
             } else if (lower.includes('wcf')) {
-                return 'You have 7 WCF pending signatures (>48h) and 5 signed with reserves. Most urgent needs follow-up.';
+                const services = state.getAllServices();
+                const wcf = services.filter(s => s.status === 'awaiting_wcf').length;
+                return `You have ${wcf} services awaiting WCF signatures. Most urgent needs follow-up.`;
             } else {
                 return 'I analyzed your workload:<br>🔴 <strong>12 urgent actions</strong> (next 4h)<br>🟡 <strong>23 attention needed</strong> (today)<br>🟢 <strong>34 on track</strong><br><br>Type "daily summary" to see what you\'ve accomplished!';
             }
-        }
-
-        // Action handlers
-        function quickAction(action, id, clientName) {
-            toggleChat();
-            setTimeout(() => {
-                addChatMessage('user', `Help with ${action} for ${clientName} (${id})`);
-                setTimeout(() => {
-                    addBotMessage(`Opening ${action} interface for ${clientName}. Would you like me to draft a message or call?`);
-                }, 1000);
-            }, 100);
         }
     </script>
 </body>
