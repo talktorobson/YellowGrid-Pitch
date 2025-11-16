@@ -158,6 +158,8 @@
       align-items: center;
       gap: 0.5rem;
       flex-shrink: 0;
+      min-width: 180px;
+      position: relative;
     }
 
     .station-dot {
@@ -204,10 +206,14 @@
       top: 40px;
       left: 50%;
       transform: translateX(-50%);
-      white-space: nowrap;
+      white-space: normal;
+      text-align: center;
       font-size: 0.75rem;
       color: var(--text-muted);
       font-weight: 500;
+      width: 160px;
+      line-height: 1.3;
+      word-wrap: break-word;
     }
 
     .station-dot.active + .station-label {
@@ -1037,15 +1043,17 @@
           }
         },
         'tv-quotation': {
-          name: 'TV & Quotation',
+          name: 'Technical Visit of Quotation',
           salesOrder: {
             orderId: 'SO-2025-1201',
-            salesChannel: 'In-store',
-            store: 'Retail Lisbon Av. Liberdade',
-            storeCode: 'RET-LIS-AVL',
-            salesProjectId: 'PROJ-5512',
-            leadId: 'LEAD-9043',
+            salesChannel: 'Phone',
+            store: 'Customer Service Center',
+            storeCode: 'CSC-001',
+            salesProjectId: 'SALES-PROJ-5512',
+            leadId: '69455T607',
             opportunityId: 'OPP-2025-7812',
+            linkedQuotation: null,
+            linkedPreEstimation: null,
             salesman: 'João Silva',
             salesmanId: 'SALES-JS-128',
             salesmanEmail: 'joao.silva@yellowgrid.pt',
@@ -1059,17 +1067,17 @@
               email: 'diogo.m@company.pt',
               phone: '+351 918 765 432',
               alternatePhone: '+351 213 456 789',
-              address: 'Av. Liberdade 90, 3º Esq, 1250-145 Lisboa',
-              addressLine1: 'Av. Liberdade 90',
-              addressLine2: '3º Andar, Esquerdo',
+              address: 'Rua das Flores 45, 2º Dto, 1200-195 Lisboa',
+              addressLine1: 'Rua das Flores 45',
+              addressLine2: '2º Andar, Direito',
               city: 'Lisboa',
-              postalCode: '1250-145',
+              postalCode: '1200-195',
               region: 'Lisboa',
               country: 'Portugal',
-              customerSince: '2022-09-20',
-              tier: 'Premium',
-              claimHistory: 1,
-              lifetimeValue: 8450.00,
+              customerSince: '2023-03-15',
+              tier: 'Standard',
+              claimHistory: 0,
+              lifetimeValue: 450,
               preferredContact: 'phone',
               language: 'pt-PT'
             },
@@ -1079,54 +1087,446 @@
                 lineId: 'LINE-001',
                 code: 'TV-KITCHEN', 
                 name: 'Technical Visit - Kitchen Assessment',
-                description: 'On-site technical visit to assess kitchen renovation scope, measure space, and provide detailed quotation for appliance installation',
+                description: 'On-site technical visit to assess kitchen space, take measurements, and provide detailed quotation for dishwasher installation',
                 category: 'Technical Visit',
                 quantity: 1, 
-                unitPrice: 80.00,
-                discount: 0.00,
+                unitPrice: 80,
+                discount: 0,
                 tax: 18.40,
-                totalPrice: 80.00, 
+                totalPrice: 80,
+                price: '80',
                 scheduledDate: '2025-11-20', 
-                timeSlot: '10:00-12:30',
-                duration: 150,
+                timeSlot: '10:00-12:00',
+                duration: 120,
                 techniciansRequired: 1,
-                skillLevel: 'Expert',
-                equipmentNeeded: ['Laser measure', 'Tablet for quotation', 'Camera'],
+                skillLevel: 'Expert Technician',
+                equipmentNeeded: ['Laser measure', 'Tablet', 'Camera'],
                 safetyRequirements: []
               }
             ],
             totals: {
-              subtotalProducts: 0.00,
-              subtotalServices: 80.00,
-              subtotal: 80.00,
-              discounts: 0.00,
-              taxProducts: 0.00,
+              subtotalProducts: 0,
+              subtotalServices: 80,
+              subtotal: 80,
+              discounts: 0,
+              taxProducts: 0,
               taxServices: 18.40,
               totalTax: 18.40,
-              shippingCost: 0.00,
+              shippingCost: 0,
               total: 98.40,
               currency: 'EUR'
             },
             payment: {
-              status: 'Pending',
-              method: 'Invoice',
-              cardType: null,
-              last4Digits: null,
-              paidAmount: 0.00,
-              paidDate: null,
-              transactionId: null,
-              paymentGateway: 'Invoice',
+              status: 'Paid',
+              method: 'Credit Card',
+              cardType: 'Visa',
+              last4Digits: '4532',
+              paidAmount: 98.40,
+              paidDate: '2025-11-14T10:25:00Z',
+              transactionId: 'TXN-2025-998234',
+              paymentGateway: 'Stripe',
               installments: 1,
-              dueDate: '2025-12-05'
+              dueDate: null
             },
-            linkedQuotation: 'QUOTE-2025-3301',
-            linkedPreEstimation: 'PRE-EST-2025-1109',
             linkedContracts: [],
-            sellerNotes: 'Customer interested in full kitchen renovation. High upsell potential for dishwasher, oven, and hood installation. Previous claim was minor (delivery delay) and resolved. Customer mentioned budget around €5000-7000 for complete renovation.',
-            internalNotes: 'VIP customer - premium service required. Previous purchase was €3200 appliance package. Claim resolved with full satisfaction.',
-            specialInstructions: 'Bring kitchen design catalog. Customer interested in smart appliances with home automation integration.',
+            sellerNotes: 'Customer planning kitchen renovation. Needs professional assessment for dishwasher installation. Interested in quotation for complete service including appliance purchase if price is competitive.',
+            internalNotes: 'First-time technical visit customer. Good upsell opportunity for installation services.',
+            specialInstructions: 'Customer available only mornings. Kitchen currently functional but old appliances.',
+            priority: 'Normal',
+            tags: ['phone-order', 'technical-visit', 'kitchen', 'quotation', 'first-timer']
+          }
+        },
+        'package-deal': {
+          name: 'Service Pack (with confirmation TV)',
+          salesOrder: {
+            orderId: 'SO-2025-3342',
+            salesChannel: 'In-store',
+            store: 'Retail Porto Boavista',
+            storeCode: 'RET-PRT-BOA',
+            salesProjectId: 'SALES-PROJ-6721',
+            leadId: '69455T820',
+            opportunityId: 'OPP-2025-9103',
+            linkedQuotation: null,
+            linkedPreEstimation: null,
+            salesman: 'Carlos Mendes',
+            salesmanId: 'SALES-CM-091',
+            salesmanEmail: 'carlos.mendes@yellowgrid.pt',
+            orderDate: '2025-11-12T16:45:00Z',
+            confirmationDate: '2025-11-12T16:52:18Z',
+            customer: {
+              customerId: 'CUST-19203',
+              name: 'Pedro Silva',
+              firstName: 'Pedro',
+              lastName: 'Silva',
+              email: 'pedro.silva@gmail.com',
+              phone: '+351 935 678 901',
+              alternatePhone: '+351 228 901 234',
+              address: 'Av. da Boavista 1550, 2º Esq, 4100-114 Porto',
+              addressLine1: 'Av. da Boavista 1550',
+              addressLine2: '2º Andar, Esquerdo',
+              city: 'Porto',
+              postalCode: '4100-114',
+              region: 'Porto',
+              country: 'Portugal',
+              customerSince: '2024-06-10',
+              tier: 'Standard',
+              claimHistory: 0,
+              lifetimeValue: 890,
+              preferredContact: 'phone',
+              language: 'pt-PT'
+            },
+            products: [
+              {
+                sku: 'DW-BOSCH-SMV46',
+                name: 'Bosch Serie 4 Dishwasher SMV46MX03E',
+                category: 'Dishwashers',
+                brand: 'Bosch',
+                quantity: 1,
+                unitPrice: 549,
+                discount: 50,
+                tax: 114.77,
+                totalPrice: 499,
+                deliveryDate: '2025-11-25',
+                supplier: 'Bosch Portugal',
+                stockStatus: 'In Stock',
+                warranty: '24 months'
+              }
+            ],
+            services: [
+              {
+                lineId: 'LINE-001',
+                code: 'TV-CONF-DW',
+                name: 'Technical Visit - Pre-Installation Confirmation',
+                description: 'On-site technical visit to confirm installation feasibility, validate measurements, check plumbing and electrical conditions before proceeding with main installation',
+                category: 'Technical Visit',
+                quantity: 1,
+                unitPrice: 0,
+                discount: 0,
+                tax: 0,
+                totalPrice: 0,
+                price: '0',
+                scheduledDate: '2025-11-22',
+                timeSlot: '14:00-16:00',
+                duration: 90,
+                techniciansRequired: 1,
+                skillLevel: 'Expert Technician',
+                equipmentNeeded: ['Laser measure', 'Tablet', 'Camera', 'Testing tools'],
+                safetyRequirements: []
+              },
+              {
+                lineId: 'LINE-002',
+                code: 'INST-DW',
+                name: 'Dishwasher Installation',
+                description: 'Complete dishwasher installation including unboxing, positioning, plumbing connections, electrical connection, testing and customer training',
+                category: 'Installation',
+                quantity: 1,
+                unitPrice: 120,
+                discount: 0,
+                tax: 27.60,
+                totalPrice: 120,
+                price: '120',
+                scheduledDate: '2025-11-26',
+                timeSlot: '09:00-11:00',
+                duration: 120,
+                techniciansRequired: 1,
+                skillLevel: 'Plumber',
+                equipmentNeeded: ['Standard tools', 'Connection kit'],
+                safetyRequirements: ['Water shutoff', 'Electrical safety']
+              }
+            ],
+            totals: {
+              subtotalProducts: 499,
+              subtotalServices: 120,
+              subtotal: 619,
+              discounts: 50,
+              taxProducts: 114.77,
+              taxServices: 27.60,
+              totalTax: 142.37,
+              shippingCost: 0,
+              total: 761.37,
+              currency: 'EUR'
+            },
+            payment: {
+              status: 'Paid',
+              method: 'Credit Card',
+              cardType: 'Visa',
+              last4Digits: '8834',
+              paidAmount: 761.37,
+              paidDate: '2025-11-12T16:55:00Z',
+              transactionId: 'TXN-2025-334892',
+              paymentGateway: 'Stripe',
+              installments: 1,
+              dueDate: null
+            },
+            linkedContracts: [],
+            sellerNotes: 'Customer purchased service pack (product + installation). Confirmation technical visit included to validate kitchen conditions. TV OUTCOMES: YES = proceed to installation | NO = cancel order/refund | YES BUT = scope adjustment required (price/timeline changes).',
+            internalNotes: 'Pack deal with confirmation TV scheduled BEFORE main installation. Installation LINE-002 only proceeds if TV confirmation is YES or YES BUT (with adjustments). Customer aware that final installation depends on TV confirmation outcome. If YES BUT, provider may request derogation for price adjustment.',
+            specialInstructions: 'CONFIRMATION TV CHECKLIST: (1) Water supply accessible & pressure adequate, (2) Electrical outlet 220V within 1.5m, (3) Space dimensions match product specs (60cm W x 82cm H x 55cm D), (4) Cabinet modifications needed? (5) Drainage accessible. OUTCOME RULES: TV=YES → approve go exec → execute installation | TV=NO → cancel SO, refund customer | TV=YES BUT → provider submits adjustment quotation → operator approves derogation → revised go exec → execute with adjustments.',
+            priority: 'Normal',
+            tags: ['in-store', 'service-pack', 'confirmation-tv', 'dishwasher', 'installation', 'two-phase-execution']
+          }
+        },
+        'complex-project': {
+          name: 'Complex Installation Project',
+          salesOrder: {
+            orderId: 'PROJ-2025-8840',
+            salesChannel: 'In-store',
+            store: 'Retail Lisboa Amoreiras',
+            storeCode: 'RET-LIS-AMO',
+            salesProjectId: 'SALES-PROJ-8840',
+            leadId: 'LEAD-8840',
+            opportunityId: 'OPP-2025-8840',
+            linkedQuotation: 'QUOT-2025-7234',
+            linkedPreEstimation: 'PRE-EST-2025-6892',
+            salesman: 'Maria Santos',
+            salesmanId: 'SALES-MS-155',
+            salesmanEmail: 'maria.santos@yellowgrid.pt',
+            orderDate: '2025-10-20T09:30:00Z',
+            confirmationDate: '2025-10-21T14:18:00Z',
+            customer: {
+              customerId: 'CUST-15892',
+              name: 'Sofia Rodrigues',
+              firstName: 'Sofia',
+              lastName: 'Rodrigues',
+              email: 'sofia.rodrigues@email.pt',
+              phone: '+351 915 234 567',
+              alternatePhone: '+351 217 890 123',
+              address: 'Av. Eng. Duarte Pacheco 28, 3º B, 1070-101 Lisboa',
+              addressLine1: 'Av. Eng. Duarte Pacheco 28',
+              addressLine2: '3º Andar, Apartamento B',
+              city: 'Lisboa',
+              postalCode: '1070-101',
+              region: 'Lisboa',
+              country: 'Portugal',
+              customerSince: '2023-08-15',
+              tier: 'Premium',
+              claimHistory: 0,
+              lifetimeValue: 4850,
+              preferredContact: 'phone',
+              language: 'pt-PT'
+            },
+            products: [
+              {
+                lineId: 'PROD-001',
+                sku: 'BATH-SUITE-LUX',
+                name: 'Luxury Bathroom Suite Complete',
+                brand: 'Roca',
+                model: 'Inspira',
+                category: 'Bathroom Fixtures',
+                quantity: 1,
+                unitPrice: 3200,
+                discount: 320,
+                tax: 662.40,
+                totalPrice: 2880,
+                deliveryDate: '2025-11-20',
+                deliveryStatus: 'Scheduled',
+                supplier: 'Roca Portugal',
+                stockStatus: 'In Stock',
+                warranty: '24 months',
+                installationRequired: true
+              },
+              {
+                lineId: 'PROD-002',
+                sku: 'TILE-PORCE-60X120',
+                name: 'Premium Porcelain Tiles 60x120cm',
+                brand: 'Revigrés',
+                model: 'Marble Carrara',
+                category: 'Tiles & Flooring',
+                quantity: 35,
+                unitPrice: 85,
+                discount: 0,
+                tax: 688.75,
+                totalPrice: 2975,
+                deliveryDate: '2025-11-22',
+                deliveryStatus: 'Scheduled',
+                supplier: 'Revigrés',
+                stockStatus: 'In Stock',
+                warranty: '60 months',
+                installationRequired: true
+              },
+              {
+                lineId: 'PROD-003',
+                sku: 'SHOWER-ENC-TEMP',
+                name: 'Tempered Glass Shower Enclosure',
+                brand: 'Novellini',
+                model: 'Kuadra H',
+                category: 'Shower Systems',
+                quantity: 1,
+                unitPrice: 1850,
+                discount: 0,
+                tax: 425.50,
+                totalPrice: 1850,
+                deliveryDate: '2025-11-28',
+                deliveryStatus: 'Scheduled',
+                supplier: 'Novellini Iberia',
+                stockStatus: 'On Order',
+                warranty: '36 months',
+                installationRequired: true
+              },
+              {
+                lineId: 'PROD-004',
+                sku: 'HEAT-TOWEL-ELEC',
+                name: 'Electric Heated Towel Rail',
+                brand: 'Acova',
+                model: 'Regate Twist',
+                category: 'Heating',
+                quantity: 1,
+                unitPrice: 450,
+                discount: 0,
+                tax: 103.50,
+                totalPrice: 450,
+                deliveryDate: '2025-12-03',
+                deliveryStatus: 'Scheduled',
+                supplier: 'Acova Portugal',
+                stockStatus: 'In Stock',
+                warranty: '24 months',
+                installationRequired: true
+              }
+            ],
+            services: [
+              {
+                lineId: 'SRV-001',
+                serviceOrderId: 'SO-2025-8840-01',
+                code: 'DEMO-PLUMB-ELECT',
+                name: 'Demolition & Plumbing/Electrical Prep',
+                description: 'Complete bathroom demolition, removal of old fixtures, plumbing rough-in, electrical rewiring, waterproofing preparation',
+                category: 'Demolition & Preparation',
+                quantity: 1,
+                unitPrice: 1200,
+                discount: 0,
+                tax: 276,
+                totalPrice: 1200,
+                price: '1200',
+                scheduledDate: '2025-11-22',
+                timeSlot: '08:00-17:00',
+                duration: 480,
+                techniciansRequired: 2,
+                skillLevel: 'Plumber + Electrician',
+                equipmentNeeded: ['Demolition tools', 'Pipe wrench', 'Electrical tester', 'Waste removal bags', 'Safety equipment'],
+                safetyRequirements: ['Water shutoff', 'Electrical lockout', 'Dust masks', 'Safety boots', 'PPE required'],
+                dependencies: [],
+                precedenceRule: 'First service - no dependencies',
+                requiredProducts: [],
+                requiredPayment: 0.30,
+                status: 'Ready'
+              },
+              {
+                lineId: 'SRV-002',
+                serviceOrderId: 'SO-2025-8840-02',
+                code: 'INST-TILE-WATERPROOF',
+                name: 'Tiling & Waterproofing',
+                description: 'Wall and floor tiling installation, waterproofing membrane application, grouting, sealing and finishing',
+                category: 'Tiling Installation',
+                quantity: 1,
+                unitPrice: 1800,
+                discount: 0,
+                tax: 414,
+                totalPrice: 1800,
+                price: '1800',
+                scheduledDate: '2025-11-26',
+                timeSlot: '08:00-17:00',
+                duration: 540,
+                techniciansRequired: 2,
+                skillLevel: 'Tile Specialist',
+                equipmentNeeded: ['Tile cutter', 'Adhesive mixer', 'Level', 'Spacers', 'Grouting tools', 'Waterproofing materials'],
+                safetyRequirements: ['Dust masks', 'Knee pads', 'Safety glasses', 'PPE required'],
+                dependencies: ['SRV-001'],
+                precedenceRule: 'Requires demolition completion + quality check + partial payment',
+                requiredProducts: ['PROD-002'],
+                requiredPayment: 0.50,
+                status: 'Blocked'
+              },
+              {
+                lineId: 'SRV-003',
+                serviceOrderId: 'SO-2025-8840-03',
+                code: 'INST-SANITARY-SHOWER',
+                name: 'Sanitary Ware & Shower Installation',
+                description: 'Installation of bathroom suite (toilet, sink, bathtub), shower enclosure, plumbing connections, silicone sealing and testing',
+                category: 'Plumbing Installation',
+                quantity: 1,
+                unitPrice: 1500,
+                discount: 0,
+                tax: 345,
+                totalPrice: 1500,
+                price: '1500',
+                scheduledDate: '2025-12-02',
+                timeSlot: '08:00-17:00',
+                duration: 480,
+                techniciansRequired: 2,
+                skillLevel: 'Plumber + Installer',
+                equipmentNeeded: ['Pipe wrench', 'Silicone gun', 'Level', 'Drill', 'Measuring tools', 'Testing equipment'],
+                safetyRequirements: ['Water pressure testing', 'Leak detection', 'PPE required'],
+                dependencies: ['SRV-001', 'SRV-002'],
+                precedenceRule: 'Requires demolition AND tiling completed + quality checks + payment milestone',
+                requiredProducts: ['PROD-001', 'PROD-003'],
+                requiredPayment: 0.80,
+                status: 'Blocked'
+              },
+              {
+                lineId: 'SRV-004',
+                serviceOrderId: 'SO-2025-8840-04',
+                code: 'FINAL-FINISH-PAINT',
+                name: 'Final Finishing & Painting',
+                description: 'Painting walls and ceiling, installation of accessories (towel rail, mirrors, shelves), final cleaning, touch-ups and customer handover',
+                category: 'Finishing',
+                quantity: 1,
+                unitPrice: 800,
+                discount: 0,
+                tax: 184,
+                totalPrice: 800,
+                price: '800',
+                scheduledDate: '2025-12-06',
+                timeSlot: '09:00-17:00',
+                duration: 420,
+                techniciansRequired: 2,
+                skillLevel: 'Painter + General Installer',
+                equipmentNeeded: ['Paint rollers', 'Brushes', 'Drop cloths', 'Drill', 'Level', 'Cleaning supplies'],
+                safetyRequirements: ['Ventilation', 'Low-VOC paint', 'PPE required'],
+                dependencies: ['SRV-001', 'SRV-002', 'SRV-003'],
+                precedenceRule: 'Requires ALL previous services completed + ALL quality checks passed',
+                requiredProducts: ['PROD-004'],
+                requiredPayment: 0.80,
+                status: 'Blocked'
+              }
+            ],
+            totals: {
+              subtotalProducts: 8155,
+              subtotalServices: 5300,
+              subtotal: 13455,
+              discounts: 320,
+              taxProducts: 1879.15,
+              taxServices: 1219,
+              totalTax: 3098.15,
+              shippingCost: 0,
+              total: 16233.15,
+              currency: 'EUR'
+            },
+            payment: {
+              status: 'Partial',
+              method: 'Bank Transfer',
+              paidAmount: 4869.95,
+              paymentMilestones: [
+                { milestone: 'Initial (30%)', amount: 4869.95, status: 'Paid', date: '2025-10-22T10:00:00Z' },
+                { milestone: 'Tiling Complete (20%)', amount: 3246.63, status: 'Pending', date: null },
+                { milestone: 'Fixtures Complete (30%)', amount: 4869.95, status: 'Pending', date: null },
+                { milestone: 'Final (20%)', amount: 3246.62, status: 'Pending', date: null }
+              ],
+              paymentTerms: 'Milestone-based payment: 30% upfront, 20% after tiling, 30% after fixtures, 20% after finishing',
+              transactionIds: ['TXN-2025-8840-M1'],
+              dueDate: '2025-12-10'
+            },
+            projectPhases: [
+              { phase: 1, name: 'Demolition & Prep', services: ['SRV-001'], status: 'Ready', startDate: '2025-11-22', estimatedDays: 2 },
+              { phase: 2, name: 'Tiling & Waterproofing', services: ['SRV-002'], status: 'Blocked', startDate: '2025-11-26', estimatedDays: 3 },
+              { phase: 3, name: 'Fixtures Installation', services: ['SRV-003'], status: 'Blocked', startDate: '2025-12-02', estimatedDays: 2 },
+              { phase: 4, name: 'Finishing & Paint', services: ['SRV-004'], status: 'Blocked', startDate: '2025-12-06', estimatedDays: 2 }
+            ],
+            linkedContracts: ['CONT-2025-8840'],
+            sellerNotes: 'Premium customer - complete bathroom renovation. Complex multi-phase project with strict dependencies. Customer wants high-quality finish with marble-look tiles. Payment structure is milestone-based. Critical path: Demolition → Tiling → Fixtures → Finishing. Each phase must be quality-checked and paid before next phase starts.',
+            internalNotes: 'Complex project management required. Provider: HomePro Renovations (assigned for all services). Each service becomes separate service order but within same project umbrella. Quality checks after each phase mandatory. Partial payments unlock next phases. Product delivery must match service schedule. Customer will stay with family during renovation (apartment empty).',
+            specialInstructions: 'CRITICAL PATH RULES: (1) Service execution only when: required products delivered + payment milestone met + dependencies completed. (2) After each service: Quality Check → Operator Approval → Payment Authorization → Next Phase Unlock. (3) Loop mechanism: Contract → Provider Match → Go Exec → Execution → WCF → Quality Check → Payment Auth → LOOP back for next service. (4) All services use same provider (HomePro Renovations). (5) No price changes in service domain - any adjustments must come from sales domain via SO update. (6) Customer requests photos after each phase.',
             priority: 'High',
-            tags: ['in-store', 'premium', 'upsell-opportunity', 'technical-visit', 'renovation']
+            tags: ['premium', 'complex-project', 'multi-phase', 'bathroom', 'renovation', 'tiling', 'milestone-payment', 'critical-path', 'same-provider']
           }
         }
       };
@@ -2577,7 +2977,21 @@
           { id: 'provider-offer', type: 'provider', title: 'Provider Offer', icon: 'mobile-screen-button' }
         ],
         'go-gate': [
-          { id: 'go-gate-check', type: 'system', title: 'Go-Exec Gate', icon: 'traffic-light' }
+          { id: 'go-gate-check', type: 'system', title: 'Go Exec Gate', icon: 'traffic-light' }
+        ],
+        'tv-execution': [
+          { id: 'tv-crew-execution', type: 'crew', title: 'TV Execution', icon: 'mobile-screen-button' }
+        ],
+        'tv-report': [
+          { id: 'tv-report-upload', type: 'crew', title: 'TV Report Upload', icon: 'file-upload' },
+          { id: 'tv-report-analysis', type: 'ai', title: 'AI Report Analysis', icon: 'robot' }
+        ],
+        'tv-decision': [
+          { id: 'tv-operator-decision', type: 'operator', title: 'TV Outcome Decision', icon: 'headset' }
+        ],
+        'adjustment': [
+          { id: 'adjustment-quote', type: 'provider', title: 'Adjustment Quote', icon: 'file-invoice' },
+          { id: 'derogation-approval', type: 'operator', title: 'Derogation Approval', icon: 'check-circle' }
         ],
         'execution': [
           { id: 'crew-execution', type: 'crew', title: 'Crew Execution', icon: 'mobile-screen-button' }
@@ -2594,6 +3008,141 @@
         { id: 'invoice-dataflow', type: 'data', title: 'Invoice Dataflow', icon: 'exchange-alt', stepId: 'invoice' },
         { id: 'payment-portal', type: 'provider', title: 'Payment Portal', icon: 'credit-card', stepId: 'payment' }
       ];
+
+      // Get cards for specific scenario
+      const getCardsForScenario = (scenarioId) => {
+        let cards = [];
+        let cardIndex = 0;
+        
+        // Define which steps to include for each scenario
+        const scenarioSteps = {
+          'simple-install': steps,
+          'tv-quotation': steps.filter(s => s.id !== 'go-gate' && s.id !== 'wcf'),
+          'package-deal': 'custom', // Custom flow for service pack with TV confirmation
+          'complex-project': 'custom', // Custom flow for multi-phase project with iterative loops
+          'rework': steps,
+          'maintenance': steps
+        };
+        
+        // Custom flow for Service Pack scenario with TV confirmation and automatic flow control
+        if (scenarioId === 'package-deal') {
+          const packageDealCards = [
+            // Integration
+            { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server', stepId: 'integration' },
+            { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs', stepId: 'integration' },
+            { id: 'project-creation', type: 'system', title: 'SO Creation', icon: 'folder-plus', stepId: 'integration' },
+            // AI Analysis
+            { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot', stepId: 'ai-analysis' },
+            // Operator Triage
+            { id: 'operator-cockpit', type: 'operator', title: 'Operator Triage', icon: 'headset', stepId: 'operator-triage' },
+            // Contract
+            { id: 'contract-notification', type: 'customer', title: 'Contract Email/SMS', icon: 'envelope', stepId: 'contract' },
+            { id: 'contract-portal', type: 'customer', title: 'Contract Portal', icon: 'file-signature', stepId: 'contract' },
+            // Single Provider Match for BUNDLE (TV + Installation)
+            { id: 'provider-funnel', type: 'system', title: 'Provider Matching', icon: 'filter', stepId: 'provider-match' },
+            { id: 'provider-offer', type: 'provider', title: 'Provider Bundle Offer', icon: 'mobile-screen-button', stepId: 'provider-match' },
+            // TV Execution (no go-gate, happens automatically after provider accepts)
+            { id: 'tv-crew-execution', type: 'crew', title: 'TV Execution', icon: 'mobile-screen-button', stepId: 'tv-execution' },
+            // TV Report & AI Analysis
+            { id: 'tv-report-upload', type: 'crew', title: 'TV Report Upload', icon: 'file-upload', stepId: 'tv-report' },
+            { id: 'tv-report-analysis', type: 'ai', title: 'AI Report Analysis', icon: 'robot', stepId: 'tv-report' },
+            // TV Outcome Processing (YES unblocks install, NO/YES BUT alerts sales)
+            { id: 'tv-outcome-gate', type: 'system', title: 'TV Outcome Gate', icon: 'code-branch', stepId: 'tv-outcome' },
+            { id: 'sales-alert', type: 'operator', title: 'Sales Team Alert', icon: 'bell', stepId: 'sales-alert' },
+            { id: 'so-update-sync', type: 'system', title: 'SO Update Sync', icon: 'sync', stepId: 'so-sync' },
+            // Go Exec for Installation (only here, after TV outcome processed)
+            { id: 'go-gate-check', type: 'system', title: 'Go Exec Gate (Install)', icon: 'traffic-light', stepId: 'go-gate' },
+            // Crew Execution
+            { id: 'crew-execution', type: 'crew', title: 'Crew Execution', icon: 'mobile-screen-button', stepId: 'execution' },
+            // WCF
+            { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
+            { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' }
+          ];
+          
+          // Add invoice and payment cards
+          packageDealCards.push(...invoicePaymentCards);
+          
+          return packageDealCards.map((card, idx) => ({ ...card, index: idx }));
+        }
+
+        // Custom flow for Complex Installation Project with iterative loop mechanism
+        if (scenarioId === 'complex-project') {
+          const so = scenarios[scenarioId].salesOrder;
+          const complexProjectCards = [
+            // Initial Integration (once)
+            { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server', stepId: 'integration', phase: 0 },
+            { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs', stepId: 'integration', phase: 0 },
+            { id: 'project-creation', type: 'system', title: 'Project Creation', icon: 'folder-plus', stepId: 'integration', phase: 0 },
+            // AI Analysis (once)
+            { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis & Dependency Graph', icon: 'robot', stepId: 'ai-analysis', phase: 0 },
+            // Operator Triage (once)
+            { id: 'operator-cockpit', type: 'operator', title: 'Operator Triage', icon: 'headset', stepId: 'operator-triage', phase: 0 },
+            // Contract (once)
+            { id: 'contract-notification', type: 'customer', title: 'Contract Email/SMS', icon: 'envelope', stepId: 'contract', phase: 0 },
+            { id: 'contract-portal', type: 'customer', title: 'Contract Portal', icon: 'file-signature', stepId: 'contract', phase: 0 },
+            // Provider Matching (once - same provider for all services)
+            { id: 'provider-funnel', type: 'system', title: 'Provider Matching', icon: 'filter', stepId: 'provider-match', phase: 0 },
+            { id: 'provider-offer', type: 'provider', title: 'Provider Multi-Service Offer', icon: 'mobile-screen-button', stepId: 'provider-match', phase: 0 }
+          ];
+
+          // Loop mechanism for each service (4 services = 4 iterations)
+          for (let i = 0; i < so.services.length; i++) {
+            const service = so.services[i];
+            const phase = i + 1;
+            const serviceName = service.name;
+            
+            complexProjectCards.push(
+              // Go Exec with dependencies check
+              { id: `go-gate-check-${i}`, type: 'system', title: `Go Exec [${serviceName}]`, icon: 'traffic-light', stepId: 'go-gate', phase, serviceIndex: i },
+              // Crew Execution
+              { id: `crew-execution-${i}`, type: 'crew', title: `Crew Execution [${serviceName}]`, icon: 'mobile-screen-button', stepId: 'execution', phase, serviceIndex: i },
+              // Quality Check Visit (replaces per-service WCF - done by independent specialist or operator)
+              { id: `quality-visit-${i}`, type: 'operator', title: `Quality Check Visit [${serviceName}]`, icon: 'user-check', stepId: 'quality-visit', phase, serviceIndex: i },
+              // Payment Authorization (unlocked by quality acceptance)
+              { id: `payment-auth-${i}`, type: 'operator', title: `Payment Authorization [${serviceName}]`, icon: 'stamp', stepId: 'payment-auth', phase, serviceIndex: i },
+              // Next Phase Unlock
+              { id: `phase-unlock-${i}`, type: 'system', title: `Phase ${phase} Complete → Unlock Phase ${phase + 1}`, icon: 'unlock', stepId: 'phase-unlock', phase, serviceIndex: i }
+            );
+          }
+          
+          // Single WCF at the end (after all services complete)
+          complexProjectCards.push(
+            { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf', phase: so.services.length + 1 },
+            { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf', phase: so.services.length + 1 },
+            // Project Complete
+            { id: 'project-complete', type: 'system', title: 'Project Complete', icon: 'flag-checkered', stepId: 'completion', phase: so.services.length + 1 }
+          );
+          
+          return complexProjectCards.map((card, idx) => ({ ...card, index: idx }));
+        }
+        
+        const activeSteps = scenarioSteps[scenarioId] || steps;
+        
+        for (const [stepIdx, step] of activeSteps.entries()) {
+          const stepCards = journeyCards[step.id] || [];
+          for (const card of stepCards) {
+            cards.push({
+              ...card,
+              stepId: step.id,
+              stepIndex: stepIdx,
+              stepTitle: step.title,
+              globalIndex: cardIndex++
+            });
+          }
+        }
+        
+        // Add invoice and payment cards
+        for (const card of invoicePaymentCards) {
+          cards.push({
+            ...card,
+            stepIndex: activeSteps.length,
+            stepTitle: card.stepId === 'invoice' ? 'Invoice' : 'Payment',
+            globalIndex: cardIndex++
+          });
+        }
+        
+        return cards;
+      };
 
       // Flatten all cards with step context
       let allCards = [];
@@ -2822,10 +3371,8 @@
                 </div>
                 <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
                   <strong>Service List and Requirements:</strong><br>
-                  Service 1 - Quantity: 2 - Slots 120 min - Plumber<br>
-                  Service 2 - Quantity: 1 - Slots 30 min - Plumber<br>
-                  Service 3 - Quantity: 1 - Slots 60 min - Plumber<br>
-                  <strong style="color: var(--accent-green);">Total slots required: 210 min</strong>
+                  ${so.services.map((s, idx) => `Service ${idx + 1} - Quantity: ${s.quantity} - Slots ${s.duration} min - ${s.skillLevel}`).join('<br>')}<br>
+                  <strong style="color: var(--accent-green);">Total slots required: ${so.services.reduce((sum, s) => sum + (s.duration * s.quantity), 0)} min</strong>
                 </div>
               </div>
 
@@ -2835,11 +3382,15 @@
                   <strong style="font-size: 1.1rem;">Product Data Enriched</strong>
                 </div>
                 <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
-                  <strong>Products delivery dates:</strong><br>
-                  Product 1 - 12-dez-2025<br>
-                  Product 2 - 08-dez-2025<br>
-                  Product 3 - 11-dez-2025<br>
-                  <strong style="color: var(--accent-green);">Max Product Delivery Date - 12-dez-2025</strong>
+                  ${so.products && so.products.length > 0 ? `
+                    <strong>Products delivery dates:</strong><br>
+                    ${so.products.map((p, idx) => `Product ${idx + 1} - ${p.deliveryDate || 'TBD'}`).join('<br>')}<br>
+                    <strong style="color: var(--accent-green);">Max Product Delivery Date - ${so.products[0]?.deliveryDate || 'N/A'}</strong>
+                  ` : `
+                    <strong>No products in this order</strong><br>
+                    This is a service-only order<br>
+                    <em style="color: var(--accent-green);">No product delivery required</em>
+                  `}
                 </div>
               </div>
 
@@ -2849,12 +3400,12 @@
                   <strong style="font-size: 1.1rem;">Customer Profile</strong>
                 </div>
                 <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
-                  <strong>Name:</strong> Marie Curie<br>
-                  <strong>Tier:</strong> Standard<br>
-                  <strong>LTV:</strong> €1850<br>
-                  <strong>Claims:</strong> 0<br>
-                  <strong>Email:</strong> customer@customer.com<br>
-                  <strong>Mobile:</strong> +33 07 07 07 47 47
+                  <strong>Name:</strong> ${so.customer.name}<br>
+                  <strong>Tier:</strong> ${so.customer.tier}<br>
+                  <strong>LTV:</strong> €${so.customer.lifetimeValue}<br>
+                  <strong>Claims:</strong> ${so.customer.claimHistory}<br>
+                  <strong>Email:</strong> ${so.customer.email}<br>
+                  <strong>Mobile:</strong> ${so.customer.phone}
                 </div>
               </div>
 
@@ -2865,9 +3416,9 @@
                 </div>
                 <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
                   <strong>Sales Project:</strong> ${so.salesProjectId}<br>
-                  <strong>Pre-estimation:</strong> 23450L450<br>
-                  <strong>Sales Quotation/Devis:</strong> 23455T606<br>
-                  <strong>Lead:</strong> 69455T606
+                  ${so.linkedPreEstimation ? `<strong>Pre-estimation:</strong> ${so.linkedPreEstimation}<br>` : ''}
+                  ${so.linkedQuotation ? `<strong>Sales Quotation/Devis:</strong> ${so.linkedQuotation}<br>` : ''}
+                  <strong>Lead:</strong> ${so.leadId}
                 </div>
               </div>
             </div>
@@ -2905,9 +3456,9 @@
               </div>
 
               <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 0.5rem;">1200 €</div>
-                <div style="font-weight: 600; margin-bottom: 0.3rem;">UP SELL POTENTIAL</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);"></div>
+                <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 0.5rem;">${so.services.length}</div>
+                <div style="font-weight: 600; margin-bottom: 0.3rem;">Service${so.services.length > 1 ? 's' : ''} Planned</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Total: ${so.services.reduce((sum, s) => sum + (s.duration * s.quantity), 0)} min</div>
               </div>
 
               <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
@@ -2922,18 +3473,18 @@
               <div style="display: flex; flex-direction: column; gap: 0.8rem;">
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
                   <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
-                  <span><strong>Pilote du chantier recommended:</strong> Lia Santos (PL-LIA) - Current load: 3 projects - 1340 min of services to be executed</span>
+                  <span><strong>Pilote du chantier recommended:</strong> Lia Santos (PL-LIA) - Current load: ${so.services.length > 1 ? '3 projects - 1340' : '2 projects - 850'} min of services to be executed</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
                   <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
                   <span><strong>Schedule:</strong> ${so.services[0].scheduledDate} ${so.services[0].timeSlot} (Compliant - weekday AM)</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
-                  <i class="fas fa-link" style="color: var(--accent-blue);"></i>
-                  <span><strong>Link to Service Orders:</strong> SO-2025-1421 (after) and SO-2025-2205 (before)</span>
+                  <i class="fas fa-project-diagram" style="color: var(--accent-blue);"></i>
+                  <span><strong>Project:</strong> ${so.salesProjectId} ${so.linkedQuotation ? '(Quotation: ' + so.linkedQuotation + ')' : '(New project)'}</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
-                  <i class="fas fa-pencil" style="color: var(--yellow);"></i>
+                  <i class="fas fa-${so.products.length > 0 ? 'box' : 'tools'}" style="color: var(--yellow);"></i>
                   <span><strong>Project Name Update to:</strong> Kitchen Remodeling</span>
                 </div>
               </div>
@@ -3023,10 +3574,10 @@
               <strong style="color: var(--accent-purple);">AI Recommendations Accepted</strong>
             </div>
             <div style="font-size: 0.9rem; line-height: 1.7;">
-              ✓ Pilote du chantier recommended: Lia Santos (PL-LIA) - Current load: 3 projects - 1340 min of services to be executed<br>
-              ✓ Schedule: 2025-11-18 09:00-11:00 (Compliant - weekday AM)<br>
-              ✓ Link to Service Orders: SO-2025-1421 (after) and SO-2025-2205 (before)<br>
-              ✓ Project Name Update to: Kitchen Remodeling
+              ✓ Pilote du chantier recommended: Lia Santos (PL-LIA) - Current load: ${so.services.length > 1 ? '3 projects - 1340' : '2 projects - 850'} min of services to be executed<br>
+              ✓ Schedule: ${so.services[0].scheduledDate} ${so.services[0].timeSlot} (Compliant - weekday AM)<br>
+              ✓ Service: ${so.services[0].name}<br>
+              ✓ Project: ${so.salesProjectId}${so.linkedQuotation ? ' (Quotation: ' + so.linkedQuotation + ')' : ''}
             </div>
           </div>
         `;
@@ -3223,6 +3774,7 @@
       };
 
       const renderProviderOfferCard = (so, card) => {
+        const isBundle = currentScenario === 'package-deal' && so.services.length > 1;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -3239,15 +3791,27 @@
               </div>
 
               <div class="mobile-card" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1405; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
-                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">New Job Offer</div>
-                <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem;">Lisboa - Telheiras</div>
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">${isBundle ? 'Service Bundle Offer' : 'New Job Offer'}</div>
+                <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem;">${so.customer.city}</div>
                 <div style="font-size: 0.9rem;">
-                  Dish Washer Installation
+                  ${isBundle ? 'TV + Installation Package' : so.services[0].name}
                 </div>
               </div>
 
               <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
-                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${so.services[0].name}</div>
+                ${isBundle ? `
+                  <div style="background: rgba(192, 132, 252, 0.2); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <div style="font-weight: 700; margin-bottom: 0.5rem; color: var(--accent-purple);">
+                      <i class="fas fa-layer-group"></i> BUNDLE: 2 Services
+                    </div>
+                    <div style="font-size: 0.85rem; line-height: 1.6;">
+                      1. ${so.services[0].name} (${so.services[0].scheduledDate})<br>
+                      2. ${so.services[1].name} (${so.services[1].scheduledDate})<br>
+                      <span style="color: var(--accent-purple); font-weight: 600;">Installation check-in blocked until TV completed</span>
+                    </div>
+                  </div>
+                ` : ''}
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${isBundle ? 'Service #1: ' : ''}${so.services[0].name}</div>
                 <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
                   <div style="flex: 1;">
                     <div style="font-size: 0.75rem; color: #999; margin-bottom: 0.3rem;">DATE</div>
@@ -3371,6 +3935,8 @@
       };
 
       const renderCrewExecutionCard = (so, card) => {
+        const mainService = so.services.length > 1 ? so.services[1] : so.services[0];
+        const hasProducts = so.products && so.products.length > 0;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -3383,7 +3949,8 @@
 
             <div class="mobile-screen" style="max-width: 400px; margin: 0 auto 2rem; background: #000; border-radius: 32px; padding: 1.5rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
               <div style="text-align: center; margin-bottom: 1.5rem;">
-                <div style="font-size: 1.3rem; font-weight: 700;">Today's Job</div>
+                <div style="font-size: 1.3rem; font-weight: 700;">YellowGrid Pro</div>
+                <div style="font-size: 0.85rem; color: #999; margin-top: 0.3rem;">Service Execution</div>
               </div>
 
               <div style="background: linear-gradient(135deg, #49d493, #38a169); color: #fff; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
@@ -3391,19 +3958,82 @@
                   <i class="fas fa-check-circle"></i> Checked In
                 </div>
                 <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">Job #SRV-${so.orderId.split('-')[2]}</div>
-                <div style="font-size: 0.9rem;">Started 09:03 • Est. 11:00</div>
+                <div style="font-size: 0.9rem;">Started ${mainService.timeSlot.split('-')[0]} • Duration: ${mainService.duration} min</div>
               </div>
 
-              <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
-                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${so.customer.name}</div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                  <i class="fas fa-map-marker-alt" style="color: var(--accent-blue);"></i>
-                  <span>${so.customer.city}</span>
+              <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                  <div style="font-size: 1.1rem; font-weight: 700;">${so.customer.name}</div>
+                  <a href="tel:${so.customer.phone}" style="padding: 0.5rem 0.8rem; background: rgba(73, 212, 147, 0.2); color: var(--accent-green); border-radius: 8px; text-decoration: none; font-size: 0.85rem;">
+                    <i class="fas fa-phone"></i> Call
+                  </a>
+                </div>
+                
+                <div style="display: flex; align-items: start; gap: 0.5rem; margin-bottom: 0.8rem; padding: 0.8rem; background: rgba(78, 168, 255, 0.1); border-radius: 8px;">
+                  <i class="fas fa-map-marker-alt" style="color: var(--accent-blue); margin-top: 0.2rem;"></i>
+                  <div style="flex: 1;">
+                    <div style="font-size: 0.9rem; line-height: 1.4;">${so.customer.addressLine1}${so.customer.addressLine2 ? '<br>' + so.customer.addressLine2 : ''}</div>
+                    <div style="font-size: 0.85rem; color: #999; margin-top: 0.3rem;">${so.customer.postalCode} ${so.customer.city}</div>
+                  </div>
+                  <button style="padding: 0.5rem 0.8rem; background: rgba(78, 168, 255, 0.2); color: var(--accent-blue); border: none; border-radius: 8px; font-size: 0.85rem; cursor: pointer;">
+                    <i class="fas fa-route"></i>
+                  </button>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
+                <div style="background: rgba(192, 132, 252, 0.15); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
+                  <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);"><i class="fas fa-clipboard-list"></i> Service Details</div>
+                  <div style="font-size: 0.85rem; line-height: 1.6;">
+                    <strong>Type:</strong> ${mainService.name}<br>
+                    <strong>Category:</strong> ${mainService.category}<br>
+                    <strong>Duration:</strong> ${mainService.duration} min<br>
+                    <strong>Skill:</strong> ${mainService.skillLevel}
+                  </div>
+                </div>
+
+                ${hasProducts ? `
+                  <div style="background: rgba(251, 191, 36, 0.15); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-orange);"><i class="fas fa-box"></i> Products to Install</div>
+                    ${so.products.map(p => `
+                      <div style="font-size: 0.85rem; margin-bottom: 0.3rem;">
+                        • ${p.name}<br>
+                        <span style="color: #999; font-size: 0.8rem;">SKU: ${p.sku} | ${p.brand}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                ` : ''}
+
+                ${mainService.equipmentNeeded && mainService.equipmentNeeded.length > 0 ? `
+                  <div style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;"><i class="fas fa-toolbox"></i> Equipment Needed</div>
+                    <div style="font-size: 0.8rem; color: #ccc; line-height: 1.5;">
+                      ${mainService.equipmentNeeded.map(eq => `• ${eq}`).join('<br>')}
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${mainService.safetyRequirements && mainService.safetyRequirements.length > 0 ? `
+                  <div style="background: rgba(239, 68, 68, 0.15); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: #ef4444;"><i class="fas fa-exclamation-triangle"></i> Safety Requirements</div>
+                    <div style="font-size: 0.8rem; color: #fca5a5; line-height: 1.5;">
+                      ${mainService.safetyRequirements.map(sr => `• ${sr}`).join('<br>')}
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${so.specialInstructions ? `
+                  <div style="background: rgba(78, 168, 255, 0.1); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-blue);"><i class="fas fa-info-circle"></i> Special Instructions</div>
+                    <div style="font-size: 0.8rem; color: #ccc; line-height: 1.5;">
+                      ${so.specialInstructions.substring(0, 150)}${so.specialInstructions.length > 150 ? '...' : ''}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 0.8rem;">
                   <button style="padding: 0.8rem; background: rgba(73, 212, 147, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); border-radius: 8px; font-size: 0.85rem; font-weight: 600;">
-                    <i class="fas fa-camera"></i> Photo (4)
+                    <i class="fas fa-camera"></i> Photos (4)
                   </button>
                   <button style="padding: 0.8rem; background: rgba(78, 168, 255, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; font-size: 0.85rem; font-weight: 600;">
                     <i class="fas fa-sticky-note"></i> Notes
@@ -3756,6 +4386,749 @@
         `;
       };
 
+      // Service Pack - TV Confirmation Flow Render Functions
+      const renderTVCrewExecutionCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-hard-hat"></i> CREW
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Technical Visit Execution</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Technician: Rui Lopes - Expert Level</p>
+            </div>
+
+            <div class="mobile-screen" style="max-width: 400px; margin: 0 auto 2rem; background: #000; border-radius: 32px; padding: 1.5rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+              <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="font-size: 1.3rem; font-weight: 700;">Confirmation TV</div>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #49d493, #38a169); color: #fff; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">
+                  <i class="fas fa-check-circle"></i> On Site
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">TV #${so.orderId.split('-')[2]}</div>
+                <div style="font-size: 0.9rem;">${so.services[0].scheduledDate} • ${so.services[0].timeSlot}</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${so.customer.name}</div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-map-marker-alt" style="color: var(--accent-blue);"></i>
+                  <span>${so.customer.addressLine1}, ${so.customer.city}</span>
+                </div>
+
+                <div style="background: rgba(192, 132, 252, 0.2); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                  <div style="font-weight: 700; margin-bottom: 0.5rem;"><i class="fas fa-clipboard-check"></i> Validation Checklist:</div>
+                  <div style="font-size: 0.85rem; line-height: 1.8;">
+                    ✓ Water supply accessible<br>
+                    ✓ Electrical outlet 220V nearby<br>
+                    ✓ Space dimensions: 60×82×55cm<br>
+                    ⚠️ Cabinet modification needed<br>
+                    ✓ Drainage accessible
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+                  <button style="padding: 0.8rem; background: rgba(73, 212, 147, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); border-radius: 8px; font-size: 0.85rem; font-weight: 600;">
+                    <i class="fas fa-camera"></i> Photos (12)
+                  </button>
+                  <button style="padding: 0.8rem; background: rgba(78, 168, 255, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; font-size: 0.85rem; font-weight: 600;">
+                    <i class="fas fa-ruler"></i> Measures
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Complete TV & Upload Report <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderTVReportUploadCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-hard-hat"></i> CREW
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Technician submitting TV findings</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-file-alt"></i> Technical Visit Report</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                  <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 8px; padding: 1rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-green);">✓ PASSED</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">
+                      • Water supply OK<br>
+                      • Electrical 220V OK<br>
+                      • Drainage OK<br>
+                      • Space dimensions OK
+                    </div>
+                  </div>
+                  <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 8px; padding: 1rem;">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-orange);">⚠️ ISSUES FOUND</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">
+                      • Cabinet modification required<br>
+                      • Additional cutting work needed<br>
+                      • Estimated +45 min labor<br>
+                      • Material: €35
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                  <div style="font-weight: 600; margin-bottom: 0.5rem;"><i class="fas fa-lightbulb"></i> Technician Recommendation:</div>
+                  <div style="font-size: 0.95rem; line-height: 1.6;">
+                    "Installation is feasible but requires cabinet modification. Customer's existing cabinet needs cutting to fit dishwasher dimensions. Recommend additional €57.50 (€35 materials + €22.50 labor @ 45min). Customer is aware and agrees to proceed with adjustment."
+                  </div>
+                </div>
+
+                <div style="background: rgba(251, 191, 36, 0.15); border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">
+                    <i class="fas fa-exclamation-triangle"></i> OUTCOME: YES, BUT...
+                  </div>
+                  <div style="font-size: 0.9rem; color: var(--text-muted);">Installation approved with scope/price adjustment required</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid rgba(78, 168, 255, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <i class="fas fa-paperclip" style="color: var(--accent-blue);"></i>
+                  <span><strong>Attachments:</strong> 12 photos, 3 measurements, 1 customer signature</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Submit to AI Analysis <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderTVReportAnalysisCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-robot"></i> AI ENGINE
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Analyzing TV report and validating findings</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 0.5rem;">YES BUT</div>
+                  <div style="font-weight: 600; margin-bottom: 0.3rem;">TV Outcome</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Adjustment Required</div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem; color: var(--accent-green); margin-bottom: 0.5rem;">95%</div>
+                  <div style="font-weight: 600; margin-bottom: 0.3rem;">Confidence</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">High Reliability</div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 0.5rem;">€57.50</div>
+                  <div style="font-weight: 600; margin-bottom: 0.3rem;">Extra Cost</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">+7.6%</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;"><i class="fas fa-brain"></i> AI Analysis Results</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span><strong>Photo Analysis:</strong> 12 images processed - Cabinet cutting clearance validated</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span><strong>Measurements:</strong> Space dimensions 61×83×56cm confirmed (product 60×82×55cm)</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-exclamation-triangle" style="color: var(--accent-orange);"></i>
+                    <span><strong>Cost Validation:</strong> €57.50 adjustment is 12% below market rate for similar modifications</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-user-check" style="color: var(--accent-green);"></i>
+                    <span><strong>Customer Consent:</strong> Digital signature detected on modification approval</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-double" style="color: var(--accent-blue);"></i>
+                    <span><strong>Recommendation:</strong> Proceed with adjustment - Requires operator derogation approval</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 8px; padding: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-route" style="color: var(--accent-orange); font-size: 1.5rem;"></i>
+                  <div>
+                    <div style="font-weight: 600; color: var(--accent-orange);">Next Step: Operator Decision Required</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">TV outcome "YES BUT" requires manual review and derogation approval</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Send to Operator Decision <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderTVOutcomeGateCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-robot"></i> AUTOMATED
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Automatic outcome processing and flow routing</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: rgba(73, 212, 147, 0.1); border: 2px solid rgba(73, 212, 147, 0.4); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem; color: var(--accent-green); margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i></div>
+                  <div style="font-weight: 600;">YES</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Auto-unblock</div>
+                </div>
+
+                <div style="background: rgba(239, 68, 68, 0.1); border: 2px solid #ef4444; border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem; color: #ef4444; margin-bottom: 0.5rem;"><i class="fas fa-times-circle"></i></div>
+                  <div style="font-weight: 600;">NO</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Alert Sales</div>
+                </div>
+
+                <div style="background: rgba(251, 191, 36, 0.1); border: 2px solid rgba(251, 191, 36, 0.4); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 0.5rem;"><i class="fas fa-exclamation-triangle"></i></div>
+                  <div style="font-weight: 600;">YES, BUT...</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Alert Sales</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.15); border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                  <div style="font-size: 2rem; font-weight: 700; color: var(--accent-orange);">
+                    <i class="fas fa-code-branch"></i> TV OUTCOME: YES, BUT...
+                  </div>
+                  <div style="font-size: 1.1rem; color: var(--text-muted); margin-top: 0.5rem;">Automatic routing to sales team</div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                  <h3 style="margin-bottom: 1rem;"><i class="fas fa-clipboard-list"></i> TV Findings Summary</h3>
+                  <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+                    <div style="font-size: 0.9rem; line-height: 1.8;">
+                      <strong>Issue:</strong> Cabinet modification required<br>
+                      <strong>Work Needed:</strong> Cutting + materials (+45 min)<br>
+                      <strong>Customer Status:</strong> <span style="color: var(--accent-green);"><i class="fas fa-check"></i> Signed approval on-site</span>
+                    </div>
+                    <div style="text-align: center;">
+                      <div style="font-size: 0.85rem; margin-bottom: 0.3rem;">Additional Cost</div>
+                      <div style="font-size: 2rem; font-weight: 700; color: var(--accent-orange);">+€57.50</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background: rgba(192, 132, 252, 0.1); border-radius: 8px; padding: 1rem;">
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-route" style="color: var(--accent-purple); font-size: 1.5rem;"></i>
+                    <div>
+                      <div style="font-weight: 600; color: var(--accent-purple);">Automatic Flow Control</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">
+                        YES → Installation auto-unblocked<br>
+                        NO / YES BUT → Alert triggered to sales team for SO handling
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 8px; padding: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-bell" style="color: var(--accent-orange); font-size: 1.2rem;"></i>
+                  <div>
+                    <div style="font-weight: 600;">Next: Sales Team Alert</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">Sales team notified to handle SO adjustment or cancellation in sales domain</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Trigger Sales Alert <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderSalesAlertCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(255, 203, 50, 0.15); color: var(--yellow); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-tie"></i> SALES TEAM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Salesperson: ${so.salesman} - SO Exception Handling</p>
+            </div>
+
+            <div style="max-width: 1000px; margin: 0 auto;">
+              <div style="background: rgba(251, 191, 36, 0.15); border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                  <div style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 0.5rem;"><i class="fas fa-bell"></i></div>
+                  <div style="font-size: 2rem; font-weight: 700;">TV Exception Alert</div>
+                  <div style="font-size: 1.1rem; color: var(--text-muted); margin-top: 0.5rem;">Outcome: YES, BUT... - Sales Order adjustment required</div>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                  <h3 style="margin-bottom: 1rem;"><i class="fas fa-clipboard-list"></i> TV Findings</h3>
+                  <div style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>Issue:</strong> Cabinet modification required<br>
+                    <strong>Root Cause:</strong> Customer's existing cabinet doesn't fit dishwasher dimensions<br>
+                    <strong>Work Required:</strong> Cutting, materials, finishing (+45 min)<br>
+                    <strong>Customer Status:</strong> <span style="color: var(--accent-green);"><i class="fas fa-check"></i> Approved on-site</span><br>
+                    <strong>Additional Cost:</strong> <span style="color: var(--accent-orange); font-weight: 700;">+€57.50</span>
+                  </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                  <h3 style="margin-bottom: 1rem;"><i class="fas fa-shopping-cart"></i> Current Sales Order</h3>
+                  <div style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>SO ID:</strong> ${so.orderId}<br>
+                    <strong>Customer:</strong> ${so.customer.name}<br>
+                    <strong>Original Total:</strong> €${so.totals.total}<br>
+                    <strong>Payment Status:</strong> ${so.payment.status}<br>
+                    <strong>Store:</strong> ${so.store}<br>
+                    <strong>Salesperson:</strong> ${so.salesman}
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid rgba(78, 168, 255, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;"><i class="fas fa-tasks"></i> Sales Team Actions Required</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                  <div>
+                    <div style="font-weight: 600; margin-bottom: 0.8rem; color: var(--accent-blue);">Option 1: Update Sales Order</div>
+                    <div style="font-size: 0.85rem; line-height: 1.7;">
+                      • Add cabinet modification service line<br>
+                      • Update SO total: €${so.totals.total} → €${(Number.parseFloat(so.totals.total) + 57.50).toFixed(2)}<br>
+                      • Contact customer for payment approval<br>
+                      • Update service order automatically syncs
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; margin-bottom: 0.8rem; color: #ef4444;">Option 2: Cancel Sales Order</div>
+                    <div style="font-size: 0.85rem; line-height: 1.7;">
+                      • Cancel SO ${so.orderId}<br>
+                      • Process customer refund<br>
+                      • Service order cancels automatically<br>
+                      • Provider released from assignment
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-info-circle" style="color: var(--accent-purple); font-size: 1.5rem;"></i>
+                  <div>
+                    <div style="font-weight: 600; color: var(--accent-purple);">Sales Domain Handling</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">All price and scope adjustments happen in sales domain. Service domain waits for updated SO or cancellation event.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="text-align: center; padding: 1.5rem; background: rgba(73, 212, 147, 0.1); border: 2px solid rgba(73, 212, 147, 0.4); border-radius: 12px;">
+                <div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-green);">
+                  <i class="fas fa-check-circle"></i> Sales Team Updated SO
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Sales order updated with cabinet modification service • Customer approved additional payment</div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                SO Updated - Sync to Service <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderSOUpdateSyncCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-robot"></i> AUTOMATED
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Automatic synchronization from sales to service domain</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+              <div style="background: rgba(73, 212, 147, 0.1); border: 2px solid rgba(73, 212, 147, 0.4); border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 4rem; color: var(--accent-green); margin-bottom: 1rem;">
+                  <i class="fas fa-sync"></i>
+                </div>
+                <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Sales Order Updated</div>
+                <div style="font-size: 1.1rem; color: var(--text-muted);">Service order automatically synchronized</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                  <h3 style="margin-bottom: 1rem;"><i class="fas fa-shopping-cart"></i> Updated Sales Order</h3>
+                  <div style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>SO ID:</strong> ${so.orderId}<br>
+                    <strong>Updated By:</strong> ${so.salesman}<br>
+                    <strong>Update Time:</strong> ${new Date().toLocaleTimeString('en-GB')}<br>
+                    <strong>Change Type:</strong> Service line added<br>
+                    <strong>New Total:</strong> €${(Number.parseFloat(so.totals.total) + 57.50).toFixed(2)}<br>
+                    <strong>Customer:</strong> Approved payment
+                  </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                  <h3 style="margin-bottom: 1rem;"><i class="fas fa-tools"></i> Service Order Update</h3>
+                  <div style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>Service Added:</strong> Cabinet Modification<br>
+                    <strong>Duration:</strong> +45 minutes<br>
+                    <strong>Cost:</strong> €57.50<br>
+                    <strong>Assigned To:</strong> Same provider<br>
+                    <strong>Scheduled:</strong> During installation<br>
+                    <strong>Status:</strong> Installation unblocked
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;"><i class="fas fa-exchange-alt"></i> Sync Process</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span><strong>Kafka Event:</strong> SO-UPDATE event published to service domain</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span><strong>Service Lines:</strong> Cabinet modification service added to bundle</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span><strong>Provider Assignment:</strong> Same provider maintains both services</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    <span><strong>Installation Status:</strong> Check-in unblocked - ready to proceed</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 8px; padding: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-route" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <div>
+                    <div style="font-weight: 600; color: var(--accent-green);">Ready for Installation</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">TV confirmed, SO updated, service synchronized. Provider can now proceed with installation check-in.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Proceed to Go-Exec Gate <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      // Complex Project Render Functions
+      const renderQualityVisitCard = (so, card) => {
+        const service = so.services[card.serviceIndex];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-check"></i> QUALITY SPECIALIST
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Independent Quality Inspector - Paulo Costa</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-magnifying-glass"></i> On-Site Quality Inspection - Phase ${card.phase}</h3>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">${service.name}</div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem;">
+                  <div><strong>Service Order:</strong> ${service.serviceOrderId}</div>
+                  <div><strong>Inspection Date:</strong> ${new Date(Date.now() + card.phase * 3 * 24*60*60*1000).toLocaleDateString()}</div>
+                  <div><strong>Service Value:</strong> €${service.totalPrice}</div>
+                  <div><strong>Inspector:</strong> Independent Specialist</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-green);"><i class="fas fa-check-circle"></i> Quality Inspection Results</div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  ✅ Work completed according to specifications<br>
+                  ✅ Materials quality verified<br>
+                  ✅ Safety standards met<br>
+                  ✅ No defects or rework needed<br>
+                  ✅ Photos and measurements documented<br>
+                  ✅ Ready for next phase
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <i class="fas fa-lightbulb" style="color: var(--accent-orange);"></i>
+                  <strong> Quality Visit Role:</strong> Independent specialist validates work completion. Acceptance triggers payment authorization AND unblocks next service phase.
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                  <strong>Note:</strong> Customer WCF signature happens once at project end. Quality visits control phase progression and payment releases.
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-success" onclick="dashboard.nextCard()">
+                <i class="fas fa-stamp"></i> Accept & Authorize Payment <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderPaymentAuthCard = (so, card) => {
+        const service = so.services[card.serviceIndex];
+        const milestone = so.payment.paymentMilestones[card.serviceIndex];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-stamp"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Automated Payment Processing</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-file-invoice-dollar"></i> Payment Authorization - ${milestone.milestone}</h3>
+
+              <div style="background: rgba(73, 212, 147, 0.15); border: 2px solid var(--accent-green); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; text-align: center;">
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">PAYMENT AMOUNT</div>
+                <div style="font-size: 3rem; font-weight: 700; color: var(--accent-green);">€${milestone.amount.toFixed(2)}</div>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">${service.name} - Phase ${card.phase}</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-robot"></i> Automatic Authorization Triggered</div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  ✅ Quality visit accepted by independent specialist<br>
+                  ✅ Provider invoice received and validated<br>
+                  ✅ Service within scope and budget<br>
+                  ✅ Milestone conditions met<br>
+                  ✅ No blocking issues detected
+                </div>
+              </div>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <i class="fas fa-bolt" style="color: var(--accent-blue);"></i>
+                  <strong> Triggered By:</strong> Quality visit acceptance automatically authorizes this payment milestone
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                  <strong>Business Rule:</strong> Payment authorization is conditional on quality acceptance. No manual approval needed when quality specialist validates work.
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                <i class="fas fa-check"></i> Payment Authorized <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderPhaseUnlockCard = (so, card) => {
+        const nextService = card.serviceIndex < so.services.length - 1 ? so.services[card.serviceIndex + 1] : null;
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-gears"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Automated Phase Management</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-diagram-project"></i> Critical Path Update</h3>
+
+              <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.15), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">Phase ${card.phase} Complete</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Service executed, quality visit accepted, payment authorized</div>
+              </div>
+
+              ${nextService ? `
+                <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-blue);"><i class="fas fa-unlock"></i> Next Phase Unlocked</div>
+                  <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">${nextService.name}</div>
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem; margin-top: 1rem;">
+                    <div><strong>Service Order:</strong> ${nextService.serviceOrderId}</div>
+                    <div><strong>Scheduled:</strong> ${nextService.scheduledDate}</div>
+                    <div><strong>Duration:</strong> ${nextService.duration} min</div>
+                    <div><strong>Technicians:</strong> ${nextService.techniciansRequired}</div>
+                  </div>
+                </div>
+
+                <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem;">
+                  <div style="font-size: 0.9rem;">
+                    <i class="fas fa-hourglass-half" style="color: var(--accent-orange);"></i>
+                    <strong> Dependencies Met:</strong> ${nextService.precedenceRule}
+                  </div>
+                </div>
+              ` : `
+                <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05)); border: 2px solid var(--accent-orange); border-radius: 12px; padding: 2rem; text-align: center;">
+                  <div style="font-size: 2rem; margin-bottom: 1rem;">🏆</div>
+                  <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-orange);">All Services Complete</div>
+                  <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Final commissioning ready to begin</div>
+                </div>
+              `}
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                ${nextService ? '<i class="fas fa-play"></i> Continue to Next Phase' : '<i class="fas fa-flag-checkered"></i> Proceed to Completion'} <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderProjectCompleteCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-trophy"></i> PROJECT
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Project Complete</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${so.orderId} - All Phases Delivered</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.2), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 3rem; text-align: center; margin-bottom: 2rem;">
+              <div style="font-size: 5rem; margin-bottom: 1rem;">🎉</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Complex Project Successfully Completed</div>
+              <div style="font-size: 1.1rem; color: var(--text-muted);">Multi-phase installation with iterative quality checks and milestone payments</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${so.services.length}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Services Completed</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">€${so.totals.total.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Total Project Value</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">${so.projectPhases.length}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Phases Executed</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">${Math.ceil((new Date(so.projectPhases[so.projectPhases.length-1].startDate) - new Date(so.projectPhases[0].startDate)) / (1000*60*60*24))}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Days Duration</div>
+              </div>
+            </div>
+
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Workflow Highlights</h3>
+              <div style="font-size: 0.95rem; line-height: 2;">
+                ✅ <strong>Multi-Service Orchestration:</strong> ${so.services.length} services sequenced with dependencies<br>
+                ✅ <strong>Iterative Loop:</strong> Each service went through cycle (go exec → execution → quality visit → payment)<br>
+                ✅ <strong>Quality Visits:</strong> Independent specialist validates each phase completion<br>
+                ✅ <strong>Milestone Payments:</strong> ${so.payment.paymentMilestones.length} payments unlocked by quality acceptance<br>
+                ✅ <strong>Critical Path:</strong> Dependencies enforced (Demolition → Tiling → Fixtures → Finishing)<br>
+                ✅ <strong>Same Provider:</strong> All services handled by HomePro Renovations<br>
+                ✅ <strong>Single WCF:</strong> Customer signs once at project end (not per service)<br>
+                ✅ <strong>No Scope Creep:</strong> All changes handled in sales domain
+              </div>
+            </div>            <div style="text-align: center; margin-top: 2rem;">
+              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('🎉 Complex Installation Project Complete! Demonstrated multi-phase workflow with iterative loops.')">
+                <i class="fas fa-flag-checkered"></i> Complete Journey
+              </button>
+              <div style="margin-top: 1rem; color: var(--accent-green);">
+                <i class="fas fa-check-circle"></i> <strong>Full Lifecycle</strong> - Enterprise-grade project management
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
       const renderMetroLine = () => {
         const html = allCards.map((card, idx) => {
           const isActive = idx === currentCardIndex;
@@ -3803,20 +5176,40 @@
           html = renderProviderFunnelCard(so, card);
         } else if (card.id === 'provider-offer') {
           html = renderProviderOfferCard(so, card);
-        } else if (card.id === 'go-gate-check') {
+        } else if (card.id.startsWith('go-gate-check')) {
           html = renderGoGateCard(so, card);
-        } else if (card.id === 'crew-execution') {
+        } else if (card.id === 'tv-crew-execution') {
+          html = renderTVCrewExecutionCard(so, card);
+        } else if (card.id === 'tv-report-upload') {
+          html = renderTVReportUploadCard(so, card);
+        } else if (card.id === 'tv-report-analysis') {
+          html = renderTVReportAnalysisCard(so, card);
+        } else if (card.id === 'tv-outcome-gate') {
+          html = renderTVOutcomeGateCard(so, card);
+        } else if (card.id === 'sales-alert') {
+          html = renderSalesAlertCard(so, card);
+        } else if (card.id === 'so-update-sync') {
+          html = renderSOUpdateSyncCard(so, card);
+        } else if (card.id.startsWith('crew-execution')) {
           html = renderCrewExecutionCard(so, card);
         } else if (card.id === 'wcf-notification') {
           html = renderWCFNotificationCard(so, card);
         } else if (card.id === 'wcf-portal') {
           html = renderWCFPortalCard(so, card);
-        } else if (card.id === 'invoice-portal') {
+        } else if (card.id.startsWith('quality-visit')) {
+          html = renderQualityVisitCard(so, card);
+        } else if (card.id.startsWith('invoice-portal')) {
           html = renderInvoicePortalCard(so, card);
         } else if (card.id === 'invoice-dataflow') {
           html = renderInvoiceDataflowCard(so, card);
-        } else if (card.id === 'payment-portal') {
+        } else if (card.id.startsWith('payment-auth')) {
+          html = renderPaymentAuthCard(so, card);
+        } else if (card.id.startsWith('payment-portal')) {
           html = renderPaymentPortalCard(so, card);
+        } else if (card.id.startsWith('phase-unlock')) {
+          html = renderPhaseUnlockCard(so, card);
+        } else if (card.id === 'project-complete') {
+          html = renderProjectCompleteCard(so, card);
         }
 
         document.getElementById('journeyCard').innerHTML = html;
@@ -3826,6 +5219,7 @@
         if (!scenarioId) return;
         currentScenario = scenarioId;
         currentCardIndex = 0;
+        allCards = getCardsForScenario(scenarioId);
         renderMetroLine();
         renderCard();
       };
