@@ -2024,9 +2024,8 @@
 
     // Week data structure
     const weeksData = {
-      0: { // Week of March 18-24 (previous) - Tuesday is March 19
+      0: { // Week of March 18-24 (previous)
         display: 'Week of March 18-24',
-        todayIndex: 1, // Tuesday (0=Mon, 1=Tue, etc.)
         unassigned: [
           { time: 'Morning', customer: 'Peterson', serviceType: 'INST', location: 'Garage', orderId: 'SO-8821', salesId: 'SL-4412', tags: ['contract-ok'] },
           { time: 'Afternoon', customer: 'Barnes', serviceType: 'TV CF', location: 'Living Room', orderId: 'SO-8834', salesId: 'SL-4419', tags: ['contract-nok'] },
@@ -2039,7 +2038,7 @@
           { time: '08:30', customer: 'Hughes', serviceType: 'INST', location: 'Full Kitchen Remodel', orderId: 'SO-8702', salesId: 'SL-4351', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multiday: true },
           { time: 'All day', customer: 'Hughes', serviceType: 'INST', location: 'Full Kitchen Remodel', orderId: 'SO-8702', salesId: 'SL-4351', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
           { time: '09:00', customer: 'Powell', serviceType: 'TV CF', location: 'Water Heater', orderId: 'SO-8715', salesId: 'SL-4359', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
-          { time: '08:00', customer: 'Long', serviceType: 'RWK', location: 'Cabinet Repair', orderId: 'SO-8728', salesId: 'SL-4367', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '08:00', customer: 'Long', serviceType: 'RWK', location: 'Cabinet Repair', orderId: 'SO-8728', salesId: 'SL-4367', provider: 'Provider A', crew: 'Crew A', tags: ['wcf-ok'] },
           { time: '09:30', customer: 'Patterson', serviceType: 'INST', location: 'Appliances', orderId: 'SO-8741', salesId: 'SL-4375', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
           { time: '10:00', customer: 'Ross', serviceType: 'TV QT', location: 'Full Inspection', orderId: 'SO-8754', salesId: 'SL-4383', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] }
         ],
@@ -2053,7 +2052,7 @@
         ],
         crewC: [
           { type: 'available' },
-          { time: '10:00', customer: 'Coleman', serviceType: 'RWK', location: 'Tile Repair', orderId: 'SO-8803', salesId: 'SL-4411', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '10:00', customer: 'Coleman', serviceType: 'RWK', location: 'Tile Repair', orderId: 'SO-8803', salesId: 'SL-4411', provider: 'Provider A', crew: 'Crew C', tags: ['wcf-ok'] },
           { time: '08:00', customer: 'Gray', serviceType: 'INST', location: 'Flooring', orderId: 'SO-8815', salesId: 'SL-4418', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
           { type: 'available' },
           { time: '09:00', customer: 'Ramirez', serviceType: 'TV QT', location: 'Quality Check', orderId: 'SO-8827', salesId: 'SL-4424', provider: 'Provider A', crew: 'Crew C', tags: [] },
@@ -2063,7 +2062,7 @@
           { time: '09:00', customer: 'Sanders', serviceType: 'INST', location: 'Bathroom Remodel', orderId: 'SO-8851', salesId: 'SL-4427', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
           { time: '08:30', customer: 'Price', serviceType: 'TV CF', location: 'Dishwasher', orderId: 'SO-8863', salesId: 'SL-4435', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
           { type: 'available' },
-          { time: '10:00', customer: 'Bennett', serviceType: 'RWK', location: 'Paint Touch-up', orderId: 'SO-8875', salesId: 'SL-4443', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '10:00', customer: 'Bennett', serviceType: 'RWK', location: 'Paint Touch-up', orderId: 'SO-8875', salesId: 'SL-4443', provider: 'Provider B', crew: 'Crew D', tags: ['wcf-ok'] },
           { type: 'available' },
           { time: '07:30', customer: 'Wood', serviceType: 'PRE BK', location: 'Site Visit', orderId: 'SO-8887', salesId: 'SL-4450', provider: 'Provider B', crew: 'Crew D', tags: [] }
         ],
@@ -2078,7 +2077,7 @@
       },
       1: { // Week of March 25-31 (current) - Tuesday is March 26
         display: 'Week of March 25-31',
-        todayIndex: 1, // Tuesday
+        todayIndex: 1, // Tuesday - only current week shows "today"
         unassigned: [
           { time: 'Morning', customer: 'Smith', serviceType: 'INST', location: 'Kitchen', orderId: 'SO-9012', salesId: 'SL-4501', tags: ['contract-nok'] },
           { time: 'Afternoon', customer: 'Johnson', serviceType: 'PRE BK', location: 'Kitchen', orderId: 'SO-9025', salesId: 'SL-4509', tags: [] },
@@ -2093,14 +2092,14 @@
           { time: 'All day', customer: 'Anderson', serviceType: 'INST', location: 'Complex Bathroom', orderId: 'SO-8901', salesId: 'SL-4451', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
           { time: '08:00', customer: 'Thomas', serviceType: 'TV CF', location: 'Air Conditioner', orderId: 'SO-8914', salesId: 'SL-4459', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
           { type: 'available' },
-          { time: '09:00', customer: 'Moore', serviceType: 'RWK', location: 'Countertop Repair', orderId: 'SO-8927', salesId: 'SL-4467', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '09:00', customer: 'Moore', serviceType: 'RWK', location: 'Countertop Repair', orderId: 'SO-8927', salesId: 'SL-4467', provider: 'Provider A', crew: 'Crew A', tags: ['wcf-ok'] },
           { type: 'available' },
           { time: '10:00', customer: 'Taylor', serviceType: 'PRE BK', location: 'Site Assessment', orderId: 'SO-8939', salesId: 'SL-4475', provider: 'Provider A', crew: 'Crew A', tags: [] }
         ],
         crewB: [
           { time: '08:00', customer: 'Jackson', serviceType: 'INST', location: 'Master Bedroom', orderId: 'SO-8952', salesId: 'SL-4483', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
           { time: '09:30', customer: 'White', serviceType: 'TV QT', location: 'Full Inspection', orderId: 'SO-8964', salesId: 'SL-4491', provider: 'Provider A', crew: 'Crew B', tags: [] },
-          { time: '07:30', customer: 'Harris', serviceType: 'RWK', location: 'Tile Replacement', orderId: 'SO-8976', salesId: 'SL-4498', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '07:30', customer: 'Harris', serviceType: 'RWK', location: 'Tile Replacement', orderId: 'SO-8976', salesId: 'SL-4498', provider: 'Provider A', crew: 'Crew B', tags: ['wcf-ok'] },
           { time: '08:30', customer: 'Martin', serviceType: 'INST', location: 'Kitchen Island', orderId: 'SO-8988', salesId: 'SL-4505', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
           { time: '09:00', customer: 'Thompson', serviceType: 'TV CF', location: 'HVAC', orderId: 'SO-9000', salesId: 'SL-4512', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
           { type: 'available' }
@@ -2118,7 +2117,7 @@
           { type: 'available' },
           { time: '08:00', customer: 'Dixon', serviceType: 'INST', location: 'Deck Installation', orderId: 'SO-8955', salesId: 'SL-4485', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
           { time: '09:30', customer: 'Hunt', serviceType: 'TV CF', location: 'Range Repair', orderId: 'SO-8967', salesId: 'SL-4493', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
-          { time: '08:00', customer: 'Webb', serviceType: 'RWK', location: 'Countertop Fix', orderId: 'SO-8979', salesId: 'SL-4500', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '08:00', customer: 'Webb', serviceType: 'RWK', location: 'Countertop Fix', orderId: 'SO-8979', salesId: 'SL-4500', provider: 'Provider B', crew: 'Crew D', tags: ['wcf-ok'] },
           { time: '10:00', customer: 'Stevens', serviceType: 'INST', location: 'Ceiling Fan', orderId: 'SO-8991', salesId: 'SL-4507', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
           { type: 'available' }
         ],
@@ -2131,9 +2130,8 @@
           { time: '08:00', customer: 'Hicks', serviceType: 'TV CF', location: 'Water Heater', orderId: 'SO-9039', salesId: 'SL-4535', provider: 'Provider B', crew: 'Crew E', tags: ['goexec-ok'] }
         ]
       },
-      2: { // Week of April 1-7 (next week) - Tuesday is April 2
+      2: { // Week of April 1-7 (next week)
         display: 'Week of April 1-7',
-        todayIndex: 1, // Tuesday
         unassigned: [
           { time: 'Morning', customer: 'Davis', serviceType: 'TV CF', location: 'Electrical Panel', orderId: 'SO-9201', salesId: 'SL-4601', tags: ['contract-ok'] },
           { time: 'Afternoon', customer: 'Wilson', serviceType: 'INST', location: 'Bathroom Vanity', orderId: 'SO-9213', salesId: 'SL-4609', tags: [] },
@@ -2146,7 +2144,7 @@
           { time: '08:00', customer: 'Perez', serviceType: 'INST', location: 'Kitchen Cabinets', orderId: 'SO-9097', salesId: 'SL-4551', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
           { type: 'available' },
           { time: '09:30', customer: 'Roberts', serviceType: 'TV CF', location: 'Plumbing Fix', orderId: 'SO-9109', salesId: 'SL-4559', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
-          { time: '10:00', customer: 'Turner', serviceType: 'RWK', location: 'Floor Repair', orderId: 'SO-9121', salesId: 'SL-4567', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '10:00', customer: 'Turner', serviceType: 'RWK', location: 'Floor Repair', orderId: 'SO-9121', salesId: 'SL-4567', provider: 'Provider A', crew: 'Crew A', tags: ['wcf-ok'] },
           { time: '08:30', customer: 'Phillips', serviceType: 'TV QT', location: 'Pre-close Inspection', orderId: 'SO-9133', salesId: 'SL-4575', provider: 'Provider A', crew: 'Crew A', tags: [] },
           { time: '09:00', customer: 'Campbell', serviceType: 'INST', location: 'Appliance Install', orderId: 'SO-9145', salesId: 'SL-4583', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] }
         ],
@@ -2155,7 +2153,7 @@
           { time: '09:00', customer: 'Evans', serviceType: 'INST', location: 'Bedroom Closets', orderId: 'SO-9169', salesId: 'SL-4598', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
           { time: '08:00', customer: 'Edwards', serviceType: 'TV CF', location: 'Water Damage', orderId: 'SO-9181', salesId: 'SL-4605', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
           { type: 'available' },
-          { time: '10:00', customer: 'Stewart', serviceType: 'RWK', location: 'Paint Touch-up', orderId: 'SO-9193', salesId: 'SL-4612', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '10:00', customer: 'Stewart', serviceType: 'RWK', location: 'Paint Touch-up', orderId: 'SO-9193', salesId: 'SL-4612', provider: 'Provider A', crew: 'Crew B', tags: ['wcf-ok'] },
           { type: 'available' }
         ],
         crewC: [
@@ -2172,7 +2170,7 @@
           { type: 'available' },
           { time: '08:30', customer: 'Garza', serviceType: 'INST', location: 'Window Blinds', orderId: 'SO-9265', salesId: 'SL-4654', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
           { time: '09:30', customer: 'Fuller', serviceType: 'TV CF', location: 'Sink Repair', orderId: 'SO-9277', salesId: 'SL-4661', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
-          { time: '08:00', customer: 'Burton', serviceType: 'RWK', location: 'Door Adjustment', orderId: 'SO-9289', salesId: 'SL-4668', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok', 'wcf-ok'] }
+          { time: '08:00', customer: 'Burton', serviceType: 'RWK', location: 'Door Adjustment', orderId: 'SO-9289', salesId: 'SL-4668', provider: 'Provider B', crew: 'Crew D', tags: ['wcf-ok'] }
         ],
         crewE: [
           { type: 'available' },
@@ -2183,9 +2181,8 @@
           { time: '09:30', customer: 'Carr', serviceType: 'TV CF', location: 'Garbage Disposal', orderId: 'SO-9337', salesId: 'SL-4696', provider: 'Provider B', crew: 'Crew E', tags: ['goexec-ok'] }
         ]
       },
-      3: { // Week of April 8-14 (week after next) - Tuesday is April 9
+      3: { // Week of April 8-14 (week after next)
         display: 'Week of April 8-14',
-        todayIndex: 1, // Tuesday
         unassigned: [
           { time: 'Morning', customer: 'Morgan', serviceType: 'INST', location: 'Master Bath', orderId: 'SO-9401', salesId: 'SL-4701', tags: ['contract-ok'] },
           { time: 'Afternoon', customer: 'Bell', serviceType: 'RWK', location: 'Door Replacement', orderId: 'SO-9413', salesId: 'SL-4709', tags: ['contract-ok'] },
@@ -2200,7 +2197,7 @@
           { time: 'All day', customer: 'Richardson', serviceType: 'INST', location: 'Full Kitchen', orderId: 'SO-9273', salesId: 'SL-4651', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
           { time: '09:00', customer: 'Cox', serviceType: 'TV CF', location: 'Gas Line', orderId: 'SO-9285', salesId: 'SL-4659', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
           { type: 'available' },
-          { time: '08:00', customer: 'Howard', serviceType: 'RWK', location: 'Cabinet Repair', orderId: 'SO-9297', salesId: 'SL-4667', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] }
+          { time: '08:00', customer: 'Howard', serviceType: 'RWK', location: 'Cabinet Repair', orderId: 'SO-9297', salesId: 'SL-4667', provider: 'Provider A', crew: 'Crew A', tags: ['wcf-ok'] }
         ],
         crewB: [
           { time: '09:00', customer: 'Ward', serviceType: 'PRE BK', location: 'Kitchen Design', orderId: 'SO-9309', salesId: 'SL-4675', provider: 'Provider A', crew: 'Crew B', tags: [] },
@@ -2213,14 +2210,14 @@
         crewC: [
           { time: '08:00', customer: 'James', serviceType: 'INST', location: 'Window Treatments', orderId: 'SO-9369', salesId: 'SL-4712', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
           { type: 'available' },
-          { time: '09:00', customer: 'Watson', serviceType: 'RWK', location: 'Flooring Fix', orderId: 'SO-9381', salesId: 'SL-4719', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '09:00', customer: 'Watson', serviceType: 'RWK', location: 'Flooring Fix', orderId: 'SO-9381', salesId: 'SL-4719', provider: 'Provider A', crew: 'Crew C', tags: ['wcf-ok'] },
           { time: '10:00', customer: 'Brooks', serviceType: 'TV CF', location: 'Plumbing', orderId: 'SO-9393', salesId: 'SL-4726', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
           { type: 'available' },
           { time: '08:30', customer: 'Kelly', serviceType: 'TV QT', location: 'Pre-delivery Check', orderId: 'SO-9405', salesId: 'SL-4733', provider: 'Provider A', crew: 'Crew C', tags: [] }
         ],
         crewD: [
           { time: '08:00', customer: 'Sanders', serviceType: 'INST', location: 'Bathroom Fixtures', orderId: 'SO-9417', salesId: 'SL-4740', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
-          { time: '09:30', customer: 'Price', serviceType: 'RWK', location: 'Tile Grout', orderId: 'SO-9429', salesId: 'SL-4747', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '09:30', customer: 'Price', serviceType: 'RWK', location: 'Tile Grout', orderId: 'SO-9429', salesId: 'SL-4747', provider: 'Provider B', crew: 'Crew D', tags: ['wcf-ok'] },
           { type: 'available' },
           { time: '10:00', customer: 'Russell', serviceType: 'TV CF', location: 'Oven Repair', orderId: 'SO-9441', salesId: 'SL-4754', provider: 'Provider B', crew: 'Crew D', tags: ['goexec-ok'] },
           { type: 'available' },
