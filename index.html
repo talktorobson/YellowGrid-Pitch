@@ -4440,13 +4440,21 @@
     function updateControlTowerWidgets() {
       const towerView = document.getElementById('controlTowerView');
       const chatWidget = document.getElementById('towerChatWidget');
+      const chatButton = document.getElementById('towerChatButton');
+      const chatWindow = document.getElementById('towerChatWindow');
       const messagesPanel = document.getElementById('towerMessagesPanel');
       
       if (towerView && !towerView.classList.contains('hidden')) {
+        // Show chat widget with button visible, window hidden (initial state)
         chatWidget.classList.remove('hidden');
+        chatButton.classList.remove('hidden');
+        chatWindow.classList.add('hidden');
         // messagesPanel remains hidden until user opens it
       } else {
+        // Hide everything when not in Control Tower view
         chatWidget.classList.add('hidden');
+        chatButton.classList.add('hidden');
+        chatWindow.classList.add('hidden');
         messagesPanel.classList.add('hidden');
       }
     }
