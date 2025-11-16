@@ -415,6 +415,128 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
+
+    .week-navigation {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .week-nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .week-nav-btn:hover {
+      background: rgba(255, 193, 7, 0.1);
+      border-color: rgba(255, 193, 7, 0.3);
+      color: var(--yellow-primary);
+      transform: translateY(-2px);
+    }
+
+    .week-nav-btn:active {
+      transform: translateY(0);
+    }
+
+    .week-display {
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      min-width: 180px;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .grid-search-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      max-width: 400px;
+      justify-content: flex-end;
+    }
+
+    .grid-search-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .grid-search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      pointer-events: none;
+    }
+
+    .grid-search-input {
+      width: 100%;
+      padding: 0.625rem 0.75rem 0.625rem 2.25rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.8125rem;
+      transition: var(--transition);
+    }
+
+    .grid-search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .grid-search-input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 193, 7, 0.4);
+      box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+    }
+
+    .search-results-badge {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 193, 7, 0.2);
+      color: var(--yellow-primary);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 0.125rem 0.5rem;
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .grid-row.search-highlight {
+      animation: highlightPulse 0.6s ease-out;
+    }
+
+    .grid-row.search-hidden {
+      display: none;
+    }
+
+    @keyframes highlightPulse {
+      0% {
+        background: rgba(255, 193, 7, 0.2);
+      }
+      100% {
+        background: transparent;
+      }
+    }
     
     .grid-tabs {
       display: flex;
@@ -1266,7 +1388,24 @@
           
           <div class="grid-view">
             <div class="grid-controls">
-              <span style="color: var(--text-muted); font-size: 0.875rem;">Week of March 25-31</span>
+              <div class="week-navigation">
+                <button class="week-nav-btn" id="prevWeek" aria-label="Previous week">‹</button>
+                <div class="week-display" id="weekDisplay">Week of March 25-31</div>
+                <button class="week-nav-btn" id="nextWeek" aria-label="Next week">›</button>
+              </div>
+              <div class="grid-search-container">
+                <div class="grid-search-wrapper">
+                  <span class="grid-search-icon">🔍</span>
+                  <input 
+                    type="text" 
+                    class="grid-search-input" 
+                    id="gridSearch" 
+                    placeholder="Search customer, order ID, sales ID, provider, crew..."
+                    aria-label="Search grid"
+                  />
+                  <span class="search-results-badge" id="searchResults" style="display: none;"></span>
+                </div>
+              </div>
             </div>
             
             <div class="grid-legend-sticky">
@@ -1870,6 +2009,299 @@
     }, observerOptions);
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Week data structure
+    const weeksData = {
+      0: { // Week of March 18-24 (previous)
+        display: 'Week of March 18-24',
+        unassigned: [
+          { time: 'Morning', customer: 'Peterson', serviceType: 'INST', location: 'Garage', orderId: 'SO-8821', salesId: 'SL-4412', tags: ['contract-ok'] },
+          { time: 'Afternoon', customer: 'Barnes', serviceType: 'TV CF', location: 'Living Room', orderId: 'SO-8834', salesId: 'SL-4419', tags: ['contract-nok'] },
+          { time: 'Morning', customer: 'Morrison', serviceType: 'RWK', location: 'Bathroom', orderId: 'SO-8847', salesId: 'SL-4425', tags: ['wcf-ok'] },
+          { time: 'Afternoon', customer: 'Collins', serviceType: 'INST', location: 'Kitchen', orderId: 'SO-8859', salesId: 'SL-4433', tags: ['contract-ok'] },
+          { time: 'Morning', customer: 'Murphy', serviceType: 'TV QT', location: 'Bedroom', orderId: 'SO-8871', salesId: 'SL-4441', tags: [] },
+          { time: 'Afternoon', customer: 'Reed', serviceType: 'PRE BK', location: 'Office', orderId: 'SO-8883', salesId: 'SL-4448', tags: ['contract-ok'] }
+        ],
+        crewA: [
+          { time: '08:30', customer: 'Hughes', serviceType: 'INST', location: 'Full Kitchen Remodel', orderId: 'SO-8702', salesId: 'SL-4351', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multiday: true },
+          { time: 'All day', customer: 'Hughes', serviceType: 'INST', location: 'Full Kitchen Remodel', orderId: 'SO-8702', salesId: 'SL-4351', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
+          { time: '09:00', customer: 'Powell', serviceType: 'TV CF', location: 'Water Heater', orderId: 'SO-8715', salesId: 'SL-4359', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
+          { time: '08:00', customer: 'Long', serviceType: 'RWK', location: 'Cabinet Repair', orderId: 'SO-8728', salesId: 'SL-4367', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '09:30', customer: 'Patterson', serviceType: 'INST', location: 'Appliances', orderId: 'SO-8741', salesId: 'SL-4375', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
+          { time: '10:00', customer: 'Ross', serviceType: 'TV QT', location: 'Full Inspection', orderId: 'SO-8754', salesId: 'SL-4383', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] }
+        ],
+        crewB: [
+          { time: '07:30', customer: 'Foster', serviceType: 'PRE BK', location: 'Kitchen Assessment', orderId: 'SO-8767', salesId: 'SL-4391', provider: 'Provider A', crew: 'Crew B', tags: [] },
+          { time: '09:00', customer: 'Jenkins', serviceType: 'INST', location: 'Countertops', orderId: 'SO-8779', salesId: 'SL-4398', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '08:30', customer: 'Perry', serviceType: 'TV CF', location: 'Plumbing', orderId: 'SO-8791', salesId: 'SL-4405', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { type: 'available' }
+        ],
+        crewC: [
+          { type: 'available' },
+          { time: '10:00', customer: 'Coleman', serviceType: 'RWK', location: 'Tile Repair', orderId: 'SO-8803', salesId: 'SL-4411', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '08:00', customer: 'Gray', serviceType: 'INST', location: 'Flooring', orderId: 'SO-8815', salesId: 'SL-4418', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '09:00', customer: 'Ramirez', serviceType: 'TV QT', location: 'Quality Check', orderId: 'SO-8827', salesId: 'SL-4424', provider: 'Provider A', crew: 'Crew C', tags: [] },
+          { time: '08:30', customer: 'Watson', serviceType: 'INST', location: 'Windows', orderId: 'SO-8839', salesId: 'SL-4432', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] }
+        ]
+      },
+      1: { // Week of March 25-31 (current - existing data)
+        display: 'Week of March 25-31',
+        unassigned: [
+          { time: 'Morning', customer: 'Smith', serviceType: 'INST', location: 'Kitchen', orderId: 'SO-9012', salesId: 'SL-4501', tags: ['contract-nok'] },
+          { time: 'Afternoon', customer: 'Johnson', serviceType: 'PRE BK', location: 'Kitchen', orderId: 'SO-9025', salesId: 'SL-4509', tags: [] },
+          { time: 'Morning', customer: 'Williams', serviceType: 'RWK', location: 'Kitchen', orderId: 'SO-9037', salesId: 'SL-4515', tags: ['contract-ok'] },
+          { time: 'Morning', customer: 'Garcia', serviceType: 'TV QT', location: 'Appliance', orderId: 'SO-9049', salesId: 'SL-4523', tags: ['contract-ok'] },
+          { time: 'Afternoon', customer: 'Martinez', serviceType: 'INST', location: 'Bedroom', orderId: 'SO-9061', salesId: 'SL-4531', tags: ['contract-nok'] },
+          { time: 'Morning', customer: 'Lopez', serviceType: 'INST', location: 'Living Room', orderId: 'SO-9073', salesId: 'SL-4539', tags: ['contract-ok'] },
+          { time: 'Morning', customer: 'Rodriguez', serviceType: 'TV CF', location: 'Office', orderId: 'SO-9085', salesId: 'SL-4547', tags: ['contract-ok'] }
+        ],
+        crewA: [
+          { time: '09:30', customer: 'Anderson', serviceType: 'INST', location: 'Complex Bathroom', orderId: 'SO-8901', salesId: 'SL-4451', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multiday: true },
+          { time: 'All day', customer: 'Anderson', serviceType: 'INST', location: 'Complex Bathroom', orderId: 'SO-8901', salesId: 'SL-4451', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
+          { time: '08:00', customer: 'Thomas', serviceType: 'TV CF', location: 'Air Conditioner', orderId: 'SO-8914', salesId: 'SL-4459', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '09:00', customer: 'Moore', serviceType: 'RWK', location: 'Countertop Repair', orderId: 'SO-8927', salesId: 'SL-4467', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] },
+          { type: 'available' },
+          { time: '10:00', customer: 'Taylor', serviceType: 'PRE BK', location: 'Site Assessment', orderId: 'SO-8939', salesId: 'SL-4475', provider: 'Provider A', crew: 'Crew A', tags: [] }
+        ],
+        crewB: [
+          { time: '08:00', customer: 'Jackson', serviceType: 'INST', location: 'Master Bedroom', orderId: 'SO-8952', salesId: 'SL-4483', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { time: '09:30', customer: 'White', serviceType: 'TV QT', location: 'Full Inspection', orderId: 'SO-8964', salesId: 'SL-4491', provider: 'Provider A', crew: 'Crew B', tags: [] },
+          { time: '07:30', customer: 'Harris', serviceType: 'RWK', location: 'Tile Replacement', orderId: 'SO-8976', salesId: 'SL-4498', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '08:30', customer: 'Martin', serviceType: 'INST', location: 'Kitchen Island', orderId: 'SO-8988', salesId: 'SL-4505', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { time: '09:00', customer: 'Thompson', serviceType: 'TV CF', location: 'HVAC', orderId: 'SO-9000', salesId: 'SL-4512', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { type: 'available' }
+        ],
+        crewC: [
+          { time: '09:00', customer: 'Brown', serviceType: 'PRE BK', location: 'Kitchen Planning', orderId: 'SO-8895', salesId: 'SL-4447', provider: 'Provider A', crew: 'Crew C', tags: [] },
+          { time: '10:00', customer: 'Clark', serviceType: 'TV CF', location: 'Electrical', orderId: 'SO-8907', salesId: 'SL-4454', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { time: '08:30', customer: 'Lewis', serviceType: 'INST', location: 'Windows', orderId: 'SO-8919', salesId: 'SL-4461', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '09:00', customer: 'Young', serviceType: 'TV QT', location: 'Full Inspection', orderId: 'SO-8931', salesId: 'SL-4469', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'], multiday: true },
+          { time: 'All day', customer: 'Young', serviceType: 'TV QT', location: 'Full Inspection', orderId: 'SO-8931', salesId: 'SL-4469', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'], multidayContinue: true },
+          { time: '09:30', customer: 'King', serviceType: 'RWK', location: 'Flooring', orderId: 'SO-8943', salesId: 'SL-4477', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] }
+        ]
+      },
+      2: { // Week of April 1-7 (next week)
+        display: 'Week of April 1-7',
+        unassigned: [
+          { time: 'Morning', customer: 'Davis', serviceType: 'TV CF', location: 'Electrical Panel', orderId: 'SO-9201', salesId: 'SL-4601', tags: ['contract-ok'] },
+          { time: 'Afternoon', customer: 'Wilson', serviceType: 'INST', location: 'Bathroom Vanity', orderId: 'SO-9213', salesId: 'SL-4609', tags: [] },
+          { time: 'Morning', customer: 'Baker', serviceType: 'RWK', location: 'Cabinet Refinish', orderId: 'SO-9225', salesId: 'SL-4615', tags: ['contract-nok'] },
+          { time: 'Morning', customer: 'Nelson', serviceType: 'PRE BK', location: 'Site Survey', orderId: 'SO-9237', salesId: 'SL-4623', tags: [] },
+          { time: 'Afternoon', customer: 'Carter', serviceType: 'TV QT', location: 'Quality Review', orderId: 'SO-9249', salesId: 'SL-4631', tags: ['contract-ok'] },
+          { time: 'Morning', customer: 'Mitchell', serviceType: 'INST', location: 'Closet System', orderId: 'SO-9261', salesId: 'SL-4639', tags: ['contract-ok'] }
+        ],
+        crewA: [
+          { time: '08:00', customer: 'Perez', serviceType: 'INST', location: 'Kitchen Cabinets', orderId: 'SO-9097', salesId: 'SL-4551', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '09:30', customer: 'Roberts', serviceType: 'TV CF', location: 'Plumbing Fix', orderId: 'SO-9109', salesId: 'SL-4559', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
+          { time: '10:00', customer: 'Turner', serviceType: 'RWK', location: 'Floor Repair', orderId: 'SO-9121', salesId: 'SL-4567', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '08:30', customer: 'Phillips', serviceType: 'TV QT', location: 'Pre-close Inspection', orderId: 'SO-9133', salesId: 'SL-4575', provider: 'Provider A', crew: 'Crew A', tags: [] },
+          { time: '09:00', customer: 'Campbell', serviceType: 'INST', location: 'Appliance Install', orderId: 'SO-9145', salesId: 'SL-4583', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] }
+        ],
+        crewB: [
+          { time: '07:30', customer: 'Parker', serviceType: 'PRE BK', location: 'Kitchen Measure', orderId: 'SO-9157', salesId: 'SL-4591', provider: 'Provider A', crew: 'Crew B', tags: [] },
+          { time: '09:00', customer: 'Evans', serviceType: 'INST', location: 'Bedroom Closets', orderId: 'SO-9169', salesId: 'SL-4598', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { time: '08:00', customer: 'Edwards', serviceType: 'TV CF', location: 'Water Damage', orderId: 'SO-9181', salesId: 'SL-4605', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '10:00', customer: 'Stewart', serviceType: 'RWK', location: 'Paint Touch-up', orderId: 'SO-9193', salesId: 'SL-4612', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok', 'wcf-ok'] },
+          { type: 'available' }
+        ],
+        crewC: [
+          { type: 'available' },
+          { time: '09:30', customer: 'Morris', serviceType: 'TV QT', location: 'Final Walkthrough', orderId: 'SO-9205', salesId: 'SL-4619', provider: 'Provider A', crew: 'Crew C', tags: [] },
+          { time: '08:30', customer: 'Rogers', serviceType: 'INST', location: 'Countertop Install', orderId: 'SO-9217', salesId: 'SL-4626', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { time: '09:00', customer: 'Reed', serviceType: 'TV CF', location: 'HVAC Repair', orderId: 'SO-9229', salesId: 'SL-4633', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { time: '07:30', customer: 'Cook', serviceType: 'INST', location: 'Lighting Fixtures', orderId: 'SO-9241', salesId: 'SL-4640', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { type: 'available' }
+        ]
+      },
+      3: { // Week of April 8-14 (week after next)
+        display: 'Week of April 8-14',
+        unassigned: [
+          { time: 'Morning', customer: 'Morgan', serviceType: 'INST', location: 'Master Bath', orderId: 'SO-9401', salesId: 'SL-4701', tags: ['contract-ok'] },
+          { time: 'Afternoon', customer: 'Bell', serviceType: 'RWK', location: 'Door Replacement', orderId: 'SO-9413', salesId: 'SL-4709', tags: ['contract-ok'] },
+          { time: 'Morning', customer: 'Murphy', serviceType: 'TV CF', location: 'Water Leak', orderId: 'SO-9425', salesId: 'SL-4715', tags: [] },
+          { time: 'Afternoon', customer: 'Bailey', serviceType: 'PRE BK', location: 'Bathroom Plan', orderId: 'SO-9437', salesId: 'SL-4723', tags: [] },
+          { time: 'Morning', customer: 'Rivera', serviceType: 'TV QT', location: 'Final Check', orderId: 'SO-9449', salesId: 'SL-4731', tags: ['contract-nok'] },
+          { time: 'Morning', customer: 'Cooper', serviceType: 'INST', location: 'Garage Storage', orderId: 'SO-9461', salesId: 'SL-4739', tags: ['contract-ok'] }
+        ],
+        crewA: [
+          { time: '08:30', customer: 'Richardson', serviceType: 'INST', location: 'Full Kitchen', orderId: 'SO-9273', salesId: 'SL-4651', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multiday: true },
+          { time: 'All day', customer: 'Richardson', serviceType: 'INST', location: 'Full Kitchen', orderId: 'SO-9273', salesId: 'SL-4651', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
+          { time: 'All day', customer: 'Richardson', serviceType: 'INST', location: 'Full Kitchen', orderId: 'SO-9273', salesId: 'SL-4651', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'], multidayContinue: true },
+          { time: '09:00', customer: 'Cox', serviceType: 'TV CF', location: 'Gas Line', orderId: 'SO-9285', salesId: 'SL-4659', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '08:00', customer: 'Howard', serviceType: 'RWK', location: 'Cabinet Repair', orderId: 'SO-9297', salesId: 'SL-4667', provider: 'Provider A', crew: 'Crew A', tags: ['goexec-ok', 'wcf-ok'] }
+        ],
+        crewB: [
+          { time: '09:00', customer: 'Ward', serviceType: 'PRE BK', location: 'Kitchen Design', orderId: 'SO-9309', salesId: 'SL-4675', provider: 'Provider A', crew: 'Crew B', tags: [] },
+          { time: '10:00', customer: 'Torres', serviceType: 'INST', location: 'Backsplash', orderId: 'SO-9321', salesId: 'SL-4683', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '08:30', customer: 'Peterson', serviceType: 'TV QT', location: 'Inspection', orderId: 'SO-9333', salesId: 'SL-4691', provider: 'Provider A', crew: 'Crew B', tags: [] },
+          { time: '09:30', customer: 'Gray', serviceType: 'INST', location: 'Bathroom Fixtures', orderId: 'SO-9345', salesId: 'SL-4698', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] },
+          { time: '07:30', customer: 'Ramirez', serviceType: 'TV CF', location: 'Electrical', orderId: 'SO-9357', salesId: 'SL-4705', provider: 'Provider A', crew: 'Crew B', tags: ['goexec-ok'] }
+        ],
+        crewC: [
+          { time: '08:00', customer: 'James', serviceType: 'INST', location: 'Window Treatments', orderId: 'SO-9369', salesId: 'SL-4712', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '09:00', customer: 'Watson', serviceType: 'RWK', location: 'Flooring Fix', orderId: 'SO-9381', salesId: 'SL-4719', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok', 'wcf-ok'] },
+          { time: '10:00', customer: 'Brooks', serviceType: 'TV CF', location: 'Plumbing', orderId: 'SO-9393', salesId: 'SL-4726', provider: 'Provider A', crew: 'Crew C', tags: ['goexec-ok'] },
+          { type: 'available' },
+          { time: '08:30', customer: 'Kelly', serviceType: 'TV QT', location: 'Pre-delivery Check', orderId: 'SO-9405', salesId: 'SL-4733', provider: 'Provider A', crew: 'Crew C', tags: [] }
+        ]
+      }
+    };
+
+    let currentWeek = 1; // Start with March 25-31
+
+    // Generate grid HTML from data
+    function generateGridHTML(weekData) {
+      const serviceTypeClasses = {
+        'INST': 'inst',
+        'TV CF': 'tvcf',
+        'TV QT': 'tvqt',
+        'RWK': 'rwk',
+        'PRE BK': 'prebk'
+      };
+
+      function generateSlot(slot) {
+        if (slot.type === 'available') {
+          return `<div class="grid-slot available"><div class="slot-service">Available slot</div></div>`;
+        }
+        
+        const cssClass = serviceTypeClasses[slot.serviceType];
+        const multidayClass = slot.multiday ? ' multiday' : (slot.multidayContinue ? ' multiday-continue' : '');
+        const searchAttrs = `data-customer="${slot.customer}" data-order="${slot.orderId}" data-sales="${slot.salesId}" data-provider="${slot.provider || ''}" data-crew="${slot.crew || ''}"`;
+        
+        let html = `<div class="grid-slot ${cssClass}${multidayClass}" ${searchAttrs}>
+          <div class="slot-time">${slot.time}</div>
+          <div class="slot-customer">${slot.customer} - ${slot.serviceType} - ${slot.location}</div>`;
+        
+        if (slot.tags && slot.tags.length > 0) {
+          slot.tags.forEach(tag => {
+            html += `<div class="slot-tag ${tag}">${tag.replace('-', ' ').toUpperCase()}</div>`;
+          });
+        }
+        
+        html += `</div>`;
+        return html;
+      }
+
+      // Generate rows for each crew
+      const crews = ['unassigned', 'crewA', 'crewB', 'crewC'];
+      let html = '';
+      
+      crews.forEach(crew => {
+        const crewData = weekData[crew];
+        html += '<div class="grid-row">';
+        
+        // 6 days per week (MON-SAT)
+        for (let day = 0; day < 6; day++) {
+          html += '<div class="grid-cell">';
+          if (crewData[day]) {
+            html += generateSlot(crewData[day]);
+          }
+          html += '</div>';
+        }
+        
+        html += '</div>';
+      });
+      
+      return html;
+    }
+
+    // Update grid content
+    function updateWeekDisplay() {
+      const weekData = weeksData[currentWeek];
+      document.getElementById('weekDisplay').textContent = weekData.display;
+      document.querySelector('.grid-main').innerHTML = generateGridHTML(weekData);
+      
+      // Re-run alignment after content update
+      setTimeout(alignSidebarWithGrid, 50);
+      
+      // Clear search when changing weeks
+      document.getElementById('gridSearch').value = '';
+      document.getElementById('searchResults').style.display = 'none';
+    }
+
+    // Week navigation
+    document.getElementById('prevWeek').addEventListener('click', () => {
+      if (currentWeek > 0) {
+        currentWeek--;
+        updateWeekDisplay();
+      }
+    });
+
+    document.getElementById('nextWeek').addEventListener('click', () => {
+      if (currentWeek < 3) {
+        currentWeek++;
+        updateWeekDisplay();
+      }
+    });
+
+    // Smart search functionality
+    const searchInput = document.getElementById('gridSearch');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      const gridRows = document.querySelectorAll('.grid-row');
+      
+      if (!searchTerm) {
+        // Clear search
+        gridRows.forEach(row => {
+          row.classList.remove('search-hidden', 'search-highlight');
+        });
+        searchResults.style.display = 'none';
+        return;
+      }
+
+      let matchCount = 0;
+      
+      gridRows.forEach(row => {
+        const slots = row.querySelectorAll('.grid-slot:not(.available)');
+        let rowHasMatch = false;
+        
+        slots.forEach(slot => {
+          const customer = slot.dataset.customer?.toLowerCase() || '';
+          const orderId = slot.dataset.order?.toLowerCase() || '';
+          const salesId = slot.dataset.sales?.toLowerCase() || '';
+          const provider = slot.dataset.provider?.toLowerCase() || '';
+          const crew = slot.dataset.crew?.toLowerCase() || '';
+          
+          if (customer.includes(searchTerm) || 
+              orderId.includes(searchTerm) || 
+              salesId.includes(searchTerm) ||
+              provider.includes(searchTerm) ||
+              crew.includes(searchTerm)) {
+            rowHasMatch = true;
+            matchCount++;
+          }
+        });
+        
+        if (rowHasMatch) {
+          row.classList.remove('search-hidden');
+          row.classList.add('search-highlight');
+        } else {
+          row.classList.add('search-hidden');
+          row.classList.remove('search-highlight');
+        }
+      });
+
+      // Show results badge
+      if (matchCount > 0) {
+        searchResults.textContent = `${matchCount} match${matchCount !== 1 ? 'es' : ''}`;
+        searchResults.style.display = 'block';
+      } else {
+        searchResults.textContent = 'No matches';
+        searchResults.style.display = 'block';
+      }
+    });
 
     // Align sidebar with grid rows
     function alignSidebarWithGrid() {
