@@ -524,6 +524,147 @@
       background: rgba(255, 107, 107, 0.15);
       color: var(--accent-red);
     }
+
+    /* Mobile App Styles */
+    .mobile-screen {
+      background: #000;
+      border-radius: 24px;
+      padding: 1rem;
+      box-shadow: 0 0 0 8px #1a1a1a, 0 30px 60px rgba(0, 0, 0, 0.8);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .mobile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      border-radius: 16px 16px 0 0;
+      margin: -1rem -1rem 1rem -1rem;
+    }
+
+    .mobile-status-bar {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .mobile-card {
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .mobile-button {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mobile-button-primary {
+      background: linear-gradient(135deg, var(--yellow), #ffd86c);
+      color: #1a1405;
+    }
+
+    .mobile-button-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Operator Cockpit Styles */
+    .cockpit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cockpit-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .cockpit-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .cockpit-metric {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin: 0.5rem 0;
+    }
+
+    .cockpit-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    /* Email/SMS Mockup */
+    .email-mockup {
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .email-header {
+      border-bottom: 2px solid #e5e5e5;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .email-body {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .email-button {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--yellow), #ffd86c);
+      color: #1a1405;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 1.5rem 0;
+    }
+
+    .sms-mockup {
+      background: #1a1a1a;
+      border-radius: 18px;
+      padding: 1rem;
+      max-width: 300px;
+      margin: 1rem auto;
+    }
+
+    .sms-bubble {
+      background: #2a7aff;
+      color: #fff;
+      border-radius: 18px;
+      padding: 0.8rem 1.2rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -603,37 +744,115 @@
             orderId: 'SO-2025-9821',
             salesChannel: 'E-commerce',
             store: 'Online Store PT',
+            storeCode: 'ONLPT-001',
             salesProjectId: 'PROJ-4421',
             leadId: 'LEAD-8832',
+            opportunityId: 'OPP-2025-5521',
             salesman: 'Rita Fernandes',
+            salesmanId: 'SALES-RF-042',
+            salesmanEmail: 'rita.fernandes@yellowgrid.pt',
+            orderDate: '2025-11-08T14:22:00Z',
+            confirmationDate: '2025-11-08T14:25:33Z',
             customer: {
+              customerId: 'CUST-12845',
               name: 'Ana Costa',
+              firstName: 'Ana',
+              lastName: 'Costa',
               email: 'ana.costa@email.pt',
               phone: '+351 912 345 678',
+              alternatePhone: '+351 218 765 432',
               address: 'Rua do Horizonte 12, 1170-123 Lisboa',
+              addressLine1: 'Rua do Horizonte 12',
+              addressLine2: '3º Andar, Porta B',
+              city: 'Lisboa',
+              postalCode: '1170-123',
+              region: 'Lisboa',
+              country: 'Portugal',
               customerSince: '2023-04-15',
               tier: 'Standard',
-              claimHistory: 0
+              claimHistory: 0,
+              lifetimeValue: 1850.00,
+              preferredContact: 'email',
+              language: 'pt-PT'
             },
             products: [
-              { sku: 'COOK-IND-5Z', name: 'Induction Cooktop 5 zones', quantity: 1, unitPrice: 450.00, totalPrice: 450.00, deliveryDate: '2025-11-17' }
+              { 
+                lineId: 'LINE-001',
+                sku: 'COOK-IND-5Z', 
+                name: 'Induction Cooktop 5 zones', 
+                brand: 'Bosch',
+                model: 'PXX875D34E',
+                category: 'Cooktops',
+                quantity: 1, 
+                unitPrice: 450.00, 
+                discount: 0.00,
+                tax: 103.50,
+                totalPrice: 450.00,
+                supplier: 'Bosch Portugal',
+                supplierSKU: 'BSH-PXX875D34E',
+                warehouse: 'WH-LISBOA-01',
+                stockStatus: 'In Stock',
+                deliveryDate: '2025-11-17',
+                estimatedDeliveryTime: '14:00-18:00',
+                deliveryMethod: 'Standard Shipping',
+                trackingNumber: 'TRK-2025-PLT-9821',
+                warranty: '24 months',
+                installationRequired: true
+              }
             ],
             services: [
-              { code: 'INST-COOKTOP', name: 'Cooktop Installation', quantity: 1, unitPrice: 120.00, totalPrice: 120.00, scheduledDate: '2025-11-18', timeSlot: '09:00-11:00' }
+              { 
+                lineId: 'LINE-002',
+                code: 'INST-COOKTOP', 
+                name: 'Cooktop Installation', 
+                description: 'Professional installation of induction cooktop including electrical connection and testing',
+                category: 'Installation Services',
+                quantity: 1, 
+                unitPrice: 120.00,
+                discount: 0.00,
+                tax: 27.60, 
+                totalPrice: 120.00, 
+                scheduledDate: '2025-11-18', 
+                timeSlot: '09:00-11:00',
+                duration: 120,
+                techniciansRequired: 1,
+                skillLevel: 'Standard',
+                equipmentNeeded: ['Multimeter', 'Basic tools'],
+                safetyRequirements: ['Circuit breaker access', 'Ventilation']
+              }
             ],
             totals: {
-              products: 450.00,
-              services: 120.00,
-              total: 570.00
+              subtotalProducts: 450.00,
+              subtotalServices: 120.00,
+              subtotal: 570.00,
+              discounts: 0.00,
+              taxProducts: 103.50,
+              taxServices: 27.60,
+              totalTax: 131.10,
+              shippingCost: 0.00,
+              total: 701.10,
+              currency: 'EUR'
             },
             payment: {
               status: 'Paid',
               method: 'Credit Card',
-              paidAmount: 570.00,
-              paidDate: '2025-11-10'
+              cardType: 'Visa',
+              last4Digits: '4532',
+              paidAmount: 701.10,
+              paidDate: '2025-11-10T16:45:22Z',
+              transactionId: 'TXN-2025-9821-CC',
+              paymentGateway: 'Stripe',
+              installments: 1,
+              dueDate: null
             },
             linkedQuotation: null,
-            sellerNotes: 'Customer requested morning slot. Easy access to apartment.'
+            linkedPreEstimation: null,
+            linkedContracts: [],
+            sellerNotes: 'Customer requested morning slot. Easy access to apartment. Building has elevator. Customer will be present during installation. Electrical panel is in kitchen.',
+            internalNotes: 'Standard installation. No special requirements. Customer is tech-savvy.',
+            specialInstructions: 'Please call customer 30 minutes before arrival.',
+            priority: 'Normal',
+            tags: ['e-commerce', 'new-customer', 'morning-slot']
           }
         },
         'tv-quotation': {
@@ -642,35 +861,91 @@
             orderId: 'SO-2025-1201',
             salesChannel: 'In-store',
             store: 'Retail Lisbon Av. Liberdade',
+            storeCode: 'RET-LIS-AVL',
             salesProjectId: 'PROJ-5512',
             leadId: 'LEAD-9043',
+            opportunityId: 'OPP-2025-7812',
             salesman: 'João Silva',
+            salesmanId: 'SALES-JS-128',
+            salesmanEmail: 'joao.silva@yellowgrid.pt',
+            orderDate: '2025-11-14T10:15:00Z',
+            confirmationDate: '2025-11-14T10:22:18Z',
             customer: {
+              customerId: 'CUST-08234',
               name: 'Diogo Martins',
+              firstName: 'Diogo',
+              lastName: 'Martins',
               email: 'diogo.m@company.pt',
               phone: '+351 918 765 432',
+              alternatePhone: '+351 213 456 789',
               address: 'Av. Liberdade 90, 3º Esq, 1250-145 Lisboa',
+              addressLine1: 'Av. Liberdade 90',
+              addressLine2: '3º Andar, Esquerdo',
+              city: 'Lisboa',
+              postalCode: '1250-145',
+              region: 'Lisboa',
+              country: 'Portugal',
               customerSince: '2022-09-20',
               tier: 'Premium',
-              claimHistory: 1
+              claimHistory: 1,
+              lifetimeValue: 8450.00,
+              preferredContact: 'phone',
+              language: 'pt-PT'
             },
             products: [],
             services: [
-              { code: 'TV-KITCHEN', name: 'Technical Visit - Kitchen Assessment', quantity: 1, unitPrice: 80.00, totalPrice: 80.00, scheduledDate: '2025-11-20', timeSlot: '10:00-12:30' }
+              { 
+                lineId: 'LINE-001',
+                code: 'TV-KITCHEN', 
+                name: 'Technical Visit - Kitchen Assessment',
+                description: 'On-site technical visit to assess kitchen renovation scope, measure space, and provide detailed quotation for appliance installation',
+                category: 'Technical Visit',
+                quantity: 1, 
+                unitPrice: 80.00,
+                discount: 0.00,
+                tax: 18.40,
+                totalPrice: 80.00, 
+                scheduledDate: '2025-11-20', 
+                timeSlot: '10:00-12:30',
+                duration: 150,
+                techniciansRequired: 1,
+                skillLevel: 'Expert',
+                equipmentNeeded: ['Laser measure', 'Tablet for quotation', 'Camera'],
+                safetyRequirements: []
+              }
             ],
             totals: {
-              products: 0.00,
-              services: 80.00,
-              total: 80.00
+              subtotalProducts: 0.00,
+              subtotalServices: 80.00,
+              subtotal: 80.00,
+              discounts: 0.00,
+              taxProducts: 0.00,
+              taxServices: 18.40,
+              totalTax: 18.40,
+              shippingCost: 0.00,
+              total: 98.40,
+              currency: 'EUR'
             },
             payment: {
               status: 'Pending',
               method: 'Invoice',
+              cardType: null,
+              last4Digits: null,
               paidAmount: 0.00,
-              paidDate: null
+              paidDate: null,
+              transactionId: null,
+              paymentGateway: 'Invoice',
+              installments: 1,
+              dueDate: '2025-12-05'
             },
             linkedQuotation: 'QUOTE-2025-3301',
-            sellerNotes: 'Customer interested in full kitchen renovation. High upsell potential for dishwasher, oven, and hood installation. Previous claim was minor (delivery delay) and resolved.'
+            linkedPreEstimation: 'PRE-EST-2025-1109',
+            linkedContracts: [],
+            sellerNotes: 'Customer interested in full kitchen renovation. High upsell potential for dishwasher, oven, and hood installation. Previous claim was minor (delivery delay) and resolved. Customer mentioned budget around €5000-7000 for complete renovation.',
+            internalNotes: 'VIP customer - premium service required. Previous purchase was €3200 appliance package. Claim resolved with full satisfaction.',
+            specialInstructions: 'Bring kitchen design catalog. Customer interested in smart appliances with home automation integration.',
+            priority: 'High',
+            tags: ['in-store', 'premium', 'upsell-opportunity', 'technical-visit', 'renovation']
           }
         }
       };
@@ -1105,49 +1380,94 @@
             </div>
           `;
         } else if (step.id === 'operator-triage') {
+          const riskLevel = so.customer.claimHistory > 0 ? 'MEDIUM' : 'LOW';
           html = `
             <div class="stakeholder-view">
               <div class="view-header">
                 <h3>
-                  <i class="fas fa-user-tie"></i> Operator Dashboard
+                  <i class="fas fa-headset"></i> Control Tower Cockpit
                 </h3>
-                <span class="role-badge role-operator">MARIA SANTOS</span>
+                <span class="role-badge role-operator">MARIA SANTOS • OP-MARIA</span>
               </div>
-              <div class="view-section">
-                <h4>Service Order Details</h4>
-                <div class="info-grid">
-                  <div class="info-item">
-                    <label>Customer</label>
-                    <div class="value">${so.customer.name}</div>
+              
+              <div class="cockpit-grid">
+                <div class="cockpit-card">
+                  <div class="cockpit-card-header">
+                    <span class="cockpit-label">Risk Score</span>
+                    <i class="fas fa-${riskLevel === 'LOW' ? 'shield-check' : 'shield-exclamation'}" style="color: var(--accent-${riskLevel === 'LOW' ? 'green' : 'orange'}); font-size: 1.3rem;"></i>
                   </div>
-                  <div class="info-item">
-                    <label>Address</label>
-                    <div class="value">${so.customer.address.split(',')[0]}</div>
+                  <div class="cockpit-metric" style="color: var(--accent-${riskLevel === 'LOW' ? 'green' : 'orange'});">${riskLevel === 'LOW' ? '23' : '67'}</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    ${riskLevel === 'LOW' ? 'No red flags detected' : 'Previous claim + quotation'}
                   </div>
-                  <div class="info-item">
-                    <label>Service</label>
-                    <div class="value">${so.services[0].name}</div>
+                </div>
+                
+                <div class="cockpit-card">
+                  <div class="cockpit-card-header">
+                    <span class="cockpit-label">Customer Tier</span>
+                    <i class="fas fa-crown" style="color: var(--yellow); font-size: 1.3rem;"></i>
                   </div>
-                  <div class="info-item">
-                    <label>Scheduled</label>
-                    <div class="value">${so.services[0].scheduledDate}</div>
+                  <div class="cockpit-metric">${so.customer.tier}</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    LTV: €${so.customer.lifetimeValue}
                   </div>
-                  <div class="info-item">
-                    <label>Risk Level</label>
-                    <div class="value"><span class="status-badge status-${so.customer.claimHistory > 0 ? 'pending' : 'ok'}">${so.customer.claimHistory > 0 ? 'MEDIUM' : 'LOW'}</span></div>
+                </div>
+                
+                <div class="cockpit-card">
+                  <div class="cockpit-card-header">
+                    <span class="cockpit-label">Payment Status</span>
+                    <i class="fas fa-${so.payment.status === 'Paid' ? 'circle-check' : 'clock'}" style="color: var(--accent-${so.payment.status === 'Paid' ? 'green' : 'orange'}); font-size: 1.3rem;"></i>
                   </div>
-                  <div class="info-item">
-                    <label>Payment</label>
-                    <div class="value"><span class="status-badge status-${so.payment.status === 'Paid' ? 'ok' : 'pending'}">${so.payment.status}</span></div>
+                  <div class="cockpit-metric" style="font-size: 1.3rem; color: var(--accent-${so.payment.status === 'Paid' ? 'green' : 'orange'});">${so.payment.status.toUpperCase()}</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    ${so.payment.status === 'Paid' ? `€${so.payment.paidAmount} via ${so.payment.method}` : `Due: ${so.payment.dueDate || 'N/A'}`}
                   </div>
                 </div>
               </div>
+
               <div class="view-section">
-                <h4>Actions</h4>
-                <div class="action-buttons">
-                  <button class="btn btn-primary">Accept AI Suggestions</button>
+                <h4 style="margin-bottom: 1rem;">📋 Service Order: SRV-${so.orderId.split('-')[2]}</h4>
+                <div style="background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+                  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div>
+                      <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Customer</div>
+                      <div style="font-weight: 600;">${so.customer.name}</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">${so.customer.phone}</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Location</div>
+                      <div style="font-weight: 600;">${so.customer.city}, ${so.customer.postalCode}</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">${so.customer.addressLine1}</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Service</div>
+                      <div style="font-weight: 600;">${so.services[0].name}</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">${so.services[0].duration} min • ${so.services[0].skillLevel}</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Scheduled</div>
+                      <div style="font-weight: 600;">${so.services[0].scheduledDate}</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">${so.services[0].timeSlot}</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <i class="fas fa-robot" style="color: var(--accent-purple);"></i>
+                    <strong style="color: var(--accent-purple);">AI Recommendations Accepted</strong>
+                  </div>
+                  <div style="font-size: 0.9rem;">✓ Pilote: PL-LIA (Lia Santos) • Load: 3 orders<br>✓ Schedule: Compliant (not Sunday, weekday AM)<br>✓ Project: Linked to ${so.salesProjectId}</div>
+                </div>
+              </div>
+
+              <div class="view-section">
+                <h4>Operator Actions</h4>
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                  <button class="btn btn-primary" style="flex: 1;">✓ Confirm & Proceed</button>
                   <button class="btn btn-secondary">Override Risk</button>
-                  <button class="btn btn-secondary">Change Schedule</button>
+                  <button class="btn btn-secondary">Reschedule</button>
+                  <button class="btn btn-secondary">Reassign Pilote</button>
                 </div>
               </div>
             </div>
@@ -1197,47 +1517,83 @@
             <div class="stakeholder-view">
               <div class="view-header">
                 <h3>
-                  <i class="fas fa-handshake"></i> Provider Portal
+                  <i class="fas fa-mobile-screen-button"></i> Provider Mobile App
                 </h3>
-                <span class="role-badge role-provider">PROVIDER L</span>
+                <span class="role-badge role-provider">PROVIDER L • RUI LOPES</span>
               </div>
-              <div class="view-section">
-                <h4>New Service Assignment</h4>
-                <div class="info-grid">
-                  <div class="info-item">
-                    <label>Service</label>
-                    <div class="value">${so.services[0].name}</div>
+              
+              <div class="mobile-screen">
+                <div class="mobile-header">
+                  <div class="mobile-status-bar">
+                    <i class="fas fa-signal"></i> 
+                    <i class="fas fa-wifi"></i>
+                    <span style="margin-left: 0.5rem;">9:41</span>
                   </div>
-                  <div class="info-item">
-                    <label>Location</label>
-                    <div class="value">${so.customer.address.split(',')[1]}</div>
+                  <div style="font-size: 1.2rem; font-weight: 700;">YellowGrid Pro</div>
+                  <div><i class="fas fa-bell"></i></div>
+                </div>
+
+                <div class="mobile-card" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1405;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                    <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">New Assignment</div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.3rem 0.7rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700;">
+                      <i class="fas fa-clock"></i> 4h to respond
+                    </div>
                   </div>
-                  <div class="info-item">
-                    <label>Date Requested</label>
-                    <div class="value">${so.services[0].scheduledDate}</div>
-                  </div>
-                  <div class="info-item">
-                    <label>Time Slot</label>
-                    <div class="value">${so.services[0].timeSlot}</div>
-                  </div>
-                  <div class="info-item">
-                    <label>Response Deadline</label>
-                    <div class="value">4h 00m</div>
-                  </div>
-                  <div class="info-item">
-                    <label>Your Match Score</label>
-                    <div class="value"><span style="color: var(--accent-green); font-weight: 700;">92/100</span></div>
+                  <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">Match Score: 92/100</div>
+                  <div style="font-size: 0.9rem; opacity: 0.9;">
+                    <i class="fas fa-check-circle"></i> High priority • Perfect fit for your crew
                   </div>
                 </div>
-              </div>
-              <div class="view-section">
-                <h4>Your Available Crews</h4>
-                <p style="margin-bottom: 1rem; color: var(--text-muted);">Rui Lopes crew (2 installers) • Available • SLA: T+48h</p>
-                <div class="action-buttons">
-                  <button class="btn btn-primary">Accept Original Slot</button>
-                  <button class="btn btn-secondary">Propose New Date</button>
-                  <button class="btn btn-secondary">Decline</button>
+
+                <div class="mobile-card">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.8rem;">Service Details</div>
+                  <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${so.services[0].name}</div>
+                  
+                  <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">📅 DATE</div>
+                      <div style="font-weight: 600;">${so.services[0].scheduledDate}</div>
+                    </div>
+                    <div style="flex: 1;">
+                      <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">🕐 TIME</div>
+                      <div style="font-weight: 600;">${so.services[0].timeSlot}</div>
+                    </div>
+                  </div>
+
+                  <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">📍 LOCATION</div>
+                    <div style="font-weight: 600;">${so.customer.city}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">${so.customer.addressLine1}</div>
+                  </div>
+
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                    <div style="background: rgba(78, 168, 255, 0.1); padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.8rem;">
+                      ${so.services[0].duration} min
+                    </div>
+                    <div style="background: rgba(78, 168, 255, 0.1); padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.8rem;">
+                      ${so.services[0].techniciansRequired} tech needed
+                    </div>
+                    <div style="background: rgba(78, 168, 255, 0.1); padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.8rem;">
+                      ${so.services[0].skillLevel}
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(73, 212, 147, 0.1); border-radius: 8px; padding: 0.8rem; font-size: 0.9rem;">
+                    <strong style="color: var(--accent-green);"><i class="fas fa-check"></i> Your Crew Available</strong><br>
+                    <span style="color: var(--text-muted);">Rui Lopes • 2 installers • SLA: T+48h</span>
+                  </div>
                 </div>
+
+                <button class="mobile-button mobile-button-primary">
+                  <i class="fas fa-check-circle"></i> Accept Assignment
+                </button>
+                <button class="mobile-button mobile-button-secondary">
+                  <i class="fas fa-calendar-alt"></i> Propose Different Date
+                </button>
+                <button class="mobile-button mobile-button-secondary">
+                  <i class="fas fa-times-circle"></i> Decline
+                </button>
               </div>
             </div>
           `;
@@ -1318,22 +1674,95 @@
                   </div>
                 </div>
               </div>
-              <div class="view-section">
-                <h4>Checklist</h4>
-                <div style="background: rgba(255, 255, 255, 0.03); padding: 1rem; border-radius: 8px;">
-                  <p style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent-green);"></i> Verify customer identity</p>
-                  <p style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent-green);"></i> Inspect workspace & photos</p>
-                  <p style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--accent-green);"></i> Install equipment</p>
-                  <p><i class="fas fa-check" style="color: var(--accent-green);"></i> Test and brief customer</p>
+              
+              <div class="mobile-screen">
+                <div class="mobile-header">
+                  <div class="mobile-status-bar">
+                    <i class="fas fa-signal"></i> 
+                    <i class="fas fa-wifi"></i>
+                    <span style="margin-left: 0.5rem;">9:03</span>
+                  </div>
+                  <div style="font-size: 1.2rem; font-weight: 700;">Today's Job</div>
+                  <div><i class="fas fa-ellipsis-v"></i></div>
                 </div>
-              </div>
-              <div class="view-section">
-                <h4>Evidence</h4>
-                <div class="action-buttons">
-                  <button class="btn btn-secondary">📷 Add Photo</button>
-                  <button class="btn btn-secondary">🎤 Audio Note</button>
-                  <button class="btn btn-primary">Complete Job</button>
+
+                <div class="mobile-card" style="background: linear-gradient(135deg, #49d493, #38a169); color: #fff;">
+                  <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">
+                    <i class="fas fa-check-circle"></i> Checked In
+                  </div>
+                  <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem;">Job #SRV-${so.orderId.split('-')[2]}</div>
+                  <div style="font-size: 0.9rem; opacity: 0.9;">
+                    Started at 09:03 • Est. completion: 11:00
+                  </div>
                 </div>
+
+                <div class="mobile-card">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.8rem;">Customer Info</div>
+                  <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">${so.customer.name}</div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <i class="fas fa-phone" style="color: var(--accent-blue);"></i>
+                    <span style="font-weight: 600;">${so.customer.phone}</span>
+                    <button style="margin-left: auto; background: var(--accent-blue); border: none; padding: 0.4rem 0.8rem; border-radius: 8px; color: #fff; font-size: 0.85rem;">
+                      <i class="fas fa-phone"></i> Call
+                    </button>
+                  </div>
+                  <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                    <i class="fas fa-map-marker-alt" style="color: var(--accent-blue); margin-top: 0.2rem;"></i>
+                    <div>
+                      <div style="font-weight: 600;">${so.customer.addressLine1}</div>
+                      <div style="font-size: 0.9rem; color: var(--text-muted);">${so.customer.city}, ${so.customer.postalCode}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mobile-card">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.8rem;">Work Checklist</div>
+                  <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                      <input type="checkbox" checked style="width: 20px; height: 20px;">
+                      <span style="flex: 1;">Verify customer identity & documents</span>
+                      <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                      <input type="checkbox" checked style="width: 20px; height: 20px;">
+                      <span style="flex: 1;">Inspect workspace & capture before photos</span>
+                      <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                      <input type="checkbox" checked style="width: 20px; height: 20px;">
+                      <span style="flex: 1;">Install equipment according to playbook</span>
+                      <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                      <input type="checkbox" checked style="width: 20px; height: 20px;">
+                      <span style="flex: 1;">Test system and brief customer</span>
+                      <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="mobile-card" style="background: rgba(78, 168, 255, 0.1);">
+                  <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.8rem;">
+                    <i class="fas fa-camera"></i> Evidence Captured
+                  </div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 8px; flex: 1; text-align: center;">
+                      <div style="font-size: 1.5rem; font-weight: 700;">3</div>
+                      <div style="font-size: 0.8rem; color: var(--text-muted);">Photos</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 8px; flex: 1; text-align: center;">
+                      <div style="font-size: 1.5rem; font-weight: 700;">1</div>
+                      <div style="font-size: 0.8rem; color: var(--text-muted);">Audio</div>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="mobile-button mobile-button-secondary">
+                  <i class="fas fa-camera"></i> Add More Evidence
+                </button>
+                <button class="mobile-button mobile-button-primary">
+                  <i class="fas fa-check-double"></i> Complete Job & Request WCF
+                </button>
               </div>
             </div>
           `;
@@ -1342,32 +1771,111 @@
             <div class="stakeholder-view">
               <div class="view-header">
                 <h3>
-                  <i class="fas fa-user"></i> Customer Interface
+                  <i class="fas fa-envelope"></i> Customer Communication
                 </h3>
-                <span class="role-badge role-customer">${so.customer.name}</span>
+                <span class="role-badge role-customer">${so.customer.name.toUpperCase()}</span>
               </div>
+
               <div class="view-section">
-                <h4>Work Completion Form</h4>
-                <p style="margin-bottom: 1rem; color: var(--text-muted);">
-                  Please review the work completed by ${so.services[0].name} and confirm acceptance.
-                </p>
-                <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; cursor: pointer;">
-                  <strong style="color: var(--accent-green);">✓ Sign with No Reserves</strong>
-                  <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work completed satisfactorily. Payment releases immediately.</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem;">
-                  <strong>Sign with Reserves</strong>
-                  <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Issues noted. Auto-creates rework order.</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem;">
-                  <strong>Refuse to Sign</strong>
-                  <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work unacceptable. Payment blocked.</p>
+                <h4 style="margin-bottom: 1rem;">📧 Email Notification</h4>
+                <div class="email-mockup">
+                  <div class="email-header">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                      <div style="background: var(--yellow); color: #1a1a1a; padding: 0.5rem 1rem; font-weight: 700; border-radius: 4px;">YellowGrid</div>
+                      <div style="flex: 1;"></div>
+                      <div style="font-size: 0.85rem; color: #666;">10:52 AM</div>
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">
+                      <strong>From:</strong> no-reply@yellowgrid.pt
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">
+                      <strong>To:</strong> ${so.customer.email}
+                    </div>
+                    <div style="font-size: 1.1rem; font-weight: 700; margin-top: 0.8rem;">
+                      Service Complete - Please Sign Work Completion Form
+                    </div>
+                  </div>
+                  <div class="email-body">
+                    <p>Dear ${so.customer.firstName},</p>
+                    <p style="margin: 1rem 0;">
+                      Your service <strong>${so.services[0].name}</strong> has been completed by our technician team.
+                    </p>
+                    <p style="margin: 1rem 0;">
+                      Please review the work and sign the Work Completion Form (WCF) by clicking the button below:
+                    </p>
+                    <div style="text-align: center;">
+                      <a href="#" class="email-button">
+                        <i class="fas fa-signature"></i> Sign WCF Online
+                      </a>
+                    </div>
+                    <p style="margin: 1rem 0; font-size: 0.9rem; color: #666;">
+                      Service Order: <strong>SRV-${so.orderId.split('-')[2]}</strong><br>
+                      Completed: ${new Date().toLocaleString('en-GB')}<br>
+                      Technician: Rui Lopes
+                    </p>
+                    <p style="margin: 1.5rem 0 0.5rem 0; font-size: 0.85rem; color: #999; border-top: 1px solid #e5e5e5; padding-top: 1rem;">
+                      Questions? Contact us at support@yellowgrid.pt or +351 210 123 456
+                    </p>
+                  </div>
                 </div>
               </div>
+
               <div class="view-section">
-                <h4>Optional Feedback</h4>
-                <textarea style="width: 100%; padding: 0.8rem; border-radius: 8px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); color: var(--text-main); min-height: 80px;" placeholder="Add comments about the service..."></textarea>
-                <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Submit WCF</button>
+                <h4 style="margin-bottom: 1rem;">📱 SMS Notification</h4>
+                <div class="sms-mockup">
+                  <div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.8rem;">
+                    Today 10:52 AM
+                  </div>
+                  <div class="sms-bubble">
+                    YellowGrid: Your service is complete! Sign the WCF here: yellowgrid.pt/wcf/SRV-${so.orderId.split('-')[2]} - Thank you!
+                  </div>
+                </div>
+              </div>
+
+              <div class="view-section">
+                <h4 style="margin-bottom: 1rem;">🌐 Web Portal (After Clicking Link)</h4>
+                <div style="border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; background: rgba(255, 255, 255, 0.02);">
+                  <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Work Completion Form</h3>
+                    <p style="color: var(--text-muted);">Service Order: SRV-${so.orderId.split('-')[2]}</p>
+                  </div>
+
+                  <div style="background: rgba(73, 212, 147, 0.08); border: 2px solid rgba(73, 212, 147, 0.4); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.2s;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                      <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--accent-green);"></i>
+                      <div style="flex: 1;">
+                        <strong style="font-size: 1.1rem; color: var(--accent-green);">Sign with No Reserves</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work completed satisfactorily. Payment releases immediately.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; cursor: pointer;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                      <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: var(--accent-orange);"></i>
+                      <div style="flex: 1;">
+                        <strong style="font-size: 1.1rem;">Sign with Reserves</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Issues noted. Auto-creates rework order and holds payment.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; cursor: pointer;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                      <i class="fas fa-times-circle" style="font-size: 2rem; color: var(--accent-red);"></i>
+                      <div style="flex: 1;">
+                        <strong style="font-size: 1.1rem;">Refuse to Sign</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work unacceptable. Payment blocked until resolution.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <textarea style="width: 100%; padding: 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); color: var(--text-main); min-height: 100px; margin-bottom: 1rem;" placeholder="Optional: Add feedback about the service quality, technician professionalism, etc."></textarea>
+
+                  <button class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                    <i class="fas fa-signature"></i> Submit Digital Signature
+                  </button>
+                </div>
               </div>
             </div>
           `;
