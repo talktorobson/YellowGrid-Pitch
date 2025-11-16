@@ -2999,8 +2999,19 @@
         </div>
       </div>
 
-      <!-- Main Dashboard Grid -->
-      <div class="tower-grid">
+      <!-- Tab Navigation -->
+      <div class="tower-tabs">
+        <button class="tower-tab active" onclick="switchTowerTab('dashboard')">
+          Dashboard
+          <span class="tower-tab-badge">12</span>
+        </button>
+        <button class="tower-tab" onclick="switchTowerTab('tasks')">Tasks</button>
+        <button class="tower-tab" onclick="switchTowerTab('timeline')">Timeline</button>
+      </div>
+
+      <!-- Dashboard Tab -->
+      <div id="tower-tab-dashboard" class="tower-tab-content active">
+        <div class="tower-grid">
         <!-- Alerts & Issues Card -->
         <div class="tower-card">
           <div class="tower-card-title">
@@ -3073,8 +3084,8 @@
                 </div>
               </div>
               <div class="task-actions">
-                <button class="task-button">📞 Call Customer</button>
-                <button class="task-button green">✓ Assign Pro</button>
+                <button class="task-button" onclick="openAIChat('Call Ines Broncano about #PX-377903')">📞 Call Customer</button>
+                <button class="task-button green" onclick="alert('Assign Pro to #PX-377903')">✓ Assign Pro</button>
               </div>
             </div>
 
@@ -3090,8 +3101,8 @@
                 </div>
               </div>
               <div class="task-actions">
-                <button class="task-button">📱 WhatsApp</button>
-                <button class="task-button green">✓ Confirm Time</button>
+                <button class="task-button" onclick="openCustomerMessages()">📱 WhatsApp</button>
+                <button class="task-button green" onclick="alert('Confirm time for #SX-375742')">✓ Confirm Time</button>
               </div>
             </div>
 
@@ -3107,10 +3118,508 @@
                 </div>
               </div>
               <div class="task-actions">
-                <button class="task-button">📧 Send Update</button>
-                <button class="task-button">📋 View Details</button>
+                <button class="task-button" onclick="openCustomerMessages()">📧 Send Update</button>
+                <button class="task-button" onclick="alert('View details for #SX-380125')">📋 View Details</button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- Tasks Tab -->
+      <div id="tower-tab-tasks" class="tower-tab-content">
+        <div class="tower-table-container">
+          <div class="tower-table-header">
+            <h3 class="tower-table-title">All Tasks</h3>
+            <div class="tower-table-actions">
+              <button class="tower-btn tower-btn-yellow"><i class="fas fa-filter"></i> Filter</button>
+              <button class="tower-btn tower-btn-blue"><i class="fas fa-plus"></i> New Task</button>
+            </div>
+          </div>
+          <div class="tower-table-scroll">
+            <table class="tower-table">
+              <thead>
+                <tr>
+                  <th>Project ID</th>
+                  <th>Customer</th>
+                  <th>Service</th>
+                  <th>Status</th>
+                  <th>Scheduled</th>
+                  <th>Value</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>#PX-377903</strong></td>
+                  <td>Ines Broncano</td>
+                  <td>Bathroom Install</td>
+                  <td><span class="tower-status-badge scheduled">Scheduled</span></td>
+                  <td>Tomorrow 9:00 AM</td>
+                  <td><strong>€3,850</strong></td>
+                  <td>
+                    <div class="tower-action-icons">
+                      <i class="fas fa-phone tower-action-icon blue" title="Call" onclick="openAIChat('Call Ines Broncano about #PX-377903')"></i>
+                      <i class="fas fa-user-plus tower-action-icon green" title="Assign Pro" onclick="alert('Assign Pro to #PX-377903')"></i>
+                      <i class="fas fa-calendar tower-action-icon purple" title="Reschedule" onclick="alert('Reschedule #PX-377903')"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>#SX-375742</strong></td>
+                  <td>Fernando Checa</td>
+                  <td>Kitchen Renovation</td>
+                  <td><span class="tower-status-badge distributed">Distributed</span></td>
+                  <td>Today 2:00 PM</td>
+                  <td><strong>€1,950</strong></td>
+                  <td>
+                    <div class="tower-action-icons">
+                      <i class="fas fa-comments tower-action-icon green" title="Message" onclick="openCustomerMessages()"></i>
+                      <i class="fas fa-check-circle tower-action-icon green" title="Confirm" onclick="alert('Confirm #SX-375742')"></i>
+                      <i class="fas fa-info-circle tower-action-icon blue" title="Details" onclick="alert('View details #SX-375742')"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>#SX-380125</strong></td>
+                  <td>Maria Santos</td>
+                  <td>Hardwood Flooring</td>
+                  <td><span class="tower-status-badge confirmed">Confirmed</span></td>
+                  <td>Oct 3, 10:00 AM</td>
+                  <td><strong>€2,100</strong></td>
+                  <td>
+                    <div class="tower-action-icons">
+                      <i class="fas fa-envelope tower-action-icon blue" title="Email" onclick="openCustomerMessages()"></i>
+                      <i class="fas fa-file-alt tower-action-icon purple" title="View Details" onclick="alert('View details #SX-380125')"></i>
+                      <i class="fas fa-edit tower-action-icon orange" title="Edit" onclick="alert('Edit #SX-380125')"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>#SX-379364</strong></td>
+                  <td>Jose Leon Gañan</td>
+                  <td>Wardrobe Installation</td>
+                  <td><span class="tower-status-badge in-progress">In Progress</span></td>
+                  <td>Today 10:30 AM</td>
+                  <td><strong>€1,450</strong></td>
+                  <td>
+                    <div class="tower-action-icons">
+                      <i class="fas fa-map-marker-alt tower-action-icon blue" title="Track" onclick="alert('Track location #SX-379364')"></i>
+                      <i class="fas fa-comment-dots tower-action-icon green" title="Chat" onclick="openCustomerMessages()"></i>
+                      <i class="fas fa-clipboard-check tower-action-icon purple" title="WCF" onclick="alert('Open WCF #SX-379364')"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>#SX-379342</strong></td>
+                  <td>Antonio Diaz Bueno</td>
+                  <td>Plumbing Repair</td>
+                  <td><span class="tower-status-badge distributed">Distributed</span></td>
+                  <td>Oct 2, 3:00 PM</td>
+                  <td><strong>€875</strong></td>
+                  <td>
+                    <div class="tower-action-icons">
+                      <i class="fas fa-phone tower-action-icon blue" title="Call" onclick="openAIChat('Call Antonio Diaz about #SX-379342')"></i>
+                      <i class="fas fa-user-check tower-action-icon green" title="Confirm Pro" onclick="alert('Confirm Pro for #SX-379342')"></i>
+                      <i class="fas fa-info-circle tower-action-icon blue" title="Details" onclick="alert('View details #SX-379342')"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>#SX-378912</strong></td>
+                  <td>Carmen Lopez</td>
+                  <td>Electrical Work</td>
+                  <td><span class="tower-status-badge scheduled">Scheduled</span></td>
+                  <td>Oct 4, 11:00 AM</td>
+                  <td><strong>€2,350</strong></td>
+                  <td>
+                    <div class="tower-action-icons">
+                      <i class="fas fa-envelope tower-action-icon blue" title="Email" onclick="openCustomerMessages()"></i>
+                      <i class="fas fa-user-plus tower-action-icon green" title="Assign Pro" onclick="alert('Assign Pro to #SX-378912')"></i>
+                      <i class="fas fa-calendar tower-action-icon purple" title="Reschedule" onclick="alert('Reschedule #SX-378912')"></i>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Tab -->
+      <div id="tower-tab-timeline" class="tower-tab-content">
+        <div class="tower-timeline-container">
+          <div class="tower-timeline-header">
+            <h3 class="tower-table-title">14-Day Project Timeline</h3>
+            <div class="tower-table-actions">
+              <button class="tower-btn tower-btn-yellow"><i class="fas fa-filter"></i> Filter Status</button>
+              <button class="tower-btn tower-btn-blue"><i class="fas fa-download"></i> Export</button>
+            </div>
+          </div>
+
+          <div class="tower-legend">
+            <div class="tower-legend-item">
+              <div class="tower-legend-box" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></div>
+              <span>Critical - Urgent Action</span>
+            </div>
+            <div class="tower-legend-item">
+              <div class="tower-legend-box" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></div>
+              <span>Warning - Attention Needed</span>
+            </div>
+            <div class="tower-legend-item">
+              <div class="tower-legend-box" style="background: linear-gradient(135deg, #3b82f6, #2563eb);"></div>
+              <span>Active - On Track</span>
+            </div>
+            <div class="tower-legend-item">
+              <div class="tower-legend-box" style="background: linear-gradient(135deg, #10b981, #059669);"></div>
+              <span>Success - Completed</span>
+            </div>
+          </div>
+
+          <div class="tower-calendar-wrapper">
+            <div class="tower-calendar-scroll">
+              <div class="tower-calendar-grid">
+                <!-- Header Row -->
+                <div class="tower-calendar-header-cell project-col">Projects</div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">1</div>
+                  <div class="tower-day-name">Mon</div>
+                </div>
+                <div class="tower-calendar-header-cell today">
+                  <div class="tower-day-num">2</div>
+                  <div class="tower-day-name">Tue</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">3</div>
+                  <div class="tower-day-name">Wed</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">4</div>
+                  <div class="tower-day-name">Thu</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">5</div>
+                  <div class="tower-day-name">Fri</div>
+                </div>
+                <div class="tower-calendar-header-cell weekend">
+                  <div class="tower-day-num">6</div>
+                  <div class="tower-day-name">Sat</div>
+                </div>
+                <div class="tower-calendar-header-cell weekend">
+                  <div class="tower-day-num">7</div>
+                  <div class="tower-day-name">Sun</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">8</div>
+                  <div class="tower-day-name">Mon</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">9</div>
+                  <div class="tower-day-name">Tue</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">10</div>
+                  <div class="tower-day-name">Wed</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">11</div>
+                  <div class="tower-day-name">Thu</div>
+                </div>
+                <div class="tower-calendar-header-cell">
+                  <div class="tower-day-num">12</div>
+                  <div class="tower-day-name">Fri</div>
+                </div>
+                <div class="tower-calendar-header-cell weekend">
+                  <div class="tower-day-num">13</div>
+                  <div class="tower-day-name">Sat</div>
+                </div>
+                <div class="tower-calendar-header-cell weekend">
+                  <div class="tower-day-num">14</div>
+                  <div class="tower-day-name">Sun</div>
+                </div>
+
+                <!-- Project Row 1: Critical -->
+                <div class="tower-calendar-row">
+                  <div class="tower-calendar-project-cell">
+                    <div class="tower-project-name">#PX-377903 - Bathroom</div>
+                    <div class="tower-project-meta">Ines Broncano<br>€3,850 • Contract Pending</div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell today"></div>
+                  <div class="tower-calendar-day-cell">
+                    <div class="tower-project-bar critical" style="left: 0; width: 250%;">
+                      <span class="tower-project-bar-icon">🔴</span>
+                      <span class="tower-project-bar-label">Bathroom Install - URGENT</span>
+                      <span class="tower-project-bar-days">3d</span>
+                    </div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                </div>
+
+                <!-- Project Row 2: Warning -->
+                <div class="tower-calendar-row">
+                  <div class="tower-calendar-project-cell">
+                    <div class="tower-project-name">#SX-375742 - Kitchen</div>
+                    <div class="tower-project-meta">Fernando Checa<br>€1,950 • Pro Assigned</div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell today">
+                    <div class="tower-project-bar warning" style="left: 0; width: 150%;">
+                      <span class="tower-project-bar-icon">🟠</span>
+                      <span class="tower-project-bar-label">Kitchen Renovation</span>
+                      <span class="tower-project-bar-days">2d</span>
+                    </div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                </div>
+
+                <!-- Project Row 3: Active -->
+                <div class="tower-calendar-row">
+                  <div class="tower-calendar-project-cell">
+                    <div class="tower-project-name">#SX-380125 - Flooring</div>
+                    <div class="tower-project-meta">Maria Santos<br>€2,100 • Confirmed</div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell today"></div>
+                  <div class="tower-calendar-day-cell">
+                    <div class="tower-project-bar active" style="left: 0; width: 100%;">
+                      <span class="tower-project-bar-icon">🔵</span>
+                      <span class="tower-project-bar-label">Flooring</span>
+                      <span class="tower-project-bar-days">1d</span>
+                    </div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                </div>
+
+                <!-- Project Row 4: Active Multi-day -->
+                <div class="tower-calendar-row">
+                  <div class="tower-calendar-project-cell">
+                    <div class="tower-project-name">#SX-378912 - Electrical</div>
+                    <div class="tower-project-meta">Carmen Lopez<br>€2,350 • WCF Pending</div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell today"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell">
+                    <div class="tower-project-bar active" style="left: 0; width: 400%;">
+                      <span class="tower-project-bar-icon">🔵</span>
+                      <span class="tower-project-bar-label">Electrical Work - Complete Rewire</span>
+                      <span class="tower-project-bar-days">5d</span>
+                    </div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                </div>
+
+                <!-- Project Row 5: Success -->
+                <div class="tower-calendar-row">
+                  <div class="tower-calendar-project-cell">
+                    <div class="tower-project-name">#SX-379364 - Wardrobe</div>
+                    <div class="tower-project-meta">Jose Leon<br>€1,450 • In Progress</div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell today">
+                    <div class="tower-project-bar success" style="left: 0; width: 100%;">
+                      <span class="tower-project-bar-icon">✅</span>
+                      <span class="tower-project-bar-label">Wardrobe</span>
+                      <span class="tower-project-bar-days">1d</span>
+                    </div>
+                  </div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                  <div class="tower-calendar-day-cell weekend"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div class="tower-chat-widget hidden" id="towerChatWidget">
+      <button class="tower-chat-button" id="towerChatButton" onclick="toggleTowerChat()">
+        <i class="fas fa-robot"></i>
+      </button>
+
+      <div class="tower-chat-window hidden" id="towerChatWindow">
+        <div class="tower-chat-header">
+          <div class="tower-chat-header-left">
+            <div class="tower-chat-avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="tower-chat-header-info">
+              <div class="tower-chat-header-title">YellowGrid AI</div>
+              <div class="tower-chat-header-subtitle">AI + Human Support</div>
+            </div>
+          </div>
+          <button class="tower-chat-close" onclick="toggleTowerChat()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="tower-chat-messages" id="towerChatMessages">
+          <div class="tower-chat-message bot">
+            <div class="tower-chat-message-content">
+              <div class="tower-bot-label">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+              </div>
+              <div class="tower-chat-message-text">Hello! I can help you with contracts, Pro assignments, scheduling, and customer communication. What would you like to work on?</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tower-chat-quick-actions">
+          <button class="tower-quick-action-btn red" onclick="sendTowerQuickMessage('Show urgent contracts')">
+            📝 Contracts
+          </button>
+          <button class="tower-quick-action-btn yellow" onclick="sendTowerQuickMessage('Help assign Pros')">
+            👷 Assign Pros
+          </button>
+          <button class="tower-quick-action-btn blue" onclick="sendTowerQuickMessage('Show daily summary')">
+            📊 Daily Summary
+          </button>
+          <button class="tower-quick-action-btn green" onclick="sendTowerQuickMessage('Check WCF status')">
+            ✏️ WCF Status
+          </button>
+        </div>
+
+        <div class="tower-chat-input-area">
+          <div class="tower-chat-input-container">
+            <input type="text" class="tower-chat-input" id="towerChatInput" placeholder="Ask anything..." onkeypress="if(event.key==='Enter') sendTowerMessage()">
+            <button class="tower-chat-send" onclick="sendTowerMessage()">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Messages Panel -->
+    <div class="tower-messages-panel hidden" id="towerMessagesPanel">
+      <div class="tower-messages-header">
+        <div class="tower-messages-header-left">
+          <div class="tower-messages-avatar">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="tower-messages-info">
+            <div class="tower-messages-title">Customer Messages</div>
+            <div class="tower-messages-subtitle">3 unread conversations</div>
+          </div>
+        </div>
+        <div class="tower-messages-actions">
+          <button class="tower-messages-action-btn" onclick="toggleCustomerMessagesPanel()" title="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="tower-conversations-list">
+        <div class="tower-conversation-item unread" onclick="alert('Open conversation with Maria Santos (#SX-380125)')">
+          <div class="tower-conversation-header">
+            <div class="tower-conversation-name">Maria Santos</div>
+            <div class="tower-conversation-time">10:27 AM</div>
+          </div>
+          <div class="tower-conversation-preview">Perfect! That's exactly what I needed to know. Thank you!</div>
+          <div class="tower-conversation-meta">
+            <div class="tower-conversation-project">#SX-380125 - Flooring</div>
+            <div class="tower-unread-badge">2</div>
+          </div>
+        </div>
+
+        <div class="tower-conversation-item unread" onclick="alert('Open conversation with Fernando Checa (#SX-375742)')">
+          <div class="tower-conversation-header">
+            <div class="tower-conversation-name">Fernando Checa</div>
+            <div class="tower-conversation-time">9:45 AM</div>
+          </div>
+          <div class="tower-conversation-preview">Hi, I haven't received confirmation about the Pro assignment yet. Is everything ok for today at 2 PM?</div>
+          <div class="tower-conversation-meta">
+            <div class="tower-conversation-project">#SX-375742 - Kitchen</div>
+            <div class="tower-unread-badge">1</div>
+          </div>
+        </div>
+
+        <div class="tower-conversation-item unread" onclick="alert('Open conversation with Ines Broncano (#PX-377903)')">
+          <div class="tower-conversation-header">
+            <div class="tower-conversation-name">Ines Broncano Marin</div>
+            <div class="tower-conversation-time">Yesterday</div>
+          </div>
+          <div class="tower-conversation-preview">I received the contract but I have some questions about the payment terms before signing...</div>
+          <div class="tower-conversation-meta">
+            <div class="tower-conversation-project">#PX-377903 - Bathroom</div>
+            <div class="tower-unread-badge">3</div>
+          </div>
+        </div>
+
+        <div class="tower-conversation-item" onclick="alert('Open conversation with Jose Leon (#SX-379364)')">
+          <div class="tower-conversation-header">
+            <div class="tower-conversation-name">Jose Leon Gañan</div>
+            <div class="tower-conversation-time">Yesterday</div>
+          </div>
+          <div class="tower-conversation-preview">Thank you for the quick response! Looking forward to the installation.</div>
+          <div class="tower-conversation-meta">
+            <div class="tower-conversation-project">#SX-379364 - Wardrobe</div>
+          </div>
+        </div>
+
+        <div class="tower-conversation-item" onclick="alert('Open conversation with Antonio Diaz (#SX-379342)')">
+          <div class="tower-conversation-header">
+            <div class="tower-conversation-name">Antonio Diaz Bueno</div>
+            <div class="tower-conversation-time">2 days ago</div>
+          </div>
+          <div class="tower-conversation-preview">The Pro mentioned extra costs. Can you explain what these are for?</div>
+          <div class="tower-conversation-meta">
+            <div class="tower-conversation-project">#SX-379342 - Plumbing</div>
           </div>
         </div>
       </div>
