@@ -2553,20 +2553,65 @@
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1rem;">📦 Payload Preview</h3>
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-                <div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">ORDER ID</div>
-                  <div style="font-weight: 600;">${so.orderId}</div>
-                </div>
-                <div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">CUSTOMER</div>
-                  <div style="font-weight: 600;">${so.customer.name}</div>
-                </div>
-                <div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">TOTAL</div>
-                  <div style="font-weight: 600; color: var(--yellow);">€${so.totals.total}</div>
-                </div>
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-code"></i> Complete Message Payload</h3>
+              <div style="font-family: 'Courier New', monospace; font-size: 0.75rem; background: #000; padding: 1.5rem; border-radius: 8px; max-height: 400px; overflow-y: auto; line-height: 1.7;">
+                <div><span style="color: #49d493;">{</span></div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"orderId"</span>: <span style="color: #fff;">"${so.orderId}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"salesChannel"</span>: <span style="color: #fff;">"${so.salesChannel}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"store"</span>: <span style="color: #fff;">"${so.store}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"salesProjectId"</span>: <span style="color: #fff;">"${so.salesProjectId || 'null'}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"leadId"</span>: <span style="color: #fff;">"${so.leadId || 'null'}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"quotation"</span>: <span style="color: #fff;">${so.linkedQuotation ? '"' + so.linkedQuotation + '"' : 'null'}</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"salesman"</span>: <span style="color: #fff;">"${so.salesman}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"salesmanEmail"</span>: <span style="color: #fff;">"${so.salesmanEmail}"</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"customer"</span>: <span style="color: #49d493;">{</span></div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"customerId"</span>: <span style="color: #fff;">"${so.customer.customerId}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"name"</span>: <span style="color: #fff;">"${so.customer.name}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"email"</span>: <span style="color: #fff;">"${so.customer.email}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"phone"</span>: <span style="color: #fff;">"${so.customer.phone}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"address"</span>: <span style="color: #fff;">"${so.customer.address}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"city"</span>: <span style="color: #fff;">"${so.customer.city}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"tier"</span>: <span style="color: #fff;">"${so.customer.tier}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"lifetimeValue"</span>: <span style="color: #4eabff;">${so.customer.lifetimeValue}</span></div>
+                <div style="padding-left: 1rem;"><span style="color: #49d493;">}</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"products"</span>: <span style="color: #c084fc;">[</span></div>
+                ${so.products.map((p, idx) => `
+                  <div style="padding-left: 2rem;"><span style="color: #49d493;">{</span></div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"sku"</span>: <span style="color: #fff;">"${p.sku}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"name"</span>: <span style="color: #fff;">"${p.name}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"quantity"</span>: <span style="color: #4eabff;">${p.quantity}</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"unitPrice"</span>: <span style="color: #4eabff;">${p.unitPrice}</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"deliveryDate"</span>: <span style="color: #fff;">"${p.deliveryDate}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"stockStatus"</span>: <span style="color: #fff;">"${p.stockStatus}"</span></div>
+                  <div style="padding-left: 2rem;"><span style="color: #49d493;">}</span>${idx < so.products.length - 1 ? ',' : ''}</div>
+                `).join('')}
+                <div style="padding-left: 1rem;"><span style="color: #c084fc;">]</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"services"</span>: <span style="color: #c084fc;">[</span></div>
+                ${so.services.map((s, idx) => `
+                  <div style="padding-left: 2rem;"><span style="color: #49d493;">{</span></div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"code"</span>: <span style="color: #fff;">"${s.code}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"name"</span>: <span style="color: #fff;">"${s.name}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"scheduledDate"</span>: <span style="color: #fff;">"${s.scheduledDate}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"timeSlot"</span>: <span style="color: #fff;">"${s.timeSlot}"</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"duration"</span>: <span style="color: #4eabff;">${s.duration}</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"unitPrice"</span>: <span style="color: #4eabff;">${s.unitPrice}</span>,</div>
+                  <div style="padding-left: 3rem;"><span style="color: #fbbf24;">"skillLevel"</span>: <span style="color: #fff;">"${s.skillLevel}"</span></div>
+                  <div style="padding-left: 2rem;"><span style="color: #49d493;">}</span>${idx < so.services.length - 1 ? ',' : ''}</div>
+                `).join('')}
+                <div style="padding-left: 1rem;"><span style="color: #c084fc;">]</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"payment"</span>: <span style="color: #49d493;">{</span></div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"status"</span>: <span style="color: #49d493;">"${so.payment.status}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"method"</span>: <span style="color: #fff;">"${so.payment.method}"</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"paidAmount"</span>: <span style="color: #4eabff;">${so.payment.paidAmount}</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"transactionId"</span>: <span style="color: #fff;">"${so.payment.transactionId}"</span></div>
+                <div style="padding-left: 1rem;"><span style="color: #49d493;">}</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"totals"</span>: <span style="color: #49d493;">{</span></div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"subtotal"</span>: <span style="color: #4eabff;">${so.totals.subtotal}</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"tax"</span>: <span style="color: #4eabff;">${so.totals.totalTax}</span>,</div>
+                <div style="padding-left: 2rem;"><span style="color: #fbbf24;">"total"</span>: <span style="color: #4eabff;">${so.totals.total}</span></div>
+                <div style="padding-left: 1rem;"><span style="color: #49d493;">}</span>,</div>
+                <div style="padding-left: 1rem;"><span style="color: #fbbf24;">"sellerNotes"</span>: <span style="color: #fff;">"${so.sellerNotes ? so.sellerNotes.substring(0, 50) + '...' : 'None'}"</span></div>
+                <div><span style="color: #49d493;">}</span></div>
               </div>
             </div>
 
@@ -2980,15 +3025,41 @@
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-satellite-dish"></i> Broadcast Message</h3>
-              <div style="font-family: 'Courier New', monospace; font-size: 0.9rem; background: #000; padding: 1.5rem; border-radius: 8px; line-height: 1.8;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-satellite-dish"></i> Complete Broadcast Message</h3>
+              <div style="font-family: 'Courier New', monospace; font-size: 0.8rem; background: #000; padding: 1.5rem; border-radius: 8px; line-height: 1.7; max-height: 350px; overflow-y: auto;">
                 <div style="color: #49d493;">Event: <span style="color: #fff;">provider.match.request</span></div>
-                <div style="color: #49d493;">Service: <span style="color: #fff;">${so.services[0].name}</span></div>
-                <div style="color: #49d493;">Location: <span style="color: #fff;">${so.customer.city}, ${so.customer.region}</span></div>
-                <div style="color: #49d493;">Date: <span style="color: #fff;">${so.services[0].scheduledDate}</span></div>
-                <div style="color: #49d493;">Skill Required: <span style="color: #fff;">${so.services[0].skillLevel}</span></div>
-                <div style="color: #49d493;">Duration: <span style="color: #fff;">${so.services[0].duration} min</span></div>
-                <div style="color: #49d493;">Equipment: <span style="color: #fff;">${so.services[0].equipmentNeeded.join(', ')}</span></div>
+                <div style="color: #49d493;">OrderId: <span style="color: #fff;">${so.orderId}</span></div>
+                <div style="color: #49d493;">SalesProjectId: <span style="color: #fff;">"${so.salesProjectId || 'null'}"</span></div>
+                <div style="color: #49d493;">Quotation: <span style="color: #fff;">${so.linkedQuotation ? '"' + so.linkedQuotation + '"' : 'null'}</span></div>
+                <div style="color: #49d493;">Salesman: <span style="color: #fff;">"${so.salesman}"</span></div>
+                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Customer Info</div>
+                <div style="color: #49d493;">CustomerId: <span style="color: #fff;">"${so.customer.customerId}"</span></div>
+                <div style="color: #49d493;">CustomerName: <span style="color: #fff;">"${so.customer.name}"</span></div>
+                <div style="color: #49d493;">CustomerEmail: <span style="color: #fff;">"${so.customer.email}"</span></div>
+                <div style="color: #49d493;">CustomerPhone: <span style="color: #fff;">"${so.customer.phone}"</span></div>
+                <div style="color: #49d493;">Address: <span style="color: #fff;">"${so.customer.address}"</span></div>
+                <div style="color: #49d493;">City: <span style="color: #fff;">"${so.customer.city}"</span></div>
+                <div style="color: #49d493;">CustomerTier: <span style="color: #fbbf24;">"${so.customer.tier}"</span></div>
+                <div style="color: #49d493;">LifetimeValue: <span style="color: #4eabff;">${so.customer.lifetimeValue}</span></div>
+                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Products to Install</div>
+                ${so.products.map(p => `<div style="color: #49d493;">- <span style="color: #fff;">"${p.name}" (${p.sku}) x${p.quantity}</span></div>`).join('')}
+                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Service Details</div>
+                <div style="color: #49d493;">ServiceCode: <span style="color: #fff;">"${so.services[0].code}"</span></div>
+                <div style="color: #49d493;">ServiceName: <span style="color: #fff;">"${so.services[0].name}"</span></div>
+                <div style="color: #49d493;">ScheduledDate: <span style="color: #fff;">"${so.services[0].scheduledDate}"</span></div>
+                <div style="color: #49d493;">TimeSlot: <span style="color: #fff;">"${so.services[0].timeSlot}"</span></div>
+                <div style="color: #49d493;">Duration: <span style="color: #4eabff;">${so.services[0].duration}</span> min</div>
+                <div style="color: #49d493;">SkillRequired: <span style="color: #fff;">"${so.services[0].skillLevel}"</span></div>
+                <div style="color: #49d493;">TechniciansRequired: <span style="color: #4eabff;">${so.services[0].techniciansRequired || 1}</span></div>
+                <div style="color: #49d493;">Equipment: <span style="color: #c084fc;">[${so.services[0].equipmentNeeded ? so.services[0].equipmentNeeded.join(', ') : 'Standard tools'}]</span></div>
+                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Payment & Pricing</div>
+                <div style="color: #49d493;">PaymentStatus: <span style="color: #49d493;">"${so.payment.status}"</span></div>
+                <div style="color: #49d493;">PaymentMethod: <span style="color: #fff;">"${so.payment.method}"</span></div>
+                <div style="color: #49d493;">ServicePrice: <span style="color: #4eabff;">€${so.services[0].unitPrice}</span></div>
+                <div style="color: #49d493;">TotalOrderValue: <span style="color: #4eabff;">€${so.totals.total}</span></div>
+                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Special Instructions</div>
+                <div style="color: #49d493;">SellerNotes: <span style="color: #fff;">"${so.sellerNotes ? so.sellerNotes.substring(0, 80) + '...' : 'None'}"</span></div>
+                <div style="color: #49d493;">SpecialInstructions: <span style="color: #fff;">"${so.specialInstructions || 'None'}"</span></div>
               </div>
             </div>
 
