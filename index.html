@@ -529,6 +529,13 @@
       letter-spacing: 0.05em;
     }
     
+    .grid-day.today {
+      background: rgba(255, 193, 7, 0.15);
+      color: var(--yellow-primary);
+      border: 2px solid rgba(255, 193, 7, 0.5);
+      font-weight: 700;
+    }
+    
     .grid-row {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -1240,7 +1247,7 @@
                 <!-- Day Headers -->
                 <div class="grid-header-row">
                   <div class="grid-day">MON</div>
-                  <div class="grid-day">TUE</div>
+                  <div class="grid-day today">TUE</div>
                   <div class="grid-day">WED</div>
                   <div class="grid-day">THU</div>
                   <div class="grid-day">FRI</div>
@@ -1260,7 +1267,6 @@
                     <div class="grid-slot prebk">
                       <div class="slot-time">Afternoon</div>
                       <div class="slot-customer">Johnson - PRE BK - Consultation</div>
-                      <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                     <div class="grid-slot rwk">
                       <div class="slot-time">Morning</div>
@@ -1328,7 +1334,7 @@
                     <div class="grid-slot tvcf">
                       <div class="slot-time">08:00</div>
                       <div class="slot-customer">Thomas - TV CF - Air Conditioner</div>
-                      <div class="slot-tag wcf-ok">WCF OK</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                     <div class="grid-slot available">
                       <div class="slot-service">Available slot</div>
@@ -1338,21 +1344,18 @@
                     <div class="grid-slot prebk multiday">
                       <div class="slot-time">14:00</div>
                       <div class="slot-customer">Jackson - PRE BK - Site Assessment</div>
-                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot prebk multiday-continue multiday">
                       <div class="slot-time">All day</div>
                       <div class="slot-customer">Jackson - PRE BK - Site Assessment</div>
-                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot prebk multiday-continue">
                       <div class="slot-time">Morning</div>
                       <div class="slot-customer">Jackson - PRE BK - Site Assessment</div>
-                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                 </div>
