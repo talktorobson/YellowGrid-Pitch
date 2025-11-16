@@ -364,9 +364,133 @@
     }
 
     /* Customer Portal Card */
+    .system-card {
+      background: linear-gradient(135deg, #111b2a, #050914);
+      color: var(--text-main);
+    }
+
     .customer-card {
       background: linear-gradient(to bottom, #f9fafb, #ffffff);
       color: #1f2937;
+    }
+
+    .provider-card {
+      background: linear-gradient(135deg, #1b1f2a, #0f1119);
+      color: var(--text-main);
+    }
+    .offer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+    }
+    .timer-display {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .provider-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .provider-actions button {
+      flex: 1 1 140px;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+    .provider-actions .btn-primary {
+      background: #10b981;
+      color: white;
+    }
+    .provider-actions .btn-neutral {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+    }
+    .provider-actions .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+    .alert-box {
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .status-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .status-flag--ok {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    .status-flag--warn {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+    }
+    .status-flag--alert {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+    .go-gate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .go-gate-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .go-gate-card button {
+      margin-top: 0.6rem;
+      width: 100%;
+    }
+    .negotiation-log {
+      margin-top: 1rem;
+      max-height: 220px;
+      overflow-y: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.9rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .negotiation-log p {
+      margin-bottom: 0.4rem;
+    }
+    .gate-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .gate-actions button {
+      flex: 1 1 200px;
     }
 
     .customer-card .card-header {
@@ -397,6 +521,110 @@
       padding: 2rem;
       max-width: 1400px;
       margin: 0 auto;
+    }
+
+    .automation-panel,
+    .integration-panel,
+    .status-log {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .integration-feed {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .log-list {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      max-height: 220px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+    }
+
+    .log-list p {
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+      color: var(--text-muted);
+    }
+
+    .log-list p strong {
+      color: var(--yellow);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .status-pill {
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .status-pill span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .status-pill strong {
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .dual-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .negotiation-log {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem;
+      max-height: 260px;
+      overflow-y: auto;
+      font-size: 0.85rem;
     }
 
     /* Crew Mobile Card */
@@ -1118,195 +1346,397 @@
     <!-- Workflow Container -->
     <div class="workflow-container">
       <div class="workflow-track" id="workflowTrack">
-        <!-- Step 1: Customer Portal - New Service Request -->
-        <div class="workflow-card customer-card">
+        <!-- Step 1: Integration Intake -->
+        <div class="workflow-card system-card">
           <div class="card-header">
-            <h2><i class="fas fa-user"></i> Customer Portal</h2>
-            <p>Submit a new service request</p>
+            <h2><i class="fas fa-plug"></i> Integration · Sales Order Intake</h2>
+            <p>The customer already purchased the service. YellowGrid listens to Kafka topics and ingests the payload automatically.</p>
           </div>
           <div class="card-content">
-            <div class="fade-in-up">
-              <h3 style="margin-bottom: 1.5rem;">Request a Service</h3>
-
-              <form id="customerRequestForm" onsubmit="submitServiceRequest(event)">
-                <div class="form-group">
-                  <label>Service Type</label>
-                  <select class="form-control" id="serviceType" required>
-                    <option value="">Select a service...</option>
-                    <option value="Air Conditioning Installation">Air Conditioning Installation</option>
-                    <option value="Kitchen Installation">Kitchen Installation</option>
-                    <option value="Bathroom Renovation">Bathroom Renovation</option>
-                    <option value="Electrical Work">Electrical Work</option>
-                    <option value="Plumbing">Plumbing</option>
-                  </select>
+            <div class="integration-panel">
+              <p style="margin-bottom:0.8rem;">Simulate a sales order arriving from different channels. Data is enriched with customer context before the operator even sees it.</p>
+              <div class="chip-group">
+                <span class="chip">Store POS</span>
+                <span class="chip">Web Checkout</span>
+                <span class="chip">Call Center</span>
+                <span class="chip">Marketplace</span>
+              </div>
+              <div class="status-grid">
+                <div class="status-pill">
+                  <span>Sales order</span>
+                  <strong id="salesOrderId">–</strong>
                 </div>
-
-                <div class="form-group">
-                  <label>Customer Name</label>
-                  <input type="text" class="form-control" id="customerName" value="Maria Santos" required>
+                <div class="status-pill">
+                  <span>Service type</span>
+                  <strong id="salesServiceType">–</strong>
                 </div>
-
-                <div class="form-group">
-                  <label>Phone Number</label>
-                  <input type="tel" class="form-control" id="customerPhone" value="+351 912 345 678" required>
+                <div class="status-pill">
+                  <span>Requested slot</span>
+                  <strong id="salesRequestedSlot">–</strong>
                 </div>
-
-                <div class="form-group">
-                  <label>Email</label>
-                  <input type="email" class="form-control" id="customerEmail" value="maria.santos@email.com" required>
+                <div class="status-pill">
+                  <span>Channel</span>
+                  <strong id="salesChannel">–</strong>
                 </div>
-
-                <div class="form-group">
-                  <label>Address</label>
-                  <input type="text" class="form-control" id="customerAddress" value="Rua das Flores 45, Lisboa" required>
+              </div>
+              <div class="integration-feed">
+                <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:12px;">
+                  <h4 style="margin-bottom:0.4rem;">Customer Inputs</h4>
+                  <p id="salesCustomerDetails" style="color:var(--text-muted); font-size:0.9rem;">
+                    Awaiting payload…
+                  </p>
                 </div>
-
-                <div class="form-group">
-                  <label>Service Description</label>
-                  <textarea class="form-control" id="serviceDescription" required>Need to install a new air conditioning unit in the living room. Wall mounting required.</textarea>
+                <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:12px;">
+                  <h4 style="margin-bottom:0.4rem;">Payload Snippet</h4>
+                  <pre style="font-size:0.75rem; white-space:pre-wrap; color:var(--text-muted);" id="salesPayload">
+{ }
+                  </pre>
                 </div>
-
-                <div class="form-group">
-                  <label>Preferred Date</label>
-                  <input type="date" class="form-control" id="preferredDate" required>
+              </div>
+              <button class="btn-action" style="margin-top:0.8rem;" onclick="ingestServiceOrder('Store POS')">
+                <i class="fas fa-cloud-download-alt"></i> Ingest Service Order
+              </button>
+              <div class="status-log" style="margin-top:1rem;">
+                <h4 style="margin-bottom:0.5rem;">Event Log</h4>
+                <div class="log-list" id="integrationLog">
+                  <p><strong>Waiting</strong> for the next order…</p>
                 </div>
-
-                <div class="form-group">
-                  <label>Preferred Time</label>
-                  <select class="form-control" id="preferredTime" required>
-                    <option value="09:00">Morning (09:00 - 12:00)</option>
-                    <option value="14:00" selected>Afternoon (14:00 - 17:00)</option>
-                    <option value="17:00">Evening (17:00 - 20:00)</option>
-                  </select>
-                </div>
-
-                <button type="submit" class="btn-submit">
-                  <i class="fas fa-paper-plane"></i> Submit Service Request
-                </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Step 2: Operator Cockpit - Review & Assign -->
+        <!-- Step 2: Automation - Project + Service Order -->
+        <div class="workflow-card system-card">
+          <div class="card-header">
+            <h2><i class="fas fa-project-diagram"></i> Automation · Context building</h2>
+            <p>Every service order belongs to a project. AI checks if we should reuse an existing worksite or create a new one.</p>
+          </div>
+          <div class="card-content">
+            <div class="automation-panel">
+              <div class="dual-column">
+                <div>
+                  <p style="color:var(--text-muted); margin-bottom:0.5rem;">Sample rules: same address + customer + product journey = link; otherwise spawn new project with contacts/handoff tasks.</p>
+                  <div class="chip-group" style="margin-bottom:0.8rem;">
+                    <span class="chip">Address fingerprint</span>
+                    <span class="chip">Customer graph</span>
+                    <span class="chip">Journey intent</span>
+                    <span class="chip">AI linking</span>
+                  </div>
+                  <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                    <button class="btn-action" onclick="handleProjectAutomation('existing')">
+                      <i class="fas fa-link"></i> Link to existing project
+                    </button>
+                    <button class="btn-action" onclick="handleProjectAutomation('new')">
+                      <i class="fas fa-plus-circle"></i> Create new project
+                    </button>
+                  </div>
+                  <div class="status-grid" style="margin-top:1rem;">
+                    <div class="status-pill">
+                      <span>Project</span>
+                      <strong id="projectIdDisplay">–</strong>
+                    </div>
+                    <div class="status-pill">
+                      <span>Linked orders</span>
+                      <strong id="linkedOrdersDisplay">0</strong>
+                    </div>
+                    <div class="status-pill">
+                      <span>Contacts</span>
+                      <strong id="projectContactsDisplay">–</strong>
+                    </div>
+                    <div class="status-pill">
+                      <span>Worksite</span>
+                      <strong id="projectAddressDisplay">Pending</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="status-log">
+                  <h4 style="margin-bottom:0.5rem;">Automation log</h4>
+                  <div class="log-list" id="projectAutomationLog">
+                    <p><strong>AI ready</strong> to evaluate journey context.</p>
+                  </div>
+                </div>
+              </div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.6rem;">Outcome: a service order object cannot live alone; the project keeps the single address, multiple contacts and any related service orders (e.g., TV → Installation → WCF).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Operator cockpit · Prepare order -->
         <div class="workflow-card operator-card">
           <div class="card-header">
-            <h2><i class="fas fa-desktop"></i> Operator Cockpit</h2>
-            <p>Review new requests and assign technicians</p>
+            <h2><i class="fas fa-desktop"></i> Operator Cockpit · Prepare the service order</h2>
+            <p>Operator validates context, can reschedule, add notes, upload docs, and decide how contracts will be bundled.</p>
           </div>
           <div class="card-content">
-            <div class="fade-in-up">
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <h4>New Requests</h4>
-                  <div class="stat-value">1</div>
-                </div>
-                <div class="stat-card">
-                  <h4>In Progress</h4>
-                  <div class="stat-value">3</div>
-                </div>
-                <div class="stat-card">
-                  <h4>Available Crews</h4>
-                  <div class="stat-value">5</div>
+            <div class="dual-column">
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Context snapshot</h4>
+                <p style="color:var(--text-muted); font-size:0.9rem;">Everything the system fetched automatically so the operator can manage exceptions, not data entry.</p>
+                <ul style="margin:0.8rem 0 0; padding-left:1.1rem; color:var(--text-muted); font-size:0.9rem;">
+                  <li><strong id="contextProjectLine">Project — pending</strong></li>
+                  <li><strong id="contextLinkedOrders">Linked orders: 0</strong> including Technical Visits.</li>
+                  <li><strong id="contextFinancials">Payment: pending · Product delivery: pending</strong></li>
+                  <li><strong id="contextNotes">Notes:</strong> waiting</li>
+                </ul>
+              </div>
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Reschedule</h4>
+                <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                  <div>
+                    <label style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">New date</label>
+                    <input type="date" class="form-control" id="rescheduleDate">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">Start time</label>
+                    <input type="time" class="form-control" id="rescheduleTime">
+                  </div>
+                  <button class="btn-action" style="align-self:flex-end;" onclick="rescheduleServiceOrder()">
+                    <i class="fas fa-calendar-check"></i> Check availability
+                  </button>
                 </div>
               </div>
-
-              <h3 style="margin-bottom: 1rem;">Service Queue</h3>
-
-              <table class="dashboard-table">
-                <thead>
-                  <tr>
-                    <th>Service ID</th>
-                    <th>Customer</th>
-                    <th>Service Type</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody id="serviceQueueTable">
-                  <tr>
-                    <td><strong id="serviceIdDisplay">-</strong></td>
-                    <td id="customerNameDisplay">-</td>
-                    <td id="serviceTypeDisplay">-</td>
-                    <td id="serviceDateDisplay">-</td>
-                    <td><span class="status-badge status-new">New</span></td>
-                    <td>
-                      <button class="btn-action" onclick="openTechnicianModal()">
-                        <i class="fas fa-user-plus"></i> Assign Technician
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
-          </div>
-        </div>
-
-        <!-- Step 3: Crew Mobile App - Job Assignment Notification -->
-        <div class="workflow-card crew-card">
-          <div class="crew-mobile-container">
-            <div class="crew-mobile-screen">
-              <div class="crew-mobile-notch"></div>
-              <div class="crew-mobile-content">
-                <div class="crew-mobile-header">
-                  <h3>New Assignment</h3>
-                  <div class="notification-badge">1</div>
-                </div>
-
-                <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                    <i class="fas fa-bell" style="color: #10b981;"></i>
-                    <strong style="color: #065f46;">New Job Assigned</strong>
-                  </div>
-                  <p style="color: #047857; font-size: 0.9rem; margin: 0;">You have been assigned to a new service request</p>
-                </div>
-
-                <div style="background: white; border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
-                  <h4 style="margin-bottom: 1rem; color: #1f2937;">Job Details</h4>
-
-                  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                    <div>
-                      <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.25rem;">Service ID</div>
-                      <div style="font-weight: 600; color: #1f2937;" id="crewServiceId">-</div>
-                    </div>
-
-                    <div>
-                      <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.25rem;">Service Type</div>
-                      <div style="font-weight: 600; color: #1f2937;" id="crewServiceType">-</div>
-                    </div>
-
-                    <div>
-                      <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.25rem;">Customer</div>
-                      <div style="font-weight: 600; color: #1f2937;" id="crewCustomerName">-</div>
-                    </div>
-
-                    <div>
-                      <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.25rem;">Address</div>
-                      <div style="color: #1f2937;" id="crewAddress">-</div>
-                    </div>
-
-                    <div>
-                      <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.25rem;">Scheduled</div>
-                      <div style="color: #1f2937;" id="crewSchedule">-</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div style="display: flex; gap: 1rem;">
-                  <button onclick="acceptJob()" style="flex: 1; padding: 1rem; background: #10b981; color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer;">
-                    <i class="fas fa-check"></i> Accept Job
-                  </button>
-                  <button onclick="rejectJob()" style="flex: 1; padding: 1rem; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer;">
-                    <i class="fas fa-times"></i> Reject
+            <div class="dual-column" style="margin-top:1.3rem;">
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Notes & documents</h4>
+                <textarea class="form-control" id="operatorNoteInput" rows="3" placeholder="Add contextual note for future operators/providers"></textarea>
+                <button class="btn-action" style="margin-top:0.6rem;" onclick="addOperatorNote()">
+                  <i class="fas fa-sticky-note"></i> Add note
+                </button>
+                <div style="display:flex; gap:0.6rem; margin-top:1rem; flex-wrap:wrap;">
+                  <select class="form-control" id="docTypeSelect">
+                    <option value="Permit">Permit</option>
+                    <option value="Blueprint">Blueprint</option>
+                    <option value="Photos">Photos</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <input type="text" class="form-control" id="docNameInput" placeholder="Reference / filename">
+                  <button class="btn-action" onclick="attachDocument()">
+                    <i class="fas fa-upload"></i> Attach
                   </button>
                 </div>
+              </div>
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Contract bundling</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Bundle multiple service orders in one contract before sending for signature.</p>
+                <label style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem;">
+                  <input type="checkbox" class="contract-bundle-option" value="TV-1201" checked>
+                  Technical Visit · Kitchen quotation
+                </label>
+                <label style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                  <input type="checkbox" class="contract-bundle-option" value="INSTALL-2201" checked>
+                  Installation · Kitchen (current order)
+                </label>
+                <label style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                  <input type="checkbox" class="contract-bundle-option" value="WCF-9001">
+                  Work Closing Form follow-up
+                </label>
+                <div style="display:flex; gap:0.6rem; margin-top:0.8rem; flex-wrap:wrap;">
+                  <select class="form-control" id="contractTemplateSelect">
+                    <option value="Standard Install">Standard Installation</option>
+                    <option value="Kitchen Premium">Kitchen Premium</option>
+                    <option value="TV + Install Journey">TV + Install Journey</option>
+                  </select>
+                  <button class="btn-action" onclick="bundleContracts()">
+                    <i class="fas fa-object-group"></i> Bundle & template
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="status-log" style="margin-top:1.2rem;">
+              <h4 style="margin-bottom:0.5rem;">Operator actions</h4>
+              <div class="log-list" id="operatorActionLog">
+                <p><strong>No manual actions yet.</strong> Automation will send the contract in 2 hours if nothing happens.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Step 4: Crew Mobile App - Check In -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Contracts & Dispatch Automation -->
+        <div class="workflow-card operator-card">
+          <div class="card-header">
+            <h2><i class="fas fa-file-signature"></i> Contracts & Dispatch Automation</h2>
+            <p>Operator can act, or automation sends the contract in 2h and then triggers matching.</p>
+          </div>
+          <div class="card-content">
+            <div class="dual-column">
+              <div class="automation-panel">
+                <h4>Contract status</h4>
+                <p id="contractStatusText" style="color:var(--text-muted); font-size:0.9rem;">Awaiting operator action.</p>
+                <div class="status-grid" style="margin-top:0.6rem;">
+                  <div class="status-pill">
+                    <span>Template</span>
+                    <strong id="contractTemplateDisplay">Not selected</strong>
+                  </div>
+                  <div class="status-pill">
+                    <span>Auto send in</span>
+                    <strong id="contractTimerDisplay">02:00:00</strong>
+                  </div>
+                  <div class="status-pill">
+                    <span>Signed?</span>
+                    <strong id="contractSignedStatus">No</strong>
+                  </div>
+                </div>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.8rem;">
+                  <button class="btn-action" onclick="sendContractManual('send')">
+                    <i class="fas fa-paper-plane"></i> Send now
+                  </button>
+                  <button class="btn-action" onclick="sendContractManual('print')">
+                    <i class="fas fa-print"></i> Print & upload
+                  </button>
+                  <button class="btn-action" onclick="sendContractManual('skip')">
+                    <i class="fas fa-forward"></i> Skip (derogation)
+                  </button>
+                </div>
+                <div class="status-log" style="margin-top:1rem;">
+                  <h4 style="margin-bottom:0.4rem;">Contract log</h4>
+                  <div class="log-list" id="contractLog">
+                    <p><strong>Automation armed.</strong> Waiting to send.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="automation-panel">
+                <h4>Matching funnel</h4>
+                <p style="color:var(--text-muted); font-size:0.9rem;">Transparent view of who was considered, filtered, scored and chosen.</p>
+                <table class="dashboard-table" style="margin-top:0.8rem;">
+                  <thead>
+                    <tr>
+                      <th>Provider</th>
+                      <th>Zone</th>
+                      <th>Score</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="matchingCandidates">
+                    <tr>
+                      <td colspan="4" style="text-align:center; color:var(--text-muted);">Waiting for contract sign-off…</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn-action" style="margin-top:0.7rem;" onclick="triggerAutoMatching()">
+                  <i class="fas fa-robot"></i> Trigger auto matching
+                </button>
+                <div class="log-list" style="margin-top:0.8rem;" id="matchingStatusLog">
+                  <p><strong>Idle.</strong> Dispatch engages after contract is signed or skipped.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Provider offer & negotiation -->
+        <div class="workflow-card provider-card">
+          <div class="card-header">
+            <h2><i class="fas fa-handshake"></i> Provider Response</h2>
+            <p>Providers have 4h to accept, propose a new date, or decline. Up to 3 rounds of negotiation.</p>
+          </div>
+          <div class="card-content">
+            <div class="automation-panel">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+                <div>
+                  <p style="color:var(--text-muted); margin-bottom:0.2rem;">Current offer → Provider L · Zone 2 · Score 82</p>
+                  <div class="offer-pill">
+                    <i class="fas fa-calendar"></i>
+                    <span id="providerOfferDate">Original slot: –</span>
+                  </div>
+                </div>
+                <div class="timer-display" id="providerTimerDisplay">04:00</div>
+              </div>
+              <p id="providerStatusText" style="margin-top:0.8rem; color:var(--text-muted);">Waiting for matching to send the offer.</p>
+              <div class="provider-actions">
+                <button class="btn-primary" onclick="providerAcceptOriginal()">
+                  <i class="fas fa-check"></i> Accept original date
+                </button>
+                <button class="btn-neutral" onclick="providerProposeDate()">
+                  <i class="fas fa-calendar-plus"></i> Accept, propose new date
+                </button>
+                <button class="btn-danger" onclick="providerDeclineOffer()">
+                  <i class="fas fa-times"></i> Decline
+                </button>
+              </div>
+              <div style="margin-top:1rem;">
+                <label style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">If proposing a new date</label>
+                <input type="datetime-local" class="form-control" id="providerDateInput" />
+                <div class="gate-actions" id="customerDecisionActions" style="display:none;">
+                  <button class="btn-action" onclick="customerDecision('accept')">
+                    <i class="fas fa-thumbs-up"></i> Customer accepts
+                  </button>
+                  <button class="btn-action" onclick="customerDecision('reject')">
+                    <i class="fas fa-thumbs-down"></i> Customer rejects
+                  </button>
+                </div>
+              </div>
+              <div class="negotiation-log" id="providerLog">
+                <p><strong>No offer yet.</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Go Execution gate -->
+        <div class="workflow-card operator-card">
+          <div class="card-header">
+            <h2><i class="fas fa-shield-alt"></i> Go Execution Gate</h2>
+            <p>On the eve of execution the platform confirms payment & product delivery. Otherwise, ops must act.</p>
+          </div>
+          <div class="card-content">
+            <div class="go-gate-grid">
+              <div class="go-gate-card">
+                <h4>Payment status</h4>
+                <p id="paymentStatusText" style="color:var(--text-muted);">Waiting for confirmation.</p>
+                <div class="gate-actions">
+                  <button class="btn-action" onclick="togglePaymentStatus('payment', true)">
+                    <i class="fas fa-euro-sign"></i> Mark as paid
+                  </button>
+                  <button class="btn-action" onclick="togglePaymentStatus('payment', false)">
+                    <i class="fas fa-hourglass-half"></i> Mark pending
+                  </button>
+                </div>
+              </div>
+              <div class="go-gate-card">
+                <h4>Product delivery</h4>
+                <p id="deliveryStatusText" style="color:var(--text-muted);">Waiting for supply chain.</p>
+                <div class="gate-actions">
+                  <button class="btn-action" onclick="togglePaymentStatus('delivery', true)">
+                    <i class="fas fa-truck"></i> Mark delivered
+                  </button>
+                  <button class="btn-action" onclick="togglePaymentStatus('delivery', false)">
+                    <i class="fas fa-exclamation-triangle"></i> Mark not delivered
+                  </button>
+                </div>
+              </div>
+              <div class="go-gate-card">
+                <h4>Actions</h4>
+                <p style="color:var(--text-muted);">If any blocker remains, YellowGrid creates an alert and task. Ops can reschedule or override.</p>
+                <div class="gate-actions">
+                  <button class="btn-action" onclick="rescheduleServiceOrder()">
+                    <i class="fas fa-calendar-alt"></i> Reschedule
+                  </button>
+                  <button class="btn-action" onclick="authorizeDerogation()">
+                    <i class="fas fa-unlock"></i> Authorize derogation
+                  </button>
+                </div>
+                <button class="btn-action" style="margin-top:0.6rem;" onclick="confirmGoExecution()">
+                  <i class="fas fa-flag-checkered"></i> Confirm Go Execution
+                </button>
+              </div>
+            </div>
+            <div class="status-log" style="margin-top:1rem;">
+              <h4 style="margin-bottom:0.4rem;">Alerts & tasks</h4>
+              <div class="log-list" id="goExecutionLog">
+                <p><strong>Gate pending.</strong> Crew cannot check-in yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7: Crew Mobile App - Check In -->
         <div class="workflow-card crew-card">
           <div class="crew-mobile-container">
             <div class="crew-mobile-screen">
@@ -1314,9 +1744,8 @@
               <div class="crew-mobile-content">
                 <div class="crew-mobile-header">
                   <h3>Check In</h3>
-                  <span class="status-badge" style="background: #10b981; color: white;">Accepted</span>
+                  <span class="status-badge" style="background: #10b981; color: white;">Go Gate</span>
                 </div>
-
                 <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
                   <h4 style="margin-bottom: 1rem; color: #1f2937;">Job Summary</h4>
                   <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
@@ -1334,21 +1763,23 @@
                     </div>
                   </div>
                 </div>
-
                 <div style="background: #fef3c7; border-radius: 12px; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
                   <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: #f59e0b; margin-bottom: 0.5rem;"></i>
-                  <p style="color: #92400e; font-weight: 600; margin-bottom: 0.25rem;">You are at the location</p>
-                  <p style="color: #78350f; font-size: 0.85rem;" id="checkInAddress">-</p>
+                  <p style="color: #92400e; font-weight: 600; margin-bottom: 0.25rem;" id="checkInAddress">-</p>
+                  <p id="checkInAlert" style="color: #b45309; font-size: 0.85rem;">Go Execution must be OK before check-in.</p>
                 </div>
-
-                <button onclick="checkIn()" style="width: 100%; padding: 1.25rem; background: linear-gradient(135deg, #10b981, #34d399); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
-                  <i class="fas fa-sign-in-alt"></i> Check In Now
-                </button>
+                <div style="background: white; border-radius: 12px; padding: 1.25rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                  <p style="margin-bottom: 1rem; color: #1f2937;">Tap to confirm arrival once the gate is cleared.</p>
+                  <button class="btn-submit" style="width: 100%; background: #10b981;" onclick="checkIn()">
+                    <i class="fas fa-location-arrow"></i> Check In Now
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Step 8: Crew Mobile App - Work Execution -->
         <!-- Step 5: Crew Mobile App - Work Execution -->
         <div class="workflow-card crew-card">
           <div class="crew-mobile-container">
@@ -1415,7 +1846,7 @@
           </div>
         </div>
 
-        <!-- Step 6: Customer Portal - WCF Signature -->
+        <!-- Step 9: Customer Portal - WCF Signature -->
         <div class="workflow-card customer-card">
           <div class="card-header">
             <h2><i class="fas fa-user"></i> Customer Portal</h2>
@@ -1488,11 +1919,11 @@
           </div>
         </div>
 
-        <!-- Step 7: Operator Cockpit - Confirm & Close -->
+        <!-- Step 10: Operator Cockpit - Provider Payment -->
         <div class="workflow-card operator-card">
           <div class="card-header">
-            <h2><i class="fas fa-desktop"></i> Operator Cockpit</h2>
-            <p>Confirm completion and process payment</p>
+            <h2><i class="fas fa-credit-card"></i> Operator Cockpit · Close & Pay Provider</h2>
+            <p>After WCF acceptance the system generates a pro-forma invoice and triggers payment</p>
           </div>
           <div class="card-content">
             <div class="fade-in-up">
@@ -1553,102 +1984,7 @@
           </div>
         </div>
 
-        <!-- Step 8: Summary Screen -->
-        <div class="workflow-card summary-card">
-          <div class="summary-content fade-in-up">
-            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--yellow); margin-bottom: 1rem;"></i>
-            <h2>Workflow Complete!</h2>
-            <p>You've successfully completed the "Simple Installation" workflow. Here's what happened:</p>
-
-            <div class="timeline-viz">
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-blue);">
-                  <i class="fas fa-user"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Customer Request Submitted</h4>
-                  <p>Maria Santos requested an Air Conditioning Installation</p>
-                  <div class="timeline-time">Step 1</div>
-                </div>
-              </div>
-
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-purple);">
-                  <i class="fas fa-desktop"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Operator Assigned Technician</h4>
-                  <p id="summaryTechnician">Technician assigned to the job</p>
-                  <div class="timeline-time">Step 2</div>
-                </div>
-              </div>
-
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-green);">
-                  <i class="fas fa-mobile-alt"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Crew Accepted Job</h4>
-                  <p>Job assignment accepted and confirmed</p>
-                  <div class="timeline-time">Step 3</div>
-                </div>
-              </div>
-
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-green);">
-                  <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Checked In at Location</h4>
-                  <p>Technician arrived and checked in</p>
-                  <div class="timeline-time">Step 4</div>
-                </div>
-              </div>
-
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-green);">
-                  <i class="fas fa-tools"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Work Executed</h4>
-                  <p>Installation completed with checklist and photos</p>
-                  <div class="timeline-time">Step 5</div>
-                </div>
-              </div>
-
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-blue);">
-                  <i class="fas fa-signature"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Customer Signed WCF</h4>
-                  <p>Work Closing Form signed and approved</p>
-                  <div class="timeline-time">Step 6</div>
-                </div>
-              </div>
-
-              <div class="timeline-step">
-                <div class="timeline-icon" style="background: var(--accent-purple);">
-                  <i class="fas fa-credit-card"></i>
-                </div>
-                <div class="timeline-details">
-                  <h4>Payment Processed</h4>
-                  <p>Service completed and payment received</p>
-                  <div class="timeline-time">Step 7</div>
-                </div>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
-              <button onclick="exitWorkflow()" class="btn-submit" style="max-width: 300px;">
-                <i class="fas fa-redo"></i> Try Another Scenario
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-
     <!-- Workflow Navigation -->
     <div class="workflow-navigation">
       <button class="nav-btn prev" onclick="previousStep()" id="prevBtn">
@@ -1660,103 +1996,133 @@
     </div>
   </div>
 
-  <!-- Technician Assignment Modal -->
-  <div id="technicianModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Assign Technician</h3>
-        <button class="modal-close" onclick="closeTechnicianModal()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <div class="technician-list" id="technicianList">
-        <div class="technician-item" onclick="selectTechnician('PRO-1547', 'João Ferreira', 4.9)">
-          <div class="technician-info">
-            <h4>João Ferreira</h4>
-            <p>Skills: AC Installation, Electrical, Plumbing</p>
-            <p style="font-size: 0.8rem; color: var(--accent-green);">Available</p>
-          </div>
-          <div class="rating">
-            <i class="fas fa-star"></i> 4.9
-          </div>
-        </div>
-
-        <div class="technician-item" onclick="selectTechnician('PRO-1823', 'Carlos Mendes', 4.8)">
-          <div class="technician-info">
-            <h4>Carlos Mendes</h4>
-            <p>Skills: Bathroom, Tiling, Plumbing</p>
-            <p style="font-size: 0.8rem; color: var(--accent-green);">Available</p>
-          </div>
-          <div class="rating">
-            <i class="fas fa-star"></i> 4.8
-          </div>
-        </div>
-
-        <div class="technician-item" onclick="selectTechnician('PRO-2156', 'Ana Costa', 5.0)">
-          <div class="technician-info">
-            <h4>Ana Costa</h4>
-            <p>Skills: Plumbing, Heating, General</p>
-            <p style="font-size: 0.8rem; color: var(--accent-green);">Available</p>
-          </div>
-          <div class="rating">
-            <i class="fas fa-star"></i> 5.0
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Load YellowGrid State Management -->
   <script src="yellowgrid-state.js"></script>
 
   <script>
-    // Workflow State
+    // Workflow + Demo State
+    const totalSteps = 10;
     let currentStep = 0;
-    const totalSteps = 8;
     let currentScenario = '';
     let workflowServiceId = '';
-    let selectedTechnicianId = '';
-    let selectedTechnicianName = '';
+    let projectId = '';
+    let selectedTechnicianId = 'PRO-1547';
+    let selectedTechnicianName = 'João Ferreira';
     let checklistState = [false, false, false, false, false, false];
     let photoCount = 0;
     let signatureCanvas = null;
     let signatureCtx = null;
     let isDrawing = false;
+    let goExecution = { payment: false, delivery: false, override: false };
+    let providerInteractions = 0;
+    let providerAwaitingCustomer = false;
+    let contractCountdown = null;
+    let contractSecondsRemaining = 7200;
+    let matchingTriggered = false;
 
-    // Start Workflow
+    const defaultSchedule = () => {
+      const date = new Date();
+      date.setDate(date.getDate() + 5);
+      return {
+        date: date.toISOString().split('T')[0],
+        startTime: '09:00',
+        endTime: '12:00',
+        estimatedHours: 3
+      };
+    };
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function resetLog(id, placeholder) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.innerHTML = `<p>${placeholder}</p>`;
+      }
+    }
+
+    function appendLog(id, message) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const p = document.createElement('p');
+      p.innerHTML = message;
+      el.appendChild(p);
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function resetDemoState() {
+      currentStep = 0;
+      workflowServiceId = '';
+      projectId = '';
+      goExecution = { payment: false, delivery: false, override: false };
+      providerInteractions = 0;
+      providerAwaitingCustomer = false;
+      matchingTriggered = false;
+      checklistState = [false, false, false, false, false, false];
+      photoCount = 0;
+      if (contractCountdown) {
+        clearInterval(contractCountdown);
+        contractCountdown = null;
+      }
+      contractSecondsRemaining = 7200;
+
+      resetLog('integrationLog', '<strong>Waiting</strong> for the next order…');
+      resetLog('projectAutomationLog', '<strong>AI ready</strong> to evaluate journey context.');
+      resetLog('operatorActionLog', '<strong>No manual actions yet.</strong> Automation will send the contract in 2 hours if nothing happens.');
+      resetLog('contractLog', '<strong>Automation armed.</strong> Waiting to send.');
+      resetLog('matchingStatusLog', '<strong>Idle.</strong> Dispatch engages after contract is signed or skipped.');
+      resetLog('providerLog', '<strong>No offer yet.</strong>');
+      resetLog('goExecutionLog', '<strong>Gate pending.</strong> Crew cannot check-in yet.');
+
+      document.getElementById('matchingCandidates').innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">Waiting for contract sign-off…</td></tr>';
+      document.getElementById('customerDecisionActions').style.display = 'none';
+      document.getElementById('providerDateInput').value = '';
+      setText('contractStatusText', 'Awaiting operator action.');
+      setText('contractTemplateDisplay', 'Not selected');
+      setText('contractTimerDisplay', '02:00:00');
+      setText('contractSignedStatus', 'No');
+      setText('providerOfferDate', 'Original slot: –');
+      setText('providerTimerDisplay', '04:00');
+      setText('providerStatusText', 'Waiting for matching to send the offer.');
+      setText('paymentStatusText', 'Waiting for confirmation.');
+      setText('deliveryStatusText', 'Waiting for supply chain.');
+      setText('checkInServiceType', '-');
+      setText('checkInCustomer', '-');
+      setText('checkInTime', '-');
+      setText('checkInAddress', '-');
+      setText('checkInAlert', 'Go Execution must be OK before check-in.');
+      setText('finalServiceId', '-');
+      setText('finalCustomer', '-');
+      setText('finalTechnician', '-');
+      setText('finalCompletedTime', '-');
+      const photoGrid = document.getElementById('photoGrid');
+      if (photoGrid) {
+        photoGrid.innerHTML = '<div class="photo-placeholder" onclick="addPhoto()"><i class="fas fa-camera" style="font-size: 2rem; color: #9ca3af;"></i></div>';
+      }
+      document.querySelectorAll('.checklist-item').forEach((item) => {
+        item.classList.remove('completed');
+        const icon = item.querySelector('i');
+        if (icon) icon.style.display = 'none';
+      });
+    }
+
     function startWorkflow(scenario) {
       currentScenario = scenario;
-      currentStep = 0;
-
-      // Hide scenario selection, show timeline
       document.getElementById('scenarioSelection').style.display = 'none';
       document.getElementById('timelineWorkflow').classList.add('active');
-
-      // Initialize workflow
+      resetDemoState();
       updateWorkflowView();
-
-      // Set default date to tomorrow
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      document.getElementById('preferredDate').valueAsDate = tomorrow;
-
-      // Initialize signature pad
       setTimeout(initSignaturePad, 500);
     }
 
-    // Exit Workflow
     function exitWorkflow() {
       document.getElementById('scenarioSelection').style.display = 'block';
       document.getElementById('timelineWorkflow').classList.remove('active');
-
-      // Reset workflow state
-      currentStep = 0;
-      checklistState = [false, false, false, false, false, false];
-      photoCount = 0;
+      resetDemoState();
     }
 
-    // Next Step
     function nextStep() {
       if (currentStep < totalSteps - 1) {
         currentStep++;
@@ -1764,7 +2130,6 @@
       }
     }
 
-    // Previous Step
     function previousStep() {
       if (currentStep > 0) {
         currentStep--;
@@ -1772,70 +2137,47 @@
       }
     }
 
-    // Update Workflow View
     function updateWorkflowView() {
       const track = document.getElementById('workflowTrack');
       track.style.transform = `translateX(-${currentStep * 100}vw)`;
+      setText('currentStepNum', currentStep + 1);
+      setText('totalStepsNum', totalSteps);
+      document.getElementById('prevBtn').disabled = currentStep === 0;
+      document.getElementById('nextBtn').disabled = currentStep === totalSteps - 1;
 
-      // Update progress
-      document.getElementById('currentStepNum').textContent = currentStep + 1;
-      document.getElementById('totalStepsNum').textContent = totalSteps;
-
-      // Update progress dots
-      updateProgressDots();
-
-      // Update stakeholder indicator
-      updateStakeholderIndicator();
-
-      // Update navigation buttons
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-
-      prevBtn.disabled = currentStep === 0;
-      nextBtn.disabled = currentStep === totalSteps - 1;
-
-      // Update next button text
-      if (currentStep === totalSteps - 1) {
-        nextBtn.innerHTML = '<i class="fas fa-flag-checkered"></i> Finish';
-      } else {
-        nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
-      }
-    }
-
-    // Update Progress Dots
-    function updateProgressDots() {
-      const dotsContainer = document.getElementById('progressDots');
-      dotsContainer.innerHTML = '';
-
-      for (let i = 0; i < totalSteps; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'progress-dot';
-
-        if (i < currentStep) {
-          dot.classList.add('completed');
-        } else if (i === currentStep) {
-          dot.classList.add('active');
+      const progressDots = document.getElementById('progressDots');
+      if (progressDots.childElementCount !== totalSteps) {
+        progressDots.innerHTML = '';
+        for (let i = 0; i < totalSteps; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'progress-dot';
+          progressDots.appendChild(dot);
         }
-
-        dotsContainer.appendChild(dot);
       }
+      [...progressDots.children].forEach((dot, index) => {
+        dot.className = 'progress-dot';
+        if (index < currentStep) dot.classList.add('completed');
+        if (index === currentStep) dot.classList.add('active');
+      });
+
+      updateStakeholderIndicator();
     }
 
-    // Update Stakeholder Indicator
     function updateStakeholderIndicator() {
       const indicator = document.getElementById('stakeholderIndicator');
       const stakeholders = [
-        { icon: 'user', name: 'Customer', class: 'stakeholder-customer' },
+        { icon: 'server', name: 'Systems', class: 'stakeholder-operator' },
+        { icon: 'robot', name: 'Automation', class: 'stakeholder-operator' },
         { icon: 'desktop', name: 'Operator', class: 'stakeholder-operator' },
+        { icon: 'file-signature', name: 'Operator', class: 'stakeholder-operator' },
+        { icon: 'handshake', name: 'Provider', class: 'stakeholder-crew' },
+        { icon: 'shield-alt', name: 'Operator', class: 'stakeholder-operator' },
         { icon: 'mobile-alt', name: 'Crew', class: 'stakeholder-crew' },
-        { icon: 'map-marker-alt', name: 'Crew', class: 'stakeholder-crew' },
         { icon: 'tools', name: 'Crew', class: 'stakeholder-crew' },
         { icon: 'user', name: 'Customer', class: 'stakeholder-customer' },
-        { icon: 'desktop', name: 'Operator', class: 'stakeholder-operator' },
-        { icon: 'trophy', name: 'Summary', class: 'stakeholder-operator' }
+        { icon: 'credit-card', name: 'Finance', class: 'stakeholder-operator' }
       ];
-
-      const stakeholder = stakeholders[currentStep];
+      const stakeholder = stakeholders[currentStep] || stakeholders[stakeholders.length - 1];
       indicator.className = `timeline-stakeholder ${stakeholder.class}`;
       indicator.innerHTML = `
         <i class="fas fa-${stakeholder.icon} stakeholder-icon"></i>
@@ -1843,135 +2185,262 @@
       `;
     }
 
-    // Step 1: Submit Service Request
-    function submitServiceRequest(event) {
-      event.preventDefault();
-
-      // Generate service ID
-      workflowServiceId = 'DEMO-' + Date.now().toString().slice(-6);
-
-      // Get form data
-      const formData = {
+    // Step 1: Integration intake
+    function ingestServiceOrder(channel) {
+      const schedule = defaultSchedule();
+      workflowServiceId = 'SO-' + Math.floor(100000 + Math.random() * 900000);
+      const customer = {
+        name: 'Ana Costa',
+        phone: '+351 912 345 678',
+        email: 'ana.costa@email.com',
+        address: 'Rua do Horizonte 12, Lisboa'
+      };
+      const orderData = {
         id: workflowServiceId,
-        type: document.getElementById('serviceType').value,
-        customer: {
-          name: document.getElementById('customerName').value,
-          phone: document.getElementById('customerPhone').value,
-          email: document.getElementById('customerEmail').value,
-          address: document.getElementById('customerAddress').value
-        },
-        description: document.getElementById('serviceDescription').value,
-        schedule: {
-          date: document.getElementById('preferredDate').value,
-          startTime: document.getElementById('preferredTime').value,
-          estimatedHours: 3
-        },
+        type: 'Kitchen Installation',
+        customer,
+        schedule,
         status: 'new',
-        pricing: {
-          amount: 850.00,
-          paid: false
-        },
+        pricing: { amount: 2100, paid: false },
         checklist: [],
         photos: [],
         createdAt: new Date().toISOString()
       };
-
-      // Store in state (creating new service)
-      window.ygState.state.services[workflowServiceId] = formData;
+      window.ygState.state.services[workflowServiceId] = orderData;
       window.ygState.save();
 
-      // Update Step 2 display
-      document.getElementById('serviceIdDisplay').textContent = workflowServiceId;
-      document.getElementById('customerNameDisplay').textContent = formData.customer.name;
-      document.getElementById('serviceTypeDisplay').textContent = formData.type;
-      document.getElementById('serviceDateDisplay').textContent = formData.schedule.date;
-
-      // Auto-advance to next step
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      setText('salesOrderId', workflowServiceId);
+      setText('salesServiceType', orderData.type);
+      setText('salesRequestedSlot', `${schedule.date} · ${schedule.startTime}`);
+      setText('salesChannel', channel);
+      setText('salesCustomerDetails', `${customer.name} · ${customer.address} · Special instructions: protect oak flooring.`);
+      setText('salesPayload', `{ channel: '${channel.toLowerCase()}', journey: 'Kitchen', paid: false, productDelivered: false }`);
+      appendLog('integrationLog', `<strong>${channel}</strong> pushed ${workflowServiceId}`);
+      updateJobSummary();
+      nextStep();
     }
 
-    // Step 2: Open Technician Modal
-    function openTechnicianModal() {
-      document.getElementById('technicianModal').classList.add('active');
+    // Step 2: Automation linking
+    function handleProjectAutomation(mode) {
+      projectId = mode === 'existing' ? 'PRJ-8742' : 'PRJ-' + Math.floor(Math.random() * 9000 + 1000);
+      setText('projectIdDisplay', projectId);
+      const linked = mode === 'existing' ? 2 : 1;
+      setText('linkedOrdersDisplay', linked);
+      setText('projectContactsDisplay', 'Ana + João');
+      setText('projectAddressDisplay', 'Rua do Horizonte 12');
+      setText('contextProjectLine', `Project ${projectId}`);
+      setText('contextLinkedOrders', `Linked orders: ${linked}`);
+      appendLog('projectAutomationLog', mode === 'existing' ? 'AI linked to ongoing kitchen project.' : 'New project created for this address.');
+      nextStep();
     }
 
-    function closeTechnicianModal() {
-      document.getElementById('technicianModal').classList.remove('active');
-    }
-
-    // Step 2: Select Technician
-    function selectTechnician(techId, techName, rating) {
-      selectedTechnicianId = techId;
-      selectedTechnicianName = techName;
-
-      // Assign technician using state management
-      window.ygState.assignTechnician(workflowServiceId, techId);
-
-      // Update Step 3 crew display
+    // Step 3 actions
+    function rescheduleServiceOrder() {
+      const dateInput = document.getElementById('rescheduleDate').value;
+      const timeInput = document.getElementById('rescheduleTime').value;
+      if (!dateInput || !timeInput) {
+        alert('Pick a new date and time to reschedule.');
+        return;
+      }
       const service = window.ygState.getService(workflowServiceId);
-      document.getElementById('crewServiceId').textContent = workflowServiceId;
-      document.getElementById('crewServiceType').textContent = service.type;
-      document.getElementById('crewCustomerName').textContent = service.customer.name;
-      document.getElementById('crewAddress').textContent = service.customer.address;
-      document.getElementById('crewSchedule').textContent =
-        `${service.schedule.date} at ${service.schedule.startTime}`;
-
-      // Close modal
-      closeTechnicianModal();
-
-      // Auto-advance
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      if (service) {
+        window.ygState.rescheduleService(workflowServiceId, { date: dateInput, startTime: timeInput });
+      }
+      setText('salesRequestedSlot', `${dateInput} · ${timeInput}`);
+      appendLog('operatorActionLog', `Rescheduled to <strong>${dateInput} ${timeInput}</strong>`);
+      updateJobSummary();
     }
 
-    // Step 3: Accept Job
-    function acceptJob() {
-      window.ygState.acceptJob(workflowServiceId, selectedTechnicianId);
+    function addOperatorNote() {
+      const note = document.getElementById('operatorNoteInput').value.trim();
+      if (!note) return;
+      appendLog('operatorActionLog', `Note added: ${note}`);
+      document.getElementById('operatorNoteInput').value = '';
+    }
 
-      // Update Step 4 check-in display
+    function attachDocument() {
+      const type = document.getElementById('docTypeSelect').value;
+      const name = document.getElementById('docNameInput').value.trim() || 'unnamed';
+      appendLog('operatorActionLog', `Document attached: <strong>${type}</strong> (${name})`);
+      document.getElementById('docNameInput').value = '';
+    }
+
+    function bundleContracts() {
+      const selected = [...document.querySelectorAll('.contract-bundle-option:checked')].map(el => el.value);
+      const template = document.getElementById('contractTemplateSelect').value;
+      setText('contractTemplateDisplay', template);
+      appendLog('operatorActionLog', `Bundled <strong>${selected.join(', ') || 'none'}</strong> using template ${template}.`);
+    }
+
+    // Step 4: Contracts & matching
+    function startContractCountdown() {
+      if (contractCountdown) return;
+      contractCountdown = setInterval(() => {
+        contractSecondsRemaining = Math.max(contractSecondsRemaining - 1, 0);
+        const hrs = String(Math.floor(contractSecondsRemaining / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((contractSecondsRemaining % 3600) / 60)).padStart(2, '0');
+        const secs = String(contractSecondsRemaining % 60).padStart(2, '0');
+        setText('contractTimerDisplay', `${hrs}:${mins}:${secs}`);
+        if (contractSecondsRemaining === 0) {
+          clearInterval(contractCountdown);
+          contractCountdown = null;
+          finalizeContract('Auto-sent by platform');
+        }
+      }, 1000);
+    }
+
+    function sendContractManual(action) {
+      setText('contractStatusText', action === 'skip' ? 'Derogation applied.' : `Manual action: ${action}`);
+      appendLog('contractLog', `${action === 'skip' ? 'Contract skipped.' : 'Operator triggered contract send.'}`);
+      if (action === 'skip') {
+        setText('contractSignedStatus', 'Skipped');
+        triggerAutoMatching(true);
+        return;
+      }
+      startContractCountdown();
+      setTimeout(() => finalizeContract(action === 'print' ? 'Manual signature uploaded' : 'Customer signed digitally'), 800);
+    }
+
+    function finalizeContract(note) {
+      if (contractCountdown) {
+        clearInterval(contractCountdown);
+        contractCountdown = null;
+      }
+      setText('contractTimerDisplay', 'Automation bypassed');
+      setText('contractSignedStatus', 'Yes');
+      appendLog('contractLog', note);
+      triggerAutoMatching();
+    }
+
+    function triggerAutoMatching(manual = false) {
+      if (matchingTriggered) return;
+      matchingTriggered = true;
+      document.getElementById('matchingCandidates').innerHTML = `
+        <tr><td>Provider L</td><td>Zone 2</td><td>82</td><td>${manual ? 'Manual trigger' : 'Auto'}</td></tr>
+        <tr><td>Provider F</td><td>Zone 1</td><td>77</td><td>Buffered</td></tr>
+        <tr><td>Provider C</td><td>Zone 2</td><td>69</td><td>Filtered</td></tr>
+      `;
+      appendLog('matchingStatusLog', 'Dispatch running – offer sent to Provider L.');
+      setTimeout(() => startProviderOffer(), 800);
+      nextStep();
+    }
+
+    // Step 5: Provider negotiation
+    function startProviderOffer() {
       const service = window.ygState.getService(workflowServiceId);
-      document.getElementById('checkInServiceType').textContent = service.type;
-      document.getElementById('checkInCustomer').textContent = service.customer.name;
-      document.getElementById('checkInTime').textContent = service.schedule.startTime;
-      document.getElementById('checkInAddress').textContent = service.customer.address;
-
-      // Auto-advance
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      if (service) {
+        setText('providerOfferDate', `Original slot: ${service.schedule.date} · ${service.schedule.startTime}`);
+      }
+      providerInteractions = 0;
+      providerAwaitingCustomer = false;
+      setText('providerStatusText', 'Offer pending. Provider has 4h to respond.');
+      document.getElementById('customerDecisionActions').style.display = 'none';
+      document.getElementById('providerDateInput').value = '';
     }
 
-    // Step 3: Reject Job
-    function rejectJob() {
-      const reason = prompt('Reason for rejection:');
-      if (reason) {
-        window.ygState.rejectJob(workflowServiceId, selectedTechnicianId, reason);
-        alert('Job rejected. In a real workflow, this would reassign to another technician.');
-        previousStep();
+    function providerAcceptOriginal() {
+      const service = window.ygState.getService(workflowServiceId);
+      const label = service ? `${service.schedule.date} ${service.schedule.startTime}` : 'scheduled slot';
+      finalizeProviderAcceptance(label, false);
+    }
+
+    function providerProposeDate() {
+      const dateInput = document.getElementById('providerDateInput').value;
+      if (!dateInput) {
+        alert('Select a new date/time to propose.');
+        return;
+      }
+      providerAwaitingCustomer = true;
+      appendLog('providerLog', `Provider proposed <strong>${dateInput}</strong>. Waiting for customer.`);
+      document.getElementById('customerDecisionActions').style.display = 'flex';
+      setText('providerStatusText', 'Awaiting customer confirmation.');
+    }
+
+    function customerDecision(decision) {
+      if (!providerAwaitingCustomer) return;
+      if (decision === 'accept') {
+        const proposed = document.getElementById('providerDateInput').value;
+        finalizeProviderAcceptance(proposed || 'new slot', true);
+      } else {
+        providerInteractions++;
+        appendLog('providerLog', 'Customer rejected proposed date.');
+        if (providerInteractions >= 3) {
+          appendLog('providerLog', '<strong>Escalated.</strong> Task created for operator.');
+          document.getElementById('customerDecisionActions').style.display = 'none';
+          providerAwaitingCustomer = false;
+        }
       }
     }
 
-    // Step 4: Check In
-    function checkIn() {
-      window.ygState.checkIn(workflowServiceId);
-
-      // Auto-advance
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+    function providerDeclineOffer() {
+      appendLog('providerLog', '<strong>Offer declined.</strong> Second round triggered without this provider.');
+      setText('providerStatusText', 'Offer declined. Running second round.');
     }
 
-    // Step 5: Toggle Checklist Item
+    function finalizeProviderAcceptance(dateLabel, rescheduled) {
+      providerAwaitingCustomer = false;
+      document.getElementById('customerDecisionActions').style.display = 'none';
+      setText('providerStatusText', rescheduled ? `New date confirmed: ${dateLabel}` : `Accepted original slot ${dateLabel}`);
+      const service = window.ygState.getService(workflowServiceId);
+      if (service && rescheduled) {
+        window.ygState.rescheduleService(workflowServiceId, { date: dateLabel.split('T')[0], startTime: dateLabel.split('T')[1] || service.schedule.startTime });
+      }
+      window.ygState.assignTechnician(workflowServiceId, selectedTechnicianId);
+      appendLog('providerLog', `Provider assigned. Crew: <strong>${selectedTechnicianName}</strong>.`);
+      updateJobSummary();
+      nextStep();
+    }
+
+    // Step 6: Go Execution gate
+    function togglePaymentStatus(type, value) {
+      goExecution[type === 'payment' ? 'payment' : 'delivery'] = value;
+      const textId = type === 'payment' ? 'paymentStatusText' : 'deliveryStatusText';
+      setText(textId, value ? 'OK · Automation cleared' : 'Not OK · Waiting');
+      appendLog('goExecutionLog', `${type === 'payment' ? 'Payment' : 'Delivery'} status set to ${value ? 'OK' : 'NOT OK'}.`);
+    }
+
+    function authorizeDerogation() {
+      goExecution.override = true;
+      appendLog('goExecutionLog', 'Operator authorized derogation for Go Execution.');
+    }
+
+    function confirmGoExecution() {
+      if (!(goExecution.payment && goExecution.delivery) && !goExecution.override) {
+        alert('Payment or delivery still missing. Resolve or authorize derogation.');
+        return;
+      }
+      appendLog('goExecutionLog', '<strong>Go Execution OK.</strong> Crew may check in.');
+      setText('checkInAlert', 'Gate cleared. Proceed to check-in.');
+      nextStep();
+    }
+
+    // Step 7: Check-in
+    function checkIn() {
+      if (!(goExecution.payment && goExecution.delivery) && !goExecution.override) {
+        alert('Go Execution gate not cleared yet.');
+        return;
+      }
+      window.ygState.checkIn(workflowServiceId);
+      appendLog('goExecutionLog', 'Crew checked in via mobile app.');
+      nextStep();
+    }
+
+    function updateJobSummary() {
+      const service = window.ygState.getService(workflowServiceId);
+      if (!service) return;
+      setText('checkInServiceType', service.type);
+      setText('checkInCustomer', service.customer.name);
+      setText('checkInTime', service.schedule.startTime);
+      setText('checkInAddress', service.customer.address);
+      setText('providerOfferDate', `Original slot: ${service.schedule.date} · ${service.schedule.startTime}`);
+    }
+
+    // Step 8: Execution helpers
     function toggleChecklistItem(itemId) {
       const item = document.querySelector(`#check-${itemId}`).parentElement;
       const checkbox = document.querySelector(`#check-${itemId}`);
       const checkIcon = checkbox.querySelector('i');
-
       checklistState[itemId - 1] = !checklistState[itemId - 1];
-
       if (checklistState[itemId - 1]) {
         item.classList.add('completed');
         checkIcon.style.display = 'block';
@@ -1979,24 +2448,16 @@
         item.classList.remove('completed');
         checkIcon.style.display = 'none';
       }
-
-      // Update state
       window.ygState.toggleChecklistItem(workflowServiceId, itemId);
     }
 
-    // Step 5: Add Photo
     function addPhoto() {
       photoCount++;
-
       const photoGrid = document.getElementById('photoGrid');
       const photoItem = document.createElement('div');
       photoItem.className = 'photo-item';
       photoItem.innerHTML = '<i class="fas fa-image"></i>';
-
-      // Insert before the add button
       photoGrid.insertBefore(photoItem, photoGrid.lastChild);
-
-      // Update state
       window.ygState.addPhoto(workflowServiceId, {
         type: 'progress',
         label: `Photo ${photoCount}`,
@@ -2004,54 +2465,35 @@
       });
     }
 
-    // Step 5: Complete Job
     function completeJob() {
-      // Check if at least some items are completed
-      const completedCount = checklistState.filter(x => x).length;
-
+      const completedCount = checklistState.filter(Boolean).length;
       if (completedCount < 3) {
-        alert('Please complete at least 3 checklist items before finishing.');
+        alert('Complete at least 3 checklist items before finishing.');
         return;
       }
-
       window.ygState.checkOut(workflowServiceId);
-
-      // Update Step 6 WCF display
       const service = window.ygState.getService(workflowServiceId);
-      document.getElementById('wcfServiceType').textContent = service.type;
-      document.getElementById('wcfTechnician').textContent = selectedTechnicianName;
-      document.getElementById('wcfDate').textContent = service.schedule.date;
-
-      // Auto-advance
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      setText('wcfServiceType', service.type);
+      setText('wcfTechnician', selectedTechnicianName);
+      setText('wcfDate', service.schedule.date);
+      nextStep();
     }
 
-    // Step 6: Initialize Signature Pad
+    // Step 9: WCF signature
     function initSignaturePad() {
       signatureCanvas = document.getElementById('signaturePad');
       if (!signatureCanvas) return;
-
       signatureCtx = signatureCanvas.getContext('2d');
-
-      // Set canvas size
       signatureCanvas.width = signatureCanvas.offsetWidth;
       signatureCanvas.height = signatureCanvas.offsetHeight;
-
-      // Set drawing style
       signatureCtx.strokeStyle = '#1f2937';
       signatureCtx.lineWidth = 2;
       signatureCtx.lineCap = 'round';
       signatureCtx.lineJoin = 'round';
-
-      // Mouse events
       signatureCanvas.addEventListener('mousedown', startDrawing);
       signatureCanvas.addEventListener('mousemove', draw);
       signatureCanvas.addEventListener('mouseup', stopDrawing);
       signatureCanvas.addEventListener('mouseout', stopDrawing);
-
-      // Touch events
       signatureCanvas.addEventListener('touchstart', handleTouchStart);
       signatureCanvas.addEventListener('touchmove', handleTouchMove);
       signatureCanvas.addEventListener('touchend', stopDrawing);
@@ -2078,81 +2520,61 @@
     function handleTouchStart(e) {
       e.preventDefault();
       const touch = e.touches[0];
-      const mouseEvent = new MouseEvent('mousedown', {
+      signatureCanvas.dispatchEvent(new MouseEvent('mousedown', {
         clientX: touch.clientX,
         clientY: touch.clientY
-      });
-      signatureCanvas.dispatchEvent(mouseEvent);
+      }));
     }
 
     function handleTouchMove(e) {
       e.preventDefault();
       const touch = e.touches[0];
-      const mouseEvent = new MouseEvent('mousemove', {
+      signatureCanvas.dispatchEvent(new MouseEvent('mousemove', {
         clientX: touch.clientX,
         clientY: touch.clientY
-      });
-      signatureCanvas.dispatchEvent(mouseEvent);
+      }));
     }
 
     function clearSignature() {
-      signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+      if (signatureCtx) {
+        signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+      }
     }
 
-    // Step 6: Sign WCF
     function signWCF() {
-      // Check if signature is drawn
+      if (!signatureCtx) return;
       const imageData = signatureCtx.getImageData(0, 0, signatureCanvas.width, signatureCanvas.height);
       const hasSignature = imageData.data.some(x => x !== 0);
-
       if (!hasSignature) {
         alert('Please provide your signature before submitting.');
         return;
       }
-
-      // Save signature
       const signatureData = signatureCanvas.toDataURL();
       window.ygState.signWCF(workflowServiceId, {
         data: signatureData,
         quality: 'approved'
       });
-
-      // Update Step 7 display
       const service = window.ygState.getService(workflowServiceId);
-      document.getElementById('finalServiceId').textContent = workflowServiceId;
-      document.getElementById('finalCustomer').textContent = service.customer.name;
-      document.getElementById('finalTechnician').textContent = selectedTechnicianName;
-
-      const now = new Date();
-      document.getElementById('finalCompletedTime').textContent =
-        now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-
-      // Auto-advance
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      setText('finalServiceId', workflowServiceId);
+      setText('finalCustomer', service.customer.name);
+      setText('finalTechnician', selectedTechnicianName);
+      nextStep();
     }
 
-    // Step 7: Process Payment
+    // Step 10: Provider payment
     function processPayment() {
       const paymentMethod = document.getElementById('paymentMethod').value;
       window.ygState.processPayment(workflowServiceId, paymentMethod);
-
-      // Update Step 8 summary
-      document.getElementById('summaryTechnician').textContent =
-        `${selectedTechnicianName} assigned and completed the job`;
-
-      // Auto-advance
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      const now = new Date();
+      setText('finalCompletedTime', `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`);
+      alert('Payment processed and provider notified.');
     }
 
-    // Initialize
     document.addEventListener('DOMContentLoaded', () => {
+      resetDemoState();
       console.log('YellowGrid Interactive Demo Loaded');
-      console.log('State Management:', window.ygState);
     });
+
   </script>
 </body>
 </html>
