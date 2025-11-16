@@ -81,53 +81,33 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
     .logo-mark {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      background:
-        linear-gradient(135deg, var(--yellow), #ffdf80);
-      display: grid;
-      place-items: center;
-      position: relative;
-      box-shadow: 0 10px 25px rgba(255, 203, 50, 0.45);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.55));
     }
-    .logo-mark::before {
-      content: "";
-      position: absolute;
-      inset: 7px;
-      border-radius: 7px;
-      border: 2px solid rgba(0, 0, 0, 0.16);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-    }
-    .logo-mark-grid {
-      width: 14px;
-      height: 14px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 1px;
-      z-index: 1;
-    }
-    .logo-mark-cell {
-      border-radius: 2px;
-      background: rgba(0, 0, 0, 0.28);
-    }
-    .logo-mark-cell--active {
-      background: #fff7d1;
+    .logo-mark img {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
     .logo-text-main {
-      font-weight: 650;
-      letter-spacing: 0.02em;
-      font-size: 1.06rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      font-size: 1.12rem;
     }
     .logo-text-sub {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
+      letter-spacing: 0.24em;
+      color: #a7afc0;
+      margin-top: 0.05rem;
     }
     .nav-links {
       display: flex;
@@ -947,21 +927,11 @@
         <nav class="nav">
           <div class="logo">
             <div class="logo-mark">
-              <div class="logo-mark-grid">
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell logo-mark-cell--active"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-              </div>
+              <img src="assets/yg-logo-mark.svg" alt="" aria-hidden="true" />
             </div>
             <div>
               <div class="logo-text-main">YellowGrid</div>
-              <div class="logo-text-sub">Service execution</div>
+              <div class="logo-text-sub">SERVICE EXECUTION</div>
             </div>
           </div>
           <button class="mobile-menu-btn" aria-label="Toggle menu">
@@ -1480,21 +1450,11 @@
         <div>
           <div class="logo">
             <div class="logo-mark">
-              <div class="logo-mark-grid">
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell logo-mark-cell--active"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-                <div class="logo-mark-cell"></div>
-              </div>
+              <img src="assets/yg-logo-mark.svg" alt="" aria-hidden="true" loading="lazy" />
             </div>
             <div>
               <div class="logo-text-main">YellowGrid</div>
-              <div class="logo-text-sub">From sold to installed</div>
+              <div class="logo-text-sub">SERVICE EXECUTION</div>
             </div>
           </div>
           <p style="margin-top:0.7rem; max-width:360px;">
