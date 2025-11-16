@@ -1528,6 +1528,144 @@
             priority: 'High',
             tags: ['premium', 'complex-project', 'multi-phase', 'bathroom', 'renovation', 'tiling', 'milestone-payment', 'critical-path', 'same-provider']
           }
+        },
+        'rework': {
+          name: 'Rework - Quality Recovery',
+          description: 'Service quality issue requiring corrective action. Customer signed WCF with reserves due to poor workmanship. Different provider assigned to perform rework.',
+          serviceOrders: [{
+            soId: 'SO-2024-12456',
+            originalSoId: 'SO-2024-11892',
+            reworkReason: 'wcf-reserves',
+            status: 'In Progress',
+            createdDate: '2024-10-30T10:30:00Z',
+            originalCompletionDate: '2024-10-28T16:45:00Z',
+            customer: {
+              customerId: 'CUST-7291',
+              name: 'Sofia Rodrigues',
+              email: 'sofia.rodrigues@example.pt',
+              phone: '+351 91 234 5678',
+              address: 'Rua das Flores, 45, 3º Esq, 1200-195 Lisboa',
+              city: 'Lisboa',
+              postalCode: '1200-195',
+              country: 'Portugal',
+              customerSince: '2023-08-15',
+              tier: 'Premium',
+              claimHistory: 1,
+              lifetimeValue: 18500,
+              preferredContact: 'email',
+              language: 'pt-PT'
+            },
+            originalProvider: {
+              providerId: 'PRV-1001',
+              name: 'HomePro Renovations',
+              category: 'Renovation Contractor',
+              rating: 4.3,
+              completedJobs: 284,
+              isReworkProvider: false,
+              willGetPaid: false,
+              qualityIncident: true
+            },
+            reworkProvider: {
+              providerId: 'PRV-2305',
+              name: 'QualityFix Specialists',
+              category: 'Remedial Works',
+              rating: 4.9,
+              completedJobs: 156,
+              specialization: 'Tiling & Waterproofing Remediation',
+              isReworkProvider: true,
+              willGetPaid: true
+            },
+            problemDetails: {
+              reportedBy: 'Customer',
+              reportedDate: '2024-10-29T09:15:00Z',
+              wcfStatus: 'Signed with Reserves',
+              issueCategory: 'Workmanship Quality',
+              severity: 'High',
+              description: 'Grout lines uneven and inconsistent width (2-5mm variation). Waterproofing test failed in shower corner (moisture detected). Tile alignment off by 3mm in visible area. Professional finish standards not met.',
+              evidencePhotos: ['photo-grout-uneven.jpg', 'photo-moisture-test.jpg', 'photo-alignment-issue.jpg'],
+              rootCause: 'Rushed execution, inadequate waterproofing membrane overlap, poor quality control',
+              customerImpact: 'Bathroom unusable until fixed, customer lost confidence in original provider'
+            },
+            services: [
+              {
+                lineId: 'LINE-RWK-001',
+                code: 'RWK-TILE-WP',
+                name: 'Rework: Tiling & Waterproofing Correction',
+                description: 'Remove affected tiles in shower corner (2m²), re-apply waterproofing membrane with proper overlap, re-tile with proper grout line consistency, re-grout entire shower area for uniform appearance, 24-hour waterproofing test',
+                category: 'Rework',
+                quantity: 1,
+                unitPrice: 850,
+                discount: 0,
+                tax: 0,
+                totalPrice: 850,
+                price: '850',
+                scheduledDate: '2024-11-02',
+                timeSlot: '09:00-15:00',
+                duration: 360,
+                techniciansRequired: 2,
+                skillLevel: 'Master Tiler + Waterproofing Specialist',
+                equipmentNeeded: ['Tile removal tools', 'Waterproofing membrane', 'Grout mixing equipment', 'Moisture testing device'],
+                safetyRequirements: ['Dust containment', 'Ventilation', 'Floor protection'],
+                materialsIncluded: ['Replacement tiles (from original batch)', 'Waterproofing membrane', 'Premium grout', 'Sealant'],
+                workScope: [
+                  'Remove defective tiles (2m² shower corner)',
+                  'Clean and prepare substrate',
+                  'Apply waterproofing membrane (proper 150mm overlap)',
+                  'Cure for 24 hours',
+                  'Install replacement tiles (level alignment ±0.5mm)',
+                  'Grout with consistent 3mm joints',
+                  'Re-grout visible shower area for uniformity',
+                  'Seal all joints',
+                  'Perform 24-hour moisture test',
+                  'Final inspection and customer walkthrough'
+                ]
+              }
+            ],
+            totals: {
+              subtotalProducts: 0,
+              subtotalServices: 850,
+              subtotal: 850,
+              discounts: 0,
+              taxProducts: 0,
+              taxServices: 0,
+              totalTax: 0,
+              shippingCost: 0,
+              total: 850,
+              currency: 'EUR'
+            },
+            financials: {
+              customerPayment: 0,
+              customerPaymentReason: 'Quality issue - no customer charge for rework',
+              providerPayment: 850,
+              providerPaymentReason: 'Different provider performing rework - full payment applies',
+              paymentCondition: 'different-provider',
+              originalProviderLiability: 'HomePro Renovations - quality incident logged, rating impact',
+              platformFee: 0,
+              platformFeeReason: 'No platform fee on rework - service domain recovery'
+            },
+            payment: {
+              status: 'Pending',
+              method: 'Platform Credit',
+              customerOwes: 0,
+              providerReceives: 850,
+              paymentTrigger: 'WCF acceptance after rework completion',
+              transactionId: null,
+              installments: 1
+            },
+            linkedContracts: ['CTR-2024-5501'],
+            originalSoReference: {
+              soId: 'SO-2024-11892',
+              serviceName: 'Tiling & Waterproofing (Phase 2)',
+              originalValue: 4875.40,
+              completedDate: '2024-10-28',
+              originalProvider: 'HomePro Renovations'
+            },
+            operatorNotes: 'Customer complaint legitimate - quality standards not met. Original provider (HomePro) offered to fix but customer declined (lost trust). Assigned QualityFix Specialists - specialized in remedial tiling work. Customer expects professional finish this time. High priority - bathroom currently unusable.',
+            internalNotes: 'REWORK RULES: (1) Customer pays €0 always. (2) Same provider rework = provider pays own costs (no platform payment). (3) Different provider rework = platform pays provider normally. (4) Original provider quality incident logged. (5) No sales domain involvement. (6) Must get WCF acceptance after rework.',
+            specialInstructions: 'REWORK WORKFLOW: Assessment → Provider Assignment → Go Exec → Execution → Quality Check → WCF → Payment (conditional). QUALITY STANDARDS: Grout lines 3mm ±0.5mm consistent, tiles level ±0.5mm, waterproofing test pass (24hr moisture test), professional finish expected. Customer very detail-oriented - photos required at each stage.',
+            priority: 'High',
+            tags: ['rework', 'quality-issue', 'wcf-reserves', 'different-provider', 'tiling', 'waterproofing', 'remedial-work']
+          }]
         }
       };
 
@@ -3114,6 +3252,38 @@
           );
           
           return complexProjectCards.map((card, idx) => ({ ...card, index: idx }));
+        }
+
+        // Custom flow for Rework scenario (quality recovery with conditional payment)
+        if (scenarioId === 'rework') {
+          const so = scenarios[scenarioId].serviceOrders[0];
+          const reworkCards = [
+            // Rework Trigger (WCF signed with reserves)
+            { id: 'rework-trigger', type: 'customer', title: 'WCF Rejection Event', icon: 'triangle-exclamation', stepId: 'rework-trigger' },
+            // Problem Assessment
+            { id: 'problem-assessment', type: 'operator', title: 'Problem Assessment', icon: 'magnifying-glass', stepId: 'assessment' },
+            { id: 'root-cause-analysis', type: 'operator', title: 'Root Cause Analysis', icon: 'microscope', stepId: 'assessment' },
+            // Rework Decision
+            { id: 'rework-decision', type: 'operator', title: 'Rework SO Creation', icon: 'folder-plus', stepId: 'decision' },
+            // Provider Assignment Logic
+            { id: 'provider-assignment', type: 'operator', title: 'Provider Assignment', icon: 'user-gear', stepId: 'provider-assignment' },
+            { id: 'provider-notification', type: 'provider', title: 'Rework Provider Notification', icon: 'mobile-screen-button', stepId: 'provider-notification' },
+            // Go Exec Gate
+            { id: 'go-gate-check', type: 'system', title: 'Go Exec Gate (Rework)', icon: 'traffic-light', stepId: 'go-gate' },
+            // Crew Execution (Rework)
+            { id: 'crew-execution', type: 'crew', title: 'Crew Execution (Rework)', icon: 'mobile-screen-button', stepId: 'execution' },
+            // Quality Check
+            { id: 'quality-check', type: 'operator', title: 'Quality Check (Rework)', icon: 'user-check', stepId: 'quality-check' },
+            // WCF (Customer acceptance)
+            { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
+            { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
+            // Payment Authorization (Conditional)
+            { id: 'payment-authorization', type: 'system', title: 'Payment Authorization', icon: 'stamp', stepId: 'payment' },
+            // Rework Complete
+            { id: 'rework-complete', type: 'system', title: 'Rework Complete', icon: 'circle-check', stepId: 'completion' }
+          ];
+          
+          return reworkCards.map((card, idx) => ({ ...card, index: idx }));
         }
         
         const activeSteps = scenarioSteps[scenarioId] || steps;
@@ -5129,6 +5299,606 @@
         `;
       };
 
+      // Rework Scenario Render Functions
+      const renderReworkTriggerCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-triangle-exclamation"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Customer identified quality issues - WCF signed with reserves</p>
+            </div>
+
+            <div style="background: rgba(239, 68, 68, 0.08); border: 2px solid #ef4444; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem; color: #ef4444;"><i class="fas fa-exclamation-circle"></i> Quality Issue Reported</h3>
+              
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                <div><strong>Original SO:</strong> ${reworkSO.originalSoReference.soId}</div>
+                <div><strong>Service:</strong> ${reworkSO.originalSoReference.serviceName}</div>
+                <div><strong>Completed:</strong> ${new Date(reworkSO.originalCompletionDate).toLocaleDateString()}</div>
+                <div><strong>Reported:</strong> ${new Date(reworkSO.problemDetails.reportedDate).toLocaleDateString()}</div>
+                <div><strong>Original Provider:</strong> ${reworkSO.originalProvider.name}</div>
+                <div><strong>WCF Status:</strong> <span style="color: #ef4444; font-weight: 600;">${reworkSO.problemDetails.wcfStatus}</span></div>
+              </div>
+
+              <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;">Customer Complaint:</div>
+                <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);">
+                  ${reworkSO.problemDetails.description}
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Category</div>
+                  <div style="font-weight: 600;">${reworkSO.problemDetails.issueCategory}</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Severity</div>
+                  <div style="font-weight: 600; color: #ef4444;">${reworkSO.problemDetails.severity}</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Evidence</div>
+                  <div style="font-weight: 600;">${reworkSO.problemDetails.evidencePhotos.length} Photos</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-lightbulb" style="color: var(--accent-orange);"></i>
+                <strong> Rework Trigger:</strong> Quality issues during final inspection. Customer signed WCF but noted specific problems. Service domain initiates corrective action - no sales involvement, no customer charge.
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Proceed to Assessment <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderProblemAssessmentCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-tie"></i> OPERATOR
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Operator reviews complaint and validates issue legitimacy</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-clipboard-check"></i> Operator Inspection</h3>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;">Evidence Review</div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                  ${reworkSO.problemDetails.evidencePhotos.map(photo => `
+                    <div style="background: rgba(0, 0, 0, 0.3); border-radius: 4px; padding: 0.75rem; text-align: center;">
+                      <i class="fas fa-image" style="font-size: 1.5rem; color: var(--accent-blue); margin-bottom: 0.5rem;"></i>
+                      <div style="font-size: 0.8rem; color: var(--text-muted); word-wrap: break-word;">${photo}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-green);"><i class="fas fa-check-circle"></i> Assessment Results</div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  ✅ <strong>Complaint Valid:</strong> Quality standards not met<br>
+                  ✅ <strong>Photos Reviewed:</strong> Evidence confirms customer claims<br>
+                  ✅ <strong>Measurements Verified:</strong> Grout lines 2-5mm (spec: 3mm ±0.5mm)<br>
+                  ✅ <strong>Waterproofing Test:</strong> Moisture detected in shower corner<br>
+                  ✅ <strong>Professional Standards:</strong> Workmanship below acceptable level<br>
+                  ✅ <strong>Customer Impact:</strong> Bathroom unusable until fixed
+                </div>
+              </div>
+
+              <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid #ef4444; border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <strong>Operator Decision:</strong> Rework required - quality issue confirmed. Original provider responsibility. Service domain will handle correction.
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Proceed to Root Cause <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderRootCauseAnalysisCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-tie"></i> OPERATOR
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Identifying the underlying cause of quality failure</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-microscope"></i> Root Cause Analysis</h3>
+
+              <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid #ef4444; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;">Root Cause Identified:</div>
+                <div style="font-size: 1.05rem; line-height: 1.8;">
+                  ${reworkSO.problemDetails.rootCause}
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-wrench"></i> Technical Factors</div>
+                  <div style="font-size: 0.9rem; line-height: 1.8; color: var(--text-muted);">
+                    • Waterproofing membrane<br>&nbsp;&nbsp;overlap insufficient<br>
+                    • Grout line consistency not<br>&nbsp;&nbsp;maintained<br>
+                    • Tile alignment tools not used<br>
+                    • Quality control skipped
+                  </div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-clock"></i> Process Factors</div>
+                  <div style="font-size: 0.9rem; line-height: 1.8; color: var(--text-muted);">
+                    • Rushed execution timeline<br>
+                    • Crew inexperienced with<br>&nbsp;&nbsp;waterproofing specs<br>
+                    • No quality checkpoints<br>
+                    • Provider overscheduled
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-chart-line"></i> Quality Incident Logged</div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  <strong>Provider:</strong> ${reworkSO.originalProvider.name}<br>
+                  <strong>Impact:</strong> Rating review, quality metrics updated<br>
+                  <strong>Action:</strong> Performance evaluation, possible retraining<br>
+                  <strong>Customer Trust:</strong> Lost confidence - different provider recommended
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Create Rework SO <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderReworkDecisionCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-tie"></i> OPERATOR
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Operator creates rework service order</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-folder-plus"></i> Rework Service Order</h3>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem;">
+                  <div><strong>Rework SO ID:</strong> ${reworkSO.soId}</div>
+                  <div><strong>Original SO:</strong> ${reworkSO.originalSoId}</div>
+                  <div><strong>Reason:</strong> ${reworkSO.reworkReason === 'wcf-reserves' ? 'WCF Signed with Reserves' : 'Warranty Claim'}</div>
+                  <div><strong>Created:</strong> ${new Date(reworkSO.createdDate).toLocaleDateString()}</div>
+                  <div><strong>Priority:</strong> <span style="color: #ef4444; font-weight: 600;">${reworkSO.priority}</span></div>
+                  <div><strong>Customer:</strong> ${reworkSO.customer.name}</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;">Rework Scope:</div>
+                <div style="font-size: 0.95rem; line-height: 1.8;">
+                  <strong>Service:</strong> ${reworkSO.services[0].name}<br>
+                  <strong>Description:</strong> ${reworkSO.services[0].description.substring(0, 200)}...
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Duration</div>
+                  <div style="font-weight: 600;">${reworkSO.services[0].duration} min</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Customer Pays</div>
+                  <div style="font-weight: 600; color: var(--accent-green);">€${reworkSO.financials.customerPayment.toFixed(2)}</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Provider Receives</div>
+                  <div style="font-weight: 600; color: var(--accent-blue);">€${reworkSO.financials.providerPayment.toFixed(2)}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-shield-alt" style="color: var(--accent-green);"></i>
+                <strong> Service Domain:</strong> Rework handled entirely in service domain. No sales involvement. Customer protected from quality issues - pays nothing for rework.
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Assign Provider <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderProviderAssignmentCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-tie"></i> OPERATOR
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Conditional payment logic: Same vs Different Provider</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-user-gear"></i> Provider Selection Logic</h3>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: rgba(239, 68, 68, 0.08); border: 2px solid #ef4444; border-radius: 8px; padding: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem; color: #ef4444;"><i class="fas fa-user-xmark"></i> Original Provider</div>
+                  <div style="font-size: 0.9rem; line-height: 1.8; margin-bottom: 1rem;">
+                    <strong>Name:</strong> ${reworkSO.originalProvider.name}<br>
+                    <strong>Rating:</strong> ${reworkSO.originalProvider.rating}/5.0<br>
+                    <strong>Status:</strong> <span style="color: #ef4444;">Quality Incident</span><br>
+                    <strong>Customer Trust:</strong> Lost
+                  </div>
+                  <div style="background: rgba(0, 0, 0, 0.3); border-radius: 4px; padding: 0.75rem; text-align: center;">
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">If selected for rework:</div>
+                    <div style="font-size: 1.3rem; font-weight: 700; color: #ef4444;">Payment: €0.00</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Fixes own mistake</div>
+                  </div>
+                </div>
+
+                <div style="background: rgba(73, 212, 147, 0.08); border: 2px solid var(--accent-green); border-radius: 8px; padding: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-green);"><i class="fas fa-user-check"></i> Different Provider</div>
+                  <div style="font-size: 0.9rem; line-height: 1.8; margin-bottom: 1rem;">
+                    <strong>Name:</strong> ${reworkSO.reworkProvider.name}<br>
+                    <strong>Rating:</strong> ${reworkSO.reworkProvider.rating}/5.0<br>
+                    <strong>Specialization:</strong> ${reworkSO.reworkProvider.specialization}<br>
+                    <strong>Jobs Completed:</strong> ${reworkSO.reworkProvider.completedJobs}
+                  </div>
+                  <div style="background: rgba(0, 0, 0, 0.3); border-radius: 4px; padding: 0.75rem; text-align: center; border: 2px solid var(--accent-green);">
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">If selected for rework:</div>
+                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-green);">Payment: €${reworkSO.financials.providerPayment.toFixed(2)}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Full payment</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-blue);"><i class="fas fa-gavel"></i> Operator Decision</div>
+                <div style="font-size: 0.95rem; line-height: 1.8;">
+                  <strong>Selected:</strong> ${reworkSO.reworkProvider.name} ✅<br>
+                  <strong>Reason:</strong> Customer lost confidence in original provider. High priority fix requires specialized remedial expertise.<br>
+                  <strong>Payment:</strong> €${reworkSO.financials.providerPayment.toFixed(2)} will be paid to ${reworkSO.reworkProvider.name}<br>
+                  <strong>Customer Impact:</strong> No charge - quality issue protection
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.85rem; line-height: 1.6;">
+                  <strong>Payment Logic:</strong><br>
+                  • <strong>Same Provider Rework:</strong> Provider pays own costs (€0 platform payment) - warranty obligation<br>
+                  • <strong>Different Provider Rework:</strong> Platform pays provider normally - compensates new provider for fixing another's mistake<br>
+                  • <strong>Customer Always:</strong> Pays €0 for rework - protected from quality issues
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Notify Provider <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderProviderNotificationCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(134, 88, 223, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-mobile-screen-button"></i> PROVIDER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Rework Provider Notification</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${reworkSO.reworkProvider.name} receives rework assignment</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-bell"></i> Provider Mobile App - Rework Assignment</h3>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                  <div>
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">Rework Assignment</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">${reworkSO.soId}</div>
+                  </div>
+                  <div style="background: #ef4444; color: #fff; padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600;">
+                    HIGH PRIORITY
+                  </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; font-size: 0.9rem;">
+                  <div><strong>Service:</strong> Rework: Tiling</div>
+                  <div><strong>Value:</strong> €${reworkSO.financials.providerPayment.toFixed(2)}</div>
+                  <div><strong>Customer:</strong> ${reworkSO.customer.name}</div>
+                  <div><strong>Duration:</strong> ${reworkSO.services[0].duration} min</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;">Rework Context:</div>
+                <div style="font-size: 0.9rem; line-height: 1.8; color: var(--text-muted);">
+                  <strong>Original Work:</strong> ${reworkSO.originalSoReference.serviceName} by ${reworkSO.originalProvider.name}<br>
+                  <strong>Issue:</strong> ${reworkSO.problemDetails.description.substring(0, 120)}...<br>
+                  <strong>Your Task:</strong> Correct all quality issues to professional standards
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <strong>Payment:</strong> €${reworkSO.financials.providerPayment.toFixed(2)} upon completion and WCF acceptance<br>
+                  <strong>Note:</strong> Different provider rework - you will be compensated for fixing another provider's work
+                </div>
+              </div>
+
+              <div style="text-align: center;">
+                <button class="btn btn-primary" style="font-size: 1.1rem; padding: 0.75rem 2rem;">
+                  <i class="fas fa-check"></i> Accept Rework Assignment
+                </button>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Proceed to Go Exec <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderQualityCheckCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user-tie"></i> OPERATOR
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Validation that quality issues have been resolved</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-clipboard-check"></i> Rework Quality Inspection</h3>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-green);"><i class="fas fa-check-circle"></i> Quality Standards Met</div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  ✅ Grout lines consistent at 3mm ±0.5mm (previously 2-5mm variation)<br>
+                  ✅ Waterproofing test passed - no moisture detected after 24 hours<br>
+                  ✅ Tile alignment perfect - ±0.5mm tolerance met<br>
+                  ✅ Professional finish achieved - meets specifications<br>
+                  ✅ All materials properly installed per manufacturer specs<br>
+                  ✅ No defects or rework needed<br>
+                  ✅ Work area clean and properly finished<br>
+                  ✅ Customer expectations exceeded
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <strong>Before vs After Comparison:</strong><br>
+                  • <strong>Grout Lines:</strong> 2-5mm inconsistent → 3mm ±0.5mm uniform<br>
+                  • <strong>Waterproofing:</strong> Failed moisture test → Passed 24-hour test<br>
+                  • <strong>Alignment:</strong> 3mm off → ±0.5mm tolerance met<br>
+                  • <strong>Overall:</strong> Substandard → Professional grade
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green);">
+                  <i class="fas fa-check-double"></i> Rework Approved - Ready for Customer WCF
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Request WCF <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderPaymentAuthorizationCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-cog"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Conditional payment processing based on provider assignment</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-calculator"></i> Payment Logic Evaluation</h3>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid #ef4444; border-radius: 8px; padding: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem; color: #ef4444;"><i class="fas fa-user-xmark"></i> Customer Payment</div>
+                  <div style="text-align: center; padding: 1rem;">
+                    <div style="font-size: 3rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">€${reworkSO.financials.customerPayment.toFixed(2)}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">Quality issue - no customer charge</div>
+                  </div>
+                </div>
+
+                <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1.5rem;">
+                  <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-green);"><i class="fas fa-user-check"></i> Provider Payment</div>
+                  <div style="text-align: center; padding: 1rem;">
+                    <div style="font-size: 3rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">€${reworkSO.financials.providerPayment.toFixed(2)}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">Different provider - full payment</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green);">
+                  <i class="fas fa-check-circle"></i> Payment Authorized - €${reworkSO.financials.providerPayment.toFixed(2)} will be transferred to ${reworkSO.reworkProvider.name}
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-lightbulb" style="color: var(--accent-orange);"></i>
+                <strong> Payment Logic Summary:</strong> IF same provider → €0 payment (warranty) | IF different provider → full payment (compensation) | Customer always pays €0 (quality protection)
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Complete Rework <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderReworkCompleteCard = (so, card) => {
+        const reworkSO = scenarios['rework'].serviceOrders[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-flag-checkered"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Quality issue resolved - Service domain recovery complete</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.2), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 3rem; text-align: center; margin-bottom: 2rem;">
+              <div style="font-size: 5rem; margin-bottom: 1rem;">✅</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Rework Successfully Completed</div>
+              <div style="font-size: 1.1rem; color: var(--text-muted);">Quality issue resolved through service domain recovery workflow</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">€${reworkSO.financials.customerPayment.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Customer Paid</div>
+                <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 0.5rem;">Protected from quality issues</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">€${reworkSO.financials.providerPayment.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Provider Received</div>
+                <div style="font-size: 0.8rem; color: var(--accent-blue); margin-top: 0.5rem;">${reworkSO.reworkProvider.name}</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">${reworkSO.services[0].duration}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Minutes</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Rework duration</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Rework Workflow Summary</h3>
+              <div style="font-size: 0.95rem; line-height: 2;">
+                ✅ <strong>Trigger:</strong> WCF signed with reserves - quality issues identified<br>
+                ✅ <strong>Assessment:</strong> Operator validated complaint with evidence<br>
+                ✅ <strong>Root Cause:</strong> Rushed execution, inadequate waterproofing, poor quality control<br>
+                ✅ <strong>Rework SO:</strong> New service order created (${reworkSO.soId})<br>
+                ✅ <strong>Provider Logic:</strong> Different provider assigned (customer trust lost)<br>
+                ✅ <strong>Execution:</strong> ${reworkSO.reworkProvider.name} performed corrections<br>
+                ✅ <strong>Quality Check:</strong> All standards met, issues resolved<br>
+                ✅ <strong>WCF:</strong> Customer accepted work without reserves<br>
+                ✅ <strong>Payment:</strong> €${reworkSO.financials.providerPayment.toFixed(2)} paid to different provider (conditional logic)<br>
+                ✅ <strong>Customer Impact:</strong> €0 cost - protected from quality issues
+              </div>
+            </div>
+
+            <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-trophy"></i> Platform Value Demonstrated</h3>
+              <div style="font-size: 0.9rem; line-height: 1.8;">
+                <strong>Service Domain Autonomy:</strong> Rework handled entirely in service domain - no sales involvement required<br>
+                <strong>Customer Protection:</strong> €0 cost for quality issues - platform shields customers<br>
+                <strong>Conditional Payment:</strong> Smart logic - same provider (€0) vs different provider (full payment)<br>
+                <strong>Quality Control:</strong> Systematic assessment, root cause analysis, validation process<br>
+                <strong>Provider Accountability:</strong> Quality incidents logged, ratings impacted, performance tracked<br>
+                <strong>Flexibility:</strong> Can assign different provider when customer trust is lost
+              </div>
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Rework Complete! Demonstrated service domain quality recovery with conditional payment logic.')">
+                <i class="fas fa-flag-checkered"></i> Complete Journey
+              </button>
+              <div style="margin-top: 1rem; color: var(--accent-green);">
+                <i class="fas fa-shield-alt"></i> <strong>Service Domain Recovery</strong> - Quality issue resolved transparently
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
       const renderMetroLine = () => {
         const html = allCards.map((card, idx) => {
           const isActive = idx === currentCardIndex;
@@ -5210,6 +5980,24 @@
           html = renderPhaseUnlockCard(so, card);
         } else if (card.id === 'project-complete') {
           html = renderProjectCompleteCard(so, card);
+        } else if (card.id === 'rework-trigger') {
+          html = renderReworkTriggerCard(so, card);
+        } else if (card.id === 'problem-assessment') {
+          html = renderProblemAssessmentCard(so, card);
+        } else if (card.id === 'root-cause-analysis') {
+          html = renderRootCauseAnalysisCard(so, card);
+        } else if (card.id === 'rework-decision') {
+          html = renderReworkDecisionCard(so, card);
+        } else if (card.id === 'provider-assignment') {
+          html = renderProviderAssignmentCard(so, card);
+        } else if (card.id === 'provider-notification') {
+          html = renderProviderNotificationCard(so, card);
+        } else if (card.id === 'quality-check') {
+          html = renderQualityCheckCard(so, card);
+        } else if (card.id === 'payment-authorization') {
+          html = renderPaymentAuthorizationCard(so, card);
+        } else if (card.id === 'rework-complete') {
+          html = renderReworkCompleteCard(so, card);
         }
 
         document.getElementById('journeyCard').innerHTML = html;
