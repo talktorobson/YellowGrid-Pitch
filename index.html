@@ -487,6 +487,24 @@
       border-color: rgba(220, 53, 69, 0.3);
     }
     
+    .grid-sidebar-item.provider {
+      background: rgba(255, 193, 7, 0.08);
+      border: 2px solid rgba(255, 193, 7, 0.4);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--yellow-primary);
+      min-height: 60px;
+      padding: 1rem 0.5rem;
+    }
+    
+    .grid-sidebar-item.crew {
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.01);
+      border-left: 3px solid rgba(255, 193, 7, 0.3);
+      margin-left: 0.5rem;
+    }
+    
     .grid-main {
       display: flex;
       flex-direction: column;
@@ -557,10 +575,49 @@
       border-color: rgba(220, 53, 69, 0.4);
     }
     
+    .grid-slot.prebk {
+      background: rgba(30, 58, 138, 0.35);
+      border-color: rgba(59, 130, 246, 0.6);
+    }
+    
     .grid-slot.available {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.08);
+      border-color: rgba(59, 130, 246, 0.25);
       border-style: dashed;
+    }
+    
+    .grid-slot.multiday {
+      position: relative;
+      border-right: none;
+    }
+    
+    .grid-slot.multiday::after {
+      content: '→';
+      position: absolute;
+      right: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: inherit;
+      font-size: 0.875rem;
+      font-weight: 700;
+      opacity: 0.8;
+    }
+    
+    .grid-slot.multiday-continue {
+      border-left: none;
+      position: relative;
+    }
+    
+    .grid-slot.multiday-continue::before {
+      content: '←';
+      position: absolute;
+      left: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: inherit;
+      font-size: 0.875rem;
+      font-weight: 700;
+      opacity: 0.8;
     }
     
     .grid-slot.cancelled {
@@ -1164,13 +1221,17 @@
                 <div class="grid-sidebar-item unassigned">
                   <span>Unassigned Sx</span>
                 </div>
-                <div class="grid-sidebar-item">
-                  <span>Crew A</span>
-                  <small style="font-size: 0.65rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Provider A</small>
+                <div class="grid-sidebar-item provider">
+                  <span>⭐ Provider A</span>
                 </div>
-                <div class="grid-sidebar-item">
+                <div class="grid-sidebar-item crew">
+                  <span>Crew A</span>
+                </div>
+                <div class="grid-sidebar-item crew">
                   <span>Crew B</span>
-                  <small style="font-size: 0.65rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Provider A</small>
+                </div>
+                <div class="grid-sidebar-item crew">
+                  <span>Crew C</span>
                 </div>
               </div>
               
@@ -1196,9 +1257,9 @@
                     </div>
                   </div>
                   <div class="grid-cell">
-                    <div class="grid-slot tvcf">
+                    <div class="grid-slot prebk">
                       <div class="slot-time">Afternoon</div>
-                      <div class="slot-customer">Johnson - TV CF - Bathroom</div>
+                      <div class="slot-customer">Johnson - PRE BK - Consultation</div>
                       <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                     <div class="grid-slot rwk">
@@ -1237,22 +1298,30 @@
                   </div>
                 </div>
                 
+                <!-- Provider A Row (visual separator) -->
+                <div class="grid-row" style="min-height: 0; gap: 0;">
+                  <div class="grid-cell" style="background: rgba(255, 193, 7, 0.05); border: none; min-height: 2px; padding: 0;"></div>
+                  <div class="grid-cell" style="background: rgba(255, 193, 7, 0.05); border: none; min-height: 2px; padding: 0;"></div>
+                  <div class="grid-cell" style="background: rgba(255, 193, 7, 0.05); border: none; min-height: 2px; padding: 0;"></div>
+                  <div class="grid-cell" style="background: rgba(255, 193, 7, 0.05); border: none; min-height: 2px; padding: 0;"></div>
+                  <div class="grid-cell" style="background: rgba(255, 193, 7, 0.05); border: none; min-height: 2px; padding: 0;"></div>
+                  <div class="grid-cell" style="background: rgba(255, 193, 7, 0.05); border: none; min-height: 2px; padding: 0;"></div>
+                </div>
+                
                 <!-- Crew A Row -->
                 <div class="grid-row">
                   <div class="grid-cell">
-                    <div class="grid-slot inst">
+                    <div class="grid-slot inst multiday">
                       <div class="slot-time">09:30</div>
-                      <div class="slot-customer">Anderson - INST - Bathroom</div>
+                      <div class="slot-customer">Anderson - INST - Complex Bathroom</div>
                       <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
-                    <div class="grid-slot available">
-                      <div class="slot-time">10:15</div>
-                      <div class="slot-service">Candidate slot</div>
-                    </div>
-                    <div class="grid-slot available">
-                      <div class="slot-service">Available slots</div>
+                    <div class="grid-slot inst multiday-continue">
+                      <div class="slot-time">All day</div>
+                      <div class="slot-customer">Anderson - INST - Complex Bathroom</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
@@ -1261,25 +1330,28 @@
                       <div class="slot-customer">Thomas - TV CF - Air Conditioner</div>
                       <div class="slot-tag wcf-ok">WCF OK</div>
                     </div>
-                  </div>
-                  <div class="grid-cell">
-                    <div class="grid-slot inst">
-                      <div class="slot-time">14:00</div>
-                      <div class="slot-customer">Jackson - INST - Laundry</div>
-                      <div class="slot-tag goexec-nok">Go Exec NOK</div>
+                    <div class="grid-slot available">
+                      <div class="slot-service">Available slot</div>
                     </div>
                   </div>
                   <div class="grid-cell">
-                    <div class="grid-slot tvqt">
-                      <div class="slot-time">10:30</div>
-                      <div class="slot-customer">White - TV QT - Heating</div>
+                    <div class="grid-slot prebk multiday">
+                      <div class="slot-time">14:00</div>
+                      <div class="slot-customer">Jackson - PRE BK - Site Assessment</div>
                       <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
-                    <div class="grid-slot inst">
-                      <div class="slot-time">09:00</div>
-                      <div class="slot-customer">Harris - INST - Garage</div>
+                    <div class="grid-slot prebk multiday-continue multiday">
+                      <div class="slot-time">All day</div>
+                      <div class="slot-customer">Jackson - PRE BK - Site Assessment</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot prebk multiday-continue">
+                      <div class="slot-time">Morning</div>
+                      <div class="slot-customer">Jackson - PRE BK - Site Assessment</div>
                       <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
@@ -1333,6 +1405,53 @@
                     </div>
                   </div>
                 </div>
+                
+                <!-- Crew C Row -->
+                <div class="grid-row">
+                  <div class="grid-cell">
+                    <div class="grid-slot available">
+                      <div class="slot-service">Available slot</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot tvcf">
+                      <div class="slot-time">10:00</div>
+                      <div class="slot-customer">Clark - TV CF - Electrical</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot inst">
+                      <div class="slot-time">08:30</div>
+                      <div class="slot-customer">Lewis - INST - Windows</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                    <div class="grid-slot available">
+                      <div class="slot-service">Available slot</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot tvqt multiday">
+                      <div class="slot-time">09:00</div>
+                      <div class="slot-customer">Young - TV QT - Full Inspection</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot tvqt multiday-continue">
+                      <div class="slot-time">All day</div>
+                      <div class="slot-customer">Young - TV QT - Full Inspection</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot rwk">
+                      <div class="slot-time">09:30</div>
+                      <div class="slot-customer">King - RWK - Flooring</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -1355,8 +1474,12 @@
                 <span style="font-size: 0.8125rem; color: var(--text-secondary);">RWK - Rework</span>
               </div>
               <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(59, 130, 246, 0.15); border: 1px dashed rgba(59, 130, 246, 0.4);"></div>
-                <span style="font-size: 0.8125rem; color: var(--text-secondary);">Available Slot</span>
+                <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(30, 58, 138, 0.35); border: 1px solid rgba(59, 130, 246, 0.6);"></div>
+                <span style="font-size: 0.8125rem; color: var(--text-secondary);">PRE BK - Pre Booking</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(59, 130, 246, 0.08); border: 1px dashed rgba(59, 130, 246, 0.25);"></div>
+                <span style="font-size: 0.8125rem; color: var(--text-secondary);">Available Slot (light blue)</span>
               </div>
             </div>
           </div>
