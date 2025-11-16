@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YellowGrid Interactive Demo - Chronological Workflow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --yellow: #ffcb32;
+      --yellow-soft: #ffe79a;
+      --bg-dark: #0f1722;
+      --bg-darker: #070c12;
+      --bg-alt: #131b26;
+      --card-bg: #161f2b;
+      --accent-green: #46d38a;
+      --accent-blue: #3b82f6;
+      --accent-purple: #a78bfa;
+      --accent-orange: #fb923c;
+      --accent-red: #ff6b6b;
+      --text-main: #e5ecf7;
+      --text-muted: #9ba4b5;
+      --border-subtle: #222b39;
+      --shadow-soft: 0 22px 45px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+
+      /* Operator colors */
+      --operator-primary: #1e3a8a;
+      --operator-secondary: #3b82f6;
+      --operator-bg: #0f1722;
+
+      /* Crew colors */
+      --crew-primary: #10b981;
+      --crew-secondary: #34d399;
+      --crew-bg: #f5f5f5;
+
+      /* Customer colors */
+      --customer-primary: #3b82f6;
+      --customer-secondary: #a78bfa;
+      --customer-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #172133 0, #05070b 55%);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .logo {
+      display: inline-flex;
+    }
+    .logo img {
+      width: 200px;
+      max-width: 60vw;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
+    }
+
+    /* Scenario Selection Screen */
+    .scenario-selection {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .scenario-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .scenario-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .scenario-header h1 span {
+      color: var(--yellow);
+    }
+
+    .scenario-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .scenario-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-green), #4ade80);
+    }
+
+    .scenario-card.complex::before {
+      background: linear-gradient(90deg, var(--accent-purple), #c4b5fd);
+    }
+
+    .scenario-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--yellow);
+      box-shadow: 0 12px 40px rgba(255, 203, 50, 0.2);
+    }
+
+    .scenario-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .scenario-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .scenario-badge {
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-simple {
+      background: rgba(70, 211, 138, 0.2);
+      color: var(--accent-green);
+    }
+
+    .badge-complex {
+      background: rgba(167, 139, 250, 0.2);
+      color: var(--accent-purple);
+    }
+
+    /* Timeline Workflow Container */
+    .timeline-wrapper {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--bg-darker);
+    }
+
+    .timeline-wrapper.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Timeline Header */
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 100;
+    }
+
+    .timeline-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back-to-scenarios {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 203, 50, 0.1);
+      border: 1px solid rgba(255, 203, 50, 0.3);
+      border-radius: var(--radius-pill);
+      color: var(--yellow);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all var(--transition-fast);
+    }
+
+    .back-to-scenarios:hover {
+      background: rgba(255, 203, 50, 0.2);
+      transform: translateX(-3px);
+    }
+
+    .timeline-progress {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .timeline-progress-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-progress-text strong {
+      color: var(--yellow);
+      font-size: 1.1rem;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-subtle);
+      transition: all var(--transition-fast);
+    }
+
+    .progress-dot.active {
+      background: var(--yellow);
+      transform: scale(1.3);
+    }
+
+    .progress-dot.completed {
+      background: var(--accent-green);
+    }
+
+    .timeline-stakeholder {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 1.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+    }
+
+    .stakeholder-icon {
+      font-size: 1.2rem;
+    }
+
+    .stakeholder-customer .stakeholder-icon {
+      color: var(--accent-blue);
+    }
+
+    .stakeholder-operator .stakeholder-icon {
+      color: var(--accent-purple);
+    }
+
+    .stakeholder-crew .stakeholder-icon {
+      color: var(--accent-green);
+    }
+
+    /* Workflow Container */
+    .workflow-container {
+      flex: 1;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .workflow-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .workflow-card {
+      min-width: 100vw;
+      height: 100%;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Customer Portal Card */
+    .system-card {
+      background: linear-gradient(135deg, #111b2a, #050914);
+      color: var(--text-main);
+    }
+
+    .customer-card {
+      background: linear-gradient(to bottom, #f9fafb, #ffffff);
+      color: #1f2937;
+    }
+
+    .provider-card {
+      background: linear-gradient(135deg, #1b1f2a, #0f1119);
+      color: var(--text-main);
+    }
+    .offer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+    }
+    .timer-display {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .provider-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .provider-actions button {
+      flex: 1 1 140px;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+    .provider-actions .btn-primary {
+      background: #10b981;
+      color: white;
+    }
+    .provider-actions .btn-neutral {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+    }
+    .provider-actions .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+    .alert-box {
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .status-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .status-flag--ok {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    .status-flag--warn {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+    }
+    .status-flag--alert {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+    .go-gate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .go-gate-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .go-gate-card button {
+      margin-top: 0.6rem;
+      width: 100%;
+    }
+    .negotiation-log {
+      margin-top: 1rem;
+      max-height: 220px;
+      overflow-y: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.9rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .negotiation-log p {
+      margin-bottom: 0.4rem;
+    }
+    .gate-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .gate-actions button {
+      flex: 1 1 200px;
+    }
+
+    .customer-card .card-header {
+      background: linear-gradient(135deg, var(--customer-primary), var(--customer-secondary));
+      color: white;
+      padding: 2rem;
+    }
+
+    .customer-card .card-content {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Operator Cockpit Card */
+    .operator-card {
+      background: linear-gradient(to bottom, #0f1722, #1a2332);
+      color: var(--text-main);
+    }
+
+    .operator-card .card-header {
+      background: linear-gradient(135deg, var(--operator-primary), var(--operator-secondary));
+      padding: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .operator-card .card-content {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .automation-panel,
+    .integration-panel,
+    .status-log {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .integration-feed {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .log-list {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      max-height: 220px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+    }
+
+    .log-list p {
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+      color: var(--text-muted);
+    }
+
+    .log-list p strong {
+      color: var(--yellow);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .status-pill {
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .status-pill span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .status-pill strong {
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .dual-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .negotiation-log {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem;
+      max-height: 260px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+    }
+
+    /* Crew Mobile Card */
+    .crew-card {
+      background: #f5f5f5;
+      color: #1f2937;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      padding: 2rem 1rem;
+    }
+
+    .crew-mobile-container {
+      background: #000;
+      border-radius: 40px;
+      padding: 16px;
+      max-width: 428px;
+      width: 100%;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    }
+
+    .crew-mobile-screen {
+      background: #fff;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .crew-mobile-notch {
+      height: 40px;
+      background: #000;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      width: 150px;
+      margin: 0 auto;
+    }
+
+    .crew-mobile-content {
+      padding: 1.5rem;
+      min-height: 600px;
+    }
+
+    .crew-mobile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .crew-mobile-header h3 {
+      font-size: 1.5rem;
+      color: #1f2937;
+    }
+
+    /* Summary Card */
+    .summary-card {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: var(--text-main);
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .summary-content {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .summary-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--yellow);
+    }
+
+    .summary-content p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Workflow Navigation */
+    .workflow-navigation {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+
+    .nav-btn.prev {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .nav-btn.prev:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(-3px);
+    }
+
+    .nav-btn.next {
+      background: linear-gradient(135deg, var(--yellow), #ffd769);
+      color: #1b1305;
+      box-shadow: 0 4px 12px rgba(255, 203, 50, 0.3);
+    }
+
+    .nav-btn.next:hover:not(:disabled) {
+      transform: translateX(3px);
+      box-shadow: 0 6px 16px rgba(255, 203, 50, 0.4);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all var(--transition-fast);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(255, 203, 50, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--yellow), #ffd769);
+      color: #1b1305;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 203, 50, 0.4);
+    }
+
+    /* Dashboard Table */
+    .dashboard-table {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .dashboard-table thead {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .dashboard-table th,
+    .dashboard-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .dashboard-table th {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .status-badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    .status-new {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--accent-blue);
+    }
+
+    .status-assigned {
+      background: rgba(251, 146, 60, 0.2);
+      color: var(--accent-orange);
+    }
+
+    .status-in-progress {
+      background: rgba(70, 211, 138, 0.2);
+      color: var(--accent-green);
+    }
+
+    .status-completed {
+      background: rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+
+    .btn-action {
+      padding: 0.5rem 1rem;
+      background: var(--yellow);
+      color: #1b1305;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-action:hover {
+      background: var(--yellow-soft);
+      transform: scale(1.05);
+    }
+
+    /* Checklist */
+    .checklist {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .checklist-item:hover {
+      background: #f3f4f6;
+    }
+
+    .checklist-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .checklist-item.completed .checklist-checkbox {
+      background: var(--crew-primary);
+      border-color: var(--crew-primary);
+    }
+
+    .checklist-item.completed {
+      opacity: 0.6;
+    }
+
+    .checklist-item.completed .checklist-text {
+      text-decoration: line-through;
+    }
+
+    /* Photo Grid */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .photo-placeholder {
+      aspect-ratio: 1;
+      background: #e5e7eb;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 2px dashed #9ca3af;
+    }
+
+    .photo-placeholder:hover {
+      background: #d1d5db;
+      border-color: var(--crew-primary);
+    }
+
+    .photo-item {
+      aspect-ratio: 1;
+      background: #10b981;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+    }
+
+    /* Signature Pad */
+    .signature-container {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .signature-pad {
+      width: 100%;
+      height: 200px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: crosshair;
+      background: #fafafa;
+    }
+
+    .signature-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn-clear {
+      padding: 0.5rem 1rem;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Timeline Visualization */
+    .timeline-viz {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .timeline-step {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-step::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 50px;
+      width: 2px;
+      height: calc(100% + 1rem);
+      background: var(--border-subtle);
+    }
+
+    .timeline-step:last-child::before {
+      display: none;
+    }
+
+    .timeline-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .timeline-details h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-details p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .timeline-time {
+      font-size: 0.8rem;
+      color: var(--yellow);
+      margin-top: 0.25rem;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+
+    .technician-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .technician-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .technician-item:hover {
+      border-color: var(--yellow);
+      background: rgba(255, 203, 50, 0.1);
+    }
+
+    .technician-info h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .technician-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .rating {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    /* Notification Badge */
+    .notification-badge {
+      background: var(--accent-red);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .stat-card h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-card .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--yellow);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .workflow-navigation {
+        padding: 1rem;
+      }
+
+      .operator-card .card-content,
+      .customer-card .card-content {
+        padding: 1rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Scenario Selection Screen -->
+  <div id="scenarioSelection" class="scenario-selection">
+    <div class="scenario-header">
+      <div class="logo">
+        <img src="assets/yellowgrid-lockup.png" alt="YellowGrid – Service Execution" />
+      </div>
+
+      <h1>Interactive <span>Workflow</span> Demo</h1>
+      <p>Experience real-world scenarios step by step. See how YellowGrid connects operators, crews, and customers seamlessly.</p>
+    </div>
+
+    <div class="scenario-grid">
+      <div class="scenario-card" onclick="startWorkflow('simple-installation')">
+        <div class="scenario-icon">🔧</div>
+        <h3>Simple Installation</h3>
+        <p>A straightforward service installation flow from customer request to completed job with WCF signature.</p>
+        <span class="scenario-badge badge-simple">10 Steps • 6 min</span>
+      </div>
+
+      <div class="scenario-card complex" onclick="startWorkflow('tv-quotation')">
+        <div class="scenario-icon">📋</div>
+        <h3>TV & Quotation</h3>
+        <p>Technical visit, quotation approval, and installation scheduling for complex jobs requiring assessment.</p>
+        <span class="scenario-badge badge-complex">10 Steps • 7 min</span>
+      </div>
+
+      <div class="scenario-card" onclick="startWorkflow('package-deal')">
+        <div class="scenario-icon">📦</div>
+        <h3>Package Deal</h3>
+        <p>Multi-service package with coordinated scheduling across different technician specialties.</p>
+        <span class="scenario-badge badge-simple">9 Steps • 6 min</span>
+      </div>
+
+      <div class="scenario-card complex" onclick="startWorkflow('complex-project')">
+        <div class="scenario-icon">🏗️</div>
+        <h3>Complex Project</h3>
+        <p>Large-scale project with multiple phases, dependencies, and team coordination requirements.</p>
+        <span class="scenario-badge badge-complex">12 Steps • 10 min</span>
+      </div>
+
+      <div class="scenario-card" onclick="startWorkflow('rework-warranty')">
+        <div class="scenario-icon">🔄</div>
+        <h3>Rework & Warranty</h3>
+        <p>Quality issue detected, rework scheduled, and warranty claim processed with documentation.</p>
+        <span class="scenario-badge badge-simple">7 Steps • 4 min</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline Workflow -->
+  <div id="timelineWorkflow" class="timeline-wrapper">
+    <!-- Timeline Header -->
+    <div class="timeline-header">
+      <div class="timeline-left">
+        <button class="back-to-scenarios" onclick="exitWorkflow()">
+          <i class="fas fa-arrow-left"></i>
+          Back to Scenarios
+        </button>
+
+        <div class="logo">
+          <img src="assets/yellowgrid-lockup.png" alt="YellowGrid – Service Execution" />
+        </div>
+      </div>
+
+      <div class="timeline-progress">
+        <div class="timeline-progress-text">
+          Step <strong id="currentStepNum">1</strong> of <strong id="totalStepsNum">10</strong>
+        </div>
+        <div class="progress-dots" id="progressDots"></div>
+      </div>
+
+      <div class="timeline-stakeholder" id="stakeholderIndicator">
+        <i class="fas fa-user stakeholder-icon"></i>
+        <span id="stakeholderName">Customer</span>
+      </div>
+    </div>
+
+    <!-- Workflow Container -->
+    <div class="workflow-container">
+      <div class="workflow-track" id="workflowTrack">
+        <!-- Step 1: Integration Intake -->
+        <div class="workflow-card system-card">
+          <div class="card-header">
+            <h2><i class="fas fa-plug"></i> Integration · Sales Order Intake</h2>
+            <p>The customer already purchased the service. YellowGrid listens to Kafka topics and ingests the payload automatically.</p>
+          </div>
+          <div class="card-content">
+            <div class="integration-panel">
+              <p style="margin-bottom:0.8rem;">Simulate a sales order arriving from different channels. Data is enriched with customer context before the operator even sees it.</p>
+              <div class="chip-group">
+                <span class="chip">Store POS</span>
+                <span class="chip">Web Checkout</span>
+                <span class="chip">Call Center</span>
+                <span class="chip">Marketplace</span>
+              </div>
+              <div class="status-grid">
+                <div class="status-pill">
+                  <span>Sales order</span>
+                  <strong id="salesOrderId">–</strong>
+                </div>
+                <div class="status-pill">
+                  <span>Service type</span>
+                  <strong id="salesServiceType">–</strong>
+                </div>
+                <div class="status-pill">
+                  <span>Requested slot</span>
+                  <strong id="salesRequestedSlot">–</strong>
+                </div>
+                <div class="status-pill">
+                  <span>Channel</span>
+                  <strong id="salesChannel">–</strong>
+                </div>
+              </div>
+              <div class="integration-feed">
+                <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:12px;">
+                  <h4 style="margin-bottom:0.4rem;">Customer Inputs</h4>
+                  <p id="salesCustomerDetails" style="color:var(--text-muted); font-size:0.9rem;">
+                    Awaiting payload…
+                  </p>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:12px;">
+                  <h4 style="margin-bottom:0.4rem;">Payload Snippet</h4>
+                  <pre style="font-size:0.75rem; white-space:pre-wrap; color:var(--text-muted);" id="salesPayload">
+{ }
+                  </pre>
+                </div>
+              </div>
+              <button class="btn-action" style="margin-top:0.8rem;" onclick="ingestServiceOrder('Store POS')">
+                <i class="fas fa-cloud-download-alt"></i> Ingest Service Order
+              </button>
+              <div class="status-log" style="margin-top:1rem;">
+                <h4 style="margin-bottom:0.5rem;">Event Log</h4>
+                <div class="log-list" id="integrationLog">
+                  <p><strong>Waiting</strong> for the next order…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Automation - Project + Service Order -->
+        <div class="workflow-card system-card">
+          <div class="card-header">
+            <h2><i class="fas fa-project-diagram"></i> Automation · Context building</h2>
+            <p>Every service order belongs to a project. AI checks if we should reuse an existing worksite or create a new one.</p>
+          </div>
+          <div class="card-content">
+            <div class="automation-panel">
+              <div class="dual-column">
+                <div>
+                  <p style="color:var(--text-muted); margin-bottom:0.5rem;">Sample rules: same address + customer + product journey = link; otherwise spawn new project with contacts/handoff tasks.</p>
+                  <div class="chip-group" style="margin-bottom:0.8rem;">
+                    <span class="chip">Address fingerprint</span>
+                    <span class="chip">Customer graph</span>
+                    <span class="chip">Journey intent</span>
+                    <span class="chip">AI linking</span>
+                  </div>
+                  <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                    <button class="btn-action" onclick="handleProjectAutomation('existing')">
+                      <i class="fas fa-link"></i> Link to existing project
+                    </button>
+                    <button class="btn-action" onclick="handleProjectAutomation('new')">
+                      <i class="fas fa-plus-circle"></i> Create new project
+                    </button>
+                  </div>
+                  <div class="status-grid" style="margin-top:1rem;">
+                    <div class="status-pill">
+                      <span>Project</span>
+                      <strong id="projectIdDisplay">–</strong>
+                    </div>
+                    <div class="status-pill">
+                      <span>Linked orders</span>
+                      <strong id="linkedOrdersDisplay">0</strong>
+                    </div>
+                    <div class="status-pill">
+                      <span>Contacts</span>
+                      <strong id="projectContactsDisplay">–</strong>
+                    </div>
+                    <div class="status-pill">
+                      <span>Worksite</span>
+                      <strong id="projectAddressDisplay">Pending</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="status-log">
+                  <h4 style="margin-bottom:0.5rem;">Automation log</h4>
+                  <div class="log-list" id="projectAutomationLog">
+                    <p><strong>AI ready</strong> to evaluate journey context.</p>
+                  </div>
+                </div>
+              </div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.6rem;">Outcome: a service order object cannot live alone; the project keeps the single address, multiple contacts and any related service orders (e.g., TV → Installation → WCF).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Operator cockpit · Prepare order -->
+        <div class="workflow-card operator-card">
+          <div class="card-header">
+            <h2><i class="fas fa-desktop"></i> Operator Cockpit · Prepare the service order</h2>
+            <p>Operator validates context, can reschedule, add notes, upload docs, and decide how contracts will be bundled.</p>
+          </div>
+          <div class="card-content">
+            <div class="dual-column">
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Context snapshot</h4>
+                <p style="color:var(--text-muted); font-size:0.9rem;">Everything the system fetched automatically so the operator can manage exceptions, not data entry.</p>
+                <ul style="margin:0.8rem 0 0; padding-left:1.1rem; color:var(--text-muted); font-size:0.9rem;">
+                  <li><strong id="contextProjectLine">Project — pending</strong></li>
+                  <li><strong id="contextLinkedOrders">Linked orders: 0</strong> including Technical Visits.</li>
+                  <li><strong id="contextFinancials">Payment: pending · Product delivery: pending</strong></li>
+                  <li><strong id="contextNotes">Notes:</strong> waiting</li>
+                </ul>
+              </div>
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Reschedule</h4>
+                <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                  <div>
+                    <label style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">New date</label>
+                    <input type="date" class="form-control" id="rescheduleDate">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em;">Start time</label>
+                    <input type="time" class="form-control" id="rescheduleTime">
+                  </div>
+                  <button class="btn-action" style="align-self:flex-end;" onclick="rescheduleServiceOrder()">
+                    <i class="fas fa-calendar-check"></i> Check availability
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="dual-column" style="margin-top:1.3rem;">
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Notes & documents</h4>
+                <textarea class="form-control" id="operatorNoteInput" rows="3" placeholder="Add contextual note for future operators/providers"></textarea>
+                <button class="btn-action" style="margin-top:0.6rem;" onclick="addOperatorNote()">
+                  <i class="fas fa-sticky-note"></i> Add note
+                </button>
+                <div style="display:flex; gap:0.6rem; margin-top:1rem; flex-wrap:wrap;">
+                  <select class="form-control" id="docTypeSelect">
+                    <option value="Permit">Permit</option>
+                    <option value="Blueprint">Blueprint</option>
+                    <option value="Photos">Photos</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <input type="text" class="form-control" id="docNameInput" placeholder="Reference / filename">
+                  <button class="btn-action" onclick="attachDocument()">
+                    <i class="fas fa-upload"></i> Attach
+                  </button>
+                </div>
+              </div>
+              <div class="automation-panel">
+                <h4 style="margin-bottom:0.6rem;">Contract bundling</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Bundle multiple service orders in one contract before sending for signature.</p>
+                <label style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem;">
+                  <input type="checkbox" class="contract-bundle-option" value="TV-1201" checked>
+                  Technical Visit · Kitchen quotation
+                </label>
+                <label style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                  <input type="checkbox" class="contract-bundle-option" value="INSTALL-2201" checked>
+                  Installation · Kitchen (current order)
+                </label>
+                <label style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                  <input type="checkbox" class="contract-bundle-option" value="WCF-9001">
+                  Work Closing Form follow-up
+                </label>
+                <div style="display:flex; gap:0.6rem; margin-top:0.8rem; flex-wrap:wrap;">
+                  <select class="form-control" id="contractTemplateSelect">
+                    <option value="Standard Install">Standard Installation</option>
+                    <option value="Kitchen Premium">Kitchen Premium</option>
+                    <option value="TV + Install Journey">TV + Install Journey</option>
+                  </select>
+                  <button class="btn-action" onclick="bundleContracts()">
+                    <i class="fas fa-object-group"></i> Bundle & template
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="status-log" style="margin-top:1.2rem;">
+              <h4 style="margin-bottom:0.5rem;">Operator actions</h4>
+              <div class="log-list" id="operatorActionLog">
+                <p><strong>No manual actions yet.</strong> Automation will send the contract in 2 hours if nothing happens.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Contracts & Dispatch Automation -->
+        <div class="workflow-card operator-card">
+          <div class="card-header">
+            <h2><i class="fas fa-file-signature"></i> Contracts & Dispatch Automation</h2>
+            <p>Operator can act, or automation sends the contract in 2h and then triggers matching.</p>
+          </div>
+          <div class="card-content">
+            <div class="dual-column">
+              <div class="automation-panel">
+                <h4>Contract status</h4>
+                <p id="contractStatusText" style="color:var(--text-muted); font-size:0.9rem;">Awaiting operator action.</p>
+                <div class="status-grid" style="margin-top:0.6rem;">
+                  <div class="status-pill">
+                    <span>Template</span>
+                    <strong id="contractTemplateDisplay">Not selected</strong>
+                  </div>
+                  <div class="status-pill">
+                    <span>Auto send in</span>
+                    <strong id="contractTimerDisplay">02:00:00</strong>
+                  </div>
+                  <div class="status-pill">
+                    <span>Signed?</span>
+                    <strong id="contractSignedStatus">No</strong>
+                  </div>
+                </div>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.8rem;">
+                  <button class="btn-action" onclick="sendContractManual('send')">
+                    <i class="fas fa-paper-plane"></i> Send now
+                  </button>
+                  <button class="btn-action" onclick="sendContractManual('print')">
+                    <i class="fas fa-print"></i> Print & upload
+                  </button>
+                  <button class="btn-action" onclick="sendContractManual('skip')">
+                    <i class="fas fa-forward"></i> Skip (derogation)
+                  </button>
+                </div>
+                <div class="status-log" style="margin-top:1rem;">
+                  <h4 style="margin-bottom:0.4rem;">Contract log</h4>
+                  <div class="log-list" id="contractLog">
+                    <p><strong>Automation armed.</strong> Waiting to send.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="automation-panel">
+                <h4>Matching funnel</h4>
+                <p style="color:var(--text-muted); font-size:0.9rem;">Transparent view of who was considered, filtered, scored and chosen.</p>
+                <table class="dashboard-table" style="margin-top:0.8rem;">
+                  <thead>
+                    <tr>
+                      <th>Provider</th>
+                      <th>Zone</th>
+                      <th>Score</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="matchingCandidates">
+                    <tr>
+                      <td colspan="4" style="text-align:center; color:var(--text-muted);">Waiting for contract sign-off…</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn-action" style="margin-top:0.7rem;" onclick="triggerAutoMatching()">
+                  <i class="fas fa-robot"></i> Trigger auto matching
+                </button>
+                <div class="log-list" style="margin-top:0.8rem;" id="matchingStatusLog">
+                  <p><strong>Idle.</strong> Dispatch engages after contract is signed or skipped.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Provider offer & negotiation -->
+        <div class="workflow-card provider-card">
+          <div class="card-header">
+            <h2><i class="fas fa-handshake"></i> Provider Response</h2>
+            <p>Providers have 4h to accept, propose a new date, or decline. Up to 3 rounds of negotiation.</p>
+          </div>
+          <div class="card-content">
+            <div class="automation-panel">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+                <div>
+                  <p style="color:var(--text-muted); margin-bottom:0.2rem;">Current offer → Provider L · Zone 2 · Score 82</p>
+                  <div class="offer-pill">
+                    <i class="fas fa-calendar"></i>
+                    <span id="providerOfferDate">Original slot: –</span>
+                  </div>
+                </div>
+                <div class="timer-display" id="providerTimerDisplay">04:00</div>
+              </div>
+              <p id="providerStatusText" style="margin-top:0.8rem; color:var(--text-muted);">Waiting for matching to send the offer.</p>
+              <div class="provider-actions">
+                <button class="btn-primary" onclick="providerAcceptOriginal()">
+                  <i class="fas fa-check"></i> Accept original date
+                </button>
+                <button class="btn-neutral" onclick="providerProposeDate()">
+                  <i class="fas fa-calendar-plus"></i> Accept, propose new date
+                </button>
+                <button class="btn-danger" onclick="providerDeclineOffer()">
+                  <i class="fas fa-times"></i> Decline
+                </button>
+              </div>
+              <div style="margin-top:1rem;">
+                <label style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">If proposing a new date</label>
+                <input type="datetime-local" class="form-control" id="providerDateInput" />
+                <div class="gate-actions" id="customerDecisionActions" style="display:none;">
+                  <button class="btn-action" onclick="customerDecision('accept')">
+                    <i class="fas fa-thumbs-up"></i> Customer accepts
+                  </button>
+                  <button class="btn-action" onclick="customerDecision('reject')">
+                    <i class="fas fa-thumbs-down"></i> Customer rejects
+                  </button>
+                </div>
+              </div>
+              <div class="negotiation-log" id="providerLog">
+                <p><strong>No offer yet.</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Go Execution gate -->
+        <div class="workflow-card operator-card">
+          <div class="card-header">
+            <h2><i class="fas fa-shield-alt"></i> Go Execution Gate</h2>
+            <p>On the eve of execution the platform confirms payment & product delivery. Otherwise, ops must act.</p>
+          </div>
+          <div class="card-content">
+            <div class="go-gate-grid">
+              <div class="go-gate-card">
+                <h4>Payment status</h4>
+                <p id="paymentStatusText" style="color:var(--text-muted);">Waiting for confirmation.</p>
+                <div class="gate-actions">
+                  <button class="btn-action" onclick="togglePaymentStatus('payment', true)">
+                    <i class="fas fa-euro-sign"></i> Mark as paid
+                  </button>
+                  <button class="btn-action" onclick="togglePaymentStatus('payment', false)">
+                    <i class="fas fa-hourglass-half"></i> Mark pending
+                  </button>
+                </div>
+              </div>
+              <div class="go-gate-card">
+                <h4>Product delivery</h4>
+                <p id="deliveryStatusText" style="color:var(--text-muted);">Waiting for supply chain.</p>
+                <div class="gate-actions">
+                  <button class="btn-action" onclick="togglePaymentStatus('delivery', true)">
+                    <i class="fas fa-truck"></i> Mark delivered
+                  </button>
+                  <button class="btn-action" onclick="togglePaymentStatus('delivery', false)">
+                    <i class="fas fa-exclamation-triangle"></i> Mark not delivered
+                  </button>
+                </div>
+              </div>
+              <div class="go-gate-card">
+                <h4>Actions</h4>
+                <p style="color:var(--text-muted);">If any blocker remains, YellowGrid creates an alert and task. Ops can reschedule or override.</p>
+                <div class="gate-actions">
+                  <button class="btn-action" onclick="rescheduleServiceOrder()">
+                    <i class="fas fa-calendar-alt"></i> Reschedule
+                  </button>
+                  <button class="btn-action" onclick="authorizeDerogation()">
+                    <i class="fas fa-unlock"></i> Authorize derogation
+                  </button>
+                </div>
+                <button class="btn-action" style="margin-top:0.6rem;" onclick="confirmGoExecution()">
+                  <i class="fas fa-flag-checkered"></i> Confirm Go Execution
+                </button>
+              </div>
+            </div>
+            <div class="status-log" style="margin-top:1rem;">
+              <h4 style="margin-bottom:0.4rem;">Alerts & tasks</h4>
+              <div class="log-list" id="goExecutionLog">
+                <p><strong>Gate pending.</strong> Crew cannot check-in yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7: Crew Mobile App - Check In -->
+        <div class="workflow-card crew-card">
+          <div class="crew-mobile-container">
+            <div class="crew-mobile-screen">
+              <div class="crew-mobile-notch"></div>
+              <div class="crew-mobile-content">
+                <div class="crew-mobile-header">
+                  <h3>Check In</h3>
+                  <span class="status-badge" style="background: #10b981; color: white;">Go Gate</span>
+                </div>
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                  <h4 style="margin-bottom: 1rem; color: #1f2937;">Job Summary</h4>
+                  <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="color: #6b7280;">Service:</span>
+                      <span style="font-weight: 600; color: #1f2937;" id="checkInServiceType">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="color: #6b7280;">Customer:</span>
+                      <span style="font-weight: 600; color: #1f2937;" id="checkInCustomer">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="color: #6b7280;">Time:</span>
+                      <span style="font-weight: 600; color: #1f2937;" id="checkInTime">-</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="background: #fef3c7; border-radius: 12px; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+                  <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: #f59e0b; margin-bottom: 0.5rem;"></i>
+                  <p style="color: #92400e; font-weight: 600; margin-bottom: 0.25rem;" id="checkInAddress">-</p>
+                  <p id="checkInAlert" style="color: #b45309; font-size: 0.85rem;">Go Execution must be OK before check-in.</p>
+                </div>
+                <div style="background: white; border-radius: 12px; padding: 1.25rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                  <p style="margin-bottom: 1rem; color: #1f2937;">Tap to confirm arrival once the gate is cleared.</p>
+                  <button class="btn-submit" style="width: 100%; background: #10b981;" onclick="checkIn()">
+                    <i class="fas fa-location-arrow"></i> Check In Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 8: Crew Mobile App - Work Execution -->
+        <div class="workflow-card crew-card">
+          <div class="crew-mobile-container">
+            <div class="crew-mobile-screen">
+              <div class="crew-mobile-notch"></div>
+              <div class="crew-mobile-content">
+                <div class="crew-mobile-header">
+                  <h3>Work in Progress</h3>
+                  <span class="status-badge" style="background: #10b981; color: white;">In Progress</span>
+                </div>
+
+                <h4 style="margin-bottom: 0.75rem; color: #1f2937;">Installation Checklist</h4>
+                <div class="checklist" id="workChecklist">
+                  <div class="checklist-item" onclick="toggleChecklistItem(1)">
+                    <div class="checklist-checkbox" id="check-1">
+                      <i class="fas fa-check" style="color: white; font-size: 0.75rem; display: none;"></i>
+                    </div>
+                    <div class="checklist-text">Verify customer identity and service order</div>
+                  </div>
+                  <div class="checklist-item" onclick="toggleChecklistItem(2)">
+                    <div class="checklist-checkbox" id="check-2">
+                      <i class="fas fa-check" style="color: white; font-size: 0.75rem; display: none;"></i>
+                    </div>
+                    <div class="checklist-text">Inspect installation location</div>
+                  </div>
+                  <div class="checklist-item" onclick="toggleChecklistItem(3)">
+                    <div class="checklist-checkbox" id="check-3">
+                      <i class="fas fa-check" style="color: white; font-size: 0.75rem; display: none;"></i>
+                    </div>
+                    <div class="checklist-text">Take before photos</div>
+                  </div>
+                  <div class="checklist-item" onclick="toggleChecklistItem(4)">
+                    <div class="checklist-checkbox" id="check-4">
+                      <i class="fas fa-check" style="color: white; font-size: 0.75rem; display: none;"></i>
+                    </div>
+                    <div class="checklist-text">Install equipment</div>
+                  </div>
+                  <div class="checklist-item" onclick="toggleChecklistItem(5)">
+                    <div class="checklist-checkbox" id="check-5">
+                      <i class="fas fa-check" style="color: white; font-size: 0.75rem; display: none;"></i>
+                    </div>
+                    <div class="checklist-text">Test system operation</div>
+                  </div>
+                  <div class="checklist-item" onclick="toggleChecklistItem(6)">
+                    <div class="checklist-checkbox" id="check-6">
+                      <i class="fas fa-check" style="color: white; font-size: 0.75rem; display: none;"></i>
+                    </div>
+                    <div class="checklist-text">Clean work area</div>
+                  </div>
+                </div>
+
+                <h4 style="margin-bottom: 0.75rem; color: #1f2937;">Photos</h4>
+                <div class="photo-grid" id="photoGrid">
+                  <div class="photo-placeholder" onclick="addPhoto()">
+                    <i class="fas fa-camera" style="font-size: 2rem; color: #9ca3af;"></i>
+                  </div>
+                </div>
+
+                <button onclick="completeJob()" style="width: 100%; padding: 1rem; background: #10b981; color: white; border: none; border-radius: 12px; font-weight: 700; margin-top: 1rem; cursor: pointer;">
+                  <i class="fas fa-check-circle"></i> Complete Job
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 9: Customer Portal - WCF Signature -->
+        <div class="workflow-card customer-card">
+          <div class="card-header">
+            <h2><i class="fas fa-user"></i> Customer Portal</h2>
+            <p>Review completed work and sign WCF</p>
+          </div>
+          <div class="card-content">
+            <div class="fade-in-up">
+              <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                  <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.5rem;"></i>
+                  <strong style="color: #065f46; font-size: 1.2rem;">Work Completed!</strong>
+                </div>
+                <p style="color: #047857; margin: 0;">Your service has been completed. Please review the work and sign the Work Closing Form.</p>
+              </div>
+
+              <h3 style="margin-bottom: 1rem;">Work Summary</h3>
+
+              <div style="background: #f9fafb; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                  <div>
+                    <div style="font-size: 0.85rem; color: #6b7280; margin-bottom: 0.25rem;">Service Type</div>
+                    <div style="font-weight: 600; color: #1f2937;" id="wcfServiceType">-</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.85rem; color: #6b7280; margin-bottom: 0.25rem;">Technician</div>
+                    <div style="font-weight: 600; color: #1f2937;" id="wcfTechnician">-</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.85rem; color: #6b7280; margin-bottom: 0.25rem;">Date</div>
+                    <div style="font-weight: 600; color: #1f2937;" id="wcfDate">-</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.85rem; color: #6b7280; margin-bottom: 0.25rem;">Duration</div>
+                    <div style="font-weight: 600; color: #1f2937;" id="wcfDuration">2.5 hours</div>
+                  </div>
+                </div>
+
+                <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem; color: #1f2937;">Work Performed</h4>
+                <ul style="color: #4b5563; padding-left: 1.5rem;">
+                  <li style="margin-bottom: 0.5rem;">Equipment installed and tested</li>
+                  <li style="margin-bottom: 0.5rem;">All safety checks completed</li>
+                  <li style="margin-bottom: 0.5rem;">Work area cleaned</li>
+                  <li>Customer walkthrough provided</li>
+                </ul>
+              </div>
+
+              <h4 style="margin-bottom: 1rem;">Photos</h4>
+              <div class="photo-grid" style="margin-bottom: 2rem;">
+                <div class="photo-item"><i class="fas fa-image"></i></div>
+                <div class="photo-item"><i class="fas fa-image"></i></div>
+                <div class="photo-item"><i class="fas fa-image"></i></div>
+              </div>
+
+              <div class="signature-container">
+                <h4 style="margin-bottom: 1rem;">Sign Work Closing Form</h4>
+                <p style="color: #6b7280; margin-bottom: 1rem; font-size: 0.9rem;">Please sign below to confirm that the work has been completed to your satisfaction.</p>
+
+                <canvas id="signaturePad" class="signature-pad"></canvas>
+
+                <div class="signature-actions">
+                  <button class="btn-clear" onclick="clearSignature()">
+                    <i class="fas fa-eraser"></i> Clear
+                  </button>
+                  <button class="btn-submit" onclick="signWCF()">
+                    <i class="fas fa-signature"></i> Sign & Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 10: Operator Cockpit - Provider Payment -->
+        <div class="workflow-card operator-card">
+          <div class="card-header">
+            <h2><i class="fas fa-credit-card"></i> Operator Cockpit · Close & Pay Provider</h2>
+            <p>After WCF acceptance the system generates a pro-forma invoice and triggers payment</p>
+          </div>
+          <div class="card-content">
+            <div class="fade-in-up">
+              <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                  <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.5rem;"></i>
+                  <strong style="color: #10b981; font-size: 1.2rem;">WCF Signed</strong>
+                </div>
+                <p style="color: var(--text-muted); margin: 0;">Customer has signed the Work Closing Form. Ready to process payment and close the service.</p>
+              </div>
+
+              <h3 style="margin-bottom: 1rem;">Service Completion Details</h3>
+
+              <table class="dashboard-table" style="margin-bottom: 2rem;">
+                <thead>
+                  <tr>
+                    <th>Service ID</th>
+                    <th>Customer</th>
+                    <th>Technician</th>
+                    <th>Completed</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong id="finalServiceId">-</strong></td>
+                    <td id="finalCustomer">-</td>
+                    <td id="finalTechnician">-</td>
+                    <td id="finalCompletedTime">-</td>
+                    <td><span class="status-badge status-completed">WCF Signed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 2rem;">
+                <h4 style="margin-bottom: 1.5rem;">Payment Processing</h4>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                  <div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Service Amount</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--yellow);">€850.00</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Payment Method</div>
+                    <select class="form-control" id="paymentMethod" style="background: rgba(255, 255, 255, 0.05); color: var(--text-main); border-color: var(--border-subtle);">
+                      <option>Visa •••• 4532</option>
+                      <option>Bank Transfer</option>
+                      <option>Cash</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button onclick="processPayment()" class="btn-submit">
+                  <i class="fas fa-credit-card"></i> Process Payment & Close Service
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    <!-- Workflow Navigation -->
+    <div class="workflow-navigation">
+      <button class="nav-btn prev" onclick="previousStep()" id="prevBtn">
+        <i class="fas fa-arrow-left"></i> Previous
+      </button>
+      <button class="nav-btn next" onclick="nextStep()" id="nextBtn">
+        Next <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Load YellowGrid State Management -->
+  <script src="yellowgrid-state.js"></script>
+
+  <script>
+    // Workflow + Demo State
+    const totalSteps = 10;
+    let currentStep = 0;
+    let currentScenario = '';
+    let workflowServiceId = '';
+    let projectId = '';
+    let selectedTechnicianId = 'PRO-1547';
+    let selectedTechnicianName = 'João Ferreira';
+    let checklistState = [false, false, false, false, false, false];
+    let photoCount = 0;
+    let signatureCanvas = null;
+    let signatureCtx = null;
+    let isDrawing = false;
+    let goExecution = { payment: false, delivery: false, override: false };
+    let providerInteractions = 0;
+    let providerAwaitingCustomer = false;
+    let contractCountdown = null;
+    let contractSecondsRemaining = 7200;
+    let matchingTriggered = false;
+
+    const defaultSchedule = () => {
+      const date = new Date();
+      date.setDate(date.getDate() + 5);
+      return {
+        date: date.toISOString().split('T')[0],
+        startTime: '09:00',
+        endTime: '12:00',
+        estimatedHours: 3
+      };
+    };
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function resetLog(id, placeholder) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.innerHTML = `<p>${placeholder}</p>`;
+      }
+    }
+
+    function appendLog(id, message) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const p = document.createElement('p');
+      p.innerHTML = message;
+      el.appendChild(p);
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function resetDemoState() {
+      currentStep = 0;
+      workflowServiceId = '';
+      projectId = '';
+      goExecution = { payment: false, delivery: false, override: false };
+      providerInteractions = 0;
+      providerAwaitingCustomer = false;
+      matchingTriggered = false;
+      checklistState = [false, false, false, false, false, false];
+      photoCount = 0;
+      if (contractCountdown) {
+        clearInterval(contractCountdown);
+        contractCountdown = null;
+      }
+      contractSecondsRemaining = 7200;
+
+      resetLog('integrationLog', '<strong>Waiting</strong> for the next order…');
+      resetLog('projectAutomationLog', '<strong>AI ready</strong> to evaluate journey context.');
+      resetLog('operatorActionLog', '<strong>No manual actions yet.</strong> Automation will send the contract in 2 hours if nothing happens.');
+      resetLog('contractLog', '<strong>Automation armed.</strong> Waiting to send.');
+      resetLog('matchingStatusLog', '<strong>Idle.</strong> Dispatch engages after contract is signed or skipped.');
+      resetLog('providerLog', '<strong>No offer yet.</strong>');
+      resetLog('goExecutionLog', '<strong>Gate pending.</strong> Crew cannot check-in yet.');
+
+      document.getElementById('matchingCandidates').innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">Waiting for contract sign-off…</td></tr>';
+      document.getElementById('customerDecisionActions').style.display = 'none';
+      document.getElementById('providerDateInput').value = '';
+      setText('contractStatusText', 'Awaiting operator action.');
+      setText('contractTemplateDisplay', 'Not selected');
+      setText('contractTimerDisplay', '02:00:00');
+      setText('contractSignedStatus', 'No');
+      setText('providerOfferDate', 'Original slot: –');
+      setText('providerTimerDisplay', '04:00');
+      setText('providerStatusText', 'Waiting for matching to send the offer.');
+      setText('paymentStatusText', 'Waiting for confirmation.');
+      setText('deliveryStatusText', 'Waiting for supply chain.');
+      setText('checkInServiceType', '-');
+      setText('checkInCustomer', '-');
+      setText('checkInTime', '-');
+      setText('checkInAddress', '-');
+      setText('checkInAlert', 'Go Execution must be OK before check-in.');
+      setText('finalServiceId', '-');
+      setText('finalCustomer', '-');
+      setText('finalTechnician', '-');
+      setText('finalCompletedTime', '-');
+      const photoGrid = document.getElementById('photoGrid');
+      if (photoGrid) {
+        photoGrid.innerHTML = '<div class="photo-placeholder" onclick="addPhoto()"><i class="fas fa-camera" style="font-size: 2rem; color: #9ca3af;"></i></div>';
+      }
+      document.querySelectorAll('.checklist-item').forEach((item) => {
+        item.classList.remove('completed');
+        const icon = item.querySelector('i');
+        if (icon) icon.style.display = 'none';
+      });
+    }
+
+    function startWorkflow(scenario) {
+      currentScenario = scenario;
+      document.getElementById('scenarioSelection').style.display = 'none';
+      document.getElementById('timelineWorkflow').classList.add('active');
+      resetDemoState();
+      updateWorkflowView();
+      setTimeout(initSignaturePad, 500);
+    }
+
+    function exitWorkflow() {
+      document.getElementById('scenarioSelection').style.display = 'block';
+      document.getElementById('timelineWorkflow').classList.remove('active');
+      resetDemoState();
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps - 1) {
+        currentStep++;
+        updateWorkflowView();
+      }
+    }
+
+    function previousStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        updateWorkflowView();
+      }
+    }
+
+    function updateWorkflowView() {
+      const track = document.getElementById('workflowTrack');
+      track.style.transform = `translateX(-${currentStep * 100}vw)`;
+      setText('currentStepNum', currentStep + 1);
+      setText('totalStepsNum', totalSteps);
+      document.getElementById('prevBtn').disabled = currentStep === 0;
+      document.getElementById('nextBtn').disabled = currentStep === totalSteps - 1;
+
+      const progressDots = document.getElementById('progressDots');
+      if (progressDots.childElementCount !== totalSteps) {
+        progressDots.innerHTML = '';
+        for (let i = 0; i < totalSteps; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'progress-dot';
+          progressDots.appendChild(dot);
+        }
+      }
+      [...progressDots.children].forEach((dot, index) => {
+        dot.className = 'progress-dot';
+        if (index < currentStep) dot.classList.add('completed');
+        if (index === currentStep) dot.classList.add('active');
+      });
+
+      updateStakeholderIndicator();
+    }
+
+    function updateStakeholderIndicator() {
+      const indicator = document.getElementById('stakeholderIndicator');
+      const stakeholders = [
+        { icon: 'server', name: 'Systems', class: 'stakeholder-operator' },
+        { icon: 'robot', name: 'Automation', class: 'stakeholder-operator' },
+        { icon: 'desktop', name: 'Operator', class: 'stakeholder-operator' },
+        { icon: 'file-signature', name: 'Operator', class: 'stakeholder-operator' },
+        { icon: 'handshake', name: 'Provider', class: 'stakeholder-crew' },
+        { icon: 'shield-alt', name: 'Operator', class: 'stakeholder-operator' },
+        { icon: 'mobile-alt', name: 'Crew', class: 'stakeholder-crew' },
+        { icon: 'tools', name: 'Crew', class: 'stakeholder-crew' },
+        { icon: 'user', name: 'Customer', class: 'stakeholder-customer' },
+        { icon: 'credit-card', name: 'Finance', class: 'stakeholder-operator' }
+      ];
+      const stakeholder = stakeholders[currentStep] || stakeholders[stakeholders.length - 1];
+      indicator.className = `timeline-stakeholder ${stakeholder.class}`;
+      indicator.innerHTML = `
+        <i class="fas fa-${stakeholder.icon} stakeholder-icon"></i>
+        <span id="stakeholderName">${stakeholder.name}</span>
+      `;
+    }
+
+    // Step 1: Integration intake
+    function ingestServiceOrder(channel) {
+      const schedule = defaultSchedule();
+      workflowServiceId = 'SO-' + Math.floor(100000 + Math.random() * 900000);
+      const customer = {
+        name: 'Ana Costa',
+        phone: '+351 912 345 678',
+        email: 'ana.costa@email.com',
+        address: 'Rua do Horizonte 12, Lisboa'
+      };
+      const orderData = {
+        id: workflowServiceId,
+        type: 'Kitchen Installation',
+        customer,
+        schedule,
+        status: 'new',
+        pricing: { amount: 2100, paid: false },
+        checklist: [],
+        photos: [],
+        createdAt: new Date().toISOString()
+      };
+      window.ygState.state.services[workflowServiceId] = orderData;
+      window.ygState.save();
+
+      setText('salesOrderId', workflowServiceId);
+      setText('salesServiceType', orderData.type);
+      setText('salesRequestedSlot', `${schedule.date} · ${schedule.startTime}`);
+      setText('salesChannel', channel);
+      setText('salesCustomerDetails', `${customer.name} · ${customer.address} · Special instructions: protect oak flooring.`);
+      setText('salesPayload', `{ channel: '${channel.toLowerCase()}', journey: 'Kitchen', paid: false, productDelivered: false }`);
+      appendLog('integrationLog', `<strong>${channel}</strong> pushed ${workflowServiceId}`);
+      updateJobSummary();
+      nextStep();
+    }
+
+    // Step 2: Automation linking
+    function handleProjectAutomation(mode) {
+      projectId = mode === 'existing' ? 'PRJ-8742' : 'PRJ-' + Math.floor(Math.random() * 9000 + 1000);
+      setText('projectIdDisplay', projectId);
+      const linked = mode === 'existing' ? 2 : 1;
+      setText('linkedOrdersDisplay', linked);
+      setText('projectContactsDisplay', 'Ana + João');
+      setText('projectAddressDisplay', 'Rua do Horizonte 12');
+      setText('contextProjectLine', `Project ${projectId}`);
+      setText('contextLinkedOrders', `Linked orders: ${linked}`);
+      appendLog('projectAutomationLog', mode === 'existing' ? 'AI linked to ongoing kitchen project.' : 'New project created for this address.');
+      nextStep();
+    }
+
+    // Step 3 actions
+    function rescheduleServiceOrder() {
+      const dateInput = document.getElementById('rescheduleDate').value;
+      const timeInput = document.getElementById('rescheduleTime').value;
+      if (!dateInput || !timeInput) {
+        alert('Pick a new date and time to reschedule.');
+        return;
+      }
+      const service = window.ygState.getService(workflowServiceId);
+      if (service) {
+        window.ygState.rescheduleService(workflowServiceId, { date: dateInput, startTime: timeInput });
+      }
+      setText('salesRequestedSlot', `${dateInput} · ${timeInput}`);
+      appendLog('operatorActionLog', `Rescheduled to <strong>${dateInput} ${timeInput}</strong>`);
+      updateJobSummary();
+    }
+
+    function addOperatorNote() {
+      const note = document.getElementById('operatorNoteInput').value.trim();
+      if (!note) return;
+      appendLog('operatorActionLog', `Note added: ${note}`);
+      document.getElementById('operatorNoteInput').value = '';
+    }
+
+    function attachDocument() {
+      const type = document.getElementById('docTypeSelect').value;
+      const name = document.getElementById('docNameInput').value.trim() || 'unnamed';
+      appendLog('operatorActionLog', `Document attached: <strong>${type}</strong> (${name})`);
+      document.getElementById('docNameInput').value = '';
+    }
+
+    function bundleContracts() {
+      const selected = [...document.querySelectorAll('.contract-bundle-option:checked')].map(el => el.value);
+      const template = document.getElementById('contractTemplateSelect').value;
+      setText('contractTemplateDisplay', template);
+      appendLog('operatorActionLog', `Bundled <strong>${selected.join(', ') || 'none'}</strong> using template ${template}.`);
+    }
+
+    // Step 4: Contracts & matching
+    function startContractCountdown() {
+      if (contractCountdown) return;
+      contractCountdown = setInterval(() => {
+        contractSecondsRemaining = Math.max(contractSecondsRemaining - 1, 0);
+        const hrs = String(Math.floor(contractSecondsRemaining / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((contractSecondsRemaining % 3600) / 60)).padStart(2, '0');
+        const secs = String(contractSecondsRemaining % 60).padStart(2, '0');
+        setText('contractTimerDisplay', `${hrs}:${mins}:${secs}`);
+        if (contractSecondsRemaining === 0) {
+          clearInterval(contractCountdown);
+          contractCountdown = null;
+          finalizeContract('Auto-sent by platform');
+        }
+      }, 1000);
+    }
+
+    function sendContractManual(action) {
+      setText('contractStatusText', action === 'skip' ? 'Derogation applied.' : `Manual action: ${action}`);
+      appendLog('contractLog', `${action === 'skip' ? 'Contract skipped.' : 'Operator triggered contract send.'}`);
+      if (action === 'skip') {
+        setText('contractSignedStatus', 'Skipped');
+        triggerAutoMatching(true);
+        return;
+      }
+      startContractCountdown();
+      setTimeout(() => finalizeContract(action === 'print' ? 'Manual signature uploaded' : 'Customer signed digitally'), 800);
+    }
+
+    function finalizeContract(note) {
+      if (contractCountdown) {
+        clearInterval(contractCountdown);
+        contractCountdown = null;
+      }
+      setText('contractTimerDisplay', 'Automation bypassed');
+      setText('contractSignedStatus', 'Yes');
+      appendLog('contractLog', note);
+      triggerAutoMatching();
+    }
+
+    function triggerAutoMatching(manual = false) {
+      if (matchingTriggered) return;
+      matchingTriggered = true;
+      document.getElementById('matchingCandidates').innerHTML = `
+        <tr><td>Provider L</td><td>Zone 2</td><td>82</td><td>${manual ? 'Manual trigger' : 'Auto'}</td></tr>
+        <tr><td>Provider F</td><td>Zone 1</td><td>77</td><td>Buffered</td></tr>
+        <tr><td>Provider C</td><td>Zone 2</td><td>69</td><td>Filtered</td></tr>
+      `;
+      appendLog('matchingStatusLog', 'Dispatch running – offer sent to Provider L.');
+      setTimeout(() => startProviderOffer(), 800);
+      nextStep();
+    }
+
+    // Step 5: Provider negotiation
+    function startProviderOffer() {
+      const service = window.ygState.getService(workflowServiceId);
+      if (service) {
+        setText('providerOfferDate', `Original slot: ${service.schedule.date} · ${service.schedule.startTime}`);
+      }
+      providerInteractions = 0;
+      providerAwaitingCustomer = false;
+      setText('providerStatusText', 'Offer pending. Provider has 4h to respond.');
+      document.getElementById('customerDecisionActions').style.display = 'none';
+      document.getElementById('providerDateInput').value = '';
+    }
+
+    function providerAcceptOriginal() {
+      const service = window.ygState.getService(workflowServiceId);
+      const label = service ? `${service.schedule.date} ${service.schedule.startTime}` : 'scheduled slot';
+      finalizeProviderAcceptance(label, false);
+    }
+
+    function providerProposeDate() {
+      const dateInput = document.getElementById('providerDateInput').value;
+      if (!dateInput) {
+        alert('Select a new date/time to propose.');
+        return;
+      }
+      providerAwaitingCustomer = true;
+      appendLog('providerLog', `Provider proposed <strong>${dateInput}</strong>. Waiting for customer.`);
+      document.getElementById('customerDecisionActions').style.display = 'flex';
+      setText('providerStatusText', 'Awaiting customer confirmation.');
+    }
+
+    function customerDecision(decision) {
+      if (!providerAwaitingCustomer) return;
+      if (decision === 'accept') {
+        const proposed = document.getElementById('providerDateInput').value;
+        finalizeProviderAcceptance(proposed || 'new slot', true);
+      } else {
+        providerInteractions++;
+        appendLog('providerLog', 'Customer rejected proposed date.');
+        if (providerInteractions >= 3) {
+          appendLog('providerLog', '<strong>Escalated.</strong> Task created for operator.');
+          document.getElementById('customerDecisionActions').style.display = 'none';
+          providerAwaitingCustomer = false;
+        }
+      }
+    }
+
+    function providerDeclineOffer() {
+      appendLog('providerLog', '<strong>Offer declined.</strong> Second round triggered without this provider.');
+      setText('providerStatusText', 'Offer declined. Running second round.');
+    }
+
+    function finalizeProviderAcceptance(dateLabel, rescheduled) {
+      providerAwaitingCustomer = false;
+      document.getElementById('customerDecisionActions').style.display = 'none';
+      setText('providerStatusText', rescheduled ? `New date confirmed: ${dateLabel}` : `Accepted original slot ${dateLabel}`);
+      const service = window.ygState.getService(workflowServiceId);
+      if (service && rescheduled) {
+        window.ygState.rescheduleService(workflowServiceId, { date: dateLabel.split('T')[0], startTime: dateLabel.split('T')[1] || service.schedule.startTime });
+      }
+      window.ygState.assignTechnician(workflowServiceId, selectedTechnicianId);
+      appendLog('providerLog', `Provider assigned. Crew: <strong>${selectedTechnicianName}</strong>.`);
+      updateJobSummary();
+      nextStep();
+    }
+
+    // Step 6: Go Execution gate
+    function togglePaymentStatus(type, value) {
+      goExecution[type === 'payment' ? 'payment' : 'delivery'] = value;
+      const textId = type === 'payment' ? 'paymentStatusText' : 'deliveryStatusText';
+      setText(textId, value ? 'OK · Automation cleared' : 'Not OK · Waiting');
+      appendLog('goExecutionLog', `${type === 'payment' ? 'Payment' : 'Delivery'} status set to ${value ? 'OK' : 'NOT OK'}.`);
+    }
+
+    function authorizeDerogation() {
+      goExecution.override = true;
+      appendLog('goExecutionLog', 'Operator authorized derogation for Go Execution.');
+    }
+
+    function confirmGoExecution() {
+      if (!(goExecution.payment && goExecution.delivery) && !goExecution.override) {
+        alert('Payment or delivery still missing. Resolve or authorize derogation.');
+        return;
+      }
+      appendLog('goExecutionLog', '<strong>Go Execution OK.</strong> Crew may check in.');
+      setText('checkInAlert', 'Gate cleared. Proceed to check-in.');
+      nextStep();
+    }
+
+    // Step 7: Check-in
+    function checkIn() {
+      if (!(goExecution.payment && goExecution.delivery) && !goExecution.override) {
+        alert('Go Execution gate not cleared yet.');
+        return;
+      }
+      window.ygState.checkIn(workflowServiceId);
+      appendLog('goExecutionLog', 'Crew checked in via mobile app.');
+      nextStep();
+    }
+
+    function updateJobSummary() {
+      const service = window.ygState.getService(workflowServiceId);
+      if (!service) return;
+      setText('checkInServiceType', service.type);
+      setText('checkInCustomer', service.customer.name);
+      setText('checkInTime', service.schedule.startTime);
+      setText('checkInAddress', service.customer.address);
+      setText('providerOfferDate', `Original slot: ${service.schedule.date} · ${service.schedule.startTime}`);
+    }
+
+    // Step 8: Execution helpers
+    function toggleChecklistItem(itemId) {
+      const item = document.querySelector(`#check-${itemId}`).parentElement;
+      const checkbox = document.querySelector(`#check-${itemId}`);
+      const checkIcon = checkbox.querySelector('i');
+      checklistState[itemId - 1] = !checklistState[itemId - 1];
+      if (checklistState[itemId - 1]) {
+        item.classList.add('completed');
+        checkIcon.style.display = 'block';
+      } else {
+        item.classList.remove('completed');
+        checkIcon.style.display = 'none';
+      }
+      window.ygState.toggleChecklistItem(workflowServiceId, itemId);
+    }
+
+    function addPhoto() {
+      photoCount++;
+      const photoGrid = document.getElementById('photoGrid');
+      const photoItem = document.createElement('div');
+      photoItem.className = 'photo-item';
+      photoItem.innerHTML = '<i class="fas fa-image"></i>';
+      photoGrid.insertBefore(photoItem, photoGrid.lastChild);
+      window.ygState.addPhoto(workflowServiceId, {
+        type: 'progress',
+        label: `Photo ${photoCount}`,
+        url: 'placeholder'
+      });
+    }
+
+    function completeJob() {
+      const completedCount = checklistState.filter(Boolean).length;
+      if (completedCount < 3) {
+        alert('Complete at least 3 checklist items before finishing.');
+        return;
+      }
+      window.ygState.checkOut(workflowServiceId);
+      const service = window.ygState.getService(workflowServiceId);
+      setText('wcfServiceType', service.type);
+      setText('wcfTechnician', selectedTechnicianName);
+      setText('wcfDate', service.schedule.date);
+      nextStep();
+    }
+
+    // Step 9: WCF signature
+    function initSignaturePad() {
+      signatureCanvas = document.getElementById('signaturePad');
+      if (!signatureCanvas) return;
+      signatureCtx = signatureCanvas.getContext('2d');
+      signatureCanvas.width = signatureCanvas.offsetWidth;
+      signatureCanvas.height = signatureCanvas.offsetHeight;
+      signatureCtx.strokeStyle = '#1f2937';
+      signatureCtx.lineWidth = 2;
+      signatureCtx.lineCap = 'round';
+      signatureCtx.lineJoin = 'round';
+      signatureCanvas.addEventListener('mousedown', startDrawing);
+      signatureCanvas.addEventListener('mousemove', draw);
+      signatureCanvas.addEventListener('mouseup', stopDrawing);
+      signatureCanvas.addEventListener('mouseout', stopDrawing);
+      signatureCanvas.addEventListener('touchstart', handleTouchStart);
+      signatureCanvas.addEventListener('touchmove', handleTouchMove);
+      signatureCanvas.addEventListener('touchend', stopDrawing);
+    }
+
+    function startDrawing(e) {
+      isDrawing = true;
+      const rect = signatureCanvas.getBoundingClientRect();
+      signatureCtx.beginPath();
+      signatureCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const rect = signatureCanvas.getBoundingClientRect();
+      signatureCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      signatureCtx.stroke();
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+    }
+
+    function handleTouchStart(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      signatureCanvas.dispatchEvent(new MouseEvent('mousedown', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      }));
+    }
+
+    function handleTouchMove(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      signatureCanvas.dispatchEvent(new MouseEvent('mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      }));
+    }
+
+    function clearSignature() {
+      if (signatureCtx) {
+        signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+      }
+    }
+
+    function signWCF() {
+      if (!signatureCtx) return;
+      const imageData = signatureCtx.getImageData(0, 0, signatureCanvas.width, signatureCanvas.height);
+      const hasSignature = imageData.data.some(x => x !== 0);
+      if (!hasSignature) {
+        alert('Please provide your signature before submitting.');
+        return;
+      }
+      const signatureData = signatureCanvas.toDataURL();
+      window.ygState.signWCF(workflowServiceId, {
+        data: signatureData,
+        quality: 'approved'
+      });
+      const service = window.ygState.getService(workflowServiceId);
+      setText('finalServiceId', workflowServiceId);
+      setText('finalCustomer', service.customer.name);
+      setText('finalTechnician', selectedTechnicianName);
+      nextStep();
+    }
+
+    // Step 10: Provider payment
+    function processPayment() {
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      window.ygState.processPayment(workflowServiceId, paymentMethod);
+      const now = new Date();
+      setText('finalCompletedTime', `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`);
+      alert('Payment processed and provider notified.');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      resetDemoState();
+      console.log('YellowGrid Interactive Demo Loaded');
+    });
+
+  </script>
+</body>
+</html>

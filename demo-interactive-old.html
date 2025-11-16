@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YellowGrid Service Execution Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --yellow: #ffcb32;
+      --yellow-soft: #ffe9a8;
+      --bg-dark: #070c12;
+      --bg-card: #0f1722;
+      --bg-panel: #111c2a;
+      --border: rgba(255, 255, 255, 0.12);
+      --text-main: #f5f7fb;
+      --text-muted: #8b95a7;
+      --accent-blue: #4ea8ff;
+      --accent-green: #49d493;
+      --accent-red: #ff6b6b;
+      --accent-orange: #fbbf24;
+      --accent-purple: #c084fc;
+      --shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+      --transition: 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #18233a, #05070b 65%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .shell {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero img {
+      width: 200px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.35));
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero h1 span {
+      color: var(--yellow);
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .scenario-grid {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .scenario-card {
+      display: block;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      text-align: left;
+      color: var(--text-main);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .scenario-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(120deg, rgba(255, 203, 50, 0.5), rgba(78, 168, 255, 0.4));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .scenario-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 203, 50, 0.6);
+    }
+
+    .scenario-card:hover::after {
+      opacity: 1;
+    }
+
+    .scenario-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .scenario-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tag-simple {
+      background: rgba(73, 212, 147, 0.15);
+      color: var(--accent-green);
+    }
+
+    .tag-complex {
+      background: rgba(192, 132, 252, 0.15);
+      color: var(--accent-purple);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .workflow-shell {
+      margin-top: 2rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .workflow-header {
+      padding: 1.5rem 2rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .workflow-header .top-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .status-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .status-flag {
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .flag-pending {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+    }
+
+    .flag-ok {
+      background: rgba(73, 212, 147, 0.18);
+      border-color: rgba(73, 212, 147, 0.5);
+      color: var(--accent-green);
+    }
+
+    .flag-nok {
+      background: rgba(255, 107, 107, 0.18);
+      border-color: rgba(255, 107, 107, 0.5);
+      color: var(--accent-red);
+    }
+
+    .chip-row {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .chip {
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    .timeline-meta {
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-meta h3 {
+      font-size: 1.35rem;
+    }
+
+    .progress-rail {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .progress-dot.active {
+      background: var(--yellow);
+      transform: scale(1.15);
+    }
+
+    .progress-dot.completed {
+      background: var(--accent-green);
+    }
+
+    .stakeholder-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .steps-viewport {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .steps-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+
+    .step-card {
+      min-width: 100%;
+      padding: 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(7, 12, 18, 0.95));
+    }
+
+    .step-card:last-child {
+      border-right: none;
+    }
+
+    .step-card header {
+      margin-bottom: 1rem;
+    }
+
+    .step-card header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .panel {
+      background: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+    }
+
+    .panel h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .btn,
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 0.65rem 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--yellow), #ffd86c);
+      color: #1a1405;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-danger {
+      background: rgba(255, 107, 107, 0.18);
+      color: var(--accent-red);
+      border: 1px solid rgba(255, 107, 107, 0.4);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      margin-bottom: 0.8rem;
+    }
+
+    .log {
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.9rem;
+      max-height: 210px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .log p {
+      margin-bottom: 0.35rem;
+    }
+
+    .crew-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .crew-card {
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.9rem;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .crew-card strong {
+      color: var(--yellow);
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .checklist label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .ghost-btn {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+
+    .warning {
+      color: var(--accent-orange);
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    .success {
+      color: var(--accent-green);
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    .hint-box {
+      background: rgba(78, 168, 255, 0.08);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .hint-box strong {
+      color: var(--accent-blue);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .role-switcher {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+    }
+
+    .role-switcher button {
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .role-switcher button.active {
+      background: var(--yellow);
+      color: #1a1405;
+      border-color: var(--yellow);
+    }
+
+    .timer-visual {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 12px;
+      font-weight: 600;
+      color: var(--accent-orange);
+    }
+
+    .gate-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    .gate-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all var(--transition);
+    }
+
+    .gate-item.complete {
+      background: rgba(73, 212, 147, 0.08);
+      border-color: rgba(73, 212, 147, 0.3);
+    }
+
+    .gate-item.blocked {
+      background: rgba(255, 107, 107, 0.08);
+      border-color: rgba(255, 107, 107, 0.3);
+    }
+
+    .gate-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      text-align: center;
+    }
+
+    .wcf-cards {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .wcf-option {
+      padding: 1.25rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all var(--transition);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .wcf-option:hover {
+      border-color: var(--yellow);
+      transform: translateY(-2px);
+    }
+
+    .wcf-option.selected {
+      border-color: var(--yellow);
+      background: rgba(255, 203, 50, 0.08);
+    }
+
+    .wcf-option input[type="radio"] {
+      margin-right: 0.8rem;
+    }
+
+    .auto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(192, 132, 252, 0.15);
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      color: var(--accent-purple);
+    }
+
+    textarea.form-control {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    @media (max-width: 900px) {
+      .step-card {
+        padding: 1.25rem;
+      }
+      .timeline-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-bar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <img src="assets/yellowgrid-lockup.png" alt="YellowGrid" />
+      <h1>YellowGrid <span>Service Execution</span> Demo</h1>
+      <p>Walk the ten-step journey that operations teams, customers, and providers experience every day. Every business rule—from pilote assignment to WCF with reserves—is wired into this interactive demo.</p>
+    </section>
+
+    <section id="scenarioSelection">
+      <div class="scenario-grid">
+        <button type="button" class="scenario-card" onclick="workflowDemo.startScenario('simple-installation')">
+          <div class="tag tag-simple"><i class="fas fa-bolt"></i> Simple</div>
+          <div class="scenario-icon"><i class="fas fa-plug"></i></div>
+          <h3>Simple Installation</h3>
+          <p>Single cooktop swap. Low risk, low TV potential, perfect to showcase straight-through processing.</p>
+        </button>
+        <button type="button" class="scenario-card" onclick="workflowDemo.startScenario('tv-quotation')">
+          <div class="tag tag-simple"><i class="fas fa-tv"></i> TV + Quote</div>
+          <div class="scenario-icon"><i class="fas fa-tv"></i></div>
+          <h3>TV & Quotation Journey</h3>
+          <p>Technical visit plus upsell opportunity. TV potential can flip from low to high depending on operator inputs.</p>
+        </button>
+        <button type="button" class="scenario-card" onclick="workflowDemo.startScenario('package-deal')">
+          <div class="tag tag-simple"><i class="fas fa-box-open"></i> Package</div>
+          <div class="scenario-icon"><i class="fas fa-boxes-stacked"></i></div>
+          <h3>Package Deal</h3>
+          <p>Bundled devices, staggered schedules, and contract bundling rules. Shows automation vs manual overrides.</p>
+        </button>
+        <button type="button" class="scenario-card" onclick="workflowDemo.startScenario('complex-project')">
+          <div class="tag tag-complex"><i class="fas fa-hard-hat"></i> Complex</div>
+          <div class="scenario-icon"><i class="fas fa-city"></i></div>
+          <h3>Complex Project</h3>
+          <p>Multi-room kitchen with prior claims. High risk, forced negotiations, and heavy pilote arbitration.</p>
+        </button>
+        <button type="button" class="scenario-card" onclick="workflowDemo.startScenario('rework-warranty')">
+          <div class="tag tag-complex"><i class="fas fa-recycle"></i> Rework</div>
+          <div class="scenario-icon"><i class="fas fa-rotate"></i></div>
+          <h3>Rework & Warranty</h3>
+          <p>Starts with a WCF with reserves, spins a new service order, and holds payment until issues are cleared.</p>
+        </button>
+      </div>
+    </section>
+
+    <section id="workflowShell" class="workflow-shell hidden">
+      <div class="workflow-header">
+        <div class="top-row">
+          <button class="ghost-btn" onclick="workflowDemo.resetToScenarios()"><i class="fas fa-arrow-left"></i> Back to scenarios</button>
+          <div class="status-pills">
+            <div id="flagContract" class="status-flag flag-pending">Contract · Pending</div>
+            <div id="flagGo" class="status-flag flag-pending">Go Exec · Pending</div>
+            <div id="flagWcf" class="status-flag flag-pending">WCF · Pending</div>
+          </div>
+        </div>
+        <div class="chip-row">
+          <span class="chip" id="riskChip">Risk · --</span>
+          <span class="chip" id="tvChip">TV Potential · --</span>
+          <span class="chip" id="piloteChip">Pilote · --</span>
+          <div class="role-switcher">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">View as:</span>
+            <button class="active" onclick="workflowDemo.switchRole('system')">System</button>
+            <button onclick="workflowDemo.switchRole('operator')">Operator</button>
+            <button onclick="workflowDemo.switchRole('provider')">Provider</button>
+            <button onclick="workflowDemo.switchRole('crew')">Crew</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-meta">
+        <div>
+          <h3 id="scenarioTitle">Select a scenario to begin</h3>
+          <p id="scenarioSubtitle" style="color: var(--text-muted);"></p>
+        </div>
+        <div class="progress-rail" id="timelineDots"></div>
+        <div class="stakeholder-pill" id="stakeholderPill">
+          <i class="fas fa-server"></i>
+          <span>Systems</span>
+        </div>
+      </div>
+
+      <div class="steps-viewport">
+        <div class="steps-track" id="stepsTrack">
+          <!-- Step 1 -->
+          <article class="step-card" data-step="0">
+            <header>
+              <h2><i class="fas fa-diagram-project"></i> Step 1 · Sales Integration</h2>
+              <p>Kafka listeners ingest orders from e-commerce, retail POS, and partner APIs. Payload enrichment surfaces TV potential and initial risk factors.</p>
+            </header>
+            <div class="hint-box" id="hint-0">
+              <strong><i class="fas fa-lightbulb"></i> System Perspective:</strong>
+              Orders flow in automatically from multiple channels. The system enriches each payload with AI-predicted TV potential and initial risk signals before routing to the operator queue.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Choose intake channel</h3>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                  <button class="btn-secondary" onclick="workflowDemo.ingest('Salesforce Commerce')">Salesforce</button>
+                  <button class="btn-secondary" onclick="workflowDemo.ingest('Retail POS')">Retail POS</button>
+                  <button class="btn-secondary" onclick="workflowDemo.ingest('Installer App API')">Installer App</button>
+                </div>
+                <div class="log" id="ingestionLog" style="margin-top:1rem;" data-empty="true">
+                  <p>Awaiting payload...</p>
+                </div>
+              </div>
+              <div class="panel">
+                <h3>Payload</h3>
+                <pre id="payloadPreview" aria-live="polite" style="background:rgba(0,0,0,0.35); padding:1rem; border-radius:12px; font-size:0.85rem; overflow:auto;">{ "channel": "--", "order": "--" }</pre>
+                <div class="success" id="ingestionSummary"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 2 -->
+          <article class="step-card" data-step="1">
+            <header>
+              <h2><i class="fas fa-people-arrows"></i> Step 2 · Project & Pilote du chantier</h2>
+              <p>Attach the service order to an existing project or spawn a new one. AI proposes the pilote with the lightest workload; operators can override manually.</p>
+            </header>
+            <div class="hint-box" id="hint-1">
+              <strong><i class="fas fa-robot"></i> Operator Perspective:</strong>
+              The system suggests linking to existing projects and auto-assigns the pilote with the lightest workload. You can override both if business context requires. <span class="auto-badge"><i class="fas fa-wand-sparkles"></i> Auto-assigned</span>
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Project automation</h3>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+                  <button class="btn-secondary" onclick="workflowDemo.linkProject('existing')">Link existing project</button>
+                  <button class="btn-secondary" onclick="workflowDemo.linkProject('new')">Create new project</button>
+                </div>
+                <p style="margin-top:0.8rem;" id="projectSummary">No project linked yet.</p>
+                <div class="log" id="projectLog" data-empty="true" style="margin-top:1rem;">
+                  <p>Automation suggestions will appear here.</p>
+                </div>
+              </div>
+              <div class="panel">
+                <h3>Pilote assignment</h3>
+                <p id="piloteAutoText" style="margin-bottom:0.5rem;">Auto-balancing waiting...</p>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.8rem;">
+                  <button class="btn-secondary" onclick="workflowDemo.assignPilote('auto')">Auto assign</button>
+                  <select class="form-control" id="piloteSelect" aria-label="Manual pilote assignment" onchange="workflowDemo.assignPilote('manual', this.value)"></select>
+                </div>
+                <div class="log" id="piloteLog" data-empty="true">
+                  <p>Pick auto or manual to see workload distribution.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 3 -->
+          <article class="step-card" data-step="2">
+            <header>
+              <h2><i class="fas fa-clipboard-check"></i> Step 3 · Operator triage & risk</h2>
+              <p>Risk score aggregates delivery delays, re-schedules, and customer claims. Any action writes back to Control Tower.</p>
+            </header>
+            <div class="hint-box" id="hint-2">
+              <strong><i class="fas fa-user-tie"></i> Operator Perspective:</strong>
+              Review customer history and adjust risk factors. The system auto-calculates the risk score. Remember: Sundays are blocked, Saturdays only 08:00-12:00. High-risk jobs may trigger additional approval workflows.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Risk factors</h3>
+                <div class="checklist">
+                  <label><input type="checkbox" onchange="workflowDemo.toggleRisk('delays', this.checked)"> Delivery delays</label>
+                  <label><input type="checkbox" onchange="workflowDemo.toggleRisk('reschedules', this.checked)"> Multiple re-schedules</label>
+                  <label><input type="checkbox" onchange="workflowDemo.toggleRisk('claims', this.checked)"> Pending customer claim</label>
+                  <label><input type="checkbox" onchange="workflowDemo.toggleRisk('customerVIP', this.checked)"> VIP / social blast risk</label>
+                </div>
+                <p class="warning" id="riskNotes"></p>
+              </div>
+              <div class="panel">
+                <h3>Calendar & SLA</h3>
+                <form onsubmit="return workflowDemo.reschedule(event)">
+                  <label for="rescheduleDate">New date</label>
+                  <input type="date" class="form-control" id="rescheduleDate" />
+                  <label for="rescheduleTime">Start time</label>
+                  <input type="time" class="form-control" id="rescheduleTime" />
+                  <button class="btn-primary" type="submit">Validate slot</button>
+                </form>
+                <p class="warning" id="calendarWarning"></p>
+                <div class="log" id="triageLog" data-empty="true" style="margin-top:0.8rem;">
+                  <p>Saturday mornings only · Sundays blocked automatically.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 4 -->
+          <article class="step-card" data-step="3">
+            <header>
+              <h2><i class="fas fa-lightbulb"></i> Step 4 · TV potential & offer prep</h2>
+              <p>AI produces a narrative explaining the upsell potential. Operators can override, feeding the offer composer.</p>
+            </header>
+            <div class="hint-box" id="hint-3">
+              <strong><i class="fas fa-brain"></i> AI-Assisted Decision:</strong>
+              The system analyzed the order and suggests TV potential. High = recommend technical visit + quotation bundle. Low = keep offer lean. You can override if you have customer insights the AI missed.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>TV potential</h3>
+                <label for="tvManualSelect" class="visually-hidden">TV override</label>
+                <select class="form-control" id="tvManualSelect" onchange="workflowDemo.manualTvOverride(this.value)">
+                  <option value="auto">AI suggested</option>
+                  <option value="low">Force low</option>
+                  <option value="high">Force high</option>
+                </select>
+                <textarea class="form-control" id="tvNarrative" placeholder="AI narrative"></textarea>
+                <div class="success" id="tvRecommendation"></div>
+              </div>
+              <div class="panel">
+                <h3>Offer composer</h3>
+                <p id="offerSuggestion">Select bundles in next step to build the contract proposal.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 5 -->
+          <article class="step-card" data-step="4">
+            <header>
+              <h2><i class="fas fa-file-signature"></i> Step 5 · Contract bundling</h2>
+              <p>Automation arms a 2h auto-send. Operators can send now, print/upload, or skip (derogation). Matching stays locked until Contract OK or NOK.</p>
+            </header>
+            <div class="hint-box" id="hint-4">
+              <strong><i class="fas fa-clock"></i> Operator Perspective:</strong>
+              System will auto-send contract in 2 hours. You can expedite by sending now, or use derogation to skip (logged for audit). Provider matching is blocked until contract status is resolved.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Bundles</h3>
+                <div id="bundleList" class="checklist"></div>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Everything listed above becomes a single contract package.</p>
+              </div>
+              <div class="panel">
+                <h3>Status</h3>
+                <div class="timer-visual">
+                  <i class="fas fa-hourglass-half"></i>
+                  <span>Auto-send in: <strong id="contractTimer">02:00:00</strong></span>
+                </div>
+                <p style="margin-top: 0.8rem;"><strong>Selected template:</strong> <span id="contractTemplate">Not set</span></p>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin:0.9rem 0;">
+                  <button class="btn-primary" onclick="workflowDemo.handleContract('send')">Send now</button>
+                  <button class="btn-secondary" onclick="workflowDemo.handleContract('print')">Print & upload</button>
+                  <button class="btn-danger" onclick="workflowDemo.handleContract('skip')">Skip / derogation</button>
+                </div>
+                <label for="templateSelect" class="visually-hidden">Contract template</label>
+                <select class="form-control" id="templateSelect" onchange="workflowDemo.chooseTemplate(this.value)">
+                  <option value="Standard Installation">Standard Installation</option>
+                  <option value="Kitchen Premium">Kitchen Premium</option>
+                  <option value="TV + Install Journey">TV + Install Journey</option>
+                </select>
+                <div class="log" id="contractLog">
+                  <p>Automation armed for 2h.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 6 -->
+          <article class="step-card" data-step="5">
+            <header>
+              <h2><i class="fas fa-handshake-angle"></i> Step 6 · Provider negotiation & crew view</h2>
+              <p>Providers have 4h to answer. YellowGrid exposes why each crew qualifies and caps negotiation to 3 rounds.</p>
+            </header>
+            <div class="hint-box" id="hint-5">
+              <strong><i class="fas fa-handshake"></i> Provider Perspective:</strong>
+              You see why each crew was matched (capacity, focus, SLA). You have <strong>4 hours</strong> to respond and up to <strong>3 negotiation rounds</strong>. Accept, counter-propose, or decline. After 3 rounds, escalates to operator task.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Crew expansion</h3>
+                <div id="crewGroups" class="crew-groups"></div>
+              </div>
+              <div class="panel">
+                <h3>Negotiation</h3>
+                <p>Rounds used: <strong id="negotiationRounds">0 / 3</strong></p>
+                <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                  <button class="btn-primary" onclick="workflowDemo.recordNegotiation('accept')">Accept original</button>
+                  <button class="btn-secondary" onclick="workflowDemo.recordNegotiation('counter')">Propose new date</button>
+                  <button class="btn-danger" onclick="workflowDemo.recordNegotiation('decline')">Decline</button>
+                </div>
+                <label for="providerProposal" class="visually-hidden">Provider proposal datetime</label>
+                <input type="datetime-local" class="form-control" id="providerProposal" />
+                <div class="log" id="negotiationLog" data-empty="true" style="margin-top:0.8rem;">
+                  <p>No interactions yet.</p>
+                </div>
+                <p class="warning" id="negotiationAlert"></p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 7 -->
+          <article class="step-card" data-step="6">
+            <header>
+              <h2><i class="fas fa-shield"></i> Step 7 · Go execution gate</h2>
+              <p>On the eve of the job YellowGrid validates payment, delivery, and alerts. Manual derogation is logged if ops need to break the rule.</p>
+            </header>
+            <div class="hint-box" id="hint-6">
+              <strong><i class="fas fa-shield-halved"></i> Operator Perspective:</strong>
+              The crew cannot check in until both payment and delivery are confirmed. If you need to override (emergency/derogation), it will be logged and flagged for audit.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Gate requirements</h3>
+                <div class="gate-checklist">
+                  <div class="gate-item" id="gatePayment">
+                    <div class="gate-icon"><i class="fas fa-circle-question"></i></div>
+                    <div style="flex: 1;">
+                      <strong>Payment received</strong>
+                      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Customer payment confirmation required</p>
+                    </div>
+                    <div style="display:flex; gap:0.4rem;">
+                      <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="workflowDemo.toggleGate('payment', true)">OK</button>
+                      <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="workflowDemo.toggleGate('payment', false)">NOK</button>
+                    </div>
+                  </div>
+                  <div class="gate-item" id="gateDelivery">
+                    <div class="gate-icon"><i class="fas fa-circle-question"></i></div>
+                    <div style="flex: 1;">
+                      <strong>Delivery confirmed</strong>
+                      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Materials delivered and available on site</p>
+                    </div>
+                    <div style="display:flex; gap:0.4rem;">
+                      <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="workflowDemo.toggleGate('delivery', true)">OK</button>
+                      <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="workflowDemo.toggleGate('delivery', false)">NOK</button>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn-danger" style="margin-top:1rem; width: 100%;" onclick="workflowDemo.toggleGate('override', true)"><i class="fas fa-triangle-exclamation"></i> Authorize derogation (logged)</button>
+              </div>
+              <div class="panel">
+                <h3>Alerts & tasks</h3>
+                <div class="log" id="goLog">
+                  <p>Gate pending. Crew blocked.</p>
+                </div>
+                <button class="btn-primary" style="margin-top:0.8rem;" onclick="workflowDemo.confirmGate()">Confirm Go Execution</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 8 -->
+          <article class="step-card" data-step="7">
+            <header>
+              <h2><i class="fas fa-person-walking"></i> Step 8 · Crew check-in</h2>
+              <p>Go gate must read OK or override for crews to check in. Check-in stores geo/time and pushes back to Control Tower.</p>
+            </header>
+            <div class="hint-box" id="hint-7">
+              <strong><i class="fas fa-mobile-screen-button"></i> Crew Perspective:</strong>
+              You cannot start the job until the Go gate is green (payment + delivery confirmed). When ready, tap to check in—system captures your location and timestamp automatically.
+            </div>
+            <div class="panel">
+              <h3>Mobile app snapshot</h3>
+              <p id="checkinStatus">Gate pending.</p>
+              <button class="btn-primary" onclick="workflowDemo.crewCheckIn()">Check in</button>
+            </div>
+          </article>
+
+          <!-- Step 9 -->
+          <article class="step-card" data-step="8">
+            <header>
+              <h2><i class="fas fa-screwdriver-wrench"></i> Step 9 · Execution evidence</h2>
+              <p>Crews must complete at least three checklist items and upload photos/audio before closing the job.</p>
+            </header>
+            <div class="hint-box" id="hint-8">
+              <strong><i class="fas fa-hammer"></i> Crew Perspective:</strong>
+              Complete at least <strong>3 checklist items</strong> and upload <strong>1+ photo/audio</strong> as proof of work. The system won't let you close the job until these requirements are met.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>Checklist</h3>
+                <div class="checklist" id="executionChecklist"></div>
+              </div>
+              <div class="panel">
+                <h3>Evidence</h3>
+                <p>Photos/audio captured: <strong id="evidenceCount">0</strong></p>
+                <button class="btn-secondary" onclick="workflowDemo.addEvidence()">Add photo / audio</button>
+                <button class="btn-primary" style="margin-left:0.4rem;" onclick="workflowDemo.completeExecution()">Complete job</button>
+                <div class="log" id="executionLog" style="margin-top:0.8rem;">
+                  <p>Need checklist + photos to move on.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 10 -->
+          <article class="step-card" data-step="9">
+            <header>
+              <h2><i class="fas fa-user-check"></i> Step 10 · WCF & provider payment</h2>
+              <p>Customers can sign with or without reserves. Reserves spawn a rework order automatically and hold the payout.</p>
+            </header>
+            <div class="hint-box" id="hint-9">
+              <strong><i class="fas fa-file-signature"></i> Customer Perspective:</strong>
+              Review the completed work. Sign with <strong>no reserves</strong> if satisfied (payment releases immediately). Sign with <strong>reserves</strong> if issues need fixing (creates rework, holds payment). Don't sign if work is unacceptable.
+            </div>
+            <div class="grid-2">
+              <div class="panel">
+                <h3>WCF outcome</h3>
+                <div class="wcf-cards">
+                  <label class="wcf-option" id="wcfOption1">
+                    <input type="radio" name="wcf" value="no-reserves" onchange="workflowDemo.selectWcf('no-reserves')">
+                    <div>
+                      <strong><i class="fas fa-circle-check" style="color: var(--accent-green);"></i> Signed · No reserves</strong>
+                      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work completed satisfactorily. Payment releases immediately.</p>
+                    </div>
+                  </label>
+                  <label class="wcf-option" id="wcfOption2">
+                    <input type="radio" name="wcf" value="reserves" onchange="workflowDemo.selectWcf('reserves')">
+                    <div>
+                      <strong><i class="fas fa-circle-exclamation" style="color: var(--accent-orange);"></i> Signed · With reserves</strong>
+                      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Issues noted. Auto-creates rework order and holds payment.</p>
+                    </div>
+                  </label>
+                  <label class="wcf-option" id="wcfOption3">
+                    <input type="radio" name="wcf" value="unsigned" onchange="workflowDemo.selectWcf('unsigned')">
+                    <div>
+                      <strong><i class="fas fa-circle-xmark" style="color: var(--accent-red);"></i> WCF unsigned</strong>
+                      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work unacceptable. Payment blocked until resolution.</p>
+                    </div>
+                  </label>
+                </div>
+                <textarea class="form-control" id="wcfNotes" placeholder="Customer note / reserve reason" onchange="workflowDemo.captureReserveNote(this.value)"></textarea>
+                <button class="btn-secondary" onclick="workflowDemo.createRework()">Create rework from reserves</button>
+                <p class="warning" id="reworkSummary"></p>
+              </div>
+              <div class="panel">
+                <h3>Payment release</h3>
+                <p>Status: <strong id="paymentReleaseStatus">Waiting for WCF</strong></p>
+                <button class="btn-primary" onclick="workflowDemo.releasePayment()">Authorize provider payment</button>
+                <div class="log" id="wcfLog" style="margin-top:0.8rem;">
+                  <p>WCF pending.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <button class="btn-secondary" id="prevStep" onclick="workflowDemo.prevStep()" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+        <button class="btn-primary" id="nextStep" onclick="workflowDemo.nextStep()">Next step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const pilotes = [
+        { id: 'PL-SOF', name: 'Sofia Mendes', region: 'North', load: 4 },
+        { id: 'PL-JOA', name: 'João Martins', region: 'South', load: 6 },
+        { id: 'PL-LIA', name: 'Lia Santos', region: 'Greater Lisbon', load: 3 },
+        { id: 'PL-NIC', name: 'Nicolas Ferry', region: 'National', load: 5 }
+      ];
+
+      const providerCrews = {
+        'Crew A': [
+          { provider: 'Provider L', lead: 'Rui Lopes', capacity: '2 installers', focus: 'Kitchen & TV', sla: 'T+48h' },
+          { provider: 'Provider L', lead: 'Patrícia Nunes', capacity: '3 installers', focus: 'Premium kitchens', sla: 'T+72h' }
+        ],
+        'Crew B': [
+          { provider: 'Provider F', lead: 'Miguel Pinto', capacity: '2 installers', focus: 'Large appliances', sla: 'T+96h' }
+        ],
+        'Crew C': [
+          { provider: 'Provider C', lead: 'Andreia Rocha', capacity: '1 installer + apprentice', focus: 'Warranty & rework', sla: 'T+120h' }
+        ]
+      };
+
+      const scenarios = {
+        'simple-installation': {
+          label: 'Simple Installation',
+          tagline: 'Single cooktop swap · Zone 2',
+          serviceType: 'Cooktop installation',
+          primaryOrder: 'INSTALL-9821',
+          address: 'Rua do Horizonte 12, Lisboa',
+          customer: 'Ana Costa',
+          schedule: { date: '2025-11-18', start: '09:00', end: '11:00' },
+          tvPotential: { level: 'low', reason: 'Limited upsell · small workspace' },
+          risk: { level: 'low', factors: ['New customer'] },
+          recommendedBundles: ['INSTALL-9821'],
+          availableBundles: [
+            { id: 'INSTALL-9821', label: 'Installation · Cooktop' },
+            { id: 'WARRANTY-2025', label: 'Extended warranty' },
+            { id: 'WCF-TRACK', label: 'WCF follow-up' }
+          ]
+        },
+        'tv-quotation': {
+          label: 'TV & Quotation',
+          tagline: 'Technical visit + upsell',
+          serviceType: 'Technical Visit',
+          primaryOrder: 'TV-1201',
+          address: 'Av. Liberdade 90, Lisboa',
+          customer: 'Diogo Martins',
+          schedule: { date: '2025-11-20', start: '10:00', end: '12:30' },
+          tvPotential: { level: 'high', reason: 'Customer requested smart lighting add-on' },
+          risk: { level: 'medium', factors: ['Previous claim on same site'] },
+          recommendedBundles: ['TV-1201', 'INSTALL-2201'],
+          availableBundles: [
+            { id: 'TV-1201', label: 'Technical visit · quotation' },
+            { id: 'INSTALL-2201', label: 'Installation · Kitchen' },
+            { id: 'WCF-TRACK', label: 'WCF follow-up' }
+          ]
+        },
+        'package-deal': {
+          label: 'Package Deal',
+          tagline: 'Bundled devices · two visits',
+          serviceType: 'Kitchen package install',
+          primaryOrder: 'PKG-4402',
+          address: 'Rua da Fábrica 3, Porto',
+          customer: 'Mariana Reis',
+          schedule: { date: '2025-11-22', start: '08:00', end: '13:00' },
+          tvPotential: { level: 'high', reason: 'Package qualifies for TV potential rebate' },
+          risk: { level: 'medium', factors: ['Tight delivery window'] },
+          recommendedBundles: ['PKG-4402', 'WCF-TRACK'],
+          availableBundles: [
+            { id: 'PKG-4402', label: 'Kitchen package contract' },
+            { id: 'INSTALL-2201', label: 'Installation · Kitchen' },
+            { id: 'WARRANTY-2025', label: 'Extended warranty' },
+            { id: 'WCF-TRACK', label: 'WCF follow-up' }
+          ]
+        },
+        'complex-project': {
+          label: 'Complex Project',
+          tagline: 'Multi-room kitchen · claims history',
+          serviceType: 'Premium installation',
+          primaryOrder: 'CX-9031',
+          address: 'Rua da Lapa 50, Lisboa',
+          customer: 'Teresa Monteiro',
+          schedule: { date: '2025-11-25', start: '13:00', end: '18:00' },
+          tvPotential: { level: 'medium', reason: 'High-end appliances, potential upsell to warranty' },
+          risk: { level: 'high', factors: ['Prior claim', 'Customer escalation'] },
+          recommendedBundles: ['CX-9031', 'INSTALL-2201', 'WCF-TRACK'],
+          availableBundles: [
+            { id: 'CX-9031', label: 'Complex install contract' },
+            { id: 'INSTALL-2201', label: 'Installation · Kitchen' },
+            { id: 'WARRANTY-2025', label: 'Extended warranty' },
+            { id: 'WCF-TRACK', label: 'WCF follow-up' }
+          ]
+        },
+        'rework-warranty': {
+          label: 'Rework & Warranty',
+          tagline: 'Starts from reserves · payment on hold',
+          serviceType: 'Warranty intervention',
+          primaryOrder: 'RWK-7004',
+          address: 'Rua do Jardim 8, Braga',
+          customer: 'Helena Costa',
+          schedule: { date: '2025-11-19', start: '09:00', end: '11:00' },
+          tvPotential: { level: 'low', reason: 'Warranty scope only' },
+          risk: { level: 'high', factors: ['Rework order', 'Customer claim'] },
+          recommendedBundles: ['RWK-7004', 'WCF-TRACK'],
+          availableBundles: [
+            { id: 'RWK-7004', label: 'Rework service order' },
+            { id: 'INSTALL-2201', label: 'Installation · Kitchen' },
+            { id: 'WCF-TRACK', label: 'WCF follow-up' }
+          ]
+        }
+      };
+
+      const timelineStakeholders = [
+        { icon: 'server', label: 'Systems' },
+        { icon: 'desktop', label: 'Operator' },
+        { icon: 'desktop', label: 'Operator' },
+        { icon: 'robot', label: 'Automation' },
+        { icon: 'file-signature', label: 'Operator' },
+        { icon: 'handshake', label: 'Provider' },
+        { icon: 'shield', label: 'Operator' },
+        { icon: 'mobile-screen', label: 'Crew' },
+        { icon: 'screwdriver-wrench', label: 'Crew' },
+        { icon: 'user-check', label: 'Customer' }
+      ];
+
+      const checklistItems = [
+        'Verify customer identity and documents',
+        'Inspect workspace & capture before photos',
+        'Install equipment according to playbook',
+        'Test system and brief customer'
+      ];
+
+      let contractInterval = null;
+      let currentRole = 'system';
+
+      const initialState = () => ({
+        scenarioId: null,
+        currentStep: 0,
+        serviceOrder: null,
+        pilote: null,
+        piloteMode: 'auto',
+        risk: { level: '--', factors: [] },
+        tvPotential: { level: '--', reason: '' },
+        statusFlags: { contract: 'pending', go: 'pending', wcf: 'pending' },
+        contract: { bundles: [], template: 'Standard Installation', seconds: 7200, log: ['Automation armed for 2h.'], status: 'pending' },
+        negotiation: { rounds: [], escalated: false },
+        gate: { payment: false, delivery: false, override: false, log: ['Gate pending. Crew blocked.'] },
+        checkin: { allowed: false, completed: false },
+        execution: { checklist: checklistItems.map(() => false), evidence: 0, log: ['Need checklist + photos to move on.'] },
+        wcf: { outcome: null, notes: '', log: ['WCF pending.'], reworkId: null }
+      });
+
+      let state = initialState();
+
+      const qs = (id) => document.getElementById(id);
+      const setText = (id, value) => {
+        const el = qs(id);
+        if (el) {
+          el.textContent = value;
+        }
+      };
+
+      const pushLog = (id, message) => {
+        const target = qs(id);
+        if (!target) return;
+        if (target.dataset.empty) {
+          target.innerHTML = '';
+          delete target.dataset.empty;
+        }
+        const p = document.createElement('p');
+        p.innerHTML = message;
+        target.appendChild(p);
+        target.scrollTop = target.scrollHeight;
+      };
+
+      const formatSeconds = (total) => {
+        const hrs = String(Math.floor(total / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+        const secs = String(total % 60).padStart(2, '0');
+        return `${hrs}:${mins}:${secs}`;
+      };
+
+      const updateFlags = () => {
+        const map = [
+          { id: 'flagContract', value: state.statusFlags.contract },
+          { id: 'flagGo', value: state.statusFlags.go },
+          { id: 'flagWcf', value: state.statusFlags.wcf }
+        ];
+        map.forEach(({ id, value }) => {
+          const el = qs(id);
+          if (!el) return;
+          el.classList.remove('flag-pending', 'flag-ok', 'flag-nok');
+          const cls = value === 'ok' ? 'flag-ok' : value === 'nok' ? 'flag-nok' : 'flag-pending';
+          el.classList.add(cls);
+          const label = el.textContent.split('·')[0].trim();
+          el.textContent = `${label} · ${value === 'ok' ? 'OK' : value === 'nok' ? 'NOK' : 'Pending'}`;
+        });
+      };
+
+      const updateChips = () => {
+        setText('riskChip', `Risk · ${state.risk.level.toUpperCase()}`);
+        setText('tvChip', `TV Potential · ${state.tvPotential.level.toUpperCase()}`);
+        const piloteText = state.pilote ? `${state.pilote.name} · ${state.pilote.region}` : '--';
+        setText('piloteChip', `Pilote · ${piloteText}`);
+      };
+
+      const renderTimelineDots = () => {
+        const rail = qs('timelineDots');
+        if (!rail) return;
+        rail.innerHTML = '';
+        for (let i = 0; i < 10; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'progress-dot';
+          if (i < state.currentStep) dot.classList.add('completed');
+          if (i === state.currentStep) dot.classList.add('active');
+          rail.appendChild(dot);
+        }
+        const stake = timelineStakeholders[state.currentStep] || timelineStakeholders[0];
+        const pill = qs('stakeholderPill');
+        if (pill) {
+          pill.innerHTML = `<i class="fas fa-${stake.icon}"></i><span>${stake.label}</span>`;
+        }
+      };
+
+      const updateTrack = () => {
+        const track = qs('stepsTrack');
+        if (!track) return;
+        track.style.transform = `translateX(-${state.currentStep * 100}%)`;
+        qs('prevStep').disabled = state.currentStep === 0;
+        qs('nextStep').disabled = state.currentStep === 9;
+        renderTimelineDots();
+      };
+
+      const stopContractTimer = () => {
+        if (contractInterval) {
+          clearInterval(contractInterval);
+          contractInterval = null;
+        }
+      };
+
+      const startContractTimer = () => {
+        stopContractTimer();
+        contractInterval = setInterval(() => {
+          state.contract.seconds = Math.max(state.contract.seconds - 1, 0);
+          setText('contractTimer', formatSeconds(state.contract.seconds));
+          if (state.contract.seconds === 0) {
+            stopContractTimer();
+            state.statusFlags.contract = 'ok';
+            updateFlags();
+            pushLog('contractLog', '<strong>Automation:</strong> Contract auto-sent after 2h.');
+          }
+        }, 1000);
+      };
+
+      const renderPiloteSelect = () => {
+        const select = qs('piloteSelect');
+        if (!select) return;
+        select.innerHTML = '<option value="">Manual override</option>';
+        pilotes.forEach((pilote) => {
+          const option = document.createElement('option');
+          option.value = pilote.id;
+          option.textContent = `${pilote.name} · ${pilote.region} · Load ${pilote.load}`;
+          select.appendChild(option);
+        });
+      };
+
+      const renderBundles = () => {
+        const list = qs('bundleList');
+        if (!list) return;
+        list.innerHTML = '';
+        const scenario = scenarios[state.scenarioId];
+        scenario.availableBundles.forEach((bundle) => {
+          const id = `bundle-${bundle.id}`;
+          const wrapper = document.createElement('label');
+          wrapper.innerHTML = `<input type="checkbox" id="${id}" ${state.contract.bundles.includes(bundle.id) ? 'checked' : ''} onchange="workflowDemo.toggleBundle('${bundle.id}', this.checked)"> ${bundle.label}`;
+          list.appendChild(wrapper);
+        });
+      };
+
+      const renderCrewGroups = () => {
+        const container = qs('crewGroups');
+        if (!container) return;
+        container.innerHTML = '';
+        Object.entries(providerCrews).forEach(([group, crews]) => {
+          crews.forEach((crew) => {
+            const div = document.createElement('div');
+            div.className = 'crew-card';
+            div.innerHTML = `<strong>${group}</strong><br>${crew.provider} · ${crew.lead}<br>${crew.capacity} · ${crew.focus}<br>SLA ${crew.sla}`;
+            container.appendChild(div);
+          });
+        });
+      };
+
+      const renderChecklist = () => {
+        const container = qs('executionChecklist');
+        if (!container) return;
+        container.innerHTML = '';
+        checklistItems.forEach((item, index) => {
+          const label = document.createElement('label');
+          label.innerHTML = `<input type="checkbox" ${state.execution.checklist[index] ? 'checked' : ''} onchange="workflowDemo.toggleChecklist(${index}, this.checked)"> ${item}`;
+          container.appendChild(label);
+        });
+      };
+
+      const renderLogs = () => {
+        qs('contractLog').innerHTML = state.contract.log.map((line) => `<p>${line}</p>`).join('');
+        const negotiationMarkup = state.negotiation.rounds.length ? state.negotiation.rounds.map((line) => `<p>${line}</p>`).join('') : '<p>No interactions yet.</p>';
+        qs('negotiationLog').innerHTML = negotiationMarkup;
+        qs('goLog').innerHTML = state.gate.log.map((line) => `<p>${line}</p>`).join('');
+        qs('executionLog').innerHTML = state.execution.log.map((line) => `<p>${line}</p>`).join('');
+        qs('wcfLog').innerHTML = state.wcf.log.map((line) => `<p>${line}</p>`).join('');
+      };
+
+      const updateScenarioText = () => {
+        const scenario = scenarios[state.scenarioId];
+        if (!scenario) return;
+        setText('scenarioTitle', scenario.label);
+        setText('scenarioSubtitle', `${scenario.tagline} · ${scenario.customer} · ${scenario.address}`);
+        setText('offerSuggestion', `Bundled orders: ${state.contract.bundles.join(', ') || 'none'}`);
+      };
+
+      const roleHints = {
+        system: [
+          'Orders flow in automatically from multiple channels. The system enriches each payload with AI-predicted TV potential and initial risk signals before routing to the operator queue.',
+          'The system suggests linking to existing projects and auto-assigns the pilote with the lightest workload based on real-time load balancing.',
+          'Risk scoring happens automatically. The system blocks Sundays and restricts Saturdays to morning slots (08:00-12:00).',
+          'AI analyzes order details and customer history to predict upsell potential. High TV potential triggers quotation bundle recommendation.',
+          'Automation arms a 2h timer to auto-send contracts. Operators can override. Provider matching is blocked until contract status resolves.',
+          'Matching algorithm expands to Crew A, B, C based on capacity, focus area, and SLA. System enforces 4h response window and 3-round cap.',
+          'System validates payment and delivery prerequisites. Derogation requires manual override (logged for compliance).',
+          'Check-in is blocked until Go gate confirms OK. GPS and timestamp captured automatically on mobile app.',
+          'System enforces minimum 3 checklist items + 1 evidence file before allowing job closure.',
+          'WCF outcome determines payment release. Reserves auto-spawn rework order and hold provider payout until closure.'
+        ],
+        operator: [
+          'You monitor incoming orders enriched with AI risk and TV potential. Review queue and prioritize based on SLA and customer tier.',
+          'Accept AI suggestions or override based on customer context. Manual pilote assignment is logged for workload audits.',
+          'Review customer history and adjust risk factors. High-risk jobs may trigger additional approval workflows. Remember calendar constraints.',
+          'Review AI suggestion and override if you have insights the system missed. Your decision drives which bundles appear in the contract.',
+          'You can send contract immediately, print/upload manually, or skip (derogation). Timer is a safety net—use your judgment.',
+          'Provider responses appear here. If 3 rounds exhaust, you get a task to negotiate directly or escalate.',
+          'Confirm both gates are green before authorizing Go. If you override, document the reason—compliance will audit.',
+          'Monitor check-in from Control Tower. Delays or no-shows trigger automatic alerts and re-dispatch workflows.',
+          'Review uploaded evidence and checklist completion. Incomplete jobs return to crew queue with notes.',
+          'Customer outcome determines next steps. Reserves create rework tasks assigned back to you. Monitor payment release.'
+        ],
+        provider: [
+          'Order notifications appear in your provider portal when contract is ready and crew matching begins.',
+          'System pre-assigns you based on capacity, focus, and SLA. You will see full project details once contract is signed.',
+          'You see customer risk profile to prepare your crew. High-risk jobs may require additional coordination.',
+          'TV potential affects scope—high TV may include quotation work. Plan crew capacity accordingly.',
+          'Contract is auto-sent. You receive notification and contract bundle details to review before crew assignment.',
+          'You see why each crew was matched (capacity, focus, SLA). You have 4 hours to accept, counter, or decline. 3 rounds max.',
+          'You cannot dispatch crew until Go gate is green. System notifies you when cleared—check crew availability.',
+          'Your crew uses mobile app to check in. You monitor progress in real-time from provider dashboard.',
+          'Crew completes checklist and uploads evidence. You review before submitting for WCF.',
+          'Payment releases when customer signs without reserves. Reserves hold payment until rework closes—plan cash flow accordingly.'
+        ],
+        crew: [
+          'Jobs assigned to you appear in your mobile app. You see job details, customer info, and scheduled time.',
+          'Your pilote coordinates assignments. You see project context and any special instructions.',
+          'High-risk jobs flagged with warnings. Extra care required—document everything thoroughly.',
+          'TV jobs may include quotation work. Bring quotation kit and plan extra time for customer discussion.',
+          'Contract status visible in app. If contract is NOK or pending, job may be rescheduled—watch notifications.',
+          'You see confirmed job date/time. If provider counter-proposes, app notifies you of new schedule.',
+          'App shows gate status. Red = blocked (payment/delivery issue). Green = ready. You cannot check in until green.',
+          'Tap to check in when you arrive. App captures GPS and timestamp. You see customer contact and job brief.',
+          'Complete checklist as you work. Capture before/after photos and any audio notes. App enforces minimum requirements before closing.',
+          'Customer reviews work and signs WCF on your device or their own. Reserves mean you may return—system auto-schedules rework.'
+        ]
+      };
+
+      const updateHint = () => {
+        const hints = roleHints[currentRole];
+        if (!hints) return;
+        const hint = hints[state.currentStep];
+        const hintBox = qs(`hint-${state.currentStep}`);
+        if (hintBox && hint) {
+          const icons = {
+            system: '<i class="fas fa-server"></i>',
+            operator: '<i class="fas fa-user-tie"></i>',
+            provider: '<i class="fas fa-handshake"></i>',
+            crew: '<i class="fas fa-hard-hat"></i>'
+          };
+          const labels = {
+            system: 'System Perspective',
+            operator: 'Operator Perspective',
+            provider: 'Provider Perspective',
+            crew: 'Crew Perspective'
+          };
+          hintBox.innerHTML = `<strong>${icons[currentRole]} ${labels[currentRole]}:</strong> ${hint}`;
+        }
+      };
+
+      const switchRole = (role) => {
+        currentRole = role;
+        document.querySelectorAll('.role-switcher button').forEach((btn) => {
+          btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        updateHint();
+      };
+
+      const refreshAll = () => {
+        updateFlags();
+        updateChips();
+        renderTimelineDots();
+        renderCrewGroups();
+        renderChecklist();
+        renderBundles();
+        renderLogs();
+        setText('contractTimer', formatSeconds(state.contract.seconds));
+        setText('contractTemplate', state.contract.template);
+        setText('negotiationRounds', `${state.negotiation.rounds.length} / 3`);
+        setText('paymentStatus', state.gate.payment ? 'OK' : 'Pending');
+        setText('deliveryStatus', state.gate.delivery ? 'OK' : 'Pending');
+        setText('checkinStatus', state.checkin.completed ? 'Crew checked in.' : state.checkin.allowed ? 'Gate OK. Crew can check in.' : 'Gate pending.');
+        setText('evidenceCount', state.execution.evidence);
+        setText('paymentReleaseStatus', state.statusFlags.wcf === 'ok' ? 'Ready to release' : 'Waiting for WCF');
+        const riskMsg = state.risk.factors.length ? `Drivers: ${state.risk.factors.join(', ')}` : '';
+        qs('riskNotes').textContent = riskMsg;
+        qs('tvNarrative').value = state.tvPotential.reason || '';
+        qs('tvRecommendation').textContent = `Offer bias: ${state.tvPotential.level === 'high' ? 'Add upsell bundle' : 'Keep lean offer'}`;
+        qs('reworkSummary').textContent = state.wcf.reworkId ? `Rework created: ${state.wcf.reworkId}` : '';
+        updateScenarioText();
+      };
+
+      const startScenario = (id) => {
+        stopContractTimer();
+        state = initialState();
+        state.scenarioId = id;
+        const scenario = scenarios[id];
+        state.serviceOrder = {
+          id: scenario.primaryOrder,
+          type: scenario.serviceType,
+          schedule: scenario.schedule,
+          address: scenario.address,
+          customer: scenario.customer
+        };
+        state.contract.bundles = [...scenario.recommendedBundles];
+        state.risk = { ...scenario.risk };
+        state.tvPotential = { ...scenario.tvPotential };
+        document.getElementById('scenarioSelection').classList.add('hidden');
+        document.getElementById('workflowShell').classList.remove('hidden');
+        renderPiloteSelect();
+        startContractTimer();
+        ingest('Salesforce Commerce');
+        assignPilote('auto');
+        renderTimelineDots();
+        refreshAll();
+        updateTrack();
+      };
+
+      const cardEnter = (event, id) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          startScenario(id);
+        }
+      };
+
+      const resetToScenarios = () => {
+        stopContractTimer();
+        state = initialState();
+        document.getElementById('workflowShell').classList.add('hidden');
+        document.getElementById('scenarioSelection').classList.remove('hidden');
+      };
+
+      const ingest = (channel) => {
+        if (!state.scenarioId) return;
+        const scenario = scenarios[state.scenarioId];
+        const payload = {
+          channel,
+          order: scenario.primaryOrder,
+          customer: scenario.customer,
+          schedule: scenario.schedule,
+          tvPotential: scenario.tvPotential.level
+        };
+        document.getElementById('payloadPreview').textContent = JSON.stringify(payload, null, 2);
+        document.getElementById('ingestionSummary').textContent = `${channel} delivered ${scenario.primaryOrder} · ${scenario.serviceType}`;
+        pushLog('ingestionLog', `<strong>${channel}</strong> payload enriched with TV potential ${scenario.tvPotential.level}.`);
+      };
+
+      const linkProject = (mode) => {
+        if (!state.scenarioId) return;
+        const projectId = mode === 'existing' ? 'PRJ-8742' : `PRJ-${Math.floor(Math.random() * 9000 + 1000)}`;
+        setText('projectSummary', `${mode === 'existing' ? 'Linked to existing' : 'Created new'} project ${projectId}.`);
+        pushLog('projectLog', mode === 'existing' ? 'AI linked to high value kitchen project.' : 'New project created with automation templates.');
+      };
+
+      const assignPilote = (mode, manualId) => {
+        state.piloteMode = mode;
+        if (mode === 'auto') {
+          state.pilote = [...pilotes].sort((a, b) => a.load - b.load)[0];
+          document.getElementById('piloteAutoText').textContent = `Auto assigned to ${state.pilote.name} (load ${state.pilote.load}).`;
+          pushLog('piloteLog', `Automation picked ${state.pilote.name} based on load.`);
+        } else if (manualId) {
+          const selected = pilotes.find((p) => p.id === manualId);
+          if (selected) {
+            state.pilote = selected;
+            document.getElementById('piloteAutoText').textContent = `Manual override: ${state.pilote.name}.`;
+            pushLog('piloteLog', `Operator forced pilote ${state.pilote.name}.`);
+          }
+        }
+        updateChips();
+      };
+
+      const toggleRisk = (factor, active) => {
+        if (active) {
+          if (!state.risk.factors.includes(factor)) state.risk.factors.push(factor);
+        } else {
+          state.risk.factors = state.risk.factors.filter((f) => f !== factor);
+        }
+        const levels = { 0: 'low', 1: 'medium', 2: 'medium', 3: 'high', 4: 'high' };
+        state.risk.level = levels[state.risk.factors.length] || 'low';
+        pushLog('triageLog', `Risk recalculated → ${state.risk.level.toUpperCase()}.`);
+        updateChips();
+        document.getElementById('riskNotes').textContent = state.risk.factors.length ? `Drivers: ${state.risk.factors.join(', ')}` : '';
+      };
+
+      const reschedule = (event) => {
+        event.preventDefault();
+        const date = document.getElementById('rescheduleDate').value;
+        const time = document.getElementById('rescheduleTime').value;
+        if (!date || !time) {
+          document.getElementById('calendarWarning').textContent = 'Pick date and time.';
+          return false;
+        }
+        const dt = new Date(`${date}T${time}`);
+        const day = dt.getDay();
+        if (day === 0) {
+          document.getElementById('calendarWarning').textContent = 'Sunday is not available.';
+          return false;
+        }
+        if (day === 6 && (time < '08:00' || time >= '12:00')) {
+          document.getElementById('calendarWarning').textContent = 'Saturday slots limited to 08:00-12:00.';
+          return false;
+        }
+        document.getElementById('calendarWarning').textContent = '';
+        pushLog('triageLog', `Slot validated for ${date} ${time}.`);
+        return false;
+      };
+
+      const manualTvOverride = (value) => {
+        const scenario = scenarios[state.scenarioId];
+        if (!scenario) return;
+        if (value === 'auto') {
+          state.tvPotential = { ...scenario.tvPotential };
+        } else {
+          state.tvPotential.level = value;
+          state.tvPotential.reason = document.getElementById('tvNarrative').value || scenario.tvPotential.reason;
+        }
+        updateChips();
+        document.getElementById('tvRecommendation').textContent = `Offer bias: ${state.tvPotential.level === 'high' ? 'Add upsell bundle' : 'Keep lean offer'}`;
+      };
+
+      const toggleBundle = (bundleId, active) => {
+        if (active) {
+          if (!state.contract.bundles.includes(bundleId)) state.contract.bundles.push(bundleId);
+        } else {
+          state.contract.bundles = state.contract.bundles.filter((b) => b !== bundleId);
+        }
+        pushLog('contractLog', `Bundle ${bundleId} ${active ? 'added' : 'removed'}.`);
+        setText('offerSuggestion', `Bundled orders: ${state.contract.bundles.join(', ') || 'none'}`);
+      };
+
+      const chooseTemplate = (template) => {
+        state.contract.template = template;
+        setText('contractTemplate', template);
+        pushLog('contractLog', `Template switched to ${template}.`);
+      };
+
+      const handleContract = (action) => {
+        if (action === 'skip') {
+          state.statusFlags.contract = 'nok';
+          pushLog('contractLog', 'Contract skipped under derogation.');
+          updateFlags();
+          return;
+        }
+        if (action === 'print') {
+          pushLog('contractLog', 'Printed contract for manual signature.');
+        }
+        if (action === 'send') {
+          state.statusFlags.contract = 'ok';
+          pushLog('contractLog', '<strong>Contract signed digitally.</strong>');
+          updateFlags();
+        }
+      };
+
+      const recordNegotiation = (type) => {
+        if (state.negotiation.rounds.length >= 3) {
+          document.getElementById('negotiationAlert').textContent = 'Reached 3 rounds. Escalated to operator task.';
+          return;
+        }
+        if (type === 'accept') {
+          state.negotiation.rounds.push('Provider accepted original slot.');
+          document.getElementById('negotiationAlert').textContent = 'Offer locked. Crew assigned.';
+        } else if (type === 'counter') {
+          const proposal = document.getElementById('providerProposal').value;
+          if (!proposal) {
+            document.getElementById('negotiationAlert').textContent = 'Select date/time to counter.';
+            return;
+          }
+          state.negotiation.rounds.push(`Provider proposed ${proposal}. Pending customer confirmation.`);
+        } else {
+          state.negotiation.rounds.push('Provider declined. Running new round.');
+        }
+        if (state.negotiation.rounds.length === 3) {
+          document.getElementById('negotiationAlert').textContent = 'Three rounds used. Task created for operator.';
+        }
+        setText('negotiationRounds', `${state.negotiation.rounds.length} / 3`);
+        renderLogs();
+      };
+
+      const toggleGate = (type, value) => {
+        if (type === 'override') {
+          state.gate.override = value;
+          state.gate.log.push('⚠️ Derogation authorized (logged for audit).');
+        } else {
+          state.gate[type] = value;
+          state.gate.log.push(`${type === 'payment' ? 'Payment' : 'Delivery'} marked ${value ? '✓ OK' : '✗ NOK'}.`);
+          const itemId = type === 'payment' ? 'gatePayment' : 'gateDelivery';
+          const item = qs(itemId);
+          if (item) {
+            item.classList.remove('complete', 'blocked');
+            item.classList.add(value ? 'complete' : 'blocked');
+            const icon = item.querySelector('.gate-icon i');
+            if (icon) {
+              icon.className = value ? 'fas fa-circle-check' : 'fas fa-circle-xmark';
+              icon.style.color = value ? 'var(--accent-green)' : 'var(--accent-red)';
+            }
+          }
+        }
+        renderLogs();
+        refreshAll();
+      };
+
+      const selectWcf = (value) => {
+        document.querySelectorAll('.wcf-option').forEach((opt) => opt.classList.remove('selected'));
+        const map = { 'no-reserves': 'wcfOption1', 'reserves': 'wcfOption2', 'unsigned': 'wcfOption3' };
+        const selected = qs(map[value]);
+        if (selected) selected.classList.add('selected');
+        const radio = document.querySelector(`input[name="wcf"][value="${value}"]`);
+        if (radio) radio.checked = true;
+        setWcfOutcome(value);
+      };
+
+      const confirmGate = () => {
+        if ((state.gate.payment && state.gate.delivery) || state.gate.override) {
+          state.statusFlags.go = 'ok';
+          state.checkin.allowed = true;
+          state.gate.log.push('Go Execution OK. Crew can check in.');
+        } else {
+          state.statusFlags.go = 'nok';
+          state.gate.log.push('Go Execution blocked. Missing payment/delivery.');
+        }
+        renderLogs();
+        refreshAll();
+      };
+
+      const crewCheckIn = () => {
+        if (!state.checkin.allowed && !state.gate.override) {
+          document.getElementById('checkinStatus').textContent = 'Gate pending. Cannot check in.';
+          return;
+        }
+        state.checkin.completed = true;
+        document.getElementById('checkinStatus').textContent = 'Crew checked in with geo + time stamp.';
+        state.gate.log.push('Crew check-in confirmed.');
+        renderLogs();
+      };
+
+      const toggleChecklist = (index, checked) => {
+        state.execution.checklist[index] = checked;
+      };
+
+      const addEvidence = () => {
+        state.execution.evidence += 1;
+        refreshAll();
+      };
+
+      const completeExecution = () => {
+        const completedItems = state.execution.checklist.filter(Boolean).length;
+        if (completedItems < 3 || state.execution.evidence < 1) {
+          state.execution.log = ['Need at least 3 checklist items and 1 photo/audio.'];
+          renderLogs();
+          return;
+        }
+        state.execution.log = ['Execution complete. Preparing WCF.'];
+        renderLogs();
+      };
+
+      const setWcfOutcome = (value) => {
+        state.wcf.outcome = value;
+        if (value === 'no-reserves') {
+          state.statusFlags.wcf = 'ok';
+          pushLog('wcfLog', 'Customer signed with no reserves.');
+        } else if (value === 'reserves') {
+          state.statusFlags.wcf = 'pending';
+          pushLog('wcfLog', 'Signed with reserves. Rework required.');
+        } else {
+          state.statusFlags.wcf = 'nok';
+          pushLog('wcfLog', 'Customer refused to sign. Payment blocked.');
+        }
+        updateFlags();
+        refreshAll();
+      };
+
+      const captureReserveNote = (note) => {
+        state.wcf.notes = note;
+      };
+
+      const createRework = () => {
+        if (!state.wcf.notes) {
+          document.getElementById('reworkSummary').textContent = 'Add reserve note first.';
+          return;
+        }
+        const id = `RWK-${Math.floor(Math.random() * 9000 + 1000)}`;
+        state.wcf.reworkId = id;
+        document.getElementById('reworkSummary').textContent = `Rework ${id} created. Payment on hold.`;
+        pushLog('wcfLog', `Rework ${id} spawned from reserves.`);
+      };
+
+      const releasePayment = () => {
+        if (state.statusFlags.wcf !== 'ok') {
+          pushLog('wcfLog', 'Cannot release payment until WCF OK.');
+          return;
+        }
+        setText('paymentReleaseStatus', 'Payment released to provider.');
+        pushLog('wcfLog', 'Provider payment authorized.');
+      };
+
+      const nextStep = () => {
+        if (state.currentStep < 9) {
+          state.currentStep += 1;
+          updateTrack();
+          updateHint();
+        }
+      };
+
+      const prevStep = () => {
+        if (state.currentStep > 0) {
+          state.currentStep -= 1;
+          updateTrack();
+          updateHint();
+        }
+      };
+
+      window.workflowDemo = {
+        startScenario,
+        cardEnter,
+        resetToScenarios,
+        ingest,
+        linkProject,
+        assignPilote,
+        toggleRisk,
+        reschedule,
+        manualTvOverride,
+        toggleBundle,
+        chooseTemplate,
+        handleContract,
+        recordNegotiation,
+        toggleGate,
+        confirmGate,
+        crewCheckIn,
+        toggleChecklist,
+        addEvidence,
+        completeExecution,
+        setWcfOutcome,
+        captureReserveNote,
+        createRework,
+        releasePayment,
+        nextStep,
+        prevStep,
+        switchRole,
+        selectWcf
+      };
+    })();
+  </script>
+</body>
+</html>
