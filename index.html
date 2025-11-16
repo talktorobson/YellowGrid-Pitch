@@ -495,7 +495,7 @@
     
     .grid-header-row {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 0.75rem;
     }
     
@@ -513,7 +513,7 @@
     
     .grid-row {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 0.75rem;
     }
     
@@ -596,6 +596,54 @@
     .slot-service {
       color: var(--text-secondary);
       font-size: 0.6875rem;
+    }
+    
+    .slot-tag {
+      font-size: 0.625rem;
+      font-weight: 700;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+      margin-top: 0.25rem;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    
+    .slot-tag.contract-ok {
+      background: rgba(25, 135, 84, 0.25);
+      color: #4ade80;
+      border: 1px solid rgba(25, 135, 84, 0.5);
+    }
+    
+    .slot-tag.contract-nok {
+      background: rgba(220, 53, 69, 0.25);
+      color: #f87171;
+      border: 1px solid rgba(220, 53, 69, 0.5);
+    }
+    
+    .slot-tag.goexec-ok {
+      background: rgba(59, 130, 246, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.5);
+    }
+    
+    .slot-tag.goexec-nok {
+      background: rgba(245, 158, 11, 0.25);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+    }
+    
+    .slot-tag.wcf-ok {
+      background: rgba(16, 185, 129, 0.25);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.5);
+    }
+    
+    .slot-tag.wcf-nok {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.5);
     }
     
     .grid-legend {
@@ -1136,7 +1184,6 @@
                   <div class="grid-day">THU</div>
                   <div class="grid-day">FRI</div>
                   <div class="grid-day">SAT</div>
-                  <div class="grid-day">SUN</div>
                 </div>
                 
                 <!-- Unassigned Row -->
@@ -1144,44 +1191,50 @@
                   <div class="grid-cell">
                     <div class="grid-slot inst">
                       <div class="slot-time">Morning</div>
-                      <div class="slot-customer">Customer - INST - Kitchen</div>
+                      <div class="slot-customer">Smith - INST - Kitchen</div>
+                      <div class="slot-tag contract-nok">Contract NOK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot tvcf">
                       <div class="slot-time">Afternoon</div>
-                      <div class="slot-customer">Customer - TV CF - Bathroom</div>
+                      <div class="slot-customer">Johnson - TV CF - Bathroom</div>
+                      <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                     <div class="grid-slot rwk">
                       <div class="slot-time">Morning</div>
-                      <div class="slot-customer">Customer - RWK - Kitchen</div>
+                      <div class="slot-customer">Williams - RWK - Kitchen</div>
+                      <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot tvqt">
                       <div class="slot-time">Morning</div>
-                      <div class="slot-customer">Customer - TV QT - Appliance</div>
+                      <div class="slot-customer">Garcia - TV QT - Appliance</div>
+                      <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot inst">
                       <div class="slot-time">Afternoon</div>
-                      <div class="slot-customer">Customer - INST - Bedroom</div>
+                      <div class="slot-customer">Martinez - INST - Bedroom</div>
+                      <div class="slot-tag contract-nok">Contract NOK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot inst">
                       <div class="slot-time">Morning</div>
-                      <div class="slot-customer">Customer - INST - Living Room</div>
+                      <div class="slot-customer">Lopez - INST - Living Room</div>
+                      <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot tvcf">
-                      <div class="slot-time">Afternoon</div>
-                      <div class="slot-customer">Customer - TV CF - Office</div>
+                      <div class="slot-time">Morning</div>
+                      <div class="slot-customer">Rodriguez - TV CF - Office</div>
+                      <div class="slot-tag contract-ok">Contract OK</div>
                     </div>
                   </div>
-                  <div class="grid-cell"></div>
                 </div>
                 
                 <!-- Crew A Row -->
@@ -1189,7 +1242,8 @@
                   <div class="grid-cell">
                     <div class="grid-slot inst">
                       <div class="slot-time">09:30</div>
-                      <div class="slot-customer">Customer - INST - Bathroom</div>
+                      <div class="slot-customer">Anderson - INST - Bathroom</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                   </div>
                   <div class="grid-cell">
@@ -1203,33 +1257,81 @@
                   </div>
                   <div class="grid-cell">
                     <div class="grid-slot tvcf">
-                      <div class="slot-customer">Customer - TV CF - Air Conditioner</div>
+                      <div class="slot-time">08:00</div>
+                      <div class="slot-customer">Thomas - TV CF - Air Conditioner</div>
+                      <div class="slot-tag wcf-ok">WCF OK</div>
                     </div>
                   </div>
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot inst">
+                      <div class="slot-time">14:00</div>
+                      <div class="slot-customer">Jackson - INST - Laundry</div>
+                      <div class="slot-tag goexec-nok">Go Exec NOK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot tvqt">
+                      <div class="slot-time">10:30</div>
+                      <div class="slot-customer">White - TV QT - Heating</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot inst">
+                      <div class="slot-time">09:00</div>
+                      <div class="slot-customer">Harris - INST - Garage</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
                 </div>
                 
-                <!-- Crew B Row (Child of Provider A) -->
+                <!-- Crew B Row -->
                 <div class="grid-row">
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot rwk">
+                      <div class="slot-time">08:15</div>
+                      <div class="slot-customer">Martin - RWK - Plumbing</div>
+                      <div class="slot-tag wcf-nok">WCF NOK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot inst">
+                      <div class="slot-time">13:30</div>
+                      <div class="slot-customer">Thompson - INST - Patio</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
                   <div class="grid-cell">
                     <div class="grid-slot tvqt">
                       <div class="slot-time">11:00</div>
-                      <div class="slot-customer">Customer - TV QT - Kitchen</div>
+                      <div class="slot-customer">Lee - TV QT - Kitchen</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
                     </div>
                     <div class="grid-slot inst">
                       <div class="slot-time">14:30</div>
-                      <div class="slot-customer">Customer - INST - Kitchen</div>
+                      <div class="slot-customer">Walker - INST - Kitchen</div>
+                      <div class="slot-tag goexec-nok">Go Exec NOK</div>
                     </div>
                   </div>
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
-                  <div class="grid-cell"></div>
+                  <div class="grid-cell">
+                    <div class="grid-slot tvcf">
+                      <div class="slot-time">09:45</div>
+                      <div class="slot-customer">Hall - TV CF - Basement</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot available">
+                      <div class="slot-service">Available slot</div>
+                    </div>
+                  </div>
+                  <div class="grid-cell">
+                    <div class="grid-slot tvqt">
+                      <div class="slot-time">10:00</div>
+                      <div class="slot-customer">Allen - TV QT - Roof</div>
+                      <div class="slot-tag goexec-ok">Go Exec OK</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1242,11 +1344,11 @@
               </div>
               <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(253, 126, 20, 0.3); border: 1px solid rgba(253, 126, 20, 0.5);"></div>
-                <span style="font-size: 0.8125rem; color: var(--text-secondary);">TV CF - Technical Visit</span>
+                <span style="font-size: 0.8125rem; color: var(--text-secondary);">TV CF - Technical Visit Confirmation</span>
               </div>
               <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(255, 193, 7, 0.3); border: 1px solid rgba(255, 193, 7, 0.5);"></div>
-                <span style="font-size: 0.8125rem; color: var(--text-secondary);">TV QT - Quality Test</span>
+                <span style="font-size: 0.8125rem; color: var(--text-secondary);">TV QT - Technical Visit Quotation</span>
               </div>
               <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(220, 53, 69, 0.3); border: 1px solid rgba(220, 53, 69, 0.5);"></div>
