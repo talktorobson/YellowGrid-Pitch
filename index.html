@@ -1762,6 +1762,10 @@
       z-index: 999;
     }
     
+    .tower-chat-widget.hidden {
+      display: none;
+    }
+    
     .tower-chat-button {
       width: 68px;
       height: 68px;
@@ -1777,6 +1781,10 @@
       font-size: 1.75rem;
       transition: var(--transition);
       animation: pulse-chat 2.5s infinite;
+    }
+    
+    .tower-chat-button.hidden {
+      display: none;
     }
     
     @keyframes pulse-chat {
@@ -1803,6 +1811,10 @@
       flex-direction: column;
       overflow: hidden;
       z-index: 1000;
+    }
+    
+    .tower-chat-window.hidden {
+      display: none;
     }
     
     .tower-chat-header {
