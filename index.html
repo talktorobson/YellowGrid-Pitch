@@ -529,6 +529,10 @@
       display: none;
     }
 
+    .grid-sidebar-item.search-hidden {
+      display: none;
+    }
+
     @keyframes highlightPulse {
       0% {
         background: rgba(255, 193, 7, 0.2);
@@ -2251,19 +2255,25 @@
     searchInput.addEventListener('input', (e) => {
       const searchTerm = e.target.value.toLowerCase().trim();
       const gridRows = document.querySelectorAll('.grid-row');
+      const sidebarItems = document.querySelectorAll('.grid-sidebar-item');
       
       if (!searchTerm) {
-        // Clear search
+        // Clear search - show all rows and sidebar items
         gridRows.forEach(row => {
           row.classList.remove('search-hidden', 'search-highlight');
         });
+        sidebarItems.forEach(item => {
+          item.classList.remove('search-hidden');
+        });
         searchResults.style.display = 'none';
+        // Re-align after showing all
+        setTimeout(alignSidebarWithGrid, 10);
         return;
       }
 
       let matchCount = 0;
       
-      gridRows.forEach(row => {
+      gridRows.forEach((row, index) => {
         const slots = row.querySelectorAll('.grid-slot:not(.available)');
         let rowHasMatch = false;
         
@@ -2284,14 +2294,24 @@
           }
         });
         
+        // Sync grid row and corresponding sidebar item visibility
         if (rowHasMatch) {
           row.classList.remove('search-hidden');
           row.classList.add('search-highlight');
+          if (sidebarItems[index]) {
+            sidebarItems[index].classList.remove('search-hidden');
+          }
         } else {
           row.classList.add('search-hidden');
           row.classList.remove('search-highlight');
+          if (sidebarItems[index]) {
+            sidebarItems[index].classList.add('search-hidden');
+          }
         }
       });
+
+      // Re-align visible rows after filtering
+      setTimeout(alignSidebarWithGrid, 10);
 
       // Show results badge
       if (matchCount > 0) {
@@ -2310,10 +2330,16 @@
       
       if (!sidebarItems.length || !gridRows.length) return;
       
-      // Match each sidebar item (unassigned + crew rows) with corresponding grid row
+      // Match each sidebar item with corresponding grid row (only visible ones)
       for (let i = 0; i < gridRows.length && i < sidebarItems.length; i++) {
-        const gridRowHeight = gridRows[i].offsetHeight;
-        sidebarItems[i].style.height = gridRowHeight + 'px';
+        // Only align if both sidebar item and grid row are visible
+        const sidebarHidden = sidebarItems[i].classList.contains('search-hidden');
+        const rowHidden = gridRows[i].classList.contains('search-hidden');
+        
+        if (!sidebarHidden && !rowHidden) {
+          const gridRowHeight = gridRows[i].offsetHeight;
+          sidebarItems[i].style.height = gridRowHeight + 'px';
+        }
       }
     }
     
