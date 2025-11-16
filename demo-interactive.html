@@ -63,63 +63,13 @@
       overflow-x: hidden;
     }
 
-    /* Logo Styling - Exact from index.html */
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      display: inline-flex;
     }
-
-    .logo-mark {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--yellow), #ffdf80);
-      display: grid;
-      place-items: center;
-      position: relative;
-      box-shadow: 0 10px 25px rgba(255, 203, 50, 0.45);
-    }
-
-    .logo-mark::before {
-      content: "";
-      position: absolute;
-      inset: 7px;
-      border-radius: 7px;
-      border: 2px solid rgba(0, 0, 0, 0.16);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-    }
-
-    .logo-mark-grid {
-      width: 14px;
-      height: 14px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 1px;
-      z-index: 1;
-    }
-
-    .logo-mark-cell {
-      border-radius: 2px;
-      background: rgba(0, 0, 0, 0.28);
-    }
-
-    .logo-mark-cell--active {
-      background: #fff7d1;
-    }
-
-    .logo-text-main {
-      font-weight: 650;
-      letter-spacing: 0.02em;
-      font-size: 1.06rem;
-    }
-
-    .logo-text-sub {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
+    .logo img {
+      width: 200px;
+      max-width: 60vw;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
     }
 
     /* Scenario Selection Screen */
@@ -1239,23 +1189,7 @@
   <div id="scenarioSelection" class="scenario-selection">
     <div class="scenario-header">
       <div class="logo">
-        <div class="logo-mark">
-          <div class="logo-mark-grid">
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell logo-mark-cell--active"></div>
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell"></div>
-            <div class="logo-mark-cell"></div>
-          </div>
-        </div>
-        <div>
-          <div class="logo-text-main">YellowGrid</div>
-          <div class="logo-text-sub">Service execution</div>
-        </div>
+        <img src="assets/yellowgrid-lockup.png" alt="YellowGrid – Service Execution" />
       </div>
 
       <h1>Interactive <span>Workflow</span> Demo</h1>
@@ -1267,7 +1201,7 @@
         <div class="scenario-icon">🔧</div>
         <h3>Simple Installation</h3>
         <p>A straightforward service installation flow from customer request to completed job with WCF signature.</p>
-        <span class="scenario-badge badge-simple">8 Steps • 5 min</span>
+        <span class="scenario-badge badge-simple">10 Steps • 6 min</span>
       </div>
 
       <div class="scenario-card complex" onclick="startWorkflow('tv-quotation')">
@@ -1311,28 +1245,13 @@
         </button>
 
         <div class="logo">
-          <div class="logo-mark">
-            <div class="logo-mark-grid">
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell logo-mark-cell--active"></div>
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell"></div>
-              <div class="logo-mark-cell"></div>
-            </div>
-          </div>
-          <div>
-            <div class="logo-text-main">YellowGrid</div>
-          </div>
+          <img src="assets/yellowgrid-lockup.png" alt="YellowGrid – Service Execution" />
         </div>
       </div>
 
       <div class="timeline-progress">
         <div class="timeline-progress-text">
-          Step <strong id="currentStepNum">1</strong> of <strong id="totalStepsNum">8</strong>
+          Step <strong id="currentStepNum">1</strong> of <strong id="totalStepsNum">10</strong>
         </div>
         <div class="progress-dots" id="progressDots"></div>
       </div>
@@ -1780,7 +1699,6 @@
         </div>
 
         <!-- Step 8: Crew Mobile App - Work Execution -->
-        <!-- Step 5: Crew Mobile App - Work Execution -->
         <div class="workflow-card crew-card">
           <div class="crew-mobile-container">
             <div class="crew-mobile-screen">
