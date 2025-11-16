@@ -89,14 +89,126 @@
       font-size: 0.9rem;
     }
 
-    /* Main Dashboard */
-    .dashboard {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr 1fr;
-      gap: 1px;
-      background: var(--border);
+    /* Metro Journey Layout */
+    .metro-container {
       flex: 1;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
+    }
+
+    .metro-line {
+      background: var(--bg-panel);
+      border-bottom: 2px solid var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+
+    .metro-station {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .station-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 3px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .station-dot:hover {
+      border-color: var(--yellow);
+      transform: scale(1.1);
+    }
+
+    .station-dot.completed {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: #fff;
+    }
+
+    .station-dot.active {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: #1a1a1a;
+      box-shadow: 0 0 20px var(--yellow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px var(--yellow); }
+      50% { box-shadow: 0 0 30px var(--yellow), 0 0 50px rgba(255, 203, 50, 0.5); }
+    }
+
+    .station-label {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .station-dot.active + .station-label {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    .station-line {
+      width: 60px;
+      height: 3px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .station-line.completed {
+      background: var(--accent-green);
+    }
+
+    /* Journey Cards */
+    .journey-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      padding: 2rem;
+    }
+
+    .journey-card {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      animation: slideIn 0.4s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Main Dashboard (kept for backward compatibility) */
+    .dashboard {
+      display: none;
     }
 
     .panel {
@@ -691,43 +803,18 @@
       </div>
     </header>
 
-    <!-- Main Dashboard -->
-    <main class="dashboard">
-      <!-- Left Panel: Data Flow -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2><i class="fas fa-stream"></i> Data Flow</h2>
-          <p>Raw data flowing through the system</p>
-        </div>
-        <div class="panel-content" id="dataFlowPanel">
-          <p style="color: var(--text-muted); text-align: center; padding: 2rem;">
-            Select a scenario to begin
-          </p>
-        </div>
+    <!-- Metro Journey Experience -->
+    <main class="metro-container">
+      <!-- Metro Line Navigation -->
+      <div class="metro-line" id="metroLine">
+        <!-- Stations will be rendered here -->
       </div>
 
-      <!-- Center Panel: Stakeholder View -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2><i class="fas fa-desktop"></i> Stakeholder View</h2>
-          <p>What this person sees and does</p>
-        </div>
-        <div class="panel-content" id="stakeholderPanel">
-          <p style="color: var(--text-muted); text-align: center; padding: 2rem;">
-            Select a scenario to begin
-          </p>
-        </div>
-      </div>
-
-      <!-- Right Panel: AI Intelligence -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2><i class="fas fa-brain"></i> System Intelligence</h2>
-          <p>AI reasoning and automation</p>
-        </div>
-        <div class="panel-content" id="aiPanel">
-          <p style="color: var(--text-muted); text-align: center; padding: 2rem;">
-            Select a scenario to begin
+      <!-- Journey Stage (Single Card View) -->
+      <div class="journey-stage" id="journeyStage">
+        <div class="journey-card" id="journeyCard">
+          <p style="color: var(--text-muted); text-align: center; padding: 4rem;">
+            Select a scenario to begin your journey
           </p>
         </div>
       </div>
@@ -1477,37 +1564,170 @@
             <div class="stakeholder-view">
               <div class="view-header">
                 <h3>
-                  <i class="fas fa-user-tie"></i> Operator Dashboard
+                  <i class="fas fa-file-signature"></i> Customer Contract Signature
                 </h3>
-                <span class="role-badge role-operator">MARIA SANTOS</span>
+                <span class="role-badge role-customer">${so.customer.name.toUpperCase()}</span>
               </div>
+
               <div class="view-section">
-                <h4>Contract Bundle</h4>
-                <div class="info-grid">
-                  <div class="info-item">
-                    <label>Service Orders</label>
-                    <div class="value">SRV-${so.orderId.split('-')[2]}</div>
+                <h4 style="margin-bottom: 1rem;">📧 Email Notification</h4>
+                <div class="email-mockup">
+                  <div class="email-header">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                      <div style="background: var(--yellow); color: #1a1a1a; padding: 0.5rem 1rem; font-weight: 700; border-radius: 4px;">YellowGrid</div>
+                      <div style="flex: 1;"></div>
+                      <div style="font-size: 0.85rem; color: #666;">Just now</div>
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">
+                      <strong>From:</strong> contracts@yellowgrid.pt
+                    </div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">
+                      <strong>To:</strong> ${so.customer.email}
+                    </div>
+                    <div style="font-size: 1.1rem; font-weight: 700; margin-top: 0.8rem;">
+                      Service Contract Ready for Signature - Action Required
+                    </div>
                   </div>
-                  <div class="info-item">
-                    <label>Template</label>
-                    <div class="value">Standard Installation</div>
-                  </div>
-                  <div class="info-item">
-                    <label>Total Value</label>
-                    <div class="value">€${so.totals.services}</div>
-                  </div>
-                  <div class="info-item">
-                    <label>Auto-send Timer</label>
-                    <div class="value">2h 00m</div>
+                  <div class="email-body">
+                    <p>Dear ${so.customer.firstName},</p>
+                    <p style="margin: 1rem 0;">
+                      Your service contract for <strong>${so.services[0].name}</strong> is ready for digital signature.
+                    </p>
+                    <div style="background: #f8f9fa; border-left: 4px solid var(--yellow); padding: 1rem; margin: 1rem 0; color: #333;">
+                      <strong style="color: #1a1a1a;">⚠️ Important:</strong> Your service cannot proceed until this contract is signed. Please review and sign within 48 hours to maintain your scheduled date.
+                    </div>
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                      <a href="#" class="email-button">
+                        <i class="fas fa-file-signature"></i> Review & Sign Contract
+                      </a>
+                    </div>
+                    <p style="margin: 1rem 0; font-size: 0.9rem; color: #666;">
+                      <strong>Contract Summary:</strong><br>
+                      Service Order: <strong>SRV-${so.orderId.split('-')[2]}</strong><br>
+                      Total Amount: <strong>€${so.totals.services}</strong><br>
+                      Scheduled Date: <strong>${so.services[0].scheduledDate} at ${so.services[0].timeSlot}</strong><br>
+                      Payment: <strong>${so.payment.status}</strong>
+                    </p>
+                    <p style="margin: 1.5rem 0 0.5rem 0; font-size: 0.85rem; color: #999; border-top: 1px solid #e5e5e5; padding-top: 1rem;">
+                      Questions? Contact us at contracts@yellowgrid.pt or +351 210 123 456
+                    </p>
                   </div>
                 </div>
               </div>
+
               <div class="view-section">
-                <h4>Actions</h4>
-                <div class="action-buttons">
-                  <button class="btn btn-primary">Send Now</button>
-                  <button class="btn btn-secondary">Print & Upload</button>
-                  <button class="btn btn-secondary">Skip (Derogation)</button>
+                <h4 style="margin-bottom: 1rem;">📱 SMS Notification</h4>
+                <div class="sms-mockup">
+                  <div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.8rem;">
+                    Today - Just now
+                  </div>
+                  <div class="sms-bubble">
+                    YellowGrid: Your service contract is ready! Sign now to confirm your ${so.services[0].scheduledDate} appointment: yellowgrid.pt/contract/SRV-${so.orderId.split('-')[2]}
+                  </div>
+                </div>
+              </div>
+
+              <div class="view-section">
+                <h4 style="margin-bottom: 1rem;">🌐 Contract Signature Portal</h4>
+                <div style="border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); max-height: 600px; overflow-y: auto;">
+                  <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div style="display: inline-block; background: var(--yellow); color: #1a1a1a; padding: 0.5rem 1.5rem; font-weight: 700; border-radius: 4px; margin-bottom: 1rem;">YellowGrid</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Service Contract</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Contract #CTR-${so.linkedContracts || so.orderId.split('-')[2]}</p>
+                  </div>
+
+                  <div style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">📋 Contract Summary</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                      <div>
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Service</div>
+                        <div style="font-weight: 600;">${so.services[0].name}</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Scheduled Date</div>
+                        <div style="font-weight: 600;">${so.services[0].scheduledDate}</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Time Slot</div>
+                        <div style="font-weight: 600;">${so.services[0].timeSlot}</div>
+                      </div>
+                      <div>
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;">Total Amount</div>
+                        <div style="font-weight: 600; color: var(--yellow); font-size: 1.1rem;">€${so.totals.services}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">💰 Pricing Breakdown</h4>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                      <span>Products</span>
+                      <span style="font-weight: 600;">€${so.totals.products}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                      <span>Services</span>
+                      <span style="font-weight: 600;">€${so.totals.services}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: var(--accent-green);">
+                      <span>Discount</span>
+                      <span style="font-weight: 600;">-€${so.totals.discount || '0.00'}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                      <span>Tax (${so.totals.taxRate || '23%'})</span>
+                      <span>€${so.totals.tax}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                      <span>Shipping</span>
+                      <span>€${so.totals.shippingCost || '0.00'}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding-top: 0.8rem; border-top: 2px solid var(--border); font-size: 1.2rem; font-weight: 700;">
+                      <span>Total Amount</span>
+                      <span style="color: var(--yellow);">€${so.totals.total}</span>
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h4 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">📜 Terms & Conditions</h4>
+                    <div style="max-height: 200px; overflow-y: auto; font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">
+                      <p style="margin-bottom: 0.8rem;"><strong>1. Service Agreement:</strong> YellowGrid commits to provide the services described above at the agreed date and time. Customer commits to provide access to the installation location.</p>
+                      <p style="margin-bottom: 0.8rem;"><strong>2. Payment Terms:</strong> ${so.payment.status === 'Paid' ? 'Payment has been received and confirmed.' : 'Payment is due before service execution. Accepted methods: Credit Card, Bank Transfer, MB WAY.'}</p>
+                      <p style="margin-bottom: 0.8rem;"><strong>3. Cancellation Policy:</strong> Free cancellation up to 48 hours before scheduled date. Cancellations within 48 hours incur a 50% fee. No-shows are charged 100%.</p>
+                      <p style="margin-bottom: 0.8rem;"><strong>4. Rescheduling:</strong> Customer may reschedule once free of charge with 48h notice. Additional rescheduling requests may incur fees.</p>
+                      <p style="margin-bottom: 0.8rem;"><strong>5. Warranty:</strong> All installed equipment comes with manufacturer warranty as specified. Service quality is guaranteed for 90 days.</p>
+                      <p style="margin-bottom: 0.8rem;"><strong>6. Privacy:</strong> Customer data is processed according to GDPR regulations. See full privacy policy at yellowgrid.pt/privacy</p>
+                      <p style="margin-bottom: 0.8rem;"><strong>7. Dispute Resolution:</strong> Any disputes will be resolved through Portuguese arbitration. Governing law: Portuguese Civil Code.</p>
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid rgba(78, 168, 255, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                    <label style="display: flex; align-items: flex-start; gap: 0.8rem; cursor: pointer;">
+                      <input type="checkbox" style="width: 20px; height: 20px; margin-top: 0.2rem;">
+                      <span style="flex: 1; font-size: 0.9rem;">
+                        I have read and agree to the terms and conditions. I authorize YellowGrid to proceed with the service as described. I understand that payment authorization or prepayment may be required before service execution.
+                      </span>
+                    </label>
+                  </div>
+
+                  <div style="border: 2px dashed var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-signature" style="font-size: 2rem; color: var(--yellow); margin-bottom: 0.5rem;"></i>
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Digital Signature Area</div>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 4px; font-style: italic; font-size: 1.2rem;">
+                      ${so.customer.name}
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                      Signed electronically on ${new Date().toLocaleString('en-GB')}
+                    </div>
+                  </div>
+
+                  <button class="btn btn-primary" style="width: 100%; padding: 1.2rem; font-size: 1.2rem; background: linear-gradient(135deg, var(--yellow), #f59e0b);">
+                    <i class="fas fa-check-circle"></i> Sign Contract & Confirm Service
+                  </button>
+
+                  <div style="text-align: center; margin-top: 1rem;">
+                    <a href="#" style="color: var(--accent-red); font-size: 0.9rem; text-decoration: none;">
+                      <i class="fas fa-times-circle"></i> Decline Contract
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2241,29 +2461,775 @@
         document.getElementById('aiPanel').innerHTML = html;
       };
 
+      // Define journey cards for each step
+      const journeyCards = {
+        'integration': [
+          { id: 'kafka-message', type: 'data', title: 'Kafka Message Received', icon: 'server' },
+          { id: 'enrichment', type: 'system', title: 'Data Enrichment', icon: 'cogs' }
+        ],
+        'ai-analysis': [
+          { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot' }
+        ],
+        'operator-triage': [
+          { id: 'operator-cockpit', type: 'operator', title: 'Operator Dashboard', icon: 'headset' }
+        ],
+        'contract': [
+          { id: 'contract-email', type: 'customer', title: 'Contract Email', icon: 'envelope' },
+          { id: 'contract-portal', type: 'customer', title: 'Contract Signature', icon: 'file-signature' }
+        ],
+        'provider-match': [
+          { id: 'provider-app', type: 'provider', title: 'Provider Mobile App', icon: 'mobile-screen-button' }
+        ],
+        'go-gate': [
+          { id: 'go-gate-check', type: 'system', title: 'Automated Go-Gate', icon: 'shield-check' }
+        ],
+        'execution': [
+          { id: 'crew-app', type: 'crew', title: 'Crew Mobile App', icon: 'mobile-screen-button' }
+        ],
+        'wcf': [
+          { id: 'wcf-email', type: 'customer', title: 'WCF Email', icon: 'envelope' },
+          { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature' }
+        ]
+      };
+
+      // Flatten all cards with step context
+      let allCards = [];
+      let cardIndex = 0;
+      for (const [stepIdx, step] of steps.entries()) {
+        const cards = journeyCards[step.id] || [];
+        for (const card of cards) {
+          allCards.push({
+            ...card,
+            stepId: step.id,
+            stepIndex: stepIdx,
+            stepTitle: step.title,
+            globalIndex: cardIndex++
+          });
+        }
+      }
+
+      let currentCardIndex = 0;
+
+      // Card rendering functions
+      const renderKafkaMessageCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-server"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">New sales order received from ${so.salesChannel}</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-stream"></i> Kafka Event</h3>
+              <div style="font-family: 'Courier New', monospace; font-size: 0.85rem; background: #000; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+                <div style="color: #49d493;">Topic: <span style="color: #fff;">sales.orders.created</span></div>
+                <div style="color: #49d493;">Partition: <span style="color: #fff;">3</span></div>
+                <div style="color: #49d493;">Offset: <span style="color: #fff;">982471</span></div>
+                <div style="color: #49d493;">Key: <span style="color: #fff;">${so.orderId}</span></div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;">📦 Payload Preview</h3>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">ORDER ID</div>
+                  <div style="font-weight: 600;">${so.orderId}</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">CUSTOMER</div>
+                  <div style="font-weight: 600;">${so.customer.name}</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">TOTAL</div>
+                  <div style="font-weight: 600; color: var(--yellow);">€${so.totals.total}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                System Processing <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderEnrichmentCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-cogs"></i> AUTOMATED
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Enriching order with business context</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Customer Profile Loaded</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Tier: ${so.customer.tier} • LTV: €${so.customer.lifetimeValue} • Claims: ${so.customer.claimHistory}
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Product Data Enriched</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Supplier: ${so.products[0].supplier} • Stock: ${so.products[0].stockStatus}
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Service Requirements Set</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Duration: ${so.services[0].duration}min • Skill: ${so.services[0].skillLevel}
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Project Linked</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Sales Project: ${so.salesProjectId}
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Send to AI Analysis <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderAIReasoningCard = (so, card) => {
+        const riskScore = so.customer.claimHistory > 0 ? 67 : 23;
+        const riskLevel = riskScore > 50 ? 'MEDIUM' : 'LOW';
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-robot"></i> AI ENGINE
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Analyzing order risk, scheduling, and resource matching</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 3rem; color: var(--accent-${riskLevel === 'LOW' ? 'green' : 'orange'}); margin-bottom: 0.5rem;">${riskScore}</div>
+                <div style="font-weight: 600; margin-bottom: 0.3rem;">Risk Score</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">${riskLevel} RISK</div>
+              </div>
+
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 0.5rem;">92</div>
+                <div style="font-weight: 600; margin-bottom: 0.3rem;">Match Score</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">EXCELLENT</div>
+              </div>
+
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 3rem; color: var(--yellow); margin-bottom: 0.5rem;">✓</div>
+                <div style="font-weight: 600; margin-bottom: 0.3rem;">Schedule Valid</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">COMPLIANT</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-brain"></i> AI Recommendations</h3>
+              <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                  <span><strong>Suggested Pilote:</strong> PL-LIA (Lia Santos) • Current load: 3 orders</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                  <span><strong>Schedule:</strong> ${so.services[0].scheduledDate} ${so.services[0].timeSlot} (Compliant - weekday AM)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
+                  <span><strong>Provider:</strong> Provider L (Rui Lopes crew) • 2 technicians available</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Send to Operator <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderOperatorCockpitCard = (so, card) => {
+        const riskLevel = so.customer.claimHistory > 0 ? 'MEDIUM' : 'LOW';
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(255, 203, 50, 0.15); color: var(--yellow); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-headset"></i> OPERATOR
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Control Tower Cockpit</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Service Operator: Maria Santos</p>
+            </div>
+
+            ${renderOperatorCockpitContent(so, riskLevel)}
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-secondary">Override Risk</button>
+                <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                  ✓ Confirm & Send Contract <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderOperatorCockpitContent = (so, riskLevel) => {
+        return `
+          <div class="cockpit-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="cockpit-card" style="background: linear-gradient(135deg, rgba(78, 168, 255, 0.1), rgba(78, 168, 255, 0.05)); border: 1px solid rgba(78, 168, 255, 0.3); border-radius: 12px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <span style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--accent-blue);">Risk Score</span>
+                <i class="fas fa-${riskLevel === 'LOW' ? 'shield-check' : 'shield-exclamation'}" style="color: var(--accent-${riskLevel === 'LOW' ? 'green' : 'orange'}); font-size: 1.3rem;"></i>
+              </div>
+              <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-${riskLevel === 'LOW' ? 'green' : 'orange'}); margin-bottom: 0.5rem;">${riskLevel === 'LOW' ? '23' : '67'}</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">
+                ${riskLevel === 'LOW' ? 'No red flags' : 'Previous claim + quotation'}
+              </div>
+            </div>
+            
+            <div class="cockpit-card" style="background: linear-gradient(135deg, rgba(255, 203, 50, 0.1), rgba(255, 203, 50, 0.05)); border: 1px solid rgba(255, 203, 50, 0.3); border-radius: 12px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <span style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--yellow);">Customer Tier</span>
+                <i class="fas fa-crown" style="color: var(--yellow); font-size: 1.3rem;"></i>
+              </div>
+              <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">${so.customer.tier}</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">
+                LTV: €${so.customer.lifetimeValue}
+              </div>
+            </div>
+            
+            <div class="cockpit-card" style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.1), rgba(73, 212, 147, 0.05)); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <span style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--accent-green);">Payment</span>
+                <i class="fas fa-${so.payment.status === 'Paid' ? 'circle-check' : 'clock'}" style="color: var(--accent-${so.payment.status === 'Paid' ? 'green' : 'orange'}); font-size: 1.3rem;"></i>
+              </div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-${so.payment.status === 'Paid' ? 'green' : 'orange'}); margin-bottom: 0.5rem;">${so.payment.status.toUpperCase()}</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">
+                ${so.payment.status === 'Paid' ? `€${so.payment.paidAmount} via ${so.payment.method}` : `Due: ${so.payment.dueDate || 'N/A'}`}
+              </div>
+            </div>
+          </div>
+
+          <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid rgba(192, 132, 252, 0.3); border-radius: 8px; padding: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <i class="fas fa-robot" style="color: var(--accent-purple);"></i>
+              <strong style="color: var(--accent-purple);">AI Recommendations Accepted</strong>
+            </div>
+            <div style="font-size: 0.9rem;">✓ Pilote: PL-LIA (Lia Santos) • Load: 3 orders<br>✓ Schedule: Compliant (not Sunday, weekday AM)<br>✓ Project: Linked to ${so.salesProjectId}</div>
+          </div>
+        `;
+      };
+
+      const renderContractEmailCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Email & SMS sent to ${so.customer.name}</p>
+            </div>
+
+            <div class="email-mockup" style="background: #fff; color: #333; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 600px; margin: 0 auto 2rem;">
+              <div class="email-header" style="padding: 1.5rem; border-bottom: 1px solid #e5e5e5;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                  <div style="background: var(--yellow); color: #1a1a1a; padding: 0.5rem 1rem; font-weight: 700; border-radius: 4px;">YellowGrid</div>
+                  <div style="flex: 1;"></div>
+                  <div style="font-size: 0.85rem; color: #666;">Just now</div>
+                </div>
+                <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">
+                  <strong>From:</strong> contracts@yellowgrid.pt
+                </div>
+                <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.3rem;">
+                  <strong>To:</strong> ${so.customer.email}
+                </div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-top: 0.8rem;">
+                  Service Contract Ready for Signature
+                </div>
+              </div>
+              <div class="email-body" style="padding: 1.5rem;">
+                <p>Dear ${so.customer.firstName},</p>
+                <p style="margin: 1rem 0;">Your service contract is ready. Please sign within 48 hours to confirm your ${so.services[0].scheduledDate} appointment.</p>
+                <div style="text-align: center; margin: 1.5rem 0;">
+                  <div style="background: var(--yellow); color: #1a1a1a; padding: 1rem 2rem; border-radius: 8px; display: inline-block; font-weight: 700; cursor: pointer;">
+                    <i class="fas fa-file-signature"></i> Review & Sign Contract
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Customer Opens Email <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderContractPortalCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Contract Signature Portal</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${so.customer.name} reviewing contract</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 2px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 800px; margin: 0 auto 2rem;">
+              <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="display: inline-block; background: var(--yellow); color: #1a1a1a; padding: 0.5rem 1.5rem; font-weight: 700; border-radius: 4px; margin-bottom: 1rem;">YellowGrid</div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Service Contract</h3>
+                <p style="color: var(--text-muted);">Total: <strong style="color: var(--yellow); font-size: 1.5rem;">€${so.totals.total}</strong></p>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 2px solid rgba(73, 212, 147, 0.4); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <i class="fas fa-check-circle" style="font-size: 2.5rem; color: var(--accent-green);"></i>
+                  <div style="flex: 1;">
+                    <strong style="font-size: 1.2rem; color: var(--accent-green);">I Accept Terms & Conditions</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Authorize service execution on ${so.services[0].scheduledDate}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="border: 2px dashed var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-signature" style="font-size: 2rem; color: var(--yellow); margin-bottom: 0.5rem;"></i>
+                <div style="font-size: 1.2rem; font-style: italic; margin-top: 1rem;">${so.customer.name}</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Signed: ${new Date().toLocaleDateString('en-GB')}</div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                <i class="fas fa-check-circle"></i> Sign Contract <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderProviderAppCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(251, 191, 36, 0.15); color: var(--accent-orange); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-handshake"></i> PROVIDER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Provider Mobile App</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Provider L - Rui Lopes</p>
+            </div>
+
+            <div class="mobile-screen" style="max-width: 400px; margin: 0 auto 2rem; background: #000; border-radius: 32px; padding: 1.5rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+              <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="font-size: 1.3rem; font-weight: 700;">YellowGrid Pro</div>
+              </div>
+
+              <div class="mobile-card" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1405; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">New Assignment</div>
+                <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem;">Match: 92/100</div>
+                <div style="font-size: 0.9rem;">
+                  <i class="fas fa-check-circle"></i> Perfect fit for your crew
+                </div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${so.services[0].name}</div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                  <div style="flex: 1;">
+                    <div style="font-size: 0.75rem; color: #999; margin-bottom: 0.3rem;">DATE</div>
+                    <div style="font-weight: 600;">${so.services[0].scheduledDate}</div>
+                  </div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 0.75rem; color: #999; margin-bottom: 0.3rem;">TIME</div>
+                    <div style="font-weight: 600;">${so.services[0].timeSlot}</div>
+                  </div>
+                </div>
+                <div style="background: rgba(73, 212, 147, 0.2); padding: 0.8rem; border-radius: 8px; font-size: 0.9rem;">
+                  <strong style="color: #49d493;"><i class="fas fa-check"></i> Your Crew Available</strong><br>
+                  <span style="color: #ccc;">Rui Lopes • 2 installers • SLA: T+48h</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                <i class="fas fa-check-circle"></i> Accept Assignment <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderGoGateCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-shield-check"></i> AUTOMATED
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Verifying readiness for execution</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Contract Signed</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Customer signature received
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Payment Verified</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  €${so.payment.paidAmount} confirmed
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Provider Confirmed</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Rui Lopes crew assigned
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                  <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
+                  <strong style="font-size: 1.1rem;">Stock Available</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">
+                  Products ready for delivery
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(73, 212, 147, 0.15); border: 2px solid var(--accent-green); border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem;">
+              <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--accent-green); margin-bottom: 1rem;"></i>
+              <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 0.5rem;">GO-GATE APPROVED</h3>
+              <p style="color: var(--text-muted);">All conditions met. Service ready for execution.</p>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Dispatch to Crew <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderCrewAppCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-hard-hat"></i> CREW
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Crew Mobile App</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Rui Lopes - Crew Lead</p>
+            </div>
+
+            <div class="mobile-screen" style="max-width: 400px; margin: 0 auto 2rem; background: #000; border-radius: 32px; padding: 1.5rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+              <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="font-size: 1.3rem; font-weight: 700;">Today's Job</div>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #49d493, #38a169); color: #fff; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">
+                  <i class="fas fa-check-circle"></i> Checked In
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">Job #SRV-${so.orderId.split('-')[2]}</div>
+                <div style="font-size: 0.9rem;">Started 09:03 • Est. 11:00</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">${so.customer.name}</div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+                  <i class="fas fa-map-marker-alt" style="color: var(--accent-blue);"></i>
+                  <span>${so.customer.city}</span>
+                </div>
+                <div style="background: rgba(78, 168, 255, 0.2); padding: 0.8rem; border-radius: 8px; text-align: center;">
+                  <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">4/4</div>
+                  <div style="font-size: 0.85rem; color: #ccc;">Tasks Completed</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                <i class="fas fa-check-double"></i> Complete & Request WCF <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderWCFEmailCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Email & SMS sent to ${so.customer.name}</p>
+            </div>
+
+            <div class="email-mockup" style="background: #fff; color: #333; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 600px; margin: 0 auto 2rem;">
+              <div class="email-header" style="padding: 1.5rem; border-bottom: 1px solid #e5e5e5;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                  <div style="background: var(--yellow); color: #1a1a1a; padding: 0.5rem 1rem; font-weight: 700; border-radius: 4px;">YellowGrid</div>
+                  <div style="flex: 1;"></div>
+                  <div style="font-size: 0.85rem; color: #666;">10:52 AM</div>
+                </div>
+                <div style="font-size: 1.1rem; font-weight: 700;">
+                  Service Complete - Please Sign WCF
+                </div>
+              </div>
+              <div class="email-body" style="padding: 1.5rem;">
+                <p>Dear ${so.customer.firstName},</p>
+                <p style="margin: 1rem 0;">Your service <strong>${so.services[0].name}</strong> has been completed. Please sign the Work Completion Form.</p>
+                <div style="text-align: center; margin: 1.5rem 0;">
+                  <div style="background: var(--accent-green); color: #fff; padding: 1rem 2rem; border-radius: 8px; display: inline-block; font-weight: 700; cursor: pointer;">
+                    <i class="fas fa-signature"></i> Sign WCF Online
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Customer Opens Email <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderWCFPortalCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-user"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Work Completion Form</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${so.customer.name} reviewing completed work</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 2px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 800px; margin: 0 auto 2rem;">
+              <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Work Completion Form</h3>
+                <p style="color: var(--text-muted);">Service Order: <strong>SRV-${so.orderId.split('-')[2]}</strong></p>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 2px solid rgba(73, 212, 147, 0.4); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <i class="fas fa-check-circle" style="font-size: 2.5rem; color: var(--accent-green);"></i>
+                  <div style="flex: 1;">
+                    <strong style="font-size: 1.2rem; color: var(--accent-green);">Sign with No Reserves</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">Work completed satisfactorily. Payment releases immediately.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="border: 2px dashed var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-signature" style="font-size: 2rem; color: var(--yellow); margin-bottom: 0.5rem;"></i>
+                <div style="font-size: 1.2rem; font-style: italic; margin-top: 1rem;">${so.customer.name}</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Signed: ${new Date().toLocaleDateString('en-GB')}</div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <div style="text-align: center; flex: 1;">
+                <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('🎉 Journey Complete! Service order closed successfully.')">
+                  <i class="fas fa-signature"></i> Sign WCF & Complete Journey
+                </button>
+                <div style="margin-top: 1rem; color: var(--accent-green);">
+                  <i class="fas fa-check-circle"></i> <strong>Final Step</strong> - Service order will be closed
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderMetroLine = () => {
+        const html = allCards.map((card, idx) => {
+          const isActive = idx === currentCardIndex;
+          const isCompleted = idx < currentCardIndex;
+          const dotClass = isActive ? 'active' : (isCompleted ? 'completed' : '');
+          const lineClass = isCompleted ? 'completed' : '';
+          
+          return `
+            <div class="metro-station">
+              <div class="station-dot ${dotClass}" onclick="dashboard.goToCard(${idx})" title="${card.title}">
+                <i class="fas fa-${card.icon}"></i>
+                <div class="station-label">${card.title}</div>
+              </div>
+              ${idx < allCards.length - 1 ? `<div class="station-line ${lineClass}"></div>` : ''}
+            </div>
+          `;
+        }).join('');
+        
+        document.getElementById('metroLine').innerHTML = html;
+      };
+
+      const renderCard = () => {
+        const card = allCards[currentCardIndex];
+        if (!card) return;
+
+        const so = scenarios[currentScenario].salesOrder;
+        let html = '';
+
+        // Render different card types
+        if (card.id === 'kafka-message') {
+          html = renderKafkaMessageCard(so, card);
+        } else if (card.id === 'enrichment') {
+          html = renderEnrichmentCard(so, card);
+        } else if (card.id === 'ai-reasoning') {
+          html = renderAIReasoningCard(so, card);
+        } else if (card.id === 'operator-cockpit') {
+          html = renderOperatorCockpitCard(so, card);
+        } else if (card.id === 'contract-email') {
+          html = renderContractEmailCard(so, card);
+        } else if (card.id === 'contract-portal') {
+          html = renderContractPortalCard(so, card);
+        } else if (card.id === 'provider-app') {
+          html = renderProviderAppCard(so, card);
+        } else if (card.id === 'go-gate-check') {
+          html = renderGoGateCard(so, card);
+        } else if (card.id === 'crew-app') {
+          html = renderCrewAppCard(so, card);
+        } else if (card.id === 'wcf-email') {
+          html = renderWCFEmailCard(so, card);
+        } else if (card.id === 'wcf-portal') {
+          html = renderWCFPortalCard(so, card);
+        }
+
+        document.getElementById('journeyCard').innerHTML = html;
+      };
+
       const loadScenario = (scenarioId) => {
         if (!scenarioId) return;
         currentScenario = scenarioId;
-        currentStep = 0;
-        renderAll();
+        currentCardIndex = 0;
+        renderMetroLine();
+        renderCard();
       };
 
-      const nextStep = () => {
-        if (currentStep < steps.length - 1) {
-          currentStep++;
-          renderAll();
+      const nextCard = () => {
+        if (currentCardIndex < allCards.length - 1) {
+          currentCardIndex++;
+          renderMetroLine();
+          renderCard();
         }
       };
 
-      const renderAll = () => {
-        renderDataFlow();
-        renderStakeholderView();
-        renderAI();
+      const previousCard = () => {
+        if (currentCardIndex > 0) {
+          currentCardIndex--;
+          renderMetroLine();
+          renderCard();
+        }
+      };
+
+      const goToCard = (index) => {
+        if (index >= 0 && index < allCards.length) {
+          currentCardIndex = index;
+          renderMetroLine();
+          renderCard();
+        }
+      };
+
+      const nextStep = () => {
+        nextCard(); // Keep for backward compatibility with button
       };
 
       window.dashboard = {
         loadScenario,
-        nextStep
+        nextStep,
+        nextCard,
+        previousCard,
+        goToCard
       };
     })();
   </script>
