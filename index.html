@@ -1346,6 +1346,54 @@
       color: var(--text-primary);
     }
     
+    .tower-filter-indicator {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.75rem;
+      padding: 0.625rem 1rem;
+      background: rgba(255, 193, 7, 0.1);
+      border: 1px solid rgba(255, 193, 7, 0.3);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+    }
+    
+    .tower-filter-indicator.hidden {
+      display: none;
+    }
+    
+    .tower-filter-indicator .filter-label {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .tower-filter-indicator .filter-label strong {
+      color: var(--yellow-primary);
+      font-weight: 700;
+    }
+    
+    .filter-clear-btn {
+      padding: 0.375rem 0.875rem;
+      background: rgba(220, 53, 69, 0.15);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+      border-radius: var(--radius-sm);
+      color: var(--accent-red);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    
+    .filter-clear-btn:hover {
+      background: rgba(220, 53, 69, 0.25);
+      transform: translateY(-1px);
+    }
+    
     .tower-table-actions {
       display: flex;
       gap: 0.75rem;
@@ -3131,7 +3179,15 @@
       <div id="tower-tab-tasks" class="tower-tab-content">
         <div class="tower-table-container">
           <div class="tower-table-header">
-            <h3 class="tower-table-title">All Tasks</h3>
+            <div>
+              <h3 class="tower-table-title">All Tasks</h3>
+              <div id="taskFilterIndicator" class="tower-filter-indicator hidden">
+                <span class="filter-label">Filtered by: <strong id="filterTypeName"></strong></span>
+                <button class="filter-clear-btn" onclick="clearTaskFilter()">
+                  <i class="fas fa-times"></i> Clear Filter
+                </button>
+              </div>
+            </div>
             <div class="tower-table-actions">
               <button class="tower-btn tower-btn-yellow"><i class="fas fa-filter"></i> Filter</button>
               <button class="tower-btn tower-btn-blue"><i class="fas fa-plus"></i> New Task</button>
@@ -3151,7 +3207,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr data-filter-tags="contracts">
                   <td><strong>#PX-377903</strong></td>
                   <td>Ines Broncano</td>
                   <td>Bathroom Install</td>
@@ -3166,7 +3222,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-filter-tags="assignment">
                   <td><strong>#SX-375742</strong></td>
                   <td>Fernando Checa</td>
                   <td>Kitchen Renovation</td>
@@ -3181,7 +3237,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-filter-tags="">
                   <td><strong>#SX-380125</strong></td>
                   <td>Maria Santos</td>
                   <td>Hardwood Flooring</td>
@@ -3196,7 +3252,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-filter-tags="wcf">
                   <td><strong>#SX-379364</strong></td>
                   <td>Jose Leon Gañan</td>
                   <td>Wardrobe Installation</td>
@@ -3211,7 +3267,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-filter-tags="delays assignment">
                   <td><strong>#SX-379342</strong></td>
                   <td>Antonio Diaz Bueno</td>
                   <td>Plumbing Repair</td>
@@ -3226,7 +3282,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr data-filter-tags="contracts wcf delays">
                   <td><strong>#SX-378912</strong></td>
                   <td>Carmen Lopez</td>
                   <td>Electrical Work</td>
@@ -3994,14 +4050,64 @@
     
     // Alert Details Handler
     function showAlertDetails(alertType) {
-      const messages = {
-        'contracts': 'Opening contracts dashboard with 12 pending signatures (>72h overdue)...',
-        'assignment': 'Opening Pro assignment interface for 8 projects needing coverage in next 24h...',
-        'wcf': 'Opening WCF tracking dashboard with 7 work completion forms pending signature (>48h)...',
-        'delays': 'Opening service delay management for 5 projects requiring immediate rescheduling...'
+      // Switch to Tasks tab
+      switchTowerTab('tasks');
+      
+      // Filter tasks based on alert type
+      filterTasksByType(alertType);
+    }
+    
+    function filterTasksByType(filterType) {
+      const rows = document.querySelectorAll('.tower-table tbody tr');
+      const indicator = document.getElementById('taskFilterIndicator');
+      const filterNameEl = document.getElementById('filterTypeName');
+      
+      const filterNames = {
+        'contracts': 'Contracts Pending Signature',
+        'assignment': 'Missing Pro Assignment',
+        'wcf': 'WCF Awaiting Signature',
+        'delays': 'Service Delays'
       };
       
-      alert(messages[alertType] || 'Opening details...');
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const tags = row.getAttribute('data-filter-tags') || '';
+        
+        if (tags.includes(filterType)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      
+      // Show filter indicator
+      if (filterNames[filterType]) {
+        filterNameEl.textContent = filterNames[filterType];
+        indicator.classList.remove('hidden');
+        
+        // Update table title with count
+        const tableTitle = document.querySelector('.tower-table-title');
+        tableTitle.textContent = `Filtered Tasks (${visibleCount})`;
+      }
+    }
+    
+    function clearTaskFilter() {
+      const rows = document.querySelectorAll('.tower-table tbody tr');
+      const indicator = document.getElementById('taskFilterIndicator');
+      const tableTitle = document.querySelector('.tower-table-title');
+      
+      // Show all rows
+      rows.forEach(row => {
+        row.style.display = '';
+      });
+      
+      // Hide filter indicator
+      indicator.classList.add('hidden');
+      
+      // Reset table title
+      tableTitle.textContent = 'All Tasks';
     }
     
     // Header scroll effect
@@ -4045,8 +4151,15 @@
       document.querySelectorAll('.tower-tab').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tower-tab-content').forEach(content => content.classList.remove('active'));
       
-      // Add active class to selected tab and content
-      event.target.classList.add('active');
+      // Add active class to selected tab button
+      const tabButtons = document.querySelectorAll('.tower-tab');
+      tabButtons.forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(tabName)) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Add active class to selected content
       document.getElementById(`tower-tab-${tabName}`).classList.add('active');
     }
     
