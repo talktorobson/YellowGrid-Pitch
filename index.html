@@ -447,14 +447,17 @@
     .grid-layout {
       display: grid;
       grid-template-columns: 120px 1fr;
+      grid-template-rows: auto;
       gap: 1rem;
       min-width: 900px;
+      align-items: start;
     }
     
     .grid-sidebar {
-      display: grid;
-      grid-template-rows: auto auto auto auto auto;
+      display: flex;
+      flex-direction: column;
       gap: 0.5rem;
+      align-self: start;
     }
     
     .grid-sidebar-item {
@@ -466,12 +469,12 @@
       font-weight: 600;
       color: var(--text-secondary);
       text-align: center;
-      min-height: 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.25rem;
+      flex: 0 0 auto;
     }
     
     .grid-sidebar-item.header {
@@ -512,6 +515,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      align-self: start;
     }
     
     .grid-header-row {
@@ -543,6 +547,7 @@
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 0.75rem;
+      align-items: stretch;
     }
     
     .grid-cell {
@@ -555,6 +560,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      height: 100%;
     }
     
     .grid-slot {
@@ -1817,6 +1823,31 @@
     }, observerOptions);
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Align sidebar with grid rows
+    function alignSidebarWithGrid() {
+      const sidebarItems = document.querySelectorAll('.grid-sidebar-item');
+      const headerRow = document.querySelector('.grid-header-row');
+      const gridRows = document.querySelectorAll('.grid-row');
+      
+      if (!sidebarItems.length || !headerRow || !gridRows.length) return;
+      
+      // Match header
+      if (sidebarItems[0]) {
+        const headerHeight = headerRow.offsetHeight;
+        sidebarItems[0].style.height = headerHeight + 'px';
+      }
+      
+      // Match each subsequent row (unassigned + crew rows)
+      for (let i = 0; i < gridRows.length && i + 1 < sidebarItems.length; i++) {
+        const gridRowHeight = gridRows[i].offsetHeight;
+        sidebarItems[i + 1].style.height = gridRowHeight + 'px';
+      }
+    }
+    
+    // Run on load and resize
+    window.addEventListener('load', alignSidebarWithGrid);
+    window.addEventListener('resize', alignSidebarWithGrid);
 
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
