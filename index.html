@@ -4052,13 +4052,18 @@
     
     // AI Chat Widget Functions
     function toggleTowerChat() {
+      const chatWidget = document.getElementById('towerChatWidget');
       const button = document.getElementById('towerChatButton');
       const window = document.getElementById('towerChatWindow');
       
       if (window.classList.contains('hidden')) {
+        // Open chat window
         button.classList.add('hidden');
         window.classList.remove('hidden');
+        // Show widget if it was hidden
+        chatWidget.classList.remove('hidden');
       } else {
+        // Minimize chat window (keep button visible)
         button.classList.remove('hidden');
         window.classList.add('hidden');
       }
@@ -4083,21 +4088,62 @@
       const message = input.value.trim();
       if (!message) return;
 
+      // Add user message
       addTowerChatMessage('user', message);
       input.value = '';
+      
+      // Show typing indicator
+      const messagesDiv = document.getElementById('towerChatMessages');
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'tower-chat-message bot typing-indicator';
+      typingDiv.id = 'typingIndicator';
+      typingDiv.innerHTML = `
+        <div class="tower-chat-message-content">
+          <div class="tower-bot-label">
+            <i class="fas fa-robot"></i>
+            <span>AI Assistant</span>
+          </div>
+          <div class="tower-chat-message-text"><i class="fas fa-ellipsis-h fa-fade"></i></div>
+        </div>
+      `;
+      messagesDiv.appendChild(typingDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
+      // Generate response after delay
       setTimeout(() => {
+        const typing = document.getElementById('typingIndicator');
+        if (typing) typing.remove();
         const botResponse = generateTowerBotResponse(message);
         addTowerChatMessage('bot', botResponse);
-      }, 800);
+      }, 1200);
     }
     
     function sendTowerQuickMessage(message) {
       addTowerChatMessage('user', message);
+      
+      // Show typing indicator
+      const messagesDiv = document.getElementById('towerChatMessages');
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'tower-chat-message bot typing-indicator';
+      typingDiv.id = 'typingIndicator';
+      typingDiv.innerHTML = `
+        <div class="tower-chat-message-content">
+          <div class="tower-bot-label">
+            <i class="fas fa-robot"></i>
+            <span>AI Assistant</span>
+          </div>
+          <div class="tower-chat-message-text"><i class="fas fa-ellipsis-h fa-fade"></i></div>
+        </div>
+      `;
+      messagesDiv.appendChild(typingDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      
       setTimeout(() => {
+        const typing = document.getElementById('typingIndicator');
+        if (typing) typing.remove();
         const botResponse = generateTowerBotResponse(message);
         addTowerChatMessage('bot', botResponse);
-      }, 800);
+      }, 1200);
     }
     
     function addTowerChatMessage(type, text) {
@@ -4130,36 +4176,139 @@
     function generateTowerBotResponse(message) {
       const lower = message.toLowerCase();
       
-      if (lower.includes('daily summary') || lower.includes('summary')) {
-        return `<strong>📊 Today's Summary - ${new Date().toLocaleDateString()}</strong><br><br>
+      if (lower.includes('show daily summary') || lower.includes('daily summary') || lower.includes('summary')) {
+        return `<strong style="font-size: 1.05rem;">📊 Daily Operations Summary</strong><br>
+          <small style="opacity: 0.7;">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</small><br><br>
+          <div style="background: rgba(220, 53, 69, 0.1); border-left: 3px solid var(--accent-red); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
           <strong>🔴 Urgent Actions (12)</strong><br>
           • 12 contracts awaiting signature (>72h)<br>
           • 8 projects needing Pro assignment<br>
-          • 7 WCF pending signature (>48h)<br><br>
-          <strong>📈 Performance</strong><br>
+          • 7 WCF pending signature (>48h)
+          </div>
+          <div style="background: rgba(255, 193, 7, 0.05); border-left: 3px solid var(--yellow-primary); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
+          <strong>📈 Today's Performance</strong><br>
           • 42 active projects | 28 crews assigned<br>
-          • 94% on schedule | €18.5K revenue today<br>
-          • 5 projects resolved | 95% resolution rate`;
-      } else if (lower.includes('contract')) {
-        return 'You have <strong>12 contracts awaiting signature</strong> (>72h overdue). Most urgent: <strong>#PX-377903</strong> - Ines Broncano (€3,850, scheduled tomorrow 9 AM). Contract was sent 4 days ago. Would you like me to draft a follow-up message?';
-      } else if (lower.includes('pro') || lower.includes('assign')) {
-        return 'Found <strong>8 projects needing Pro assignment</strong>. Most urgent: <strong>#SX-375742</strong> - Fernando Checa (€1,950, today 2 PM). I found 3 matching Pros nearby: Silva Instalações (95% rating, 2.5km away, available today). Assign now?';
-      } else if (lower.includes('wcf')) {
-        return 'You have <strong>7 WCF pending signatures</strong> (>48h) and 5 signed with reserves. Most urgent: <strong>#SX-378912</strong> - Carmen Lopez needs follow-up. Customer hasn\'t signed after 3 days despite completion.';
+          • 94% on schedule | €18.5K revenue<br>
+          • 5 projects completed | 95% resolution rate
+          </div>
+          <div style="margin-top: 1rem;">
+          💡 <em>Tip: Focus on clearing contracts first - 12 pending signatures blocking €47K revenue.</em>
+          </div>`;
+      } else if (lower.includes('show urgent contracts') || lower.includes('urgent contract') || lower.includes('contract')) {
+        return `<strong style="font-size: 1.05rem;">📝 Contracts Awaiting Signature</strong><br><br>
+          <div style="background: rgba(220, 53, 69, 0.1); border-left: 3px solid var(--accent-red); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
+          <strong>🔴 Critical (>72h) - 12 contracts</strong><br>
+          <strong>#PX-377903</strong> - Ines Broncano<br>
+          € 3,850 | Bathroom Install<br>
+          📅 Scheduled: Tomorrow 9:00 AM<br>
+          ⏰ Sent 4 days ago - No response<br><br>
+          <strong>Suggested Actions:</strong><br>
+          1. <a href="#" style="color: var(--yellow-primary);">📞 Call customer now</a><br>
+          2. <a href="#" style="color: var(--yellow-primary);">📱 Send WhatsApp reminder</a><br>
+          3. <a href="#" style="color: var(--yellow-primary);">✉️ Draft follow-up email</a>
+          </div>
+          <div style="margin-top: 1rem;">
+          💡 <strong>Pro tip:</strong> Customers respond 3x faster to WhatsApp messages than emails. Would you like me to draft a message?
+          </div>`;
+      } else if (lower.includes('help assign pros') || lower.includes('assign pro') || lower.includes('pro')) {
+        return `<strong style="font-size: 1.05rem;">👷 Pro Assignment Recommendations</strong><br><br>
+          <div style="background: rgba(255, 193, 7, 0.05); border-left: 3px solid var(--yellow-primary); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
+          <strong>🔴 Most Urgent: #SX-375742</strong><br>
+          <strong>Customer:</strong> Fernando Checa<br>
+          <strong>Service:</strong> Kitchen Renovation<br>
+          <strong>Value:</strong> €1,950<br>
+          📅 <strong>Scheduled TODAY at 2:00 PM</strong><br><br>
+          <strong>🎯 Best Match Found:</strong><br>
+          <div style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(34, 197, 94, 0.1); border-radius: 4px;">
+          👨‍🔧 <strong>Silva Instalações</strong><br>
+          ⭐ 95% rating (142 jobs)<br>
+          📍 2.5km away (15 min drive)<br>
+          ✅ Available today<br>
+          💰 Rate: €35/hr | Kitchen specialist<br><br>
+          <a href="#" style="color: var(--yellow-primary); font-weight: 600;">👉 Assign Silva Instalações</a>
+          </div>
+          </div>
+          <div style="margin-top: 1rem;">
+          📊 <em>Also found: 2 more Pros available. Total backlog: 8 projects needing assignment.</em>
+          </div>`;
+      } else if (lower.includes('check wcf status') || lower.includes('wcf status') || lower.includes('wcf')) {
+        return `<strong style="font-size: 1.05rem;">✏️ Work Completion Forms Status</strong><br><br>
+          <div style="background: rgba(255, 193, 7, 0.05); border-left: 3px solid var(--yellow-primary); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
+          <strong>📋 Pending Signatures (7 forms)</strong><br>
+          <strong>#SX-378912</strong> - Carmen Lopez<br>
+          Service: Wardrobe Installation<br>
+          Status: Completed 3 days ago<br>
+          ⏰ WCF sent immediately - still unsigned<br><br>
+          <strong>Recommended Action:</strong><br>
+          1. <a href="#" style="color: var(--yellow-primary);">📱 Send reminder via WhatsApp</a><br>
+          2. <a href="#" style="color: var(--yellow-primary);">📞 Call to confirm satisfaction</a>
+          </div>
+          <div style="background: rgba(34, 197, 94, 0.05); border-left: 3px solid var(--accent-green); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
+          <strong>✅ Signed with Reserves (5 forms)</strong><br>
+          • Issues noted - follow-up scheduled<br>
+          • Claims under review
+          </div>
+          <div style="margin-top: 1rem;">
+          💡 <strong>Insight:</strong> 48h+ unsigned WCFs indicate possible customer concerns. Proactive call recommended.
+          </div>`;
       } else if (lower.includes('call') || lower.includes('phone')) {
-        return `I'll help you prepare for this call:<br><br>
-          <strong>Customer:</strong> ${message.includes('Ines') ? 'Ines Broncano' : 'Customer'}<br>
-          <strong>Issue:</strong> Contract pending signature (4 days)<br>
+        return `<strong style="font-size: 1.05rem;">📞 Call Preparation Assistant</strong><br><br>
+          <div style="background: rgba(255, 193, 7, 0.05); border-left: 3px solid var(--yellow-primary); padding: 0.75rem; margin: 0.5rem 0; border-radius: 4px;">
+          <strong>Customer:</strong> ${message.includes('Ines') ? 'Ines Broncano Marin' : 'Customer'}<br>
+          <strong>Project:</strong> #PX-377903 - Bathroom Install<br>
           <strong>Value:</strong> €3,850<br>
-          <strong>Scheduled:</strong> Tomorrow 9:00 AM<br><br>
-          <strong>Talking Points:</strong><br>
-          1. Confirm installation date & time<br>
-          2. Address any contract questions<br>
-          3. Request signature today<br>
-          4. Confirm Pro assignment<br><br>
-          Ready to call? <a href="tel:+34XXXXXXXXX" style="color: var(--yellow-primary);">Click to dial</a>`;
+          <strong>Scheduled:</strong> Tomorrow 9:00 AM<br>
+          <strong>Issue:</strong> Contract sent 4 days ago - unsigned<br><br>
+          <strong>📱 Contact:</strong> <a href="tel:+34XXXXXXXXX" style="color: var(--yellow-primary); font-weight: 600;">+34 XXX XXX XXX</a><br><br>
+          <strong>🎯 Call Script:</strong><br>
+          1. <em>"Hi ${message.includes('Ines') ? 'Ines' : ''}, calling about your bathroom project..."</em><br>
+          2. Confirm tomorrow's 9 AM appointment<br>
+          3. Address contract questions/concerns<br>
+          4. Request e-signature today<br>
+          5. Confirm Pro assignment details<br><br>
+          <strong>⚡ Quick Facts:</strong><br>
+          • Customer history: 1st project with us<br>
+          • Previous contact: Email 4 days ago<br>
+          • Assigned Pro: Not yet assigned
+          </div>
+          <div style="margin-top: 1rem;">
+          💡 <strong>Tip:</strong> Mention our satisfaction guarantee and flexible payment terms if they hesitate.
+          </div>`;
+      } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+        return `Hello! 👋 I'm your <strong>YellowGrid AI Assistant</strong>. I can help you manage your operations more efficiently.<br><br>
+          <strong>What I can do:</strong><br>
+          📝 Review urgent contracts & draft follow-ups<br>
+          👷 Find & assign the best Pros for jobs<br>
+          📊 Generate daily operational summaries<br>
+          ✏️ Track WCF status & send reminders<br>
+          📞 Prepare call scripts with customer context<br>
+          📱 Manage customer communications<br><br>
+          <em>Try clicking one of the quick action buttons below, or ask me anything!</em>`;
+      } else if (lower.includes('help') || lower.includes('what can you')) {
+        return `I'm here to help you manage YellowGrid operations! Here's what I can assist with:<br><br>
+          <div style="display: grid; gap: 0.5rem;">
+          <div style="background: rgba(220, 53, 69, 0.1); padding: 0.5rem; border-radius: 4px;">
+          📝 <strong>Contracts:</strong> Track pending signatures, draft reminders, analyze delays
+          </div>
+          <div style="background: rgba(255, 193, 7, 0.05); padding: 0.5rem; border-radius: 4px;">
+          👷 <strong>Pro Management:</strong> Find matches, assign jobs, track availability
+          </div>
+          <div style="background: rgba(59, 130, 246, 0.1); padding: 0.5rem; border-radius: 4px;">
+          📊 <strong>Analytics:</strong> Daily summaries, performance metrics, revenue tracking
+          </div>
+          <div style="background: rgba(34, 197, 94, 0.1); padding: 0.5rem; border-radius: 4px;">
+          ✏️ <strong>WCF Tracking:</strong> Monitor signatures, handle reserves, follow up
+          </div>
+          </div><br>
+          <em>Just describe what you need, and I'll help you get it done!</em>`;
       } else {
-        return 'I analyzed your workload:<br><br>🔴 <strong>12 urgent actions</strong> (next 4h)<br>🟡 <strong>23 attention needed</strong> (today)<br>🟢 <strong>34 on track</strong><br><br>Top priority: Contact 3 customers for contracts before 5 PM. Type <strong>"daily summary"</strong> to see today\'s accomplishments!';
+        return `I understand you need help with: <strong>"${message}"</strong><br><br>
+          Let me help you with that. I can:<br>
+          • Show you <a href="#" onclick="sendTowerQuickMessage('Show urgent contracts'); return false;" style="color: var(--yellow-primary);">urgent contracts</a> needing signatures<br>
+          • Help you <a href="#" onclick="sendTowerQuickMessage('Help assign Pros'); return false;" style="color: var(--yellow-primary);">assign Pros</a> to pending jobs<br>
+          • Generate your <a href="#" onclick="sendTowerQuickMessage('Show daily summary'); return false;" style="color: var(--yellow-primary);">daily summary</a><br>
+          • Check <a href="#" onclick="sendTowerQuickMessage('Check WCF status'); return false;" style="color: var(--yellow-primary);">WCF status</a><br><br>
+          Or ask me something more specific! I'm here to help. 😊`;
       }
     }
     
