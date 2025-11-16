@@ -885,10 +885,11 @@
         <select id="scenarioSelect" onchange="dashboard.loadScenario(this.value)">
           <option value="">Select a scenario...</option>
           <option value="simple-install">Simple Installation</option>
-          <option value="tv-quotation">TV + Quotation</option>
-          <option value="package-deal">Package Deal</option>
-          <option value="complex-project">Complex Project</option>
-          <option value="rework">Rework & Warranty</option>
+          <option value="tv-quotation">Technical Visit of Quotation</option>
+          <option value="package-deal">Service Pack (with confirmation TV)</option>
+          <option value="complex-project">Complex Installation</option>
+          <option value="rework">Rework</option>
+          <option value="maintenance">Maintenance</option>
         </select>
         <button class="btn btn-secondary" onclick="dashboard.nextStep()" id="nextBtn">
           Next Step <i class="fas fa-arrow-right"></i>
@@ -2559,7 +2560,7 @@
         'integration': [
           { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server' },
           { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs' },
-          { id: 'project-creation', type: 'system', title: 'Project Creation', icon: 'folder-plus' }
+          { id: 'project-creation', type: 'system', title: 'SO Creation', icon: 'folder-plus' }
         ],
         'ai-analysis': [
           { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot' }
@@ -2572,19 +2573,18 @@
           { id: 'contract-portal', type: 'customer', title: 'Contract Portal', icon: 'file-signature' }
         ],
         'provider-match': [
-          { id: 'match-request', type: 'data', title: 'Match Request', icon: 'broadcast-tower' },
-          { id: 'provider-funnel', type: 'system', title: 'Provider Funnel', icon: 'filter' },
+          { id: 'provider-funnel', type: 'system', title: 'Provider Matching', icon: 'filter' },
           { id: 'provider-offer', type: 'provider', title: 'Provider Offer', icon: 'mobile-screen-button' }
         ],
         'go-gate': [
-          { id: 'go-gate-check', type: 'system', title: 'Go-Exec Gate', icon: 'shield-check' }
+          { id: 'go-gate-check', type: 'system', title: 'Go-Exec Gate', icon: 'traffic-light' }
         ],
         'execution': [
           { id: 'crew-execution', type: 'crew', title: 'Crew Execution', icon: 'mobile-screen-button' }
         ],
         'wcf': [
           { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope' },
-          { id: 'wcf-portal', type: 'customer', title: 'WCF Portal', icon: 'signature' }
+          { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature' }
         ]
       };
 
@@ -2725,7 +2725,7 @@
                 <i class="fas fa-cogs"></i> AUTOMATED
               </div>
               <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">Linking service order to customer project</p>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Creating service order and linking to sales project</p>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
@@ -2758,8 +2758,7 @@
                 <div style="background: rgba(255, 203, 50, 0.08); border: 1px solid rgba(255, 203, 50, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
                   <div style="font-weight: 600; margin-bottom: 0.5rem;">Action Taken:</div>
                   <div style="font-size: 0.9rem; color: var(--text-muted);">
-                    ✓ Service Order <strong>${so.orderId}</strong><br>
-                    ✓ Linked to Project <strong>${so.salesProjectId}</strong><br>
+                    ✓ Linked to Sales Project <strong>SALES-PROJ-1244</strong><br>
                     ✓ Customer context preserved<br>
                     ✓ Historical data accessible
                   </div>
@@ -2819,10 +2818,14 @@
               <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
                 <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
                   <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
-                  <strong style="font-size: 1.1rem;">Customer Profile Loaded</strong>
+                  <strong style="font-size: 1.1rem;">Service Requirements Set</strong>
                 </div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">
-                  Tier: ${so.customer.tier} • LTV: €${so.customer.lifetimeValue} • Claims: ${so.customer.claimHistory}
+                <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
+                  <strong>Service List and Requirements:</strong><br>
+                  Service 1 - Quantity: 2 - Slots 120 min - Plumber<br>
+                  Service 2 - Quantity: 1 - Slots 30 min - Plumber<br>
+                  Service 3 - Quantity: 1 - Slots 60 min - Plumber<br>
+                  <strong style="color: var(--accent-green);">Total slots required: 210 min</strong>
                 </div>
               </div>
 
@@ -2843,10 +2846,15 @@
               <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid rgba(73, 212, 147, 0.3); border-radius: 12px; padding: 1.5rem;">
                 <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
                   <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
-                  <strong style="font-size: 1.1rem;">Service Requirements Set</strong>
+                  <strong style="font-size: 1.1rem;">Customer Profile</strong>
                 </div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">
-                  Duration: ${so.services[0].duration}min • Skill: ${so.services[0].skillLevel}
+                <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
+                  <strong>Name:</strong> Marie Curie<br>
+                  <strong>Tier:</strong> Standard<br>
+                  <strong>LTV:</strong> €1850<br>
+                  <strong>Claims:</strong> 0<br>
+                  <strong>Email:</strong> customer@customer.com<br>
+                  <strong>Mobile:</strong> +33 07 07 07 47 47
                 </div>
               </div>
 
@@ -2855,8 +2863,11 @@
                   <i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>
                   <strong style="font-size: 1.1rem;">Project Linked</strong>
                 </div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">
-                  Sales Project: ${so.salesProjectId}
+                <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;">
+                  <strong>Sales Project:</strong> ${so.salesProjectId}<br>
+                  <strong>Pre-estimation:</strong> 23450L450<br>
+                  <strong>Sales Quotation/Devis:</strong> 23455T606<br>
+                  <strong>Lead:</strong> 69455T606
                 </div>
               </div>
             </div>
@@ -2894,9 +2905,9 @@
               </div>
 
               <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 0.5rem;">92</div>
-                <div style="font-weight: 600; margin-bottom: 0.3rem;">Match Score</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);">EXCELLENT</div>
+                <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 0.5rem;">1200 €</div>
+                <div style="font-weight: 600; margin-bottom: 0.3rem;">UP SELL POTENTIAL</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);"></div>
               </div>
 
               <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;">
@@ -2911,15 +2922,19 @@
               <div style="display: flex; flex-direction: column; gap: 0.8rem;">
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
                   <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
-                  <span><strong>Suggested Pilote:</strong> PL-LIA (Lia Santos) • Current load: 3 orders</span>
+                  <span><strong>Pilote du chantier recommended:</strong> Lia Santos (PL-LIA) - Current load: 3 projects - 1340 min of services to be executed</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
                   <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
                   <span><strong>Schedule:</strong> ${so.services[0].scheduledDate} ${so.services[0].timeSlot} (Compliant - weekday AM)</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.8rem;">
-                  <i class="fas fa-check-circle" style="color: var(--accent-green);"></i>
-                  <span><strong>Provider:</strong> Provider L (Rui Lopes crew) • 2 technicians available</span>
+                  <i class="fas fa-link" style="color: var(--accent-blue);"></i>
+                  <span><strong>Link to Service Orders:</strong> SO-2025-1421 (after) and SO-2025-2205 (before)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <i class="fas fa-pencil" style="color: var(--yellow);"></i>
+                  <span><strong>Project Name Update to:</strong> Kitchen Remodeling</span>
                 </div>
               </div>
             </div>
@@ -2945,7 +2960,7 @@
                 <i class="fas fa-headset"></i> OPERATOR
               </div>
               <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Control Tower Cockpit</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">Service Operator: Maria Santos</p>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Service Operator: Lia Santos</p>
             </div>
 
             ${renderOperatorCockpitContent(so, riskLevel)}
@@ -2997,7 +3012,7 @@
               </div>
               <div style="font-size: 2rem; font-weight: 700; color: var(--accent-${so.payment.status === 'Paid' ? 'green' : 'orange'}); margin-bottom: 0.5rem;">${so.payment.status.toUpperCase()}</div>
               <div style="font-size: 0.85rem; color: var(--text-muted);">
-                ${so.payment.status === 'Paid' ? `€${so.payment.paidAmount} via ${so.payment.method}` : `Due: ${so.payment.dueDate || 'N/A'}`}
+                ${so.payment.status === 'Paid' ? `€${so.payment.paidAmount}` : `Due: ${so.payment.dueDate || 'N/A'}`}
               </div>
             </div>
           </div>
@@ -3007,7 +3022,12 @@
               <i class="fas fa-robot" style="color: var(--accent-purple);"></i>
               <strong style="color: var(--accent-purple);">AI Recommendations Accepted</strong>
             </div>
-            <div style="font-size: 0.9rem;">✓ Pilote: PL-LIA (Lia Santos) • Load: 3 orders<br>✓ Schedule: Compliant (not Sunday, weekday AM)<br>✓ Project: Linked to ${so.salesProjectId}</div>
+            <div style="font-size: 0.9rem; line-height: 1.7;">
+              ✓ Pilote du chantier recommended: Lia Santos (PL-LIA) - Current load: 3 projects - 1340 min of services to be executed<br>
+              ✓ Schedule: 2025-11-18 09:00-11:00 (Compliant - weekday AM)<br>
+              ✓ Link to Service Orders: SO-2025-1421 (after) and SO-2025-2205 (before)<br>
+              ✓ Project Name Update to: Kitchen Remodeling
+            </div>
           </div>
         `;
       };
@@ -3104,86 +3124,6 @@
               </button>
               <button class="btn btn-primary" onclick="dashboard.nextCard()">
                 <i class="fas fa-check-circle"></i> Sign Contract <i class="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      };
-
-      const renderMatchRequestCard = (so, card) => {
-        return `
-          <div style="padding: 2rem;">
-            <div style="margin-bottom: 2rem;">
-              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
-                <i class="fas fa-broadcast-tower"></i> SYSTEM
-              </div>
-              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">Broadcasting service request to provider network</p>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-satellite-dish"></i> Complete Broadcast Message</h3>
-              <div style="font-family: 'Courier New', monospace; font-size: 0.8rem; background: #000; padding: 1.5rem; border-radius: 8px; line-height: 1.7; max-height: 350px; overflow-y: auto;">
-                <div style="color: #49d493;">Event: <span style="color: #fff;">provider.match.request</span></div>
-                <div style="color: #49d493;">OrderId: <span style="color: #fff;">${so.orderId}</span></div>
-                <div style="color: #49d493;">SalesProjectId: <span style="color: #fff;">"${so.salesProjectId || 'null'}"</span></div>
-                <div style="color: #49d493;">Quotation: <span style="color: #fff;">${so.linkedQuotation ? '"' + so.linkedQuotation + '"' : 'null'}</span></div>
-                <div style="color: #49d493;">Salesman: <span style="color: #fff;">"${so.salesman}"</span></div>
-                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Customer Info</div>
-                <div style="color: #49d493;">CustomerId: <span style="color: #fff;">"${so.customer.customerId}"</span></div>
-                <div style="color: #49d493;">CustomerName: <span style="color: #fff;">"${so.customer.name}"</span></div>
-                <div style="color: #49d493;">CustomerEmail: <span style="color: #fff;">"${so.customer.email}"</span></div>
-                <div style="color: #49d493;">CustomerPhone: <span style="color: #fff;">"${so.customer.phone}"</span></div>
-                <div style="color: #49d493;">Address: <span style="color: #fff;">"${so.customer.address}"</span></div>
-                <div style="color: #49d493;">City: <span style="color: #fff;">"${so.customer.city}"</span></div>
-                <div style="color: #49d493;">CustomerTier: <span style="color: #fbbf24;">"${so.customer.tier}"</span></div>
-                <div style="color: #49d493;">LifetimeValue: <span style="color: #4eabff;">${so.customer.lifetimeValue}</span></div>
-                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Products to Install</div>
-                ${so.products.map(p => `<div style="color: #49d493;">- <span style="color: #fff;">"${p.name}" (${p.sku}) x${p.quantity}</span></div>`).join('')}
-                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Service Details</div>
-                <div style="color: #49d493;">ServiceCode: <span style="color: #fff;">"${so.services[0].code}"</span></div>
-                <div style="color: #49d493;">ServiceName: <span style="color: #fff;">"${so.services[0].name}"</span></div>
-                <div style="color: #49d493;">ScheduledDate: <span style="color: #fff;">"${so.services[0].scheduledDate}"</span></div>
-                <div style="color: #49d493;">TimeSlot: <span style="color: #fff;">"${so.services[0].timeSlot}"</span></div>
-                <div style="color: #49d493;">Duration: <span style="color: #4eabff;">${so.services[0].duration}</span> min</div>
-                <div style="color: #49d493;">SkillRequired: <span style="color: #fff;">"${so.services[0].skillLevel}"</span></div>
-                <div style="color: #49d493;">TechniciansRequired: <span style="color: #4eabff;">${so.services[0].techniciansRequired || 1}</span></div>
-                <div style="color: #49d493;">Equipment: <span style="color: #c084fc;">[${so.services[0].equipmentNeeded ? so.services[0].equipmentNeeded.join(', ') : 'Standard tools'}]</span></div>
-                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Payment & Pricing</div>
-                <div style="color: #49d493;">PaymentStatus: <span style="color: #49d493;">"${so.payment.status}"</span></div>
-                <div style="color: #49d493;">PaymentMethod: <span style="color: #fff;">"${so.payment.method}"</span></div>
-                <div style="color: #49d493;">ServicePrice: <span style="color: #4eabff;">€${so.services[0].unitPrice}</span></div>
-                <div style="color: #49d493;">TotalOrderValue: <span style="color: #4eabff;">€${so.totals.total}</span></div>
-                <div style="color: #c084fc; margin-top: 0.5rem; font-weight: 700;">// Special Instructions</div>
-                <div style="color: #49d493;">SellerNotes: <span style="color: #fff;">"${so.sellerNotes ? so.sellerNotes.substring(0, 80) + '...' : 'None'}"</span></div>
-                <div style="color: #49d493;">SpecialInstructions: <span style="color: #fff;">"${so.specialInstructions || 'None'}"</span></div>
-              </div>
-            </div>
-
-            <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid rgba(78, 168, 255, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
-              <h4 style="margin-bottom: 1rem;"><i class="fas fa-network-wired"></i> Network Response</h4>
-              <div style="display: flex; justify-content: space-around;">
-                <div style="text-align: center;">
-                  <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-blue);">12</div>
-                  <div style="font-size: 0.9rem; color: var(--text-muted);">Providers Reached</div>
-                </div>
-                <div style="text-align: center;">
-                  <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green);">8</div>
-                  <div style="font-size: 0.9rem; color: var(--text-muted);">Eligible</div>
-                </div>
-                <div style="text-align: center;">
-                  <div style="font-size: 2.5rem; font-weight: 700; color: var(--yellow);">3</div>
-                  <div style="font-size: 0.9rem; color: var(--text-muted);">Available</div>
-                </div>
-              </div>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
-              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
-                <i class="fas fa-arrow-left"></i> Back
-              </button>
-              <button class="btn btn-primary" onclick="dashboard.nextCard()">
-                Run Matching Algorithm <i class="fas fa-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -3299,10 +3239,10 @@
               </div>
 
               <div class="mobile-card" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1405; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
-                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">New Assignment</div>
-                <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem;">Match: 92/100</div>
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">New Job Offer</div>
+                <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem;">Lisboa - Telheiras</div>
                 <div style="font-size: 0.9rem;">
-                  <i class="fas fa-check-circle"></i> Perfect fit for your crew
+                  Dish Washer Installation
                 </div>
               </div>
 
@@ -3414,7 +3354,7 @@
 
             <div style="background: rgba(73, 212, 147, 0.15); border: 2px solid var(--accent-green); border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem;">
               <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--accent-green); margin-bottom: 1rem;"></i>
-              <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 0.5rem;">GO-GATE APPROVED</h3>
+              <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 0.5rem;">GO-EXEC APPROVED</h3>
               <p style="color: var(--text-muted);">All conditions met. Service ready for execution.</p>
             </div>
 
@@ -3423,7 +3363,7 @@
                 <i class="fas fa-arrow-left"></i> Back
               </button>
               <button class="btn btn-primary" onclick="dashboard.nextCard()">
-                Dispatch to Crew <i class="fas fa-arrow-right"></i>
+                Unblock Check-in <i class="fas fa-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -3586,6 +3526,9 @@
                   <i class="fas fa-check-circle"></i> <strong>Final Step</strong> - Service order will be closed
                 </div>
               </div>
+              <button class="btn btn-secondary" onclick="dashboard.nextCard()">
+                Pro-forma Invoice <i class="fas fa-arrow-right"></i>
+              </button>
             </div>
           </div>
         `;
@@ -3856,8 +3799,6 @@
           html = renderContractNotificationCard(so, card);
         } else if (card.id === 'contract-portal') {
           html = renderContractPortalCard(so, card);
-        } else if (card.id === 'match-request') {
-          html = renderMatchRequestCard(so, card);
         } else if (card.id === 'provider-funnel') {
           html = renderProviderFunnelCard(so, card);
         } else if (card.id === 'provider-offer') {
@@ -3924,6 +3865,12 @@
         previousCard,
         goToCard
       };
+
+      // Auto-load Simple Installation scenario on page load
+      setTimeout(() => {
+        loadScenario('simple-install');
+        document.getElementById('scenarioSelect').value = 'simple-install';
+      }, 100);
     })();
   </script>
 </body>
