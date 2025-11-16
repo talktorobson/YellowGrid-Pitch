@@ -5,20 +5,24 @@
   <title>YellowGrid – Every installation on the grid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     :root {
-      --yellow: #ffcb32;
-      --yellow-soft: #ffe79a;
-      --bg-dark: #0f1722;
-      --bg-darker: #070c12;
-      --bg-alt: #131b26;
-      --card-bg: #161f2b;
-      --accent-green: #46d38a;
-      --accent-red: #ff6b6b;
-      --text-main: #e5ecf7;
-      --text-muted: #9ba4b5;
-      --border-subtle: #222b39;
-      --grid-line: #222a35;
-      --shadow-soft: 0 22px 45px rgba(0, 0, 0, 0.45);
+      --yellow: #ffc107;
+      --yellow-soft: #ffe59d;
+      --bg-dark: #04070d;
+      --bg-darker: #020409;
+      --bg-alt: #121924;
+      --card-bg: #1c232f;
+      --panel-charcoal: #212529;
+      --accent-blue: #0d6efd;
+      --accent-green: #198754;
+      --accent-orange: #fd7e14;
+      --accent-red: #dc3545;
+      --text-main: #f8f9fa;
+      --text-muted: #adb5bd;
+      --border-subtle: rgba(248, 249, 250, 0.08);
+      --grid-line: rgba(89, 92, 104, 0.45);
+      --shadow-soft: 0 30px 80px rgba(3, 5, 12, 0.7);
       --radius-lg: 18px;
       --radius-xl: 24px;
       --radius-pill: 999px;
@@ -33,12 +37,13 @@
       scroll-behavior: smooth;
     }
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #172133 0, #05070b 55%);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(130% 160% at 50% 0%, #0f1f33 0, #020409 65%);
       color: var(--text-main);
-      line-height: 1.5;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.005em;
     }
     a {
       color: inherit;
@@ -202,12 +207,12 @@
       padding-bottom: 4rem;
     }
     .hero {
-      padding: 3.2rem 0 2rem;
+      padding: 3.6rem 0 2.4rem;
     }
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
-      gap: 3.1rem;
+      gap: 3.3rem;
       align-items: center;
     }
     @media (max-width: 840px) {
@@ -216,30 +221,68 @@
         gap: 2.4rem;
       }
     }
-    .hero-eyebrow {
+    .hero-overline {
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      font-size: 0.63rem;
+      color: var(--text-muted);
       margin-bottom: 0.9rem;
     }
     .hero-title {
-      font-size: clamp(2.3rem, 3.2vw + 1.6rem, 3.2rem);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.4rem, 3.4vw + 1.4rem, 3.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
       margin-bottom: 0.9rem;
     }
     .hero-title span {
       color: var(--yellow);
     }
     .hero-subtitle {
-      max-width: 520px;
+      max-width: 540px;
       color: var(--text-muted);
-      font-size: 0.98rem;
-      margin-bottom: 1.6rem;
+      font-size: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .hero-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .hero-pill-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .hero-pill {
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(130deg, rgba(23, 34, 49, 0.9), rgba(9, 13, 24, 0.9));
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .hero-pill--highlight {
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(10, 15, 24, 0.95));
+      border-color: rgba(255, 193, 7, 0.6);
+    }
+    .hero-pill-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+    }
+    .hero-pill p {
+      font-size: 0.85rem;
+      color: rgba(248, 249, 250, 0.85);
     }
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
       gap: 0.8rem;
       align-items: center;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.3rem;
     }
     .btn {
       border-radius: var(--radius-pill);
@@ -258,29 +301,56 @@
       white-space: nowrap;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--yellow), #ffd769);
-      color: #1b1305;
-      box-shadow: 0 14px 36px rgba(255, 203, 50, 0.4);
+      background: linear-gradient(120deg, var(--yellow), #ffd86e);
+      color: #2e1b00;
+      box-shadow: 0 18px 42px rgba(255, 193, 7, 0.35);
     }
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 42px rgba(255, 203, 50, 0.5);
+      box-shadow: 0 22px 48px rgba(255, 193, 7, 0.45);
     }
     .btn-ghost {
-      background: rgba(15, 23, 34, 0.85);
+      background: rgba(7, 11, 19, 0.9);
       color: var(--text-main);
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.35);
     }
     .btn-ghost:hover {
-      background: rgba(23, 33, 48, 0.9);
+      background: rgba(15, 24, 38, 0.95);
     }
     .hero-meta {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
     }
     .hero-meta strong {
       color: #f9fbff;
       font-weight: 500;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+    }
+    .hero-stat {
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 20, 32, 0.85);
+      min-width: 160px;
+    }
+    .hero-stat small {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+    .hero-stat strong {
+      font-size: 1.4rem;
+      color: var(--yellow);
     }
     /* Hero demo card */
     .demo-card {
@@ -571,6 +641,86 @@
     .feature-meta strong {
       color: var(--accent-green);
       font-weight: 500;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+    @media (max-width: 900px) {
+      .story-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .story-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      padding: 1.2rem 1.3rem;
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .story-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 110% -10%, rgba(255, 193, 7, 0.18), transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+    .story-card:hover::after {
+      opacity: 1;
+    }
+    .story-card-eyebrow {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+    .story-card h3 {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .story-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .story-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.3rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .story-list strong {
+      color: #f8f9fa;
+      font-weight: 600;
+    }
+    .story-card--bright {
+      background: linear-gradient(150deg, rgba(255, 193, 7, 0.2), rgba(8, 11, 18, 0.95));
+      border-color: rgba(255, 193, 7, 0.5);
+    }
+    .story-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+    .story-metric {
+      padding: 0.2rem 0.8rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
     /* How it works */
     .steps-grid {
@@ -938,12 +1088,12 @@
             ☰
           </button>
           <div class="nav-links" id="navLinks">
-            <a href="#problem">Problem</a>
-            <a href="#how">How it works</a>
-            <a href="#modules">Modules</a>
-            <a href="demo-interactive.html">Try Demo</a>
+            <a href="#problem">Story</a>
+            <a href="#how">Control Tower</a>
+            <a href="#modules">Platform</a>
+            <a href="demo-interactive.html">Interactive Demo</a>
             <button class="btn btn-primary" type="button">
-              Book a demo
+              Book a tour
             </button>
           </div>
         </nav>
@@ -953,31 +1103,58 @@
       <section class="hero">
         <div class="max-w hero-grid">
           <div>
-            <div class="hero-eyebrow">
-              <span class="pill">
-                <span>New</span>
-                <span>Service Execution for Installations</span>
-              </span>
-            </div>
+            <div class="hero-overline">From the fog to the horizon</div>
             <h1 class="hero-title">
-              Every <span>installation</span><br />on the grid.
+              Effortless service execution,<br />
+              <span>masterfully orchestrated.</span>
             </h1>
             <p class="hero-subtitle">
-              YellowGrid is a crew-centric service execution platform that connects
-              projects, service orders, providers and calendars into one operational
-              grid – from product sold to product installed.
+              YellowGrid replaces detective work with a control tower that unites
+              operators, pros and leaders around one clear grid. Every order is
+              scored, scheduled and explained — delivering reliable service journeys
+              from “order captured” to “signed WCF”.
             </p>
+            <div class="hero-pill-grid">
+              <article class="hero-pill">
+                <div class="hero-pill-label">Operators</div>
+                <p>Run proactive operations with playbooks, alerts and a horizon view
+                  of capacity. Manage by exception instead of chasing emails.</p>
+              </article>
+              <article class="hero-pill hero-pill--highlight">
+                <div class="hero-pill-label">Pros &amp; Providers</div>
+                <p>Receive crystal-clear jobs, upload WCFs and documents on mobile,
+                  and get paid faster with transparent scoring.</p>
+              </article>
+              <article class="hero-pill">
+                <div class="hero-pill-label">Leadership</div>
+                <p>See cost-to-serve, claims and CSAT in one pane of glass. Unlock
+                  scalable growth with predictable service performance.</p>
+              </article>
+            </div>
             <div class="hero-cta">
-              <a href="demo-interactive.html" class="btn btn-primary">
-                🎮 Try Interactive Demo
+              <a href="#demo" class="btn btn-primary">
+                🎯 Book Control Tower Tour
               </a>
-              <a href="demo.html" class="btn btn-ghost">
-                📋 View All Use Cases
+              <a href="demo-interactive.html" class="btn btn-ghost">
+                🎮 Explore Interactive Demo
               </a>
             </div>
             <div class="hero-meta">
-              <strong>Clear dates. Fair crews. Less firefighting.</strong> Designed
-              for retailers & brands running large-scale installations.
+              From manual chaos to automated control
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <small>Manual escalations</small>
+                <strong>-40%</strong>
+              </div>
+              <div class="hero-stat">
+                <small>On-time service</small>
+                <strong>+18%</strong>
+              </div>
+              <div class="hero-stat">
+                <small>Claims & rework</small>
+                <strong>-25%</strong>
+              </div>
             </div>
           </div>
           <div>
@@ -1097,82 +1274,60 @@
       <section id="problem" class="fade-in">
         <div class="max-w">
           <div class="section-header">
-            <div class="section-eyebrow">Why YellowGrid</div>
-            <h2 class="section-title">The mess between "sold" and "installed".</h2>
+            <div class="section-eyebrow">Story arc</div>
+            <h2 class="section-title">From the fog to the horizon.</h2>
             <p class="section-subtitle">
-              Sales promise dates. Providers juggle WhatsApp and spreadsheets.
-              Ops teams fight fires. YellowGrid takes the chaos after the sale and
-              turns it into one predictable grid of work.
+              The marketing briefing describes YellowGrid as the dawn that cuts
+              through uncertainty. We mirrored that narrative so every persona sees
+              themselves moving from manual chaos to orchestrated clarity.
             </p>
           </div>
-          <div class="features-grid">
-            <article class="feature-card">
-              <div class="feature-icon">🧭</div>
-              <h3 class="feature-title">One grid, not ten tools</h3>
-              <p class="feature-text">
-                Projects, service orders, providers, crews and calendars in one
-                place. No more hunting across emails, Excel tabs and local tools.
-              </p>
-              <p class="feature-meta">
-                <strong>Result:</strong> one version of the truth for operations.
-              </p>
+          <div class="story-grid">
+            <article class="story-card">
+              <div class="story-card-eyebrow">Chapter 1 · The Fog</div>
+              <h3>The weight of the unseen</h3>
+              <p>Operators juggle spreadsheets, pros lack context and leadership sees
+                only lagging KPIs. Everyone feels reactive.</p>
+              <ul class="story-list">
+                <li><strong>Operator:</strong> detective work across inboxes, no live
+                  view of crews.</li>
+                <li><strong>Pro:</strong> unclear scope, paperwork, payment delays.</li>
+                <li><strong>Leader:</strong> escalating costs-to-serve and claims.</li>
+              </ul>
             </article>
-            <article class="feature-card">
-              <div class="feature-icon">🧑‍🔧</div>
-              <h3 class="feature-title">Crew-centric matching</h3>
-              <p class="feature-text">
-                YellowGrid scores and assigns jobs based on skills, zones,
-                documents, risk and performance – not just who shouts loudest on
-                the phone.
-              </p>
-              <p class="feature-meta">
-                <strong>Result:</strong> fewer failed visits, fairer distribution.
-              </p>
+            <article class="story-card">
+              <div class="story-card-eyebrow">Chapter 2 · The Glimmer</div>
+              <h3>Vision for a control tower</h3>
+              <p>True efficiency is orchestration. Intake, matching, buffers and docs
+                must live on one grid with transparent rules.</p>
+              <ul class="story-list">
+                <li><strong>Keywords:</strong> Reliable, Efficient, Transparent,
+                  Empowering.</li>
+                <li><strong>Promise:</strong> Stop chasing, start managing.</li>
+              </ul>
             </article>
-            <article class="feature-card">
-              <div class="feature-icon">⏱</div>
-              <h3 class="feature-title">Buffers built-in, not in someone’s head</h3>
-              <p class="feature-text">
-                Global/advance, static and commute buffers enforced automatically.
-                Promise dates reflect real capacity, not wishful thinking.
-              </p>
-              <p class="feature-meta">
-                <strong>Result:</strong> fewer cancellations and “no-show” calls.
-              </p>
+            <article class="story-card story-card--bright">
+              <div class="story-card-eyebrow">Chapter 3 · The Dawn</div>
+              <h3>Yellow highlights bring clarity</h3>
+              <p>YellowGrid scores every provider, enforces buffers and narrates why
+                each decision is made. Operators become conductors; pros feel valued.</p>
+              <ul class="story-list">
+                <li>Transparent matching funnel with audit trail.</li>
+                <li>Pros manage journeys, docs and payments in one mobile app.</li>
+                <li>Leadership gets the “one pane of glass” horizon view.</li>
+              </ul>
             </article>
-            <article class="feature-card">
-              <div class="feature-icon">🛰</div>
-              <h3 class="feature-title">Control tower for field operations</h3>
-              <p class="feature-text">
-                Live view of unassigned, at-risk and overdue jobs. Tasks and
-                alerts created automatically when something goes wrong.
-              </p>
-              <p class="feature-meta">
-                <strong>Result:</strong> operators steer, not just react.
-              </p>
-            </article>
-            <article class="feature-card">
-              <div class="feature-icon">📑</div>
-              <h3 class="feature-title">WCFs, photos and contracts in context</h3>
-              <p class="feature-text">
-                Work Closing Forms, photos, videos and signatures sit next to the
-                job and journey they belong to – not buried in random folders.
-              </p>
-              <p class="feature-meta">
-                <strong>Result:</strong> faster disputes resolution, less admin.
-              </p>
-            </article>
-            <article class="feature-card">
-              <div class="feature-icon">📊</div>
-              <h3 class="feature-title">Metrics that operators actually use</h3>
-              <p class="feature-text">
-                Lead times, capacity usage, rework and claims per provider, store,
-                region or product line – all mapped back to the grid.
-              </p>
-              <p class="feature-meta">
-                <strong>Result:</strong> real conversations with providers, backed
-                by data.
-              </p>
+            <article class="story-card">
+              <div class="story-card-eyebrow">Chapter 4 · The Horizon</div>
+              <h3>Mastery and growth</h3>
+              <p>YellowGrid becomes the engine for operational excellence: fewer
+                claims, happier pros and customers, faster cash flow.</p>
+              <div class="story-metrics">
+                <div class="story-metric">Adoption &gt; 90% of operators</div>
+                <div class="story-metric">Claims ↓ 25%</div>
+                <div class="story-metric">CSAT ↑ 5 pts</div>
+                <div class="story-metric">DSO ↓ 12 days</div>
+              </div>
             </article>
           </div>
         </div>
@@ -1181,11 +1336,12 @@
       <section id="how" class="fade-in">
         <div class="max-w">
           <div class="section-header">
-            <div class="section-eyebrow">How it works</div>
-            <h2 class="section-title">From sales order to signed WCF.</h2>
+            <div class="section-eyebrow">Control tower</div>
+            <h2 class="section-title">How the grid keeps everyone in sync.</h2>
             <p class="section-subtitle">
-              YellowGrid plugs into your sales and ERP stack, then orchestrates
-              everything between “Order captured” and “Installation accepted”.
+              Every touch point described in the GTM brief — intake, matching,
+              execution, feedback — is choreographed as one journey. Operators see
+              the horizon, pros get clear instructions, leadership trusts the data.
             </p>
           </div>
           <div class="steps-grid">
@@ -1193,35 +1349,29 @@
               <div class="step-item">
                 <div class="step-badge">1</div>
                 <div class="step-content">
-                  <h4>Intake from sales &amp; master data</h4>
-                  <p>
-                    Service orders arrive from your sales front (Pyxis / Tempo /
-                    POS / e-com) with products, addresses and windows. YellowGrid
-                    enriches them with <span>journey templates, rules and
-                    buffers</span>.
-                  </p>
+                  <h4>Intake &amp; context locking</h4>
+                  <p>Orders arrive from POS, CRM or marketplaces with address and
+                    promise dates. YellowGrid enriches each one with journey
+                    templates, dependencies and <span>operator-defined buffer
+                      rules</span>.</p>
                 </div>
               </div>
               <div class="step-item">
                 <div class="step-badge">2</div>
                 <div class="step-content">
-                  <h4>Match &amp; schedule on the grid</h4>
-                  <p>
-                    The matching engine filters eligible providers, scores crews
-                    and proposes slots that respect capacity, zones and buffer
-                    rules – visible as colored cells on the grid.
-                  </p>
+                  <h4>Orchestrated matching</h4>
+                  <p>The engine filters eligibility by skills, docs, SLAs and
+                    geography. Slots are color-coded on the grid with an audit log
+                    so operators explain every assignment to providers or finance.</p>
                 </div>
               </div>
               <div class="step-item">
                 <div class="step-badge">3</div>
                 <div class="step-content">
-                  <h4>Execute, close and learn</h4>
-                  <p>
-                    Crews work from the YellowGrid app: jobs, check-in/out, TV
-                    result, WCF and photos. Operators track exceptions, tasks and
-                    SLAs. Insights feed back into provider scoring and rules.
-                  </p>
+                  <h4>Execute, learn, govern</h4>
+                  <p>Pros use the YellowGrid app for checklists, WCFs and payments.
+                    Operators manage exceptions inside the control tower, while
+                    leadership reviews KPIs and iterates rules without code.</p>
                 </div>
               </div>
             </div>
@@ -1230,11 +1380,10 @@
                 <span class="badge-inline">Demo scenario</span>
               </div>
               <h4>“TV → Installation → WCF” journey</h4>
-              <p>
-                In our live demo we’ll walk through a classic case: a complex
-                product that requires a Technical Visit before installation, plus
-                a Work Closing Form and potential warranty rework.
-              </p>
+              <p>This is the storyline from the marketing kit: a complex appliance
+                requiring a Technical Visit, installation day, WCF capture and
+                optional warranty rework. We show how YellowGrid keeps that journey
+                consistent across markets.</p>
               <div class="steps-metric-row">
                 <div class="steps-metric">
                   TV ➝ Install lead time: <strong>+3 to +7 days</strong>
@@ -1246,11 +1395,9 @@
                   Cancellations: <strong>−25%</strong>
                 </div>
               </div>
-              <p>
-                YellowGrid keeps this journey consistent across countries, providers
-                and products – with one grid, one set of rules and a clear audit
-                trail.
-              </p>
+              <p>The playbook is packaged for enablement kits, training portals and
+                leadership briefings — ensuring the product story and in-app
+                experience stay perfectly aligned.</p>
             </aside>
           </div>
         </div>
@@ -1259,11 +1406,12 @@
       <section id="modules" class="fade-in">
         <div class="max-w">
           <div class="section-header">
-            <div class="section-eyebrow">Product overview</div>
-            <h2 class="section-title">Modules of the YellowGrid platform.</h2>
+            <div class="section-eyebrow">Platform lineup</div>
+            <h2 class="section-title">Modules highlighted in the GTM briefing.</h2>
             <p class="section-subtitle">
-              Start small with core grid visibility, then light up the full
-              control tower: matching, capacity, execution, documents and insights.
+              The same capabilities featured in the marketing kit power the live
+              demo: Control Tower for operators, Crew App for pros, Insights for
+              leadership and Connect for IT.
             </p>
           </div>
           <div class="features-grid">
@@ -1271,17 +1419,18 @@
               <div class="feature-icon">🛰</div>
               <h3 class="feature-title">Control Tower</h3>
               <p class="feature-text">
-                Live views of unassigned, at-risk and overdue jobs. Task queues
-                for operators, with filters by country, store, provider and
-                product line.
+                Live views of unassigned, at-risk and overdue jobs turn operators
+                from detectives into conductors. Filters mirror the enablement
+                decks: by country, store, provider or journey.
               </p>
             </article>
             <article class="feature-card">
               <div class="feature-icon">🎯</div>
               <h3 class="feature-title">Match</h3>
               <p class="feature-text">
-                Matching engine for providers and crews, with transparent funnel:
-                who was considered, filtered, scored and finally chosen – and why.
+                Matching engine for providers and crews with a transparent funnel:
+                who was considered, filtered, scored and chosen — plus the reason.
+                Ideal for leadership briefings and provider reviews.
               </p>
             </article>
             <article class="feature-card">
@@ -1348,41 +1497,41 @@
       <section id="demo" class="fade-in">
         <div class="max-w demo-section">
           <div class="demo-copy">
-            <h3>See the grid in action.</h3>
+            <h3>Show the Control Tower narrative.</h3>
             <p>
-              In a 20-minute live session we’ll plug a real service order flow into
-              YellowGrid and walk through the grid: from intake to crew app and
-              back.
+              In a 20-minute live session we replay the GTM storyline: chaos to
+              clarity. You’ll see the same demo cards from this page, plus the crew
+              app and reporting views highlighted in the marketing kit.
             </p>
             <ul>
               <li>
                 <span>✓</span>
-                <div>Control tower view of today’s and tomorrow’s installations</div>
+                <div>Live control tower: intake, alerts, automated assignments.</div>
               </li>
               <li>
                 <span>✓</span>
-                <div>Auto-matching of crews based on your rules and buffers</div>
+                <div>Pros &amp; providers app: TV → Install → WCF journey.</div>
               </li>
               <li>
                 <span>✓</span>
-                <div>Technician app flow: TV, installation, WCF, rework</div>
+                <div>Leadership insights: cost-to-serve, claims, CSAT and KPIs.</div>
               </li>
               <li>
                 <span>✓</span>
-                <div>How YellowGrid fits next to your existing systems</div>
+                <div>GTM assets: enablement hub, email cadences, swag ideas.</div>
               </li>
             </ul>
             <div class="hero-cta">
               <a href="demo-interactive.html" class="btn btn-primary">
-                🎮 Try Interactive Demo
+                🎮 Launch Interactive Demo
               </a>
-              <a href="demo.html" class="btn btn-ghost">
-                📋 View All Use Cases
+              <a href="#problem" class="btn btn-ghost">
+                📖 Revisit the Story Arc
               </a>
             </div>
             <p class="small">
-              No generic slideware. We use a real flow and show you the decisions
-              YellowGrid takes at each step.
+              Every walkthrough ends with a shareable narrative deck so marketing,
+              operations and IT stay in lockstep.
             </p>
           </div>
           <div class="demo-mock">
