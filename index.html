@@ -1266,6 +1266,890 @@
       }
     }
     
+    /* Tower Tab Navigation */
+    .tower-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 0;
+    }
+    
+    .tower-tab {
+      padding: 1rem 2rem;
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      margin-bottom: -2px;
+    }
+    
+    .tower-tab:hover {
+      color: var(--yellow-primary);
+      background: rgba(255, 193, 7, 0.05);
+    }
+    
+    .tower-tab.active {
+      color: var(--yellow-primary);
+      border-bottom-color: var(--yellow-primary);
+    }
+    
+    .tower-tab-badge {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .tower-tab-content {
+      display: none;
+    }
+    
+    .tower-tab-content.active {
+      display: block;
+    }
+    
+    /* Tasks Table */
+    .tower-table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .tower-table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    
+    .tower-table-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--text-primary);
+    }
+    
+    .tower-table-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .tower-btn {
+      padding: 0.625rem 1.25rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .tower-btn-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .tower-btn-blue:hover {
+      background: rgba(59, 130, 246, 0.25);
+      transform: translateY(-2px);
+    }
+    
+    .tower-btn-yellow {
+      background: rgba(255, 193, 7, 0.15);
+      color: var(--yellow-primary);
+      border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+    
+    .tower-btn-yellow:hover {
+      background: rgba(255, 193, 7, 0.25);
+      transform: translateY(-2px);
+    }
+    
+    .tower-table-scroll {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 600px;
+    }
+    
+    .tower-table-scroll::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    .tower-table-scroll::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 4px;
+    }
+    
+    .tower-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .tower-table thead {
+      background: rgba(255, 255, 255, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .tower-table th {
+      padding: 1rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    
+    .tower-table td {
+      padding: 1.25rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+    
+    .tower-table tbody tr {
+      transition: var(--transition);
+    }
+    
+    .tower-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .tower-status-badge {
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    
+    .tower-status-badge.scheduled {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    
+    .tower-status-badge.distributed {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .tower-status-badge.confirmed {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .tower-status-badge.in-progress {
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    
+    .tower-action-icons {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.125rem;
+    }
+    
+    .tower-action-icon {
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .tower-action-icon:hover {
+      transform: scale(1.2);
+    }
+    
+    .tower-action-icon.blue { color: var(--accent-blue); }
+    .tower-action-icon.green { color: var(--accent-green); }
+    .tower-action-icon.purple { color: #a78bfa; }
+    .tower-action-icon.orange { color: #fb923c; }
+    
+    /* Timeline/Gantt Chart */
+    .tower-timeline-container {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .tower-timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tower-legend {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .tower-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+    
+    .tower-legend-box {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--radius-xs);
+    }
+    
+    .tower-calendar-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .tower-calendar-scroll {
+      overflow: auto;
+      max-height: 600px;
+    }
+    
+    .tower-calendar-scroll::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    .tower-calendar-scroll::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 4px;
+    }
+    
+    .tower-calendar-grid {
+      display: grid;
+      grid-template-columns: 220px repeat(14, 100px);
+      min-width: 1600px;
+    }
+    
+    .tower-calendar-header-cell {
+      background: rgba(255, 255, 255, 0.03);
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 2px solid rgba(255, 193, 7, 0.3);
+      padding: 1rem 0.75rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .tower-calendar-header-cell.project-col {
+      text-align: left;
+      padding: 1rem;
+      background: rgba(255, 193, 7, 0.1);
+      color: var(--yellow-primary);
+      font-size: 0.875rem;
+      border-color: rgba(255, 193, 7, 0.3);
+      position: sticky;
+      left: 0;
+      z-index: 20;
+    }
+    
+    .tower-calendar-header-cell.today {
+      background: rgba(255, 193, 7, 0.15);
+      color: var(--yellow-primary);
+      border-bottom: 3px solid var(--yellow-primary);
+    }
+    
+    .tower-day-num {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    
+    .tower-day-name {
+      font-size: 0.6875rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+    }
+    
+    .tower-calendar-row {
+      display: contents;
+    }
+    
+    .tower-calendar-project-cell {
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: sticky;
+      left: 0;
+      z-index: 5;
+    }
+    
+    .tower-project-name {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      margin-bottom: 0.375rem;
+    }
+    
+    .tower-project-meta {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    .tower-calendar-day-cell {
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      background: var(--bg-card);
+      min-height: 70px;
+    }
+    
+    .tower-calendar-day-cell.today {
+      background: rgba(255, 193, 7, 0.05);
+    }
+    
+    .tower-calendar-day-cell.weekend {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    
+    .tower-project-bar {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 45px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      color: white;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 1;
+    }
+    
+    .tower-project-bar:hover {
+      z-index: 2;
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .tower-project-bar.critical {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      animation: pulse-glow 2s infinite;
+    }
+    
+    .tower-project-bar.warning {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+    
+    .tower-project-bar.active {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+    
+    .tower-project-bar.success {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); }
+      50% { box-shadow: 0 6px 24px rgba(239, 68, 68, 0.7); }
+    }
+    
+    .tower-project-bar-icon {
+      margin-right: 0.625rem;
+      font-size: 1rem;
+    }
+    
+    .tower-project-bar-label {
+      flex: 1;
+    }
+    
+    .tower-project-bar-days {
+      margin-left: 0.75rem;
+      opacity: 0.85;
+      font-size: 0.75rem;
+    }
+    
+    /* AI Chat Widget */
+    .tower-chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+    }
+    
+    .tower-chat-button {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow-primary), #f59e0b);
+      color: var(--bg-dark);
+      border: none;
+      box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      transition: var(--transition);
+      animation: pulse-chat 2.5s infinite;
+    }
+    
+    @keyframes pulse-chat {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.05); }
+    }
+    
+    .tower-chat-button:hover {
+      box-shadow: 0 15px 40px rgba(255, 193, 7, 0.6);
+      transform: scale(1.1);
+    }
+    
+    .tower-chat-window {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 520px;
+      height: 720px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    
+    .tower-chat-header {
+      background: linear-gradient(135deg, var(--yellow-primary), #f59e0b);
+      color: var(--bg-dark);
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .tower-chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .tower-chat-avatar {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .tower-chat-header-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    .tower-chat-header-title {
+      font-weight: 800;
+      font-size: 1.125rem;
+    }
+    
+    .tower-chat-header-subtitle {
+      font-size: 0.8125rem;
+      opacity: 0.85;
+      font-weight: 600;
+    }
+    
+    .tower-chat-close {
+      background: rgba(0, 0, 0, 0.15);
+      border: none;
+      color: var(--bg-dark);
+      padding: 0.625rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.25rem;
+    }
+    
+    .tower-chat-close:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+    
+    .tower-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .tower-chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .tower-chat-messages::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 3px;
+    }
+    
+    .tower-chat-message {
+      display: flex;
+      animation: fadeIn 0.3s;
+    }
+    
+    .tower-chat-message.user {
+      justify-content: flex-end;
+    }
+    
+    .tower-chat-message.bot {
+      justify-content: flex-start;
+    }
+    
+    .tower-chat-message-content {
+      max-width: 85%;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+    }
+    
+    .tower-chat-message.user .tower-chat-message-content {
+      background: var(--yellow-primary);
+      color: var(--bg-dark);
+    }
+    
+    .tower-chat-message.bot .tower-chat-message-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+    
+    .tower-bot-label {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      margin-bottom: 0.625rem;
+      font-size: 0.8125rem;
+      color: var(--yellow-primary);
+      font-weight: 700;
+    }
+    
+    .tower-chat-message-text {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    
+    .tower-chat-quick-actions {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+    }
+    
+    .tower-quick-action-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .tower-quick-action-btn.red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    .tower-quick-action-btn.red:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+    
+    .tower-quick-action-btn.yellow {
+      background: rgba(255, 193, 7, 0.15);
+      color: var(--yellow-primary);
+      border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+    
+    .tower-quick-action-btn.yellow:hover {
+      background: rgba(255, 193, 7, 0.25);
+    }
+    
+    .tower-quick-action-btn.blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .tower-quick-action-btn.blue:hover {
+      background: rgba(59, 130, 246, 0.25);
+    }
+    
+    .tower-quick-action-btn.green {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .tower-quick-action-btn.green:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+    
+    .tower-chat-input-area {
+      padding: 1.25rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-subtle);
+    }
+    
+    .tower-chat-input-container {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .tower-chat-input {
+      flex: 1;
+      padding: 0.875rem 1.25rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      outline: none;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+    }
+    
+    .tower-chat-input:focus {
+      border-color: var(--yellow-primary);
+      box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+    }
+    
+    .tower-chat-send {
+      padding: 0.875rem 1.5rem;
+      background: linear-gradient(135deg, var(--yellow-primary), #f59e0b);
+      color: var(--bg-dark);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 700;
+    }
+    
+    .tower-chat-send:hover {
+      box-shadow: 0 6px 12px rgba(255, 193, 7, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    /* Customer Messages Panel */
+    .tower-messages-panel {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 480px;
+      height: 720px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 998;
+    }
+    
+    .tower-messages-header {
+      background: linear-gradient(135deg, var(--accent-green), #059669);
+      color: white;
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .tower-messages-header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+    
+    .tower-messages-avatar {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .tower-messages-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    .tower-messages-title {
+      font-weight: 800;
+      font-size: 1.125rem;
+    }
+    
+    .tower-messages-subtitle {
+      font-size: 0.8125rem;
+      opacity: 0.9;
+      font-weight: 600;
+    }
+    
+    .tower-messages-actions {
+      display: flex;
+      gap: 0.625rem;
+    }
+    
+    .tower-messages-action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 0.625rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.125rem;
+    }
+    
+    .tower-messages-action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .tower-conversations-list {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--bg-dark);
+    }
+    
+    .tower-conversations-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .tower-conversations-list::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 3px;
+    }
+    
+    .tower-conversation-item {
+      padding: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .tower-conversation-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .tower-conversation-item.unread {
+      background: rgba(59, 130, 246, 0.08);
+    }
+    
+    .tower-conversation-item.unread:hover {
+      background: rgba(59, 130, 246, 0.12);
+    }
+    
+    .tower-conversation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 0.625rem;
+    }
+    
+    .tower-conversation-name {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+    }
+    
+    .tower-conversation-time {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    
+    .tower-conversation-preview {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 0.625rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .tower-conversation-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .tower-conversation-project {
+      font-size: 0.8125rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+    
+    .tower-unread-badge {
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+    
     /* Pictogram Section */
     .pictogram-showcase {
       padding: 6rem 0;
@@ -2572,6 +3456,9 @@
           }, 50);
         }, 300);
       }
+      
+      // Update Control Tower widgets visibility
+      updateControlTowerWidgets();
     }
     
     // Show view toggle when scrolling to demo section
@@ -2642,6 +3529,156 @@
     }, observerOptions);
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Tower Tab Switching
+    function switchTowerTab(tabName) {
+      // Remove active class from all tabs and contents
+      document.querySelectorAll('.tower-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tower-tab-content').forEach(content => content.classList.remove('active'));
+      
+      // Add active class to selected tab and content
+      event.target.classList.add('active');
+      document.getElementById(`tower-tab-${tabName}`).classList.add('active');
+    }
+    
+    // AI Chat Widget Functions
+    function toggleTowerChat() {
+      const button = document.getElementById('towerChatButton');
+      const window = document.getElementById('towerChatWindow');
+      
+      if (window.classList.contains('hidden')) {
+        button.classList.add('hidden');
+        window.classList.remove('hidden');
+      } else {
+        button.classList.remove('hidden');
+        window.classList.add('hidden');
+      }
+    }
+    
+    function openAIChat(message) {
+      const chatWidget = document.getElementById('towerChatWidget');
+      const chatWindow = document.getElementById('towerChatWindow');
+      const chatButton = document.getElementById('towerChatButton');
+      
+      chatWidget.classList.remove('hidden');
+      chatButton.classList.add('hidden');
+      chatWindow.classList.remove('hidden');
+      
+      if (message) {
+        setTimeout(() => sendTowerQuickMessage(message), 300);
+      }
+    }
+    
+    function sendTowerMessage() {
+      const input = document.getElementById('towerChatInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      addTowerChatMessage('user', message);
+      input.value = '';
+
+      setTimeout(() => {
+        const botResponse = generateTowerBotResponse(message);
+        addTowerChatMessage('bot', botResponse);
+      }, 800);
+    }
+    
+    function sendTowerQuickMessage(message) {
+      addTowerChatMessage('user', message);
+      setTimeout(() => {
+        const botResponse = generateTowerBotResponse(message);
+        addTowerChatMessage('bot', botResponse);
+      }, 800);
+    }
+    
+    function addTowerChatMessage(type, text) {
+      const messagesDiv = document.getElementById('towerChatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `tower-chat-message ${type}`;
+      
+      if (type === 'user') {
+        messageDiv.innerHTML = `
+          <div class="tower-chat-message-content">
+            <div class="tower-chat-message-text">${text}</div>
+          </div>
+        `;
+      } else {
+        messageDiv.innerHTML = `
+          <div class="tower-chat-message-content">
+            <div class="tower-bot-label">
+              <i class="fas fa-robot"></i>
+              <span>AI Assistant</span>
+            </div>
+            <div class="tower-chat-message-text">${text}</div>
+          </div>
+        `;
+      }
+      
+      messagesDiv.appendChild(messageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function generateTowerBotResponse(message) {
+      const lower = message.toLowerCase();
+      
+      if (lower.includes('daily summary') || lower.includes('summary')) {
+        return `<strong>📊 Today's Summary - ${new Date().toLocaleDateString()}</strong><br><br>
+          <strong>🔴 Urgent Actions (12)</strong><br>
+          • 12 contracts awaiting signature (>72h)<br>
+          • 8 projects needing Pro assignment<br>
+          • 7 WCF pending signature (>48h)<br><br>
+          <strong>📈 Performance</strong><br>
+          • 42 active projects | 28 crews assigned<br>
+          • 94% on schedule | €18.5K revenue today<br>
+          • 5 projects resolved | 95% resolution rate`;
+      } else if (lower.includes('contract')) {
+        return 'You have <strong>12 contracts awaiting signature</strong> (>72h overdue). Most urgent: <strong>#PX-377903</strong> - Ines Broncano (€3,850, scheduled tomorrow 9 AM). Contract was sent 4 days ago. Would you like me to draft a follow-up message?';
+      } else if (lower.includes('pro') || lower.includes('assign')) {
+        return 'Found <strong>8 projects needing Pro assignment</strong>. Most urgent: <strong>#SX-375742</strong> - Fernando Checa (€1,950, today 2 PM). I found 3 matching Pros nearby: Silva Instalações (95% rating, 2.5km away, available today). Assign now?';
+      } else if (lower.includes('wcf')) {
+        return 'You have <strong>7 WCF pending signatures</strong> (>48h) and 5 signed with reserves. Most urgent: <strong>#SX-378912</strong> - Carmen Lopez needs follow-up. Customer hasn\'t signed after 3 days despite completion.';
+      } else if (lower.includes('call') || lower.includes('phone')) {
+        return `I'll help you prepare for this call:<br><br>
+          <strong>Customer:</strong> ${message.includes('Ines') ? 'Ines Broncano' : 'Customer'}<br>
+          <strong>Issue:</strong> Contract pending signature (4 days)<br>
+          <strong>Value:</strong> €3,850<br>
+          <strong>Scheduled:</strong> Tomorrow 9:00 AM<br><br>
+          <strong>Talking Points:</strong><br>
+          1. Confirm installation date & time<br>
+          2. Address any contract questions<br>
+          3. Request signature today<br>
+          4. Confirm Pro assignment<br><br>
+          Ready to call? <a href="tel:+34XXXXXXXXX" style="color: var(--yellow-primary);">Click to dial</a>`;
+      } else {
+        return 'I analyzed your workload:<br><br>🔴 <strong>12 urgent actions</strong> (next 4h)<br>🟡 <strong>23 attention needed</strong> (today)<br>🟢 <strong>34 on track</strong><br><br>Top priority: Contact 3 customers for contracts before 5 PM. Type <strong>"daily summary"</strong> to see today\'s accomplishments!';
+      }
+    }
+    
+    // Customer Messages Panel
+    function toggleCustomerMessagesPanel() {
+      const panel = document.getElementById('towerMessagesPanel');
+      panel.classList.toggle('hidden');
+    }
+    
+    function openCustomerMessages() {
+      const panel = document.getElementById('towerMessagesPanel');
+      panel.classList.remove('hidden');
+    }
+    
+    // Show chat widget and messages panel when in Control Tower view
+    function updateControlTowerWidgets() {
+      const towerView = document.getElementById('controlTowerView');
+      const chatWidget = document.getElementById('towerChatWidget');
+      const messagesPanel = document.getElementById('towerMessagesPanel');
+      
+      if (towerView && !towerView.classList.contains('hidden')) {
+        chatWidget.classList.remove('hidden');
+        // messagesPanel remains hidden until user opens it
+      } else {
+        chatWidget.classList.add('hidden');
+        messagesPanel.classList.add('hidden');
+      }
+    }
 
     // Week data structure
     const weeksData = {
