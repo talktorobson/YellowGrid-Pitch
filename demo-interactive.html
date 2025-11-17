@@ -1532,7 +1532,8 @@
         'rework': {
           name: 'Rework - Quality Recovery',
           description: 'Service quality issue requiring corrective action. Customer signed WCF with reserves due to poor workmanship. Different provider assigned to perform rework.',
-          serviceOrders: [{
+          salesOrder: {
+            orderId: 'SO-2024-12456',
             soId: 'SO-2024-12456',
             originalSoId: 'SO-2024-11892',
             reworkReason: 'wcf-reserves',
@@ -1544,6 +1545,8 @@
               name: 'Sofia Rodrigues',
               email: 'sofia.rodrigues@example.pt',
               phone: '+351 91 234 5678',
+              addressLine1: 'Rua das Flores, 45, 3º Esq',
+              addressLine2: '',
               address: 'Rua das Flores, 45, 3º Esq, 1200-195 Lisboa',
               city: 'Lisboa',
               postalCode: '1200-195',
@@ -1665,7 +1668,7 @@
             specialInstructions: 'REWORK WORKFLOW: Assessment → Provider Assignment → Go Exec → Execution → Quality Check → WCF → Payment (conditional). QUALITY STANDARDS: Grout lines 3mm ±0.5mm consistent, tiles level ±0.5mm, waterproofing test pass (24hr moisture test), professional finish expected. Customer very detail-oriented - photos required at each stage.',
             priority: 'High',
             tags: ['rework', 'quality-issue', 'wcf-reserves', 'different-provider', 'tiling', 'waterproofing', 'remedial-work']
-          }]
+          }
         }
       };
 
@@ -3256,7 +3259,6 @@
 
         // Custom flow for Rework scenario (quality recovery with conditional payment)
         if (scenarioId === 'rework') {
-          const so = scenarios[scenarioId].serviceOrders[0];
           const reworkCards = [
             // Rework Trigger (WCF signed with reserves)
             { id: 'rework-trigger', type: 'customer', title: 'WCF Rejection Event', icon: 'triangle-exclamation', stepId: 'rework-trigger' },
@@ -5301,7 +5303,7 @@
 
       // Rework Scenario Render Functions
       const renderReworkTriggerCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5367,7 +5369,7 @@
       };
 
       const renderProblemAssessmentCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5425,7 +5427,7 @@
       };
 
       const renderRootCauseAnalysisCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5491,7 +5493,7 @@
       };
 
       const renderReworkDecisionCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5560,7 +5562,7 @@
       };
 
       const renderProviderAssignmentCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5639,7 +5641,7 @@
       };
 
       const renderProviderNotificationCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5707,7 +5709,7 @@
       };
 
       const renderQualityCheckCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5765,7 +5767,7 @@
       };
 
       const renderPaymentAuthorizationCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5824,7 +5826,7 @@
       };
 
       const renderReworkCompleteCard = (so, card) => {
-        const reworkSO = scenarios['rework'].serviceOrders[0];
+        const reworkSO = scenarios['rework'].salesOrder;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -5972,6 +5974,8 @@
           html = renderInvoicePortalCard(so, card);
         } else if (card.id === 'invoice-dataflow') {
           html = renderInvoiceDataflowCard(so, card);
+        } else if (card.id === 'payment-authorization') {
+          html = renderPaymentAuthorizationCard(so, card);
         } else if (card.id.startsWith('payment-auth')) {
           html = renderPaymentAuthCard(so, card);
         } else if (card.id.startsWith('payment-portal')) {
@@ -5994,8 +5998,6 @@
           html = renderProviderNotificationCard(so, card);
         } else if (card.id === 'quality-check') {
           html = renderQualityCheckCard(so, card);
-        } else if (card.id === 'payment-authorization') {
-          html = renderPaymentAuthorizationCard(so, card);
         } else if (card.id === 'rework-complete') {
           html = renderReworkCompleteCard(so, card);
         }
