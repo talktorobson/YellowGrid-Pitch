@@ -487,11 +487,14 @@
     <div class="scenario-bar">
       <label for="scenario-select">Select Scenario</label>
       <select id="scenario-select" onchange="changeScenario(this.value)">
-        <option value="standard">Standard Service</option>
+        <option value="simple-install">Simple Installation</option>
+        <option value="tv-quotation">Technical Visit of Quotation</option>
+        <option value="package-deal">Service Pack (with TV)</option>
+        <option value="complex-project">Complex Project (Multi-Phase)</option>
         <option value="rework">Rework (Quality Recovery)</option>
-        <option value="maintenance">Maintenance</option>
-        <option value="depannage">Dépannage (Urgent Service)</option>
-        <option value="subscription">Subscription</option>
+        <option value="maintenance">Maintenance (Asset Service)</option>
+        <option value="depannage">Dépannage (Emergency)</option>
+        <option value="subscription">Subscription (Recurring)</option>
       </select>
     </div>
 
@@ -536,92 +539,176 @@
     // For mobile, we'll use simplified versions of each scenario
     
     const scenarios = {
-      standard: {
-        name: 'Standard Service',
+      'simple-install': {
+        name: 'Simple Installation',
+        description: 'Standard service order with product purchase and installation',
         cards: [
-          { id: 'kafka', title: 'Kafka Message', layer: 'data', icon: 'fa-stream' },
-          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database' },
-          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
-          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot' },
-          { id: 'operator', title: 'Operator Review', layer: 'operator', icon: 'fa-headset' },
-          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature' },
-          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie' },
-          { id: 'delivery', title: 'Product Delivery', layer: 'provider', icon: 'fa-truck' },
-          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle' },
-          { id: 'crew', title: 'Crew Execution', layer: 'provider', icon: 'fa-wrench' },
-          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
-          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
-          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
-          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+          { id: 'kafka', title: 'Kafka Message', layer: 'data', icon: 'fa-stream', desc: 'Sales integration from retailer' },
+          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database', desc: 'AI enriches order data' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice', desc: 'SO-2025-9821 created' },
+          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot', desc: 'Risk scoring: 23 (low)' },
+          { id: 'operator', title: 'Operator Review', layer: 'operator', icon: 'fa-headset', desc: 'Lia Santos approves' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature', desc: 'Customer signs digitally' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie', desc: 'TechInstall Pro matched' },
+          { id: 'delivery', title: 'Product Delivery', layer: 'provider', icon: 'fa-truck', desc: 'Bosch cooktop delivered' },
+          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle', desc: 'All gates passed' },
+          { id: 'crew', title: 'Crew Execution', layer: 'provider', icon: 'fa-wrench', desc: 'Rui Lopes installs' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle', desc: 'Customer signs WCF' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: 'Provider bills €560.88' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Platform pays provider' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered', desc: 'Service closed' }
         ]
       },
-      rework: {
-        name: 'Rework',
+      'tv-quotation': {
+        name: 'Technical Visit of Quotation',
+        description: 'Pre-purchase site assessment for complex installations',
         cards: [
-          { id: 'problem', title: 'Problem Detected', layer: 'customer', icon: 'fa-exclamation-triangle' },
-          { id: 'assessment', title: 'Assessment', layer: 'operator', icon: 'fa-clipboard-check' },
-          { id: 'provider-assign', title: 'Provider Assignment', layer: 'operator', icon: 'fa-user-tie' },
-          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle' },
-          { id: 'crew', title: 'Rework Execution', layer: 'provider', icon: 'fa-tools' },
-          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
-          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
-          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
-          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+          { id: 'kafka', title: 'Service Request', layer: 'data', icon: 'fa-stream', desc: 'Customer requests quote' },
+          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database', desc: 'System enriches data' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice', desc: 'SO-2025-1201 created' },
+          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot', desc: 'Complexity assessment' },
+          { id: 'operator', title: 'Operator Review', layer: 'operator', icon: 'fa-headset', desc: 'João Silva assigns' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature', desc: 'Customer pays €98.40' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie', desc: 'Expert technician matched' },
+          { id: 'tv-exec', title: 'Technical Visit', layer: 'provider', icon: 'fa-ruler-combined', desc: 'Site assessment done' },
+          { id: 'tv-report', title: 'TV Report', layer: 'provider', icon: 'fa-file-alt', desc: 'Detailed quotation' },
+          { id: 'quote-sent', title: 'Quote Sent', layer: 'customer', icon: 'fa-envelope', desc: 'Customer receives quote' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: 'TV service billed' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Provider paid' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered', desc: 'Quote delivered' }
         ]
       },
-      maintenance: {
-        name: 'Maintenance',
+      'package-deal': {
+        name: 'Service Pack (with TV)',
+        description: 'Product + Installation bundle with confirmation technical visit',
         cards: [
-          { id: 'kafka', title: 'Service Request', layer: 'data', icon: 'fa-stream' },
-          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
-          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature' },
-          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie' },
-          { id: 'crew', title: 'Maintenance Service', layer: 'provider', icon: 'fa-wrench' },
-          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
-          { id: 'report', title: 'Service Report', layer: 'system', icon: 'fa-file-alt' },
-          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
-          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
-          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+          { id: 'kafka', title: 'Purchase', layer: 'data', icon: 'fa-stream', desc: 'Service pack sold' },
+          { id: 'enrichment', title: 'Enrichment', layer: 'system', icon: 'fa-database', desc: 'Bundle order data' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice', desc: 'SO-2025-3342 bundle' },
+          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot', desc: 'TV required detected' },
+          { id: 'operator', title: 'Operator', layer: 'operator', icon: 'fa-headset', desc: 'Carlos approves bundle' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature', desc: 'Customer pays €761.37' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie', desc: 'Single provider for both' },
+          { id: 'tv-exec', title: 'Confirmation TV', layer: 'provider', icon: 'fa-magnifying-glass', desc: 'Pre-install check' },
+          { id: 'tv-outcome', title: 'TV Outcome', layer: 'system', icon: 'fa-code-branch', desc: 'YES/NO/YES BUT' },
+          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle', desc: 'If YES, proceed' },
+          { id: 'delivery', title: 'Product Delivery', layer: 'provider', icon: 'fa-truck', desc: 'Dishwasher delivered' },
+          { id: 'crew', title: 'Installation', layer: 'provider', icon: 'fa-wrench', desc: 'Main installation' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle', desc: 'Customer accepts' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: 'Provider bills' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Payment processed' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered', desc: 'Bundle complete' }
         ]
       },
-      depannage: {
-        name: 'Dépannage (Urgent)',
+      'complex-project': {
+        name: 'Complex Project',
+        description: 'Multi-phase bathroom renovation with 4 services and iterative loops',
         cards: [
-          { id: 'kafka', title: 'Urgent Request', layer: 'data', icon: 'fa-bolt' },
-          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database' },
-          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
-          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot' },
-          { id: 'operator', title: 'Operator Triage', layer: 'operator', icon: 'fa-headset' },
-          { id: 'multi-dispatch', title: 'Multi-Provider Dispatch', layer: 'system', icon: 'fa-users' },
-          { id: 'bidding', title: 'Provider Bidding', layer: 'provider', icon: 'fa-stopwatch' },
-          { id: 'winner', title: 'First Acceptance', layer: 'system', icon: 'fa-trophy' },
-          { id: 'crew', title: 'Urgent Execution', layer: 'provider', icon: 'fa-tools' },
-          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
-          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
-          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
-          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+          { id: 'kafka', title: 'Project Order', layer: 'data', icon: 'fa-stream', desc: 'Premium renovation' },
+          { id: 'enrichment', title: 'Enrichment', layer: 'system', icon: 'fa-database', desc: 'Project data enriched' },
+          { id: 'so-creation', title: 'Project Creation', layer: 'system', icon: 'fa-folder-plus', desc: 'PROJ-2025-8840' },
+          { id: 'ai-analysis', title: 'AI Dependency Graph', layer: 'system', icon: 'fa-robot', desc: '4-phase critical path' },
+          { id: 'operator', title: 'Operator Triage', layer: 'operator', icon: 'fa-headset', desc: 'Maria Santos reviews' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature', desc: '€16,233 milestone pay' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie', desc: 'HomePro for all phases' },
+          { id: 'phase1-go', title: 'Phase 1: Go Exec', layer: 'system', icon: 'fa-traffic-light', desc: 'Demolition ready' },
+          { id: 'phase1-exec', title: 'Phase 1: Demolition', layer: 'provider', icon: 'fa-wrench', desc: '2 days' },
+          { id: 'phase1-qc', title: 'Phase 1: QC', layer: 'operator', icon: 'fa-user-check', desc: 'Quality check' },
+          { id: 'phase1-pay', title: 'Phase 1: Payment Auth', layer: 'operator', icon: 'fa-stamp', desc: '30% released' },
+          { id: 'phase2-go', title: 'Phase 2: Go Exec', layer: 'system', icon: 'fa-traffic-light', desc: 'Tiling ready' },
+          { id: 'phase2-exec', title: 'Phase 2: Tiling', layer: 'provider', icon: 'fa-wrench', desc: '3 days' },
+          { id: 'phase2-qc', title: 'Phase 2: QC', layer: 'operator', icon: 'fa-user-check', desc: 'Quality check' },
+          { id: 'phase2-pay', title: 'Phase 2: Payment Auth', layer: 'operator', icon: 'fa-stamp', desc: '20% released' },
+          { id: 'phase3-go', title: 'Phase 3: Go Exec', layer: 'system', icon: 'fa-traffic-light', desc: 'Fixtures ready' },
+          { id: 'phase3-exec', title: 'Phase 3: Fixtures', layer: 'provider', icon: 'fa-wrench', desc: '2 days' },
+          { id: 'phase3-qc', title: 'Phase 3: QC', layer: 'operator', icon: 'fa-user-check', desc: 'Quality check' },
+          { id: 'phase3-pay', title: 'Phase 3: Payment Auth', layer: 'operator', icon: 'fa-stamp', desc: '30% released' },
+          { id: 'phase4-go', title: 'Phase 4: Go Exec', layer: 'system', icon: 'fa-traffic-light', desc: 'Finishing ready' },
+          { id: 'phase4-exec', title: 'Phase 4: Finishing', layer: 'provider', icon: 'fa-wrench', desc: '2 days' },
+          { id: 'phase4-qc', title: 'Phase 4: QC', layer: 'operator', icon: 'fa-user-check', desc: 'Final quality' },
+          { id: 'wcf', title: 'Final WCF', layer: 'customer', icon: 'fa-check-circle', desc: 'Customer accepts all' },
+          { id: 'phase4-pay', title: 'Final Payment', layer: 'operator', icon: 'fa-stamp', desc: '20% released' },
+          { id: 'complete', title: 'Project Complete', layer: 'system', icon: 'fa-flag-checkered', desc: '9 days total' }
         ]
       },
-      subscription: {
-        name: 'Subscription',
+      'rework': {
+        name: 'Rework - Quality Recovery',
+        description: 'Service quality issue requiring corrective action by different provider',
         cards: [
-          { id: 'kafka', title: 'Subscription Purchase', layer: 'data', icon: 'fa-stream' },
-          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
-          { id: 'reminder', title: 'Service Reminder', layer: 'customer', icon: 'fa-bell' },
-          { id: 'schedule', title: 'Schedule Confirm', layer: 'customer', icon: 'fa-calendar-check' },
-          { id: 'provider', title: 'Provider Assignment', layer: 'operator', icon: 'fa-user-tie' },
-          { id: 'crew', title: 'Service Execution', layer: 'provider', icon: 'fa-wrench' },
-          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
-          { id: 'report', title: 'Service Report', layer: 'system', icon: 'fa-file-alt' },
-          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
-          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
-          { id: 'auto-schedule', title: 'Auto-Schedule Next', layer: 'system', icon: 'fa-calendar-plus' },
-          { id: 'complete', title: 'Subscription Active', layer: 'system', icon: 'fa-rotate' }
+          { id: 'wcf-reserves', title: 'WCF with Reserves', layer: 'customer', icon: 'fa-triangle-exclamation', desc: 'Customer unhappy' },
+          { id: 'problem', title: 'Problem Assessment', layer: 'operator', icon: 'fa-magnifying-glass', desc: 'Root cause analysis' },
+          { id: 'rework-so', title: 'Rework SO Creation', layer: 'system', icon: 'fa-folder-plus', desc: 'SO-2024-12456' },
+          { id: 'provider-assign', title: 'Different Provider', layer: 'operator', icon: 'fa-user-tie', desc: 'QualityFix assigned' },
+          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle', desc: 'Rework approved' },
+          { id: 'crew', title: 'Rework Execution', layer: 'provider', icon: 'fa-tools', desc: 'Quality specialists' },
+          { id: 'wcf', title: 'WCF Acceptance', layer: 'customer', icon: 'fa-check-circle', desc: 'Customer satisfied' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: 'New provider bills' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Platform pays €850' },
+          { id: 'quality-log', title: 'Quality Incident', layer: 'system', icon: 'fa-clipboard-list', desc: 'Original provider logged' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered', desc: 'Issue resolved' }
+        ]
+      },
+      'maintenance': {
+        name: 'Maintenance - Asset Service',
+        description: 'Annual boiler maintenance with no product delivery',
+        cards: [
+          { id: 'kafka', title: 'Service Request', layer: 'data', icon: 'fa-stream', desc: 'Maintenance due' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice', desc: 'SO-2025-3344' },
+          { id: 'asset-check', title: 'Asset Details', layer: 'system', icon: 'fa-database', desc: 'Vaillant boiler 7yrs' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature', desc: 'Annual plan €147.60' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie', desc: 'HeatingPro assigned' },
+          { id: 'crew', title: 'Maintenance Service', layer: 'provider', icon: 'fa-wrench', desc: 'Full service + tests' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle', desc: 'Customer signs' },
+          { id: 'report', title: 'Service Report', layer: 'system', icon: 'fa-file-alt', desc: 'Certificate issued' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: 'Provider bills' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Payment on completion' },
+          { id: 'asset-update', title: 'Asset Updated', layer: 'system', icon: 'fa-sync', desc: 'Service history logged' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered', desc: 'Maintenance done' }
+        ]
+      },
+      'depannage': {
+        name: 'Dépannage - Emergency Service',
+        description: 'Urgent water heater replacement with multi-provider bidding',
+        cards: [
+          { id: 'kafka', title: 'Urgent Request', layer: 'data', icon: 'fa-bolt', desc: 'Saturday evening crisis' },
+          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database', desc: 'Emergency flagged' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice', desc: 'SO-2025-DEP-7721' },
+          { id: 'ai-analysis', title: 'AI Urgency Analysis', layer: 'system', icon: 'fa-robot', desc: 'High priority: Family' },
+          { id: 'operator', title: 'Operator Triage', layer: 'operator', icon: 'fa-headset', desc: '4-hour SLA set' },
+          { id: 'multi-dispatch', title: '5-Provider Dispatch', layer: 'system', icon: 'fa-users', desc: 'Simultaneous contact' },
+          { id: 'bidding', title: 'Provider Race', layer: 'provider', icon: 'fa-stopwatch', desc: '15-min window' },
+          { id: 'winner', title: 'First Accept Wins', layer: 'system', icon: 'fa-trophy', desc: 'EmergencyPlumb (3min)' },
+          { id: 'offer-withdrawn', title: 'Others Withdrawn', layer: 'system', icon: 'fa-ban', desc: '4 offers cancelled' },
+          { id: 'crew', title: 'Urgent Execution', layer: 'provider', icon: 'fa-tools', desc: '45min ETA, van stock' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle', desc: 'Hot water restored' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: '€774.90 emergency rate' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Platform pays €620.90' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered', desc: 'Same-day resolved' }
+        ]
+      },
+      'subscription': {
+        name: 'Subscription - Recurring Service',
+        description: 'Quarterly AC maintenance with auto-scheduling and discounts',
+        cards: [
+          { id: 'kafka', title: 'Subscription Active', layer: 'data', icon: 'fa-stream', desc: 'Monthly €16.99' },
+          { id: 'auto-schedule', title: 'Auto-Schedule', layer: 'system', icon: 'fa-calendar-plus', desc: 'Q4 visit scheduled' },
+          { id: 'reminder', title: 'Reminder Sent', layer: 'customer', icon: 'fa-bell', desc: '2 weeks before' },
+          { id: 'schedule-confirm', title: 'Customer Confirms', layer: 'customer', icon: 'fa-calendar-check', desc: 'Saturday 9-11am' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice', desc: 'SO-2025-SUB-4421' },
+          { id: 'provider', title: 'Same Technician', layer: 'operator', icon: 'fa-user-tie', desc: 'Carlos (relationship)' },
+          { id: 'crew', title: 'Quarterly Service', layer: 'provider', icon: 'fa-wrench', desc: 'Visit 3 of 4' },
+          { id: 'health-check', title: 'Health Score', layer: 'system', icon: 'fa-heart-pulse', desc: 'Asset score: 92' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle', desc: 'Customer signs' },
+          { id: 'report', title: 'Service Report', layer: 'system', icon: 'fa-file-alt', desc: 'Emailed to customer' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar', desc: 'Provider gets €48' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card', desc: 'Covered by subscription' },
+          { id: 'next-schedule', title: 'Next Visit Scheduled', layer: 'system', icon: 'fa-calendar-plus', desc: 'March 2026 queued' },
+          { id: 'complete', title: 'Subscription Active', layer: 'system', icon: 'fa-rotate', desc: 'Ongoing contract' }
         ]
       }
     };
 
-    let currentScenario = 'standard';
+    let currentScenario = 'simple-install';
     let currentCardIndex = 0;
 
     function changeScenario(scenarioKey) {
@@ -691,7 +778,8 @@
             <h2 class="card-title-mobile">
               <i class="fas ${card.icon}"></i> ${card.title}
             </h2>
-            <p class="card-subtitle">Step ${currentCardIndex + 1} of ${scenario.cards.length}</p>
+            <p class="card-subtitle">Step ${currentCardIndex + 1} of ${scenario.cards.length} • ${scenario.name}</p>
+            ${card.desc ? `<p class="card-subtitle" style="margin-top: 0.3rem; color: var(--accent-blue);">${card.desc}</p>` : ''}
           </div>
 
           ${renderCardContent(card, scenario)}
@@ -719,24 +807,49 @@
     }
 
     function renderCardContent(card, scenario) {
-      // Simplified mobile-friendly content for each card type
+      const scenarioKey = currentScenario;
+      
+      // Rich mobile content matching desktop depth
       switch(card.id) {
+        // KAFKA / INTEGRATION
         case 'kafka':
+          const kafkaData = {
+            'simple-install': { channel: 'E-commerce', orderId: 'SO-2025-9821', customer: 'Ana Costa', product: 'Bosch Cooktop', value: '€701.10' },
+            'tv-quotation': { channel: 'Phone', orderId: 'SO-2025-1201', customer: 'Diogo Martins', product: 'Technical Visit', value: '€98.40' },
+            'package-deal': { channel: 'In-store', orderId: 'SO-2025-3342', customer: 'Pedro Silva', product: 'Dishwasher + Install', value: '€761.37' },
+            'complex-project': { channel: 'In-store', orderId: 'PROJ-2025-8840', customer: 'Sofia Rodrigues', product: 'Bathroom Renovation', value: '€16,233.15' },
+            'maintenance': { channel: 'Customer Service', orderId: 'SO-2025-3344', customer: 'João Ferreira', product: 'Boiler Maintenance', value: '€147.60' },
+            'depannage': { channel: 'Web Portal (Urgent)', orderId: 'SO-2025-DEP-7721', customer: 'Maria Santos', product: 'Water Heater Emergency', value: '€774.90' },
+            'subscription': { channel: 'Subscription Portal', orderId: 'SO-2025-SUB-4421', customer: 'Pedro Alves', product: 'AC Maintenance Q4', value: '€0 (subscription)' }
+          };
+          const data = kafkaData[scenarioKey] || kafkaData['simple-install'];
           return `
             <div class="highlight-box">
               <h4><i class="fas fa-stream"></i> Sales Integration</h4>
-              <p>Kafka message received from retailer sales system. Order data being processed by platform.</p>
+              <p>Kafka message received from retailer <strong>${data.channel}</strong> system. Order data published to YellowGrid platform for processing.</p>
             </div>
             <div class="info-section">
-              <h3>Message Details</h3>
+              <h3>Message Payload</h3>
               <div class="info-grid-mobile">
                 <div class="info-item-mobile">
-                  <label>Channel</label>
-                  <div class="value">Web Portal</div>
+                  <label>Order ID</label>
+                  <div class="value">${data.orderId}</div>
                 </div>
                 <div class="info-item-mobile">
-                  <label>Order Type</label>
-                  <div class="value">${scenario.name}</div>
+                  <label>Customer</label>
+                  <div class="value">${data.customer}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Product/Service</label>
+                  <div class="value">${data.product}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Total Value</label>
+                  <div class="value">${data.value}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Channel</label>
+                  <div class="value">${data.channel}</div>
                 </div>
                 <div class="info-item-mobile">
                   <label>Status</label>
@@ -938,6 +1051,645 @@
             </div>
           `;
         
+        // ENRICHMENT
+        case 'enrichment':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-database"></i> AI-Powered Enrichment</h4>
+              <p>System enriches order data with customer history, product specs, provider network, and intelligent recommendations.</p>
+            </div>
+            <div class="info-section">
+              <h3>Enrichment Layers</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Customer Profile</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Enriched</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Product Specifications</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Enriched</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Provider Network</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Mapped</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Risk Assessment</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Scored</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // SO CREATION
+        case 'so-creation':
+        case 'project-creation':
+        case 'rework-so':
+          const soData = {
+            'simple-install': 'SO-2025-9821',
+            'tv-quotation': 'SO-2025-1201',
+            'package-deal': 'SO-2025-3342',
+            'complex-project': 'PROJ-2025-8840',
+            'rework': 'SO-2024-12456',
+            'maintenance': 'SO-2025-3344',
+            'depannage': 'SO-2025-DEP-7721',
+            'subscription': 'SO-2025-SUB-4421'
+          };
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-file-invoice"></i> Service Order Created</h4>
+              <p>Platform creates structured service order from enriched data. All workflow gates and dependencies initialized.</p>
+            </div>
+            <div class="info-section">
+              <h3>Order Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Order ID</label>
+                  <div class="value">${soData[scenarioKey]}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Type</label>
+                  <div class="value">${scenario.name}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Priority</label>
+                  <div class="value">${scenarioKey === 'depannage' ? 'URGENT' : scenarioKey === 'complex-project' ? 'High' : 'Normal'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Created</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // AI ANALYSIS
+        case 'ai-analysis':
+        case 'ai-reasoning':
+          const riskData = {
+            'simple-install': { score: 23, level: 'Low', color: 'status-ok' },
+            'tv-quotation': { score: 31, level: 'Low', color: 'status-ok' },
+            'package-deal': { score: 42, level: 'Medium', color: 'status-pending' },
+            'complex-project': { score: 68, level: 'Medium-High', color: 'status-pending' },
+            'rework': { score: 75, level: 'High', color: 'status-nok' },
+            'maintenance': { score: 18, level: 'Very Low', color: 'status-ok' },
+            'depannage': { score: 82, level: 'High (Urgent)', color: 'status-nok' },
+            'subscription': { score: 12, level: 'Very Low', color: 'status-ok' }
+          };
+          const risk = riskData[scenarioKey] || riskData['simple-install'];
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-robot"></i> AI Analysis Engine</h4>
+              <p>Machine learning models analyze order complexity, customer risk, provider requirements, and optimal routing strategy.</p>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Risk Score</span>
+                <i class="fas fa-shield-check metric-icon"></i>
+              </div>
+              <div class="metric-value">${risk.score}</div>
+              <div class="metric-note">${risk.level} risk - ${risk.score < 40 ? 'No red flags' : risk.score < 60 ? 'Monitor' : 'Requires attention'}</div>
+            </div>
+            <div class="info-section">
+              <h3>AI Recommendations</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Complexity</label>
+                  <div class="value">${scenarioKey === 'complex-project' ? 'High (Multi-phase)' : scenarioKey === 'depannage' ? 'Medium (Urgent)' : 'Standard'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Provider Match</label>
+                  <div class="value">${scenarioKey === 'depannage' ? 'Multi-dispatch' : 'Single provider'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge ${risk.color}"><i class="fas fa-check"></i> Analyzed</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // CONTRACT
+        case 'contract':
+        case 'contract-notification':
+        case 'contract-portal':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-file-signature"></i> Digital Contract</h4>
+              <p>Customer receives contract via email/SMS with portal link. Digital signature required before service execution.</p>
+            </div>
+            <div class="info-section">
+              <h3>Contract Status</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Delivery Method</label>
+                  <div class="value">Email + SMS</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Portal Access</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-link"></i> Active</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Customer Signature</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-signature"></i> Signed</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Timestamp</label>
+                  <div class="value">${new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })}</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // PROVIDER MATCH
+        case 'provider':
+        case 'provider-funnel':
+        case 'provider-offer':
+        case 'provider-assign':
+        case 'provider-assignment':
+        case 'provider-notification':
+          const providerData = {
+            'simple-install': { name: 'TechInstall Pro', rating: 4.8, jobs: 342, specialization: 'Cooktop Installation' },
+            'tv-quotation': { name: 'ExpertAssess', rating: 4.9, jobs: 156, specialization: 'Technical Assessments' },
+            'package-deal': { name: 'HomePro Services', rating: 4.7, jobs: 428, specialization: 'Dishwasher Install' },
+            'complex-project': { name: 'HomePro Renovations', rating: 4.6, jobs: 284, specialization: 'Bathroom Renovation' },
+            'rework': { name: 'QualityFix Specialists', rating: 4.9, jobs: 156, specialization: 'Remedial Works' },
+            'maintenance': { name: 'HeatingPro Services', rating: 4.8, jobs: 1247, specialization: 'HVAC Maintenance' },
+            'depannage': { name: 'EmergencyPlumb 24/7', rating: 4.7, jobs: 823, specialization: 'Emergency Response' },
+            'subscription': { name: 'ClimaPro Services', rating: 4.8, jobs: 1156, specialization: 'AC Maintenance' }
+          };
+          const prov = providerData[scenarioKey] || providerData['simple-install'];
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-user-tie"></i> Provider Matching</h4>
+              <p>AI-powered provider selection based on skills, availability, location, rating, and service history.</p>
+            </div>
+            <div class="info-section">
+              <h3>Matched Provider</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Provider Name</label>
+                  <div class="value">${prov.name}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Rating</label>
+                  <div class="value">⭐ ${prov.rating}/5.0</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Completed Jobs</label>
+                  <div class="value">${prov.jobs}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Specialization</label>
+                  <div class="value">${prov.specialization}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Response</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Accepted</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // DELIVERY
+        case 'delivery':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-truck"></i> Product Delivery</h4>
+              <p>Product delivered to customer site. Provider crew confirms delivery status before service execution.</p>
+            </div>
+            <div class="info-section">
+              <h3>Delivery Status</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Tracking</label>
+                  <div class="value">TRK-2025-PLT-9821</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Delivery Date</label>
+                  <div class="value">${new Date().toLocaleDateString('pt-PT')}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Time Window</label>
+                  <div class="value">14:00-18:00</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Delivered</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // GO EXECUTION GATE
+        case 'go-exec':
+        case 'go-gate':
+        case 'go-gate-check':
+        case 'phase1-go':
+        case 'phase2-go':
+        case 'phase3-go':
+        case 'phase4-go':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-traffic-light"></i> Go Execution Gate</h4>
+              <p>System validates all prerequisites before authorizing service execution. All gates must pass.</p>
+            </div>
+            <div class="info-section">
+              <h3>Gate Checks</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Contract Signed</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Pass</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Provider Assigned</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Pass</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${scenarioKey === 'maintenance' ? 'No Product Required' : 'Product Delivered'}</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Pass</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${scenarioKey === 'complex-project' ? 'Payment Milestone' : 'Payment Confirmed'}</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Pass</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Authorization</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-play-circle"></i> GO</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // TECHNICAL VISIT
+        case 'tv-exec':
+        case 'tv-crew-execution':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-ruler-combined"></i> Technical Visit</h4>
+              <p>Expert technician performs on-site assessment, measurements, and feasibility analysis.</p>
+            </div>
+            <div class="info-section">
+              <h3>Visit Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Technician</label>
+                  <div class="value">Expert Technician</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Duration</label>
+                  <div class="value">90-120 minutes</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Measurements</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Complete</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Photos Taken</label>
+                  <div class="value">12 photos</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // TV OUTCOME
+        case 'tv-outcome':
+        case 'tv-outcome-gate':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-code-branch"></i> TV Outcome Decision</h4>
+              <p>Technical visit outcome determines next steps: <strong>YES</strong> = proceed | <strong>NO</strong> = cancel | <strong>YES BUT</strong> = adjustments needed</p>
+            </div>
+            <div class="info-section">
+              <h3>Outcome Assessment</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Feasibility</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> YES</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Scope Changes</label>
+                  <div class="value">None required</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Installation Ready</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Approved</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Next Step</label>
+                  <div class="value">Proceed to installation</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // INVOICE
+        case 'invoice':
+        case 'tv-report':
+        case 'tv-report-upload':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-file-invoice-dollar"></i> Provider Invoice</h4>
+              <p>Provider submits invoice for services rendered. Platform processes payment after validation.</p>
+            </div>
+            <div class="info-section">
+              <h3>Invoice Summary</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Invoice ID</label>
+                  <div class="value">INV-2025-${Math.floor(Math.random() * 10000)}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Service Value</label>
+                  <div class="value">${scenarioKey === 'subscription' ? '€48.00' : scenarioKey === 'rework' ? '€850.00' : scenarioKey === 'depannage' ? '€620.90' : '€560.88'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Platform Fee (20%)</label>
+                  <div class="value">${scenarioKey === 'subscription' ? '€12.00' : scenarioKey === 'rework' ? '€0' : scenarioKey === 'depannage' ? '€154.00' : '€140.22'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Submitted</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // QUALITY / ASSESSMENT
+        case 'problem':
+        case 'assessment':
+        case 'wcf-reserves':
+        case 'problem-assessment':
+        case 'root-cause-analysis':
+        case 'phase1-qc':
+        case 'phase2-qc':
+        case 'phase3-qc':
+        case 'phase4-qc':
+        case 'quality-visit':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-magnifying-glass"></i> ${card.id.includes('qc') || card.id.includes('quality') ? 'Quality Check' : 'Problem Assessment'}</h4>
+              <p>${card.id.includes('wcf') ? 'Customer signed WCF with reserves. Quality issue requires investigation and corrective action.' : card.id.includes('qc') ? 'Independent quality inspection validates work meets standards before payment authorization.' : 'Detailed root cause analysis to determine appropriate remediation strategy.'}</p>
+            </div>
+            <div class="info-section">
+              <h3>${card.id.includes('qc') ? 'Inspection Results' : 'Assessment Details'}</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('qc') ? 'Inspector' : 'Issue Category'}</label>
+                  <div class="value">${card.id.includes('qc') ? 'Quality Specialist' : 'Workmanship Quality'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('qc') ? 'Standards Check' : 'Severity'}</label>
+                  <div class="value">${card.id.includes('qc') ? 'All passed' : 'High'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('qc') ? 'Approval' : 'Root Cause'}</label>
+                  <div class="value">${card.id.includes('qc') ? '<span class="status-badge status-ok"><i class="fas fa-check"></i> Approved</span>' : 'Rushed execution'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('qc') ? 'Next Phase' : 'Action Required'}</label>
+                  <div class="value">${card.id.includes('qc') ? 'Unlocked' : 'Rework assignment'}</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // PAYMENT AUTH / MILESTONES
+        case 'phase1-pay':
+        case 'phase2-pay':
+        case 'phase3-pay':
+        case 'phase4-pay':
+        case 'payment-auth':
+          const milestone = card.id.includes('phase1') ? '30%' : card.id.includes('phase2') ? '20%' : card.id.includes('phase3') ? '30%' : '20%';
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-stamp"></i> Payment Authorization</h4>
+              <p>Quality check passed. Operator authorizes milestone payment release to provider. Next phase unlocked.</p>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Payment Milestone</span>
+                <i class="fas fa-coins metric-icon"></i>
+              </div>
+              <div class="metric-value">${milestone}</div>
+              <div class="metric-note">€${Math.floor(16233.15 * parseFloat(milestone) / 100).toFixed(2)} released</div>
+            </div>
+            <div class="info-section">
+              <h3>Authorization Status</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Quality Check</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Passed</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Payment Released</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Authorized</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // PHASE EXECUTION
+        case 'phase1-exec':
+        case 'phase2-exec':
+        case 'phase3-exec':
+        case 'phase4-exec':
+          const phaseData = {
+            'phase1-exec': { name: 'Demolition & Prep', duration: '2 days', crew: 2 },
+            'phase2-exec': { name: 'Tiling & Waterproofing', duration: '3 days', crew: 2 },
+            'phase3-exec': { name: 'Fixtures Installation', duration: '2 days', crew: 2 },
+            'phase4-exec': { name: 'Finishing & Paint', duration: '2 days', crew: 2 }
+          };
+          const phase = phaseData[card.id];
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-wrench"></i> ${phase.name}</h4>
+              <p>Provider crew executing service phase. Progress monitored in real-time via mobile app.</p>
+            </div>
+            <div class="info-section">
+              <h3>Execution Status</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Provider</label>
+                  <div class="value">HomePro Renovations</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Crew Size</label>
+                  <div class="value">${phase.crew} technicians</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Duration</label>
+                  <div class="value">${phase.duration}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-tools"></i> In Progress</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // SUBSCRIPTION / SCHEDULING
+        case 'reminder':
+        case 'schedule':
+        case 'schedule-confirm':
+        case 'auto-schedule':
+        case 'next-schedule':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-${card.id.includes('reminder') ? 'bell' : 'calendar-plus'}"></i> ${card.id.includes('reminder') ? 'Service Reminder' : 'Auto-Scheduling'}</h4>
+              <p>${card.id.includes('reminder') ? 'Customer receives automated reminder 2 weeks before scheduled service visit.' : 'System automatically schedules next quarterly service visit after completion.'}</p>
+            </div>
+            <div class="info-section">
+              <h3>${card.id.includes('reminder') ? 'Reminder Details' : 'Schedule Details'}</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('reminder') ? 'Visit Due' : 'Next Visit'}</label>
+                  <div class="value">${card.id.includes('reminder') ? 'Dec 14, 2025' : 'March 15, 2026'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('reminder') ? 'Sent Via' : 'Frequency'}</label>
+                  <div class="value">${card.id.includes('reminder') ? 'Email + SMS' : 'Quarterly'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id.includes('reminder') ? 'Customer Response' : 'Technician'}</label>
+                  <div class="value">${card.id.includes('reminder') ? 'Confirmed' : 'Carlos (same)'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> ${card.id.includes('reminder') ? 'Confirmed' : 'Scheduled'}</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // ASSET / HEALTH
+        case 'asset-check':
+        case 'asset-update':
+        case 'health-check':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-heart-pulse"></i> Asset Health Tracking</h4>
+              <p>Platform tracks equipment health, service history, and predictive maintenance recommendations.</p>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Health Score</span>
+                <i class="fas fa-heart metric-icon"></i>
+              </div>
+              <div class="metric-value">${scenarioKey === 'subscription' ? '92' : '85'}</div>
+              <div class="metric-note">Excellent condition - ${scenarioKey === 'maintenance' ? 'Vaillant boiler, 7 years' : 'Daikin AC, 3 years'}</div>
+            </div>
+            <div class="info-section">
+              <h3>Asset Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Brand/Model</label>
+                  <div class="value">${scenarioKey === 'maintenance' ? 'Vaillant ecoTEC' : 'Daikin Sensira'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Last Service</label>
+                  <div class="value">${scenarioKey === 'maintenance' ? '2024-11-12' : '2025-09-15'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Service History</label>
+                  <div class="value">${scenarioKey === 'maintenance' ? '4 visits' : '2 visits'}</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // REPORTS
+        case 'report':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-file-alt"></i> Service Report</h4>
+              <p>Comprehensive service report generated with findings, recommendations, and certifications.</p>
+            </div>
+            <div class="info-section">
+              <h3>Report Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Report Type</label>
+                  <div class="value">${scenarioKey === 'maintenance' ? 'Gas Safety Certificate' : 'Service Completion'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Findings</label>
+                  <div class="value">All systems operational</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Recommendations</label>
+                  <div class="value">Continue regular maintenance</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Delivered</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-envelope"></i> Emailed</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // MULTI-PROVIDER / BIDDING
+        case 'winner':
+        case 'offer-withdrawn':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-trophy"></i> ${card.id === 'winner' ? 'Winner Selected' : 'Offers Withdrawn'}</h4>
+              <p>${card.id === 'winner' ? 'EmergencyPlumb 24/7 accepted first (3min 12sec). Immediately assigned to job.' : 'Other 4 provider offers automatically withdrawn after first acceptance to avoid conflicts.'}</p>
+            </div>
+            <div class="info-section">
+              <h3>${card.id === 'winner' ? 'Winning Provider' : 'Withdrawal Status'}</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>${card.id === 'winner' ? 'Provider' : 'Offers Cancelled'}</label>
+                  <div class="value">${card.id === 'winner' ? 'EmergencyPlumb 24/7' : '4 providers'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id === 'winner' ? 'Response Time' : 'Reason'}</label>
+                  <div class="value">${card.id === 'winner' ? '3min 12sec' : 'First acceptance rule'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>${card.id === 'winner' ? 'ETA' : 'Notification'}</label>
+                  <div class="value">${card.id === 'winner' ? '45 minutes' : 'Auto-sent'}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge ${card.id === 'winner' ? 'status-ok' : 'status-pending'}"><i class="fas fa-${card.id === 'winner' ? 'trophy' : 'ban'}"></i> ${card.id === 'winner' ? 'Assigned' : 'Withdrawn'}</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        // QUALITY LOGGING
+        case 'quality-log':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-clipboard-list"></i> Quality Incident Log</h4>
+              <p>Original provider (HomePro Renovations) logged in quality incident system. Impacts provider rating and future assignments.</p>
+            </div>
+            <div class="info-section">
+              <h3>Incident Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Original Provider</label>
+                  <div class="value">HomePro Renovations</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Issue</label>
+                  <div class="value">Poor workmanship</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Rating Impact</label>
+                  <div class="value">-0.2 points</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Logged</label>
+                  <div class="value"><span class="status-badge status-nok"><i class="fas fa-exclamation"></i> Incident</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+
         default:
           return `
             <div class="info-section">
