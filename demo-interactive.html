@@ -1898,18 +1898,19 @@
           name: 'Dépannage - Emergency Service',
           description: 'Urgent same-day emergency service. Water heater failure requiring immediate replacement. Premium pricing for urgency, expedited workflow, emergency provider network.',
           salesOrder: {
-            orderId: 'SO-2025-EMRG-7721',
-            soId: 'SO-2025-EMRG-7721',
-            salesChannel: 'Emergency Hotline',
-            store: 'Emergency Response Center',
-            storeCode: 'EMRG-24/7',
-            orderType: 'emergency',
+            orderId: 'SO-2025-DEP-7721',
+            soId: 'SO-2025-DEP-7721',
+            salesChannel: 'Web Portal',
+            store: 'YellowGrid Online Store',
+            storeCode: 'WEB-SHOP-001',
+            orderType: 'depannage',
+            serviceType: 'Urgent Service - Dépannage',
             urgencyLevel: 'High',
             responseWindow: '4 hours',
-            requestTime: '2025-11-16T18:45:00Z',
-            requiredByTime: '2025-11-17T08:00:00Z',
-            orderDate: '2025-11-16T18:48:00Z',
-            confirmationDate: '2025-11-16T18:50:15Z',
+            orderDate: '2025-11-16T18:35:00Z',
+            confirmationDate: '2025-11-16T18:37:22Z',
+            slaCommitment: 'First technician response within 15 minutes, service within 4 hours',
+            expeditedProcess: true,
             customer: {
               customerId: 'CUST-9934',
               name: 'Maria Santos',
@@ -1933,19 +1934,22 @@
               language: 'pt-PT',
               propertyType: 'Apartment',
               familySize: 4,
-              urgentSituation: 'Family with 2 young children - no hot water'
+              urgentSituation: 'Family with 2 young children - no hot water',
+              purchaseChannel: 'Web - Urgent Service Request',
+              purchaseDate: '2025-11-16T18:35:00Z'
             },
-            emergency: {
-              issueType: 'Equipment Failure',
+            urgentServiceRequest: {
+              issueType: 'Gas Water Heater Failure',
               severity: 'High',
               impact: 'No hot water for family of 4',
-              reportedTime: '2025-11-16T18:40:00Z',
-              customerDescription: 'Gas water heater completely stopped working. No hot water at all. We have two young kids who need bathing. Tried resetting but nothing works. Need urgent help!',
-              timeOfDay: 'Evening (Weekend)',
+              description: 'Gas water heater completely stopped working. No hot water at all. We have two young kids who need bathing. Tried resetting but nothing works. Need urgent help today!',
+              requestedService: 'Water Heater Repair or Replacement',
+              preferredTimeframe: 'Same day / ASAP',
+              submittedAt: '2025-11-16T18:35:00Z',
+              timeOfDay: 'Saturday Evening',
               isWeekend: true,
-              isAfterHours: true,
-              temperature: 'Cold weather (12°C)',
-              customerStress: 'High - family impact'
+              weatherCondition: 'Cold weather (12°C)',
+              urgencyReason: 'Young children need hot water - weekend cold weather'
             },
             failedAsset: {
               assetType: 'Gas Water Heater',
@@ -2079,7 +2083,7 @@
             },
             financials: {
               customerPayment: 774.90,
-              customerPaymentReason: 'Emergency service with urgency premium - same-day resolution',
+              customerPaymentReason: 'Paid to retailer at purchase (web portal) - expedited service with urgency premium',
               providerPayment: 620.90,
               providerPaymentReason: 'Emergency response service: €420 product + €150 service + €60 emergency callout - platform fee',
               paymentCondition: 'emergency-service',
@@ -2098,19 +2102,73 @@
               }
             },
             payment: {
-              status: 'Pending',
-              method: 'Credit Card',
-              paymentType: 'Immediate - Pay on Completion',
-              preAuthorization: true,
-              preAuthAmount: 800,
-              preAuthTime: '2025-11-16T18:51:00Z',
-              customerOwes: 774.90,
-              paidAmount: 0,
-              paymentTrigger: 'Immediate after work completion',
-              dueDate: '2025-11-16T22:00:00Z',
-              transactionId: null,
-              installments: 1,
-              paymentTerms: 'Immediate payment required for emergency service. Card pre-authorized. Final charge on completion.'
+              customerPaidRetailer: true,
+              customerPaymentTiming: 'At purchase (web portal)',
+              retailerPaidAmount: 774.90,
+              platformPaysProvider: true,
+              platformPaymentTiming: 'After service completion',
+              providerWillReceive: 620.90,
+              paymentNote: 'B2B Model: Customer → Retailer (at purchase) | Platform → Provider (after completion) | NO direct customer-provider payment'
+            },
+            providerBidding: {
+              biddingType: 'Multi-Provider Expedited',
+              providersContacted: 5,
+              firstToAcceptWins: true,
+              offerWithdrawalOnAcceptance: true,
+              timeLimit: '15 minutes',
+              providers: [
+                {
+                  providerId: 'PRV-EMRG-089',
+                  name: 'EmergencyPlumb 24/7',
+                  contacted: '2025-11-16T18:38:15Z',
+                  response: 'Accepted',
+                  responseTime: '3 minutes 12 seconds',
+                  acceptedAt: '2025-11-16T18:41:27Z',
+                  status: 'Winner - Assigned',
+                  estimatedArrival: '45 minutes',
+                  distanceFromCustomer: '8.3 km'
+                },
+                {
+                  providerId: 'PRV-PLUMB-142',
+                  name: 'QuickFix Plumbing',
+                  contacted: '2025-11-16T18:38:15Z',
+                  response: 'Offer Withdrawn',
+                  responseTime: 'N/A - Too late',
+                  status: 'Offer automatically withdrawn after first acceptance',
+                  distanceFromCustomer: '11.2 km'
+                },
+                {
+                  providerId: 'PRV-HOME-087',
+                  name: 'HomeService Pro',
+                  contacted: '2025-11-16T18:38:15Z',
+                  response: 'Declined',
+                  responseTime: '5 minutes',
+                  declineReason: 'No gas water heater stock available',
+                  status: 'Declined',
+                  distanceFromCustomer: '6.7 km'
+                },
+                {
+                  providerId: 'PRV-URGENT-034',
+                  name: 'UrgentCare Home Services',
+                  contacted: '2025-11-16T18:38:15Z',
+                  response: 'No Response',
+                  responseTime: 'N/A',
+                  status: 'Timeout - No response',
+                  distanceFromCustomer: '9.8 km'
+                },
+                {
+                  providerId: 'PRV-TECH-156',
+                  name: 'TechResponse Solutions',
+                  contacted: '2025-11-16T18:38:15Z',
+                  response: 'Offer Withdrawn',
+                  responseTime: 'N/A - Too late',
+                  status: 'Offer automatically withdrawn after first acceptance',
+                  distanceFromCustomer: '14.1 km'
+                }
+              ],
+              winningProvider: 'EmergencyPlumb 24/7',
+              assignmentTime: '2025-11-16T18:41:27Z',
+              totalElapsedTime: '3 minutes 12 seconds from dispatch to assignment'
             },
             providerInvoice: {
               invoiceNumber: 'INV-DEP-2025-11-4789',
@@ -2134,11 +2192,12 @@
             provider: {
               providerId: 'PRV-EMRG-089',
               name: 'EmergencyPlumb 24/7',
-              category: 'Emergency Plumbing Specialist',
-              specialization: 'Water Heater Emergency Service',
+              category: 'Urgent Plumbing Specialist',
+              specialization: 'Water Heater Urgent Service',
+              assignmentMethod: 'First-to-accept bidding (winner of 5-provider dispatch)',
               rating: 4.7,
               completedJobs: 823,
-              emergencyJobs: 412,
+              urgentJobs: 412,
               certifications: ['Gas Safe Registered', 'Emergency Response Certified', 'Vaillant Approved'],
               responseTime: '< 1 hour',
               availability: '24/7/365',
@@ -2156,10 +2215,10 @@
             linkedQuotation: null,
             emergencyProtocol: 'URGENT-FAMILY-IMPACT',
             slaCommitment: 'Response within 4 hours',
-            sellerNotes: 'EMERGENCY REQUEST - Family of 4 without hot water on cold weekend evening. Customer stressed. Two young children need bathing. Provider EmergencyPlumb has gas water heater in van - 15 min away. Arrival 19:30. Verbal approval given for €774.90. Card pre-authorized.',
-            internalNotes: 'EMERGENCY WORKFLOW: (1) Urgency triage confirms HIGH priority. (2) Real-time provider availability check. (3) Verbal agreement sufficient - SMS confirmation sent. (4) Provider dispatched immediately with unit in van. (5) On-site assessment confirms replacement needed. (6) Work completed same evening. (7) Immediate payment on completion. (8) NO CONTRACT WAIT - SMS confirmation only.',
-            specialInstructions: 'DÉPANNAGE RULES: (1) Speed is critical - every hour matters. (2) Provider brings product (emergency stock). (3) Minimal contract - SMS confirmation OK. (4) Assessment on-site (fix vs replace). (5) Customer approves solution & price on-site. (6) Immediate execution. (7) Payment on completion. (8) Premium pricing justified by urgency. Building code: 2789. Apartment 2C. Customer waiting at home.',
-            operatorNotes: 'Customer very stressed but relieved when told tech arriving in 45 min. Confirmed price €774.90 verbally. Card pre-auth successful. Provider has Vaillant 14L unit in van. Old unit 11 years - replacement economical choice. Customer understands urgency fee. Kids need bath before bed.',
+            sellerNotes: 'DÉPANNAGE SERVICE PURCHASED ONLINE - Family of 4 without hot water on cold weekend evening. Customer purchased urgent service from RETAILER via web portal (€774.90 paid to retailer). System dispatched to 5 eligible providers simultaneously. EmergencyPlumb accepted first (3min 12sec). Provider has gas water heater in van. ETA 45 min. Platform will pay provider €620.90 after completion.',
+            internalNotes: 'DÉPANNAGE WORKFLOW: (1) Customer purchases urgent service from RETAILER online (€774.90). (2) Kafka message received from sales system. (3) AI enrichment and SO creation. (4) Operator triages and confirms HIGH urgency. (5) System dispatches to 5 providers SIMULTANEOUSLY. (6) First to accept wins (EmergencyPlumb - 3min 12sec). (7) Offers automatically withdrawn from other 4 providers. (8) Provider dispatched with stock. (9) On-site work and WCF. (10) Provider invoice submitted. (11) Platform pays provider €620.90 after completion.',
+            specialInstructions: 'DÉPANNAGE RULES: (1) Always starts with SALE to RETAILER (web/store purchase). (2) Multi-provider dispatch (up to 5 eligible). (3) First to accept wins assignment. (4) Offers withdrawn from others immediately. (5) Speed is critical. (6) B2B PAYMENT: Customer → Retailer (€774.90 at purchase) | Platform → Provider (€620.90 after completion) | NO direct customer-provider payment. Building code: 2789. Apartment 2C.',
+            operatorNotes: 'Customer purchased Dépannage service from RETAILER online at 18:35 (€774.90 paid). System sent to 5 providers at 18:38:15. EmergencyPlumb accepted at 18:41:27 (fastest response). Other offers auto-withdrawn. Provider has Vaillant 14L in van. ETA 45 min. Customer informed via SMS. Platform will pay provider €620.90 after completion.',
             priority: 'URGENT',
             tags: ['emergency', 'depannage', 'water-heater', 'same-day', 'family-impact', 'weekend', 'after-hours', 'gas-safe', 'urgent', 'premium-pricing']
           }
@@ -4092,43 +4151,36 @@
           return maintenanceCards.map((card, idx) => ({ ...card, index: idx }));
         }
 
-        // Custom flow for Dépannage scenario (emergency service - urgency, speed, premium pricing)
+        // Custom flow for Dépannage scenario (urgent service - expedited multi-provider bidding, first-to-accept wins)
         if (scenarioId === 'depannage') {
           const depannageCards = [
-            // Initial Sales Integration
+            // Initial Sales Integration (customer purchases urgent service online/in-store)
             { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server', stepId: 'integration' },
             { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs', stepId: 'integration' },
             { id: 'project-creation', type: 'system', title: 'SO Creation', icon: 'folder-plus', stepId: 'integration' },
             { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot', stepId: 'ai-analysis' },
             { id: 'operator-cockpit', type: 'operator', title: 'Operator Triage', icon: 'headset', stepId: 'operator-triage' },
-            // Emergency Request
-            { id: 'emergency-request', type: 'customer', title: 'Emergency Request', icon: 'phone-volume', stepId: 'emergency-request' },
-            // Urgency Triage (AI analyzes severity & response window)
-            { id: 'urgency-triage', type: 'ai', title: 'Urgency Triage', icon: 'bolt', stepId: 'urgency-triage' },
-            // Emergency Provider Match (real-time availability)
-            { id: 'emergency-provider-match', type: 'system', title: 'Emergency Provider Match', icon: 'siren-on', stepId: 'emergency-provider' },
-            // Provider Emergency Dispatch
-            { id: 'provider-emergency-dispatch', type: 'provider', title: 'Provider Emergency Dispatch', icon: 'mobile-screen-button', stepId: 'provider-dispatch' },
-            // Customer ETA Notification
-            { id: 'customer-eta', type: 'customer', title: 'Customer ETA Notification', icon: 'clock', stepId: 'customer-eta' },
-            // On-Site Assessment (fix vs replace decision)
+            // Expedited Multi-Provider Dispatch (5 providers contacted simultaneously)
+            { id: 'multi-provider-dispatch', type: 'system', title: 'Multi-Provider Dispatch', icon: 'tower-broadcast', stepId: 'multi-dispatch' },
+            { id: 'provider-bidding-race', type: 'system', title: 'Provider Bidding Race', icon: 'stopwatch', stepId: 'bidding-race' },
+            { id: 'first-acceptance', type: 'provider', title: 'First Provider Accepts', icon: 'hand-point-up', stepId: 'first-accept' },
+            { id: 'offers-withdrawal', type: 'system', title: 'Offers Withdrawn from Others', icon: 'ban', stepId: 'withdrawal' },
+            // Provider Dispatched
+            { id: 'provider-dispatch-notification', type: 'provider', title: 'Provider Dispatch Confirmed', icon: 'mobile-screen-button', stepId: 'provider-dispatch' },
+            { id: 'customer-eta-notification', type: 'customer', title: 'Customer ETA Notification', icon: 'clock', stepId: 'customer-eta' },
+            // On-Site Work
             { id: 'onsite-assessment', type: 'crew', title: 'On-Site Assessment', icon: 'clipboard-check', stepId: 'assessment' },
-            // Solution Confirmation (customer approves solution & cost)
-            { id: 'solution-confirmation', type: 'customer', title: 'Solution Confirmation', icon: 'handshake', stepId: 'solution-confirm' },
-            // Emergency Execution (urgent work)
-            { id: 'emergency-execution', type: 'crew', title: 'Emergency Execution', icon: 'wrench', stepId: 'execution' },
+            { id: 'urgent-execution', type: 'crew', title: 'Urgent Service Execution', icon: 'wrench', stepId: 'execution' },
             // WCF (work completion)
             { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
             { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
-            // Provider Invoice & Payment
+            // Provider Invoice & Payment (platform pays provider)
             { id: 'invoice-portal-dep', type: 'provider', title: 'Pro Forma Invoice', icon: 'file-invoice', stepId: 'invoice' },
             { id: 'invoice-dataflow', type: 'data', title: 'Invoice Dataflow', icon: 'exchange-alt', stepId: 'invoice' },
             { id: 'payment-authorization-dep', type: 'system', title: 'Provider Payment Authorization', icon: 'stamp', stepId: 'payment-auth' },
             { id: 'payment-portal-dep', type: 'provider', title: 'Provider Payment', icon: 'credit-card', stepId: 'provider-payment' },
-            // Customer Payment (charged on completion)
-            { id: 'emergency-payment', type: 'customer', title: 'Customer Payment', icon: 'credit-card', stepId: 'customer-payment' },
-            // Emergency Complete
-            { id: 'emergency-complete', type: 'system', title: 'Emergency Service Complete', icon: 'circle-check', stepId: 'completion' }
+            // Service Complete (B2B: customer paid retailer at purchase, platform pays provider after completion)
+            { id: 'depannage-complete', type: 'system', title: 'Dépannage Service Complete', icon: 'circle-check', stepId: 'completion' }
           ];
           
           return depannageCards.map((card, idx) => ({ ...card, index: idx }));
@@ -7244,104 +7296,64 @@
 
       // ===== DÉPANNAGE SCENARIO RENDER FUNCTIONS =====
 
-      const renderEmergencyRequestCard = (so, card) => {
+      const renderMultiProviderDispatchCard = (so, card) => {
+        const bidding = so.providerBidding;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
-              <div style="display: inline-block; background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
-                <i class="fas fa-phone-volume"></i> CUSTOMER
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-tower-broadcast"></i> SYSTEM
               </div>
               <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">Customer emergency: ${so.emergency.issueType}</p>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Expedited dispatch to multiple providers simultaneously</p>
             </div>
 
-            <div style="background: rgba(239, 68, 68, 0.08); border: 2px solid #ef4444; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
-                <div style="font-size: 4rem;">🚨</div>
-                <div>
-                  <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">EMERGENCY: ${so.emergency.severity} Priority</div>
-                  <div style="font-size: 1.1rem;">${so.emergency.impact}</div>
-                </div>
-              </div>
-              
-              <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
-                <div style="font-weight: 700; margin-bottom: 0.8rem;"><i class="fas fa-comment"></i> Customer Description</div>
-                <div style="font-size: 0.95rem; line-height: 1.8; font-style: italic;">"${so.emergency.customerDescription}"</div>
+            <div style="background: rgba(251, 191, 36, 0.08); border: 2px solid var(--accent-orange); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 3.5rem; margin-bottom: 1rem;">🚀</div>
+                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">DÉPANNAGE EXPEDITED PROCESS</div>
+                <div style="font-size: 1.1rem; color: var(--text-muted);">Multi-Provider Dispatch - First to Accept Wins</div>
               </div>
 
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-                <div style="text-align: center; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
-                  <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">${so.urgencyLevel}</div>
-                  <div style="font-size: 0.8rem; color: var(--text-muted);">Urgency Level</div>
+              <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-orange);"><i class="fas fa-bolt"></i> Dispatch Strategy</div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                  <div style="text-align: center; padding: 1rem; background: rgba(78, 168, 255, 0.1); border-radius: 8px;">
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue);">${bidding.providersContacted}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">Providers Contacted</div>
+                  </div>
+                  <div style="text-align: center; padding: 1rem; background: rgba(251, 191, 36, 0.1); border-radius: 8px;">
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--accent-orange);">${bidding.timeLimit}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">Response Window</div>
+                  </div>
+                  <div style="text-align: center; padding: 1rem; background: rgba(73, 212, 147, 0.1); border-radius: 8px;">
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green);">1st</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">First Wins</div>
+                  </div>
                 </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(251, 191, 36, 0.1); border-radius: 8px;">
-                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">${so.responseWindow}</div>
-                  <div style="font-size: 0.8rem; color: var(--text-muted);">Response Window</div>
-                </div>
-                <div style="text-align: center; padding: 1rem; background: rgba(78, 168, 255, 0.1); border-radius: 8px;">
-                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue);">${so.emergency.timeOfDay}</div>
-                  <div style="font-size: 0.8rem; color: var(--text-muted);">Time of Day</div>
-                </div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-users"></i> ${bidding.providersContacted} Eligible Providers</div>
+                ${bidding.providers.map((p, idx) => `
+                  <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 0.5rem;">
+                    <div style="flex: 1;">
+                      <div style="font-weight: 600;">${idx + 1}. ${p.name}</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">${p.distanceFromCustomer} away</div>
+                    </div>
+                    <div style="text-align: right;">
+                      <div style="font-size: 0.85rem; color: var(--accent-blue);">Contacted: ${new Date(p.contacted).toLocaleTimeString()}</div>
+                      <div style="font-size: 0.85rem; color: var(--text-muted);">Waiting for response...</div>
+                    </div>
+                  </div>
+                `).join('')}
               </div>
             </div>
 
-            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+            <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
               <div style="font-size: 0.9rem;">
-                <i class="fas fa-bolt" style="color: var(--accent-orange);"></i>
-                <strong> Emergency Protocol Activated:</strong> ${so.emergency.isAfterHours ? 'After-hours/weekend service' : 'Same-day service'} • Customer: ${so.customer.name} • Family size: ${so.customer.familySize} • ${so.emergency.customerStress}
-              </div>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
-              <button class="btn btn-primary" onclick="dashboard.nextCard()">
-                Proceed to Urgency Triage <i class="fas fa-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      };
-
-      const renderUrgencyTriageCard = (so, card) => {
-        return `
-          <div style="padding: 2rem;">
-            <div style="margin-bottom: 2rem;">
-              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
-                <i class="fas fa-robot"></i> AI + SYSTEM
-              </div>
-              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">AI analyzes severity and determines response protocol</p>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-brain"></i> AI Urgency Analysis</h3>
-              
-              <div style="background: rgba(239, 68, 68, 0.08); border: 2px solid #ef4444; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
-                <div style="font-weight: 700; margin-bottom: 1rem; color: #ef4444;"><i class="fas fa-exclamation-triangle"></i> Severity Assessment</div>
-                <div style="font-size: 0.95rem; line-height: 2;">
-                  ✓ <strong>Issue Type:</strong> ${so.emergency.issueType} (${so.failedAsset.assetType})<br>
-                  ✓ <strong>Impact:</strong> ${so.emergency.impact}<br>
-                  ✓ <strong>Time Sensitivity:</strong> ${so.emergency.timeOfDay} ${so.emergency.isWeekend ? '(Weekend)' : ''}<br>
-                  ✓ <strong>Weather:</strong> ${so.emergency.temperature}<br>
-                  ✓ <strong>Family Impact:</strong> ${so.customer.urgentSituation}
-                </div>
-              </div>
-
-              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
-                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-orange);"><i class="fas fa-gauge-high"></i> AI Decision</div>
-                <div style="font-size: 1.2rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">
-                  URGENCY LEVEL: ${so.urgencyLevel}
-                </div>
-                <div style="font-size: 0.9rem; line-height: 1.8;">
-                  Response Window: <strong>${so.responseWindow}</strong><br>
-                  Protocol: <strong>${so.emergencyProtocol}</strong><br>
-                  SLA Commitment: <strong>${so.slaCommitment}</strong>
-                </div>
-              </div>
-
-              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem;">
-                <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green);">
-                  <i class="fas fa-check-circle"></i> Emergency provider network activated - dispatching nearest available technician with stock
-                </div>
+                <i class="fas fa-info-circle" style="color: var(--accent-blue);"></i>
+                <strong> Dépannage Logic:</strong> System dispatches to ${bidding.providersContacted} eligible providers simultaneously. First provider to accept wins the job. All other offers automatically withdrawn.
               </div>
             </div>
 
@@ -7350,14 +7362,101 @@
                 <i class="fas fa-arrow-left"></i> Back
               </button>
               <button class="btn btn-primary" onclick="dashboard.nextCard()">
-                Match Emergency Provider <i class="fas fa-arrow-right"></i>
+                Watch Bidding Race <i class="fas fa-arrow-right"></i>
               </button>
             </div>
           </div>
         `;
       };
 
-      const renderEmergencyCompleteCard = (so, card) => {
+      const renderProviderBiddingRaceCard = (so, card) => {
+        const bidding = so.providerBidding;
+        const winner = bidding.providers.find(p => p.status === 'Winner - Assigned');
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(251, 191, 36, 0.15); color: var(--accent-orange); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-stopwatch"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Real-time provider responses - Race to accept</p>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 2px solid var(--accent-orange); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">⏱️</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">BIDDING IN PROGRESS</div>
+                <div style="font-size: 1rem; color: var(--text-muted);">Elapsed Time: ${bidding.totalElapsedTime}</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-list-check"></i> Provider Responses</div>
+                ${bidding.providers.map((p, idx) => {
+                  let statusColor = 'var(--text-muted)';
+                  let statusIcon = 'hourglass-half';
+                  let statusBg = 'rgba(255,255,255,0.03)';
+                  
+                  if (p.response === 'Accepted') {
+                    statusColor = 'var(--accent-green)';
+                    statusIcon = 'circle-check';
+                    statusBg = 'rgba(73, 212, 147, 0.15)';
+                  } else if (p.response === 'Declined') {
+                    statusColor = '#ef4444';
+                    statusIcon = 'circle-xmark';
+                    statusBg = 'rgba(239, 68, 68, 0.08)';
+                  } else if (p.response === 'Offer Withdrawn') {
+                    statusColor = 'var(--text-muted)';
+                    statusIcon = 'ban';
+                    statusBg = 'rgba(255,255,255,0.02)';
+                  }
+                  
+                  return `
+                    <div style="padding: 1rem; background: ${statusBg}; border-radius: 6px; margin-bottom: 0.75rem; border-left: 3px solid ${statusColor};">
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                          <div style="font-weight: 600; margin-bottom: 0.3rem;">${idx + 1}. ${p.name}</div>
+                          <div style="font-size: 0.85rem; color: var(--text-muted);">${p.distanceFromCustomer} • ${p.response === 'No Response' ? 'Waiting...' : p.responseTime}</div>
+                        </div>
+                        <div style="text-align: right;">
+                          <div style="font-size: 1.2rem; color: ${statusColor};"><i class="fas fa-${statusIcon}"></i></div>
+                          <div style="font-size: 0.85rem; font-weight: 600; color: ${statusColor};">${p.response}</div>
+                        </div>
+                      </div>
+                      ${p.declineReason ? `<div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;">Reason: ${p.declineReason}</div>` : ''}
+                      ${p.status.includes('Winner') ? `<div style="font-size: 0.85rem; color: var(--accent-green); margin-top: 0.5rem; font-weight: 600;"><i class="fas fa-trophy"></i> ${p.status}</div>` : ''}
+                      ${p.status.includes('withdrawn') ? `<div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; font-style: italic;">${p.status}</div>` : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div style="background: rgba(73, 212, 147, 0.08); border: 2px solid var(--accent-green); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+              <div style="font-size: 1.2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">
+                <i class="fas fa-trophy"></i> WINNER: ${winner.name}
+              </div>
+              <div style="font-size: 0.95rem; line-height: 1.8;">
+                ✓ <strong>Response Time:</strong> ${winner.responseTime}<br>
+                ✓ <strong>Accepted At:</strong> ${new Date(winner.acceptedAt).toLocaleTimeString()}<br>
+                ✓ <strong>Distance:</strong> ${winner.distanceFromCustomer}<br>
+                ✓ <strong>ETA:</strong> ${winner.estimatedArrival}
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Provider Accepted <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderDepannageCompleteCard = (so, card) => {
+        const bidding = so.providerBidding;
         return `
           <div style="padding: 2rem;">
             <div style="margin-bottom: 2rem;">
@@ -7365,109 +7464,64 @@
                 <i class="fas fa-flag-checkered"></i> SYSTEM
               </div>
               <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">Emergency resolved - Customer satisfaction restored</p>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Urgent service completed - Customer issue resolved</p>
             </div>
 
             <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.2), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 3rem; text-align: center; margin-bottom: 2rem;">
               <div style="font-size: 5rem; margin-bottom: 1rem;">✅</div>
-              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Emergency Successfully Resolved</div>
-              <div style="font-size: 1.1rem; color: var(--text-muted);">Same-day service completed - Family has hot water restored</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Dépannage Service Complete</div>
+              <div style="font-size: 1.1rem; color: var(--text-muted);">Urgent same-day service delivered - Issue resolved within SLA</div>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
               <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">${so.responseWindow}</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Response Time</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">${bidding.providersContacted}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Providers Dispatched</div>
               </div>
               <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${so.services[0].duration}min</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Work Duration</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">${bidding.totalElapsedTime.split(' ')[0]}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Assignment Time</div>
               </div>
               <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">€${so.totals.total.toFixed(2)}</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Total Paid</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${so.urgencyLevel}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Urgency Level</div>
               </div>
               <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">+€${so.totals.breakdown.urgencyPremium}</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Urgency Fee</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">€${so.financials.providerPayment.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Provider Paid</div>
               </div>
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Emergency Service Summary</h3>
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Dépannage Flow Summary</h3>
               <div style="font-size: 0.95rem; line-height: 2;">
-                ⚡ <strong>Issue:</strong> ${so.failedAsset.issue}<br>
-                ⚡ <strong>Solution:</strong> Emergency replacement with ${so.products[0].brand} ${so.products[0].model}<br>
-                ⚡ <strong>Provider:</strong> ${so.provider.name} (${so.provider.currentLocation})<br>
-                ⚡ <strong>Response:</strong> Arrived ${so.provider.estimatedArrival} (${so.provider.averageResponseTime} response time)<br>
-                ⚡ <strong>Work:</strong> ${so.services[0].name} completed in ${so.services[0].duration} minutes<br>
-                ⚡ <strong>Stock:</strong> Provider carried unit in van (emergency stock)<br>
-                ⚡ <strong>Payment:</strong> €${so.totals.total.toFixed(2)} charged immediately on completion<br>
-                ⚡ <strong>Premium:</strong> €${so.totals.breakdown.emergencyCallout} call-out + €${so.totals.breakdown.urgencyPremium} urgency fee
+                🚀 <strong>Sales Channel:</strong> ${so.salesChannel} - Customer purchased urgent service online<br>
+                🚀 <strong>Multi-Dispatch:</strong> ${bidding.providersContacted} providers contacted simultaneously<br>
+                🚀 <strong>Winner:</strong> ${bidding.winningProvider} (accepted in ${bidding.totalElapsedTime})<br>
+                🚀 <strong>Service:</strong> ${so.services[0].name}<br>
+                🚀 <strong>Provider Payment:</strong> Platform pays €${so.financials.providerPayment.toFixed(2)} to provider after completion<br>
+                🚀 <strong>Customer Payment:</strong> Customer paid RETAILER €${so.financials.customerPayment.toFixed(2)} at purchase (web portal)<br>
+                🚀 <strong>Platform Fee:</strong> €${so.financials.platformFee.toFixed(2)} (${((so.financials.platformFee / (so.financials.providerPayment + so.financials.platformFee)) * 100).toFixed(0)}%)
               </div>
             </div>
 
             <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
               <h3 style="margin-bottom: 1rem;"><i class="fas fa-key"></i> Dépannage vs Standard Service</h3>
               <div style="font-size: 0.9rem; line-height: 2;">
-                <strong style="color: var(--accent-orange);">Speed:</strong> ${so.responseWindow} vs 2-3 days standard<br>
-                <strong style="color: #ef4444);">Pricing:</strong> €${so.totals.total.toFixed(2)} vs €${so.totals.breakdown.baseCostEquivalent.toFixed(2)} standard (${((so.totals.breakdown.emergencyMarkup / so.totals.breakdown.baseCostEquivalent) * 100).toFixed(0)}% premium)<br>
-                <strong style="color: var(--accent-blue);">Availability:</strong> ${so.provider.availability} (weekend/after-hours)<br>
-                <strong style="color: var(--accent-purple);">Stock:</strong> Provider carried product (no delivery wait)<br>
-                <strong style="color: var(--accent-green);">Contract:</strong> SMS confirmation (no signed document wait)
+                <strong style="color: var(--accent-orange);">Dispatch:</strong> Multi-provider (5 at once) vs single provider sequential<br>
+                <strong style="color: var(--accent-green);">Speed:</strong> ${bidding.totalElapsedTime} assignment vs hours/days standard<br>
+                <strong style="color: var(--accent-blue);">Payment Flow:</strong> Customer → Retailer (at purchase) | Platform → Provider (after completion)<br>
+                <strong style="color: var(--accent-purple);">SLA:</strong> ${so.slaCommitment}
               </div>
             </div>
 
             <div style="text-align: center;">
-              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Emergency Complete! Demonstrated urgent same-day service with premium pricing for speed.')">
+              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Dépannage Complete! Demonstrated expedited multi-provider bidding with first-to-accept assignment.')">
                 <i class="fas fa-flag-checkered"></i> Complete Journey
               </button>
               <div style="margin-top: 1rem; color: var(--accent-green);">
-                <i class="fas fa-bolt"></i> <strong>Dépannage Scenario</strong> - Emergency service with urgency premium
+                <i class="fas fa-bolt"></i> <strong>Dépannage Scenario</strong> - Urgent service with expedited dispatch
               </div>
-            </div>
-          </div>
-        `;
-      };
-
-      // ===== GENERIC CARD RENDERER FOR UNMAPPED CARDS =====
-      
-      const renderGenericCard = (so, card) => {
-        const actorColors = {
-          'CUSTOMER': 'rgba(239, 68, 68, 0.15), #ef4444',
-          'PROVIDER': 'rgba(251, 191, 36, 0.15), var(--accent-orange)',
-          'CREW': 'rgba(73, 212, 147, 0.15), var(--accent-green)',
-          'SYSTEM': 'rgba(78, 168, 255, 0.15), var(--accent-blue)',
-          'AI': 'rgba(192, 132, 252, 0.15), var(--accent-purple)'
-        };
-        const [bgColor, textColor] = (actorColors[card.actor] || 'rgba(255,255,255,0.05), var(--text-primary)').split(', ');
-
-        return `
-          <div style="padding: 2rem;">
-            <div style="margin-bottom: 2rem;">
-              <div style="display: inline-block; background: ${bgColor}; color: ${textColor}; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
-                <i class="fas fa-${card.icon}"></i> ${card.actor}
-              </div>
-              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
-              <p style="color: var(--text-muted); font-size: 1.1rem;">${card.subtitle || 'Processing step in workflow'}</p>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <div style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted);">
-                This step represents: <strong>${card.title}</strong>
-                ${card.subtitle ? `<br><br>${card.subtitle}` : ''}
-                ${so.customer ? `<br><br><strong>Customer:</strong> ${so.customer.name}` : ''}
-                ${so.provider ? `<br><strong>Provider:</strong> ${so.provider.name}` : ''}
-              </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; gap: 1rem;">
-              <button class="btn btn-secondary" onclick="dashboard.previousCard()" ${currentCardIndex === 0 ? 'disabled' : ''}>
-                <i class="fas fa-arrow-left"></i> Back
-              </button>
-              <button class="btn btn-primary" onclick="dashboard.nextCard()">
-                Next Step <i class="fas fa-arrow-right"></i>
-              </button>
             </div>
           </div>
         `;
@@ -7553,45 +7607,6 @@
               <div style="font-size: 1.1rem; color: var(--text-muted);">Next service auto-scheduled for ${asset.nextServiceDue}</div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
-              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${sub.servicesCompleted}</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Services Completed</div>
-                <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 0.5rem;">Of ${sub.servicesPerYear} per year</div>
-              </div>
-              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">${asset.healthScore}</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Health Score</div>
-                <div style="font-size: 0.8rem; color: var(--accent-blue); margin-top: 0.5rem;">${asset.conditionTrend}</div>
-              </div>
-              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
-                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">€${sub.monthlyFee.toFixed(2)}</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted);">Monthly Fee</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Auto-renewed</div>
-              </div>
-            </div>
-
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Subscription Workflow Summary</h3>
-              <div style="font-size: 0.95rem; line-height: 2;">
-                🔄 <strong>Auto-Scheduled:</strong> Service booked ${sub.frequency.toLowerCase()} without customer action<br>
-                🔄 <strong>Reminder Sent:</strong> 2 weeks notice + 3 days confirmation<br>
-                🔄 <strong>Same Technician:</strong> ${so.provider.assignedTechnician} for relationship continuity<br>
-                🔄 <strong>Service Completed:</strong> ${so.services[0].name} performed on schedule<br>
-                🔄 <strong>No Payment:</strong> Covered by monthly subscription fee (€${sub.monthlyFee})<br>
-                🔄 <strong>Health Tracked:</strong> Asset score: ${asset.healthScore}/100 (${asset.conditionTrend})<br>
-                🔄 <strong>Next Service:</strong> Auto-scheduled for ${asset.nextServiceDue}<br>
-                🔄 <strong>Subscription:</strong> Active until ${sub.renewalDate} (auto-renew enabled)
-              </div>
-            </div>
-
-            <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
-              <h3 style="margin-bottom: 1rem;"><i class="fas fa-trophy"></i> Subscription Benefits</h3>
-              <div style="font-size: 0.9rem; line-height: 1.8;">
-                ${sub.benefits.map(benefit => `✓ ${benefit}<br>`).join('')}
-              </div>
-            </div>
-
             <div style="text-align: center;">
               <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Subscription Active! Demonstrated recurring service model with auto-scheduling and relationship continuity.')">
                 <i class="fas fa-flag-checkered"></i> Complete Journey
@@ -7599,6 +7614,49 @@
               <div style="margin-top: 1rem; color: var(--accent-green);">
                 <i class="fas fa-rotate"></i> <strong>Subscription Scenario</strong> - Recurring maintenance with auto-renewal
               </div>
+            </div>
+          </div>
+        `;
+      };
+
+      // ===== GENERIC CARD RENDERER FOR UNMAPPED CARDS =====
+      
+      const renderGenericCard = (so, card) => {
+        const actorColors = {
+          'CUSTOMER': 'rgba(239, 68, 68, 0.15), #ef4444',
+          'PROVIDER': 'rgba(251, 191, 36, 0.15), var(--accent-orange)',
+          'CREW': 'rgba(73, 212, 147, 0.15), var(--accent-green)',
+          'SYSTEM': 'rgba(78, 168, 255, 0.15), var(--accent-blue)',
+          'AI': 'rgba(192, 132, 252, 0.15), var(--accent-purple)'
+        };
+        const [bgColor, textColor] = (actorColors[card.actor] || 'rgba(255,255,255,0.05), var(--text-primary)').split(', ');
+
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: ${bgColor}; color: ${textColor}; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-${card.icon}"></i> ${card.actor}
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${card.subtitle || 'Processing step in workflow'}</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted);">
+                This step represents: <strong>${card.title}</strong>
+                ${card.subtitle ? `<br><br>${card.subtitle}` : ''}
+                ${so.customer ? `<br><br><strong>Customer:</strong> ${so.customer.name}` : ''}
+                ${so.provider ? `<br><strong>Provider:</strong> ${so.provider.name}` : ''}
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()" ${currentCardIndex === 0 ? 'disabled' : ''}>
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Next Step <i class="fas fa-arrow-right"></i>
+              </button>
             </div>
           </div>
         `;
@@ -7715,12 +7773,12 @@
           html = renderPaymentAuthMaintCard(so, card);
         } else if (card.id === 'maintenance-complete') {
           html = renderMaintenanceCompleteCard(so, card);
-        } else if (card.id === 'emergency-request') {
-          html = renderEmergencyRequestCard(so, card);
-        } else if (card.id === 'urgency-triage') {
-          html = renderUrgencyTriageCard(so, card);
-        } else if (card.id === 'emergency-complete') {
-          html = renderEmergencyCompleteCard(so, card);
+        } else if (card.id === 'multi-provider-dispatch') {
+          html = renderMultiProviderDispatchCard(so, card);
+        } else if (card.id === 'provider-bidding-race') {
+          html = renderProviderBiddingRaceCard(so, card);
+        } else if (card.id === 'depannage-complete') {
+          html = renderDepannageCompleteCard(so, card);
         } else if (card.id === 'service-reminder') {
           html = renderServiceReminderCard(so, card);
         } else if (card.id === 'subscription-continues') {
