@@ -1,14 +1,36 @@
-# Dépannage & Subscription Scenarios - Design Document
+# Dépannage & Subscription - Detailed Design
 
 ## Overview
-Two new service types that extend YellowGrid's service domain capabilities beyond standard installations and maintenance.
+Two advanced service models demonstrating YellowGrid's platform flexibility: expedited multi-provider dispatch and SaaS-style recurring services.
 
 ---
 
-## 1. DÉPANNAGE (Urgent Service / Emergency Repair)
+## 1. DÉPANNAGE (Urgent Service)
 
 ### Definition
-Emergency/urgent service requiring same-day or next-day response. Customer has a broken/failed asset that needs immediate repair or replacement.
+**Sales-initiated** expedited service using multi-provider competitive dispatch for urgent repairs/replacements.
+
+### CRITICAL BUSINESS LOGIC
+
+**How It Starts:**
+- Customer purchases urgent service from RETAILER (web portal or store)
+- Kafka message from sales system triggers platform workflow
+- NOT an emergency call from customer
+
+**Dispatch Method:**
+- Platform contacts 5 eligible providers SIMULTANEOUSLY
+- First provider to accept wins the assignment (3 min 12 sec in example)
+- Offers automatically withdrawn from other 4 providers
+- Speed advantage: minutes vs hours/days for standard sequential dispatch
+
+**Payment Model (B2B):**
+```
+Customer → Retailer (€774.90 at purchase)
+Platform → Provider (€620.90 after completion)
+Platform Fee: €154 (20%)
+```
+
+**NO direct customer-to-provider payment**
 
 ### Key Characteristics
 - ⚡ **URGENT**: Same-day or next-day execution required
@@ -48,34 +70,65 @@ Emergency/urgent service requiring same-day or next-day response. Customer has a
 
 ### Use Case Example: Water Heater Emergency
 
-**Customer**: Maria Santos
-**Issue**: Gas water heater stopped working - no hot water for family of 4
-**Time**: Saturday 6:45 PM (outside business hours)
-**Urgency**: High (12-hour window - family needs hot water by morning)
+**Customer**: Maria Santos (family of 4)
+**Issue**: Gas water heater failure - no hot water
+**Time**: Saturday 6:45 PM
+**Channel**: Customer purchased via RETAILER web portal
 
-**Scenario Flow**:
-1. Customer submits urgent request via mobile app/hotline
-2. AI analyzes: "Gas water heater failure, family impact, weekend"
-3. System identifies: Emergency repair OR replacement needed
-4. Emergency provider network activated (5 providers within 30 min)
-5. Best provider auto-selected: EmergencyPlumb 24/7 (15 min away, has stock)
-6. SMS sent to customer: "Technician João arriving in 45 minutes"
-7. Technician assesses: Replacement needed (beyond repair)
-8. Technician has compatible unit in van (emergency stock)
-9. Replacement completed in 2 hours
-10. Customer pays: €650 (€450 unit + €120 install + €80 emergency fee)
+**Corrected Flow**:
+1. Customer purchases urgent service from retailer (€774.90 paid to retailer)
+2. Kafka message from sales system → Platform
+3. AI enrichment and SO creation
+4. Operator triages urgency (HIGH - 4-hour window)
+5. Platform dispatches to 5 providers SIMULTANEOUSLY at 6:38 PM
+6. Multi-provider bidding race:
+   - EmergencyPlumb 24/7: Accepted (3 min 12 sec) ✅ WINNER
+   - QuickFix Plumbing: Offer Withdrawn (too late)
+   - HomeService Pro: Declined (no stock)
+   - UrgentCare: No Response (timeout)
+   - TechResponse: Offer Withdrawn (too late)
+7. Customer SMS: "João from EmergencyPlumb arriving 7:30 PM (45 min)"
+8. Onsite assessment: Replacement needed (beyond repair)
+9. Provider has Vaillant 14L in van (emergency stock)
+10. Work completed by 10 PM
+11. Platform pays provider €620.90 after WCF
 
-**Price Breakdown**:
-- Water heater unit: €450 (emergency stock - slight premium)
-- Installation service: €120
-- Emergency call-out: €80 (weekend, after-hours)
-- **Total: €650** (vs €500 for planned replacement)
+**Financial Flow**:
+- Customer paid RETAILER: €774.90 (at purchase, step 1)
+- Platform pays provider: €620.90 (after completion, step 11)
+- Platform fee: €154 (20%)
 
-### Metro Stations for Dépannage
+**Speed Advantage**: 5 providers contacted simultaneously → 3 min 12 sec to assignment (vs hours/days for sequential dispatch)
 
-1. **Emergency Request** (Customer) - Urgent service request submitted
-2. **Urgency Triage** (AI/System) - AI determines urgency level & response window
-3. **Emergency Provider Match** (System) - Real-time provider availability check
+### Workflow Cards (20 Total)
+
+**Sales Integration (5):**
+1. Kafka Message
+2. Enrichment
+3. SO Creation
+4. AI Analysis
+5. Operator Triage
+
+**Multi-Provider Dispatch (9):**
+6. Multi-Provider Dispatch (5 providers contacted)
+7. Provider Bidding Race (real-time responses)
+8. First Acceptance (winner assigned)
+9. Offers Withdrawal (other 4 withdrawn)
+10. Provider Dispatch Notification
+11. Customer ETA Notification
+12. Onsite Assessment
+13. Urgent Execution
+14. WCF
+
+**Provider Payment (4):**
+15. Pro Forma Invoice
+16. Invoice Dataflow
+17. Payment Authorization
+18. Provider Payment
+
+**Complete (2):**
+19. [Customer paid retailer at purchase]
+20. Dépannage Complete
 4. **Provider Emergency Dispatch** (Provider) - Provider accepts & commits response time
 5. **Customer Notification** (Customer) - SMS/call with provider ETA
 6. **On-Site Assessment** (Crew) - Technician evaluates issue (fix vs replace)
