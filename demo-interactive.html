@@ -2077,6 +2077,26 @@
                 emergencyMarkup: 144.90
               }
             },
+            financials: {
+              customerPayment: 774.90,
+              customerPaymentReason: 'Emergency service with urgency premium - same-day resolution',
+              providerPayment: 620.90,
+              providerPaymentReason: 'Emergency response service: €420 product + €150 service + €60 emergency callout - platform fee',
+              paymentCondition: 'emergency-service',
+              platformFee: 154,
+              platformFeeReason: 'Standard 20% platform fee on total provider amount (€774.90 × 20% = €154.90 minus €0.90 adjustment)',
+              providerBreakdown: {
+                productCost: 420,
+                serviceCost: 150,
+                emergencyCallout: 60,
+                subtotal: 630,
+                urgencyPremium: 30,
+                tax: 144.90,
+                gross: 774.90,
+                platformFee: 154,
+                netToProvider: 620.90
+              }
+            },
             payment: {
               status: 'Pending',
               method: 'Credit Card',
@@ -2091,6 +2111,25 @@
               transactionId: null,
               installments: 1,
               paymentTerms: 'Immediate payment required for emergency service. Card pre-authorized. Final charge on completion.'
+            },
+            providerInvoice: {
+              invoiceNumber: 'INV-DEP-2025-11-4789',
+              invoiceType: 'Pro Forma',
+              issueDate: '2025-11-16T22:05:00Z',
+              dueDate: '2025-11-23T23:59:59Z',
+              paymentTerms: 'Net 7 days',
+              lineItems: [
+                { description: 'Water Heater Emergency Replacement', quantity: 1, unitPrice: 420, amount: 420 },
+                { description: 'Installation Service', quantity: 1, unitPrice: 150, amount: 150 },
+                { description: 'Emergency Callout Fee', quantity: 1, unitPrice: 60, amount: 60 }
+              ],
+              subtotal: 630,
+              platformFee: -154,
+              netAmount: 476,
+              tax: 144.90,
+              totalDue: 620.90,
+              currency: 'EUR',
+              status: 'Pending Provider Acceptance'
             },
             provider: {
               providerId: 'PRV-EMRG-089',
@@ -2310,6 +2349,28 @@
               currency: 'EUR',
               subscriptionNote: 'Service covered by monthly subscription fee (€16.99/month). No additional charge for this visit.'
             },
+            financials: {
+              customerPayment: 0,
+              customerPaymentReason: 'Service covered by monthly subscription fee €16.99 - no additional charge',
+              providerPayment: 48,
+              providerPaymentReason: 'Quarterly maintenance service - subscription payout model',
+              paymentCondition: 'subscription-service',
+              platformFee: 12,
+              platformFeeReason: '20% platform fee on provider payout (€60 standard rate - €12 fee = €48 net)',
+              providerBreakdown: {
+                standardServiceRate: 60,
+                platformFee: 12,
+                netToProvider: 48
+              },
+              subscriptionEconomics: {
+                monthlyCustomerPayment: 16.99,
+                annualCustomerPayment: 203.88,
+                servicesPerYear: 4,
+                annualProviderPayout: 192,
+                annualPlatformRevenue: 48,
+                customerSavings: 36.12
+              }
+            },
             payment: {
               status: 'Paid via Subscription',
               method: 'Subscription Plan',
@@ -2322,6 +2383,24 @@
               serviceIncluded: true,
               additionalCharges: 0,
               paymentTerms: 'Covered by active Standard subscription. Monthly fee: €16.99'
+            },
+            providerInvoice: {
+              invoiceNumber: 'INV-SUB-2025-12-4421-Q4',
+              invoiceType: 'Pro Forma',
+              issueDate: '2025-12-15T18:30:00Z',
+              dueDate: '2025-12-22T23:59:59Z',
+              paymentTerms: 'Net 7 days',
+              lineItems: [
+                { description: 'Quarterly AC Maintenance (Q4 2025)', quantity: 1, unitPrice: 60, amount: 60 }
+              ],
+              subtotal: 60,
+              platformFee: -12,
+              netAmount: 48,
+              tax: 0,
+              totalDue: 48,
+              currency: 'EUR',
+              status: 'Pending Provider Acceptance',
+              subscriptionNote: 'Service performed under subscription contract SUB-2025-4421. Customer billed monthly at €16.99. Provider receives per-service payout.'
             },
             provider: {
               providerId: 'PRV-CLIMA-142',
@@ -4016,6 +4095,12 @@
         // Custom flow for Dépannage scenario (emergency service - urgency, speed, premium pricing)
         if (scenarioId === 'depannage') {
           const depannageCards = [
+            // Initial Sales Integration
+            { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server', stepId: 'integration' },
+            { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs', stepId: 'integration' },
+            { id: 'project-creation', type: 'system', title: 'SO Creation', icon: 'folder-plus', stepId: 'integration' },
+            { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot', stepId: 'ai-analysis' },
+            { id: 'operator-cockpit', type: 'operator', title: 'Operator Triage', icon: 'headset', stepId: 'operator-triage' },
             // Emergency Request
             { id: 'emergency-request', type: 'customer', title: 'Emergency Request', icon: 'phone-volume', stepId: 'emergency-request' },
             // Urgency Triage (AI analyzes severity & response window)
@@ -4035,8 +4120,13 @@
             // WCF (work completion)
             { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
             { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
-            // Immediate Payment (charged on completion)
-            { id: 'emergency-payment', type: 'system', title: 'Immediate Payment', icon: 'credit-card', stepId: 'payment' },
+            // Provider Invoice & Payment
+            { id: 'invoice-portal-dep', type: 'provider', title: 'Pro Forma Invoice', icon: 'file-invoice', stepId: 'invoice' },
+            { id: 'invoice-dataflow', type: 'data', title: 'Invoice Dataflow', icon: 'exchange-alt', stepId: 'invoice' },
+            { id: 'payment-authorization-dep', type: 'system', title: 'Provider Payment Authorization', icon: 'stamp', stepId: 'payment-auth' },
+            { id: 'payment-portal-dep', type: 'provider', title: 'Provider Payment', icon: 'credit-card', stepId: 'provider-payment' },
+            // Customer Payment (charged on completion)
+            { id: 'emergency-payment', type: 'customer', title: 'Customer Payment', icon: 'credit-card', stepId: 'customer-payment' },
             // Emergency Complete
             { id: 'emergency-complete', type: 'system', title: 'Emergency Service Complete', icon: 'circle-check', stepId: 'completion' }
           ];
@@ -4047,6 +4137,12 @@
         // Custom flow for Subscription scenario (recurring service with auto-scheduling)
         if (scenarioId === 'subscription') {
           const subscriptionCards = [
+            // Initial Sales Integration (subscription purchase)
+            { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server', stepId: 'integration' },
+            { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs', stepId: 'integration' },
+            { id: 'project-creation', type: 'system', title: 'SO Creation', icon: 'folder-plus', stepId: 'integration' },
+            { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot', stepId: 'ai-analysis' },
+            { id: 'operator-cockpit', type: 'operator', title: 'Operator Triage', icon: 'headset', stepId: 'operator-triage' },
             // Service Reminder (auto-sent 2 weeks before)
             { id: 'service-reminder', type: 'customer', title: 'Service Reminder', icon: 'bell', stepId: 'reminder' },
             // Schedule Confirmation (customer confirms/reschedules)
@@ -4064,6 +4160,11 @@
             { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
             // Service Report (health tracking)
             { id: 'service-report-sub', type: 'system', title: 'Service Report & Health Score', icon: 'file-medical', stepId: 'service-report' },
+            // Provider Invoice & Payment
+            { id: 'invoice-portal-sub', type: 'provider', title: 'Pro Forma Invoice', icon: 'file-invoice', stepId: 'invoice' },
+            { id: 'invoice-dataflow', type: 'data', title: 'Invoice Dataflow', icon: 'exchange-alt', stepId: 'invoice' },
+            { id: 'payment-authorization-sub', type: 'system', title: 'Provider Payment Authorization', icon: 'stamp', stepId: 'payment-auth' },
+            { id: 'payment-portal-sub', type: 'provider', title: 'Provider Payment', icon: 'credit-card', stepId: 'provider-payment' },
             // Next Service Auto-Schedule
             { id: 'auto-schedule-next', type: 'system', title: 'Auto-Schedule Next Service', icon: 'calendar-plus', stepId: 'auto-schedule' },
             // Subscription Continue
@@ -7624,6 +7725,12 @@
           html = renderServiceReminderCard(so, card);
         } else if (card.id === 'subscription-continues') {
           html = renderSubscriptionContinuesCard(so, card);
+        } else if (card.id === 'invoice-portal-dep' || card.id === 'invoice-portal-sub') {
+          html = renderInvoicePortalCard(so, card);
+        } else if (card.id === 'payment-authorization-dep' || card.id === 'payment-authorization-sub') {
+          html = renderPaymentAuthorizationCard(so, card);
+        } else if (card.id === 'payment-portal-dep' || card.id === 'payment-portal-sub') {
+          html = renderPaymentPortalCard(so, card);
         } else {
           // Generic render for unmapped cards (provider assignments, crew execution, etc.)
           html = renderGenericCard(so, card);

@@ -35,13 +35,19 @@ Complete: 10 PM same evening
 ```
 
 ### Workflow Highlights
-1. **Emergency Request** - Customer stress level tracked
-2. **Urgency Triage** - AI analyzes severity & response window
-3. **Emergency Provider Match** - Real-time availability API
-4. **Customer ETA** - SMS with live tracking
-5. **Solution Confirmation** - Verbal approval on-site (no contract wait)
-6. **Emergency Execution** - Fast-track installation
-7. **Emergency Payment** - Immediate charge on completion
+1. **Kafka Message** - Sales system (web/store) → Platform integration
+2. **SO Creation** - Sales order created and enriched
+3. **AI Analysis + Operator Triage** - Initial assessment and routing
+4. **Emergency Request** - Customer stress level tracked
+5. **Urgency Triage** - AI analyzes severity & response window
+6. **Emergency Provider Match** - Real-time availability API
+7. **Customer ETA** - SMS with live tracking
+8. **Solution Confirmation** - Verbal approval on-site (no contract wait)
+9. **Emergency Execution** - Fast-track installation
+10. **WCF Signature** - Work completion confirmed
+11. **Pro Forma Invoice** - Provider submits invoice for approval
+12. **Provider Payment** - Platform pays provider after authorization
+13. **Customer Payment** - Immediate charge on completion
 
 ---
 
@@ -92,13 +98,19 @@ Benefits Active:
 | Tech Assignment | Random | Preferred | Dedicated |
 
 ### Workflow Highlights
-1. **Service Reminder** - Auto-sent 2 weeks before due date
-2. **Schedule Confirmation** - Easy reschedule if needed
-3. **Provider Assignment** - Same tech when possible
-4. **Asset History** - Full maintenance history shown
-5. **Crew Execution** - Scheduled preventive work
-6. **Service Report** - Health score updated with trends
-7. **Auto-Schedule Next** - Next visit booked automatically
+1. **Kafka Message** - Sales system (web/store) → Platform integration
+2. **SO Creation** - Subscription contract created
+3. **AI Analysis + Operator Triage** - Initial assessment and routing
+4. **Service Reminder** - Auto-sent 2 weeks before due date
+5. **Schedule Confirmation** - Easy reschedule if needed
+6. **Provider Assignment** - Same tech when possible
+7. **Asset History** - Full maintenance history shown
+8. **Crew Execution** - Scheduled preventive work
+9. **WCF Signature** - Work completion confirmed
+10. **Service Report** - Health score updated with trends
+11. **Pro Forma Invoice** - Provider submits invoice for approval
+12. **Provider Payment** - Platform pays provider (€48 net after fee)
+13. **Auto-Schedule Next** - Next visit booked automatically
 
 ---
 

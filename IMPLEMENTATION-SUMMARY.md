@@ -21,18 +21,24 @@ Added **Dépannage (Emergency Service)** and **Subscription (Recurring Service)*
 - **Emergency Protocol:** 24/7 availability, provider carries stock in van, SMS confirmation (no contract wait)
 - **Response:** 45-min ETA, provider 15 minutes away
 
-**12-Card Workflow:**
-1. Emergency Request (Customer reports issue)
-2. Urgency Triage (AI severity analysis)
-3. Emergency Provider Match (Real-time availability)
-4. Provider Emergency Dispatch (Accepts job + ETA)
-5. Customer ETA (SMS notification)
-6. Onsite Assessment (Fix vs replace decision)
-7. Solution Confirmation (Customer approves price)
-8. Emergency Execution (Urgent repair/replacement)
-9-10. WCF Notification + Signature
-11. Emergency Payment (Immediate charge)
-12. Emergency Complete (Issue resolved)
+### 17-Card Workflow:
+1. Kafka Message (Sales system → Platform)
+2. Enrichment (Data validation & augmentation)
+3. SO Creation (Sales order created)
+4. AI Analysis (Initial assessment)
+5. Operator Triage (Manual review if needed)
+6. Emergency Request (Customer reports issue)
+7. Urgency Triage (AI severity analysis)
+8. Emergency Provider Match (Real-time availability)
+9. Provider Emergency Dispatch (Accepts job + ETA)
+10. Customer ETA (SMS notification)
+11. Onsite Assessment (Fix vs replace decision)
+12. Solution Confirmation (Customer approves price)
+13. Emergency Execution (Urgent repair/replacement)
+14-15. WCF Notification + Signature
+16-19. Pro Forma Invoice → Invoice Dataflow → Provider Payment Authorization → Provider Payment
+20. Customer Payment (Immediate charge)
+21. Emergency Complete (Issue resolved)
 
 ---
 
@@ -51,17 +57,23 @@ Added **Dépannage (Emergency Service)** and **Subscription (Recurring Service)*
 - **Health Tracking:** Asset score 92/100 (stable/improving)
 - **Zero Additional Charge:** Service covered by monthly fee
 
-**11-Card Workflow:**
-1. Service Reminder (Auto-sent 2 weeks before)
-2. Schedule Confirmation (Customer confirms/reschedules)
-3. Provider Assignment (Prefers same tech)
-4. Provider Notification (Receives job with history)
-5. Asset History (Previous visits, health trends)
-6. Crew Execution (Scheduled maintenance)
-7-8. WCF Notification + Signature
-9. Service Report (Updates health score)
-10. Auto-Schedule Next (Books next visit)
-11. Subscription Continues (Billing continues)
+**16-Card Workflow:**
+1. Kafka Message (Sales system → Platform)
+2. Enrichment (Data validation & augmentation)
+3. SO Creation (Sales order created)
+4. AI Analysis (Initial assessment)
+5. Operator Triage (Manual review if needed)
+6. Service Reminder (Auto-sent 2 weeks before)
+7. Schedule Confirmation (Customer confirms/reschedules)
+8. Provider Assignment (Prefers same tech)
+9. Provider Notification (Receives job with history)
+10. Asset History (Previous visits, health trends)
+11. Crew Execution (Scheduled maintenance)
+12-13. WCF Notification + Signature
+14. Service Report (Updates health score)
+15-18. Pro Forma Invoice → Invoice Dataflow → Provider Payment Authorization → Provider Payment
+19. Auto-Schedule Next (Books next visit)
+20. Subscription Continues (Billing continues)
 
 ---
 
