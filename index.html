@@ -25,6 +25,19 @@
       if ((isMobile || (isSmallScreen && isTouchDevice)) && isDemoPage) {
         window.location.replace('demo-interactive-mobile.html');
       }
+
+      // Intercept demo links on landing page
+      window.addEventListener('DOMContentLoaded', function() {
+        if (isMobile || (isSmallScreen && isTouchDevice)) {
+          // Find all links to demo-interactive.html and redirect to mobile version
+          document.querySelectorAll('a[href*="demo-interactive.html"]').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              window.location.href = 'demo-interactive-mobile.html';
+            });
+          });
+        }
+      });
     })();
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
