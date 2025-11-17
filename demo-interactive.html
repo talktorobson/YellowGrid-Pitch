@@ -1669,6 +1669,228 @@
             priority: 'High',
             tags: ['rework', 'quality-issue', 'wcf-reserves', 'different-provider', 'tiling', 'waterproofing', 'remedial-work']
           }
+        },
+        'maintenance': {
+          name: 'Maintenance - Asset Service',
+          description: 'Annual maintenance service for existing equipment. No product delivery - provider brings all parts/consumables included in service price. Focus on asset details and service history.',
+          salesOrder: {
+            orderId: 'SO-2025-3344',
+            soId: 'SO-2025-3344',
+            salesChannel: 'Customer Service',
+            store: 'Maintenance Center',
+            storeCode: 'MAINT-001',
+            salesProjectId: null,
+            leadId: null,
+            opportunityId: null,
+            salesman: 'Maintenance Scheduler',
+            salesmanId: 'MAINT-AUTO',
+            salesmanEmail: 'maintenance@yellowgrid.pt',
+            orderDate: '2025-11-10T09:30:00Z',
+            confirmationDate: '2025-11-10T09:35:00Z',
+            orderType: 'maintenance',
+            customer: {
+              customerId: 'CUST-4582',
+              name: 'João Ferreira',
+              firstName: 'João',
+              lastName: 'Ferreira',
+              email: 'joao.ferreira@email.pt',
+              phone: '+351 916 543 210',
+              alternatePhone: '+351 214 567 890',
+              addressLine1: 'Avenida da República, 125',
+              addressLine2: '4º Andar, Porta D',
+              address: 'Avenida da República, 125, 4º Andar, 1050-189 Lisboa',
+              city: 'Lisboa',
+              postalCode: '1050-189',
+              region: 'Lisboa',
+              country: 'Portugal',
+              customerSince: '2018-03-20',
+              tier: 'Premium',
+              claimHistory: 0,
+              lifetimeValue: 2450,
+              preferredContact: 'phone',
+              language: 'pt-PT',
+              propertyType: 'Apartment',
+              propertySize: '95m²',
+              occupancy: 'Owner-occupied'
+            },
+            asset: {
+              assetId: 'ASSET-2018-7742',
+              assetType: 'Boiler',
+              category: 'HVAC',
+              brand: 'Vaillant',
+              model: 'ecoTEC plus VCW 246/5-5',
+              serialNumber: '21234567890',
+              installationDate: '2018-03-15',
+              yearsInService: 7,
+              capacity: '24 kW',
+              fuelType: 'Natural Gas',
+              powerRating: '24 kW heating / 28 kW hot water',
+              efficiency: 'A-rated (94% efficiency)',
+              location: 'Kitchen utility cupboard',
+              currentStatus: 'Operational',
+              lastServiceDate: '2024-11-12',
+              lastServiceProvider: 'HeatingPro Services',
+              serviceHistory: [
+                { date: '2024-11-12', type: 'Annual Maintenance', provider: 'HeatingPro Services', cost: 115, notes: 'Full service completed. All OK.' },
+                { date: '2023-11-08', type: 'Annual Maintenance', provider: 'HeatingPro Services', cost: 110, notes: 'Replaced expansion vessel. Service complete.' },
+                { date: '2022-11-15', type: 'Annual Maintenance', provider: 'HeatingPro Services', cost: 105, notes: 'Routine service. No issues found.' },
+                { date: '2021-12-03', type: 'Repair', provider: 'Emergency Heating', cost: 180, notes: 'Pressure sensor replaced. System restored.' }
+              ],
+              knownIssues: [],
+              manufacturerWarranty: 'Expired (2-year warranty ended 2020)',
+              extendedWarranty: 'None',
+              maintenanceContract: 'Annual service plan - renewed yearly',
+              nextServiceDue: '2026-11-15',
+              specifications: {
+                dimensions: '440 x 720 x 360 mm (W x H x D)',
+                weight: '35 kg',
+                waterPressure: '1.0 - 1.5 bar',
+                gasConnection: '1/2" BSP',
+                flueType: 'Concentric 60/100mm',
+                electricalSupply: '230V / 50Hz',
+                maxFlowRate: '13.5 L/min @ 35°C rise',
+                minFlowRate: '1.9 L/min'
+              },
+              safetyFeatures: [
+                'Overheat protection',
+                'Frost protection',
+                'Air pressure sensor',
+                'Flame supervision',
+                'Low water pressure switch'
+              ],
+              accessories: [
+                'Wireless room thermostat (VRT 350f)',
+                'Filling loop',
+                'Condensate trap',
+                'Magnetic filter installed'
+              ]
+            },
+            products: [],
+            services: [
+              {
+                lineId: 'LINE-001',
+                serviceOrderId: 'SRV-3344-01',
+                code: 'MAINT-BOILER-ANNUAL',
+                name: 'Annual Boiler Maintenance Service',
+                description: 'Comprehensive annual maintenance service for gas boiler including inspection, cleaning, testing, and full diagnostic report. All parts and consumables included.',
+                category: 'HVAC Maintenance',
+                serviceType: 'Preventive Maintenance',
+                quantity: 1,
+                unitPrice: 120,
+                discount: 0,
+                tax: 27.60,
+                totalPrice: 120,
+                price: '120',
+                scheduledDate: '2025-11-19',
+                timeSlot: '10:00-12:00',
+                duration: 90,
+                techniciansRequired: 1,
+                skillLevel: 'Certified Gas Engineer',
+                equipmentNeeded: [
+                  'Combustion analyzer',
+                  'Pressure gauge',
+                  'Multimeter',
+                  'Cleaning brushes',
+                  'Vacuum equipment',
+                  'Leak detection fluid',
+                  'Gas safety tools'
+                ],
+                safetyRequirements: [
+                  'Gas Safe registered engineer',
+                  'Carbon monoxide detector',
+                  'Ventilation check',
+                  'Gas leak testing',
+                  'Safety valve testing',
+                  'PPE required'
+                ],
+                workScope: [
+                  'Visual inspection of boiler exterior and components',
+                  'Heat exchanger inspection and cleaning',
+                  'Combustion analysis (CO/CO2 levels)',
+                  'Burner inspection and adjustment',
+                  'Flue and ventilation check',
+                  'Gas pressure and flow rate check',
+                  'Safety device testing (overheat, pressure)',
+                  'Condensate trap cleaning',
+                  'Water pressure check and adjustment',
+                  'Expansion vessel check',
+                  'Magnetic filter inspection/cleaning',
+                  'Thermostat calibration check',
+                  'Full system diagnostic test',
+                  'Customer handover with recommendations'
+                ],
+                partsIncluded: [
+                  'Filter cartridge (if needed)',
+                  'Seals and gaskets',
+                  'Electrode cleaning materials',
+                  'Cleaning chemicals',
+                  'Condensate treatment tablets'
+                ],
+                deliverables: [
+                  'Service completion certificate',
+                  'Gas safety certificate',
+                  'Combustion analysis report',
+                  'Service checklist (signed)',
+                  'Next service recommendation',
+                  'Photos of work performed'
+                ],
+                providerBringsOwnParts: true,
+                noProductDeliveryRequired: true,
+                status: 'Scheduled'
+              }
+            ],
+            totals: {
+              subtotalProducts: 0,
+              subtotalServices: 120,
+              subtotal: 120,
+              discounts: 0,
+              taxProducts: 0,
+              taxServices: 27.60,
+              totalTax: 27.60,
+              shippingCost: 0,
+              total: 147.60,
+              currency: 'EUR'
+            },
+            payment: {
+              status: 'Pending',
+              method: 'Direct Debit',
+              customerOwes: 147.60,
+              paidAmount: 0,
+              paymentTrigger: 'Service completion + WCF signature',
+              dueDate: '2025-11-30',
+              transactionId: null,
+              installments: 1,
+              paymentTerms: 'Payment on completion - charged to saved payment method after work completion form signed'
+            },
+            provider: {
+              providerId: 'PRV-HEAT-205',
+              name: 'HeatingPro Services',
+              category: 'HVAC Maintenance Specialist',
+              specialization: 'Gas Boiler Service & Repair',
+              rating: 4.8,
+              completedJobs: 1247,
+              certifications: ['Gas Safe Registered', 'Vaillant Approved', 'Worcester Accredited'],
+              responseTime: '< 24 hours',
+              partsInventory: 'Comprehensive - carries common parts',
+              serviceArea: 'Greater Lisboa',
+              emergencyService: true,
+              languages: ['Portuguese', 'English']
+            },
+            linkedContracts: ['MAINT-CONTRACT-2025-4582'],
+            linkedPreEstimation: null,
+            linkedQuotation: null,
+            contractType: 'Maintenance Service Agreement',
+            recurringService: true,
+            serviceFrequency: 'Annual',
+            contractStartDate: '2018-03-15',
+            contractRenewalDate: '2025-03-15',
+            sellerNotes: 'Long-term customer with annual service plan. Same provider for 4 years - customer specifically requests HeatingPro. Access via building intercom. Customer usually at home in mornings.',
+            internalNotes: 'NO PRODUCT DELIVERY - Provider brings all parts. NO GO EXEC GATE. Maintenance flow: Contract → Provider → Execution → WCF → Report → Payment. Asset details critical for crew. Service history shows consistent annual maintenance.',
+            specialInstructions: 'MAINTENANCE WORKFLOW: (1) No product phase - skip Go Exec entirely. (2) Provider brings own parts inventory. (3) Must generate service report after WCF. (4) Payment only after WCF + report. (5) Customer prefers morning slots 10-12. (6) Boiler in kitchen utility cupboard - easy access. (7) Last service 1 year ago - routine maintenance expected.',
+            operatorNotes: 'Customer has annual plan. HeatingPro is preferred provider - assign directly. Service straightforward. Generate certificate and report for customer records.',
+            priority: 'Normal',
+            tags: ['maintenance', 'hvac', 'boiler', 'annual-service', 'recurring', 'no-products', 'premium-customer', 'gas-safe']
+          }
         }
       };
 
@@ -3286,6 +3508,44 @@
           ];
           
           return reworkCards.map((card, idx) => ({ ...card, index: idx }));
+        }
+
+        // Custom flow for Maintenance scenario (asset service - NO products, NO Go Exec)
+        if (scenarioId === 'maintenance') {
+          const maintenanceCards = [
+            // Sales Integration
+            { id: 'kafka-message', type: 'data', title: 'Kafka Message', icon: 'server', stepId: 'integration' },
+            { id: 'enrichment', type: 'system', title: 'Enrichment', icon: 'cogs', stepId: 'integration' },
+            { id: 'so-creation', type: 'system', title: 'SO Creation', icon: 'folder-plus', stepId: 'integration' },
+            // AI Analysis (understands it's maintenance, no products needed)
+            { id: 'ai-reasoning', type: 'ai', title: 'AI Analysis', icon: 'robot', stepId: 'ai-analysis' },
+            // Operator Triage
+            { id: 'operator-cockpit', type: 'operator', title: 'Operator Triage', icon: 'headset', stepId: 'operator-triage' },
+            // Contract (service agreement)
+            { id: 'contract-notification', type: 'customer', title: 'Contract Email/SMS', icon: 'envelope', stepId: 'contract' },
+            { id: 'contract-portal', type: 'customer', title: 'Contract Signature', icon: 'file-signature', stepId: 'contract' },
+            // Provider Matching (maintenance specialist)
+            { id: 'provider-funnel', type: 'system', title: 'Provider Matching', icon: 'filter', stepId: 'provider-match' },
+            { id: 'provider-offer', type: 'provider', title: 'Provider Offer', icon: 'mobile-screen-button', stepId: 'provider-match' },
+            // Asset Information (replaces product delivery - shows what's being maintained)
+            { id: 'asset-details', type: 'system', title: 'Asset Information', icon: 'clipboard-list', stepId: 'asset-info' },
+            // Provider Notification (with asset details)
+            { id: 'provider-notification-maint', type: 'provider', title: 'Provider Job Details', icon: 'mobile-screen-button', stepId: 'provider-notification' },
+            // NO GO EXEC - Jump directly to execution (provider brings own parts)
+            // Crew Execution (maintenance work)
+            { id: 'crew-execution-maint', type: 'crew', title: 'Crew Execution', icon: 'wrench', stepId: 'execution' },
+            // WCF (work completion)
+            { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
+            { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
+            // Service Report (maintenance-specific - shows work performed, parts used, recommendations)
+            { id: 'service-report', type: 'system', title: 'Service Report Generation', icon: 'file-medical', stepId: 'service-report' },
+            // Payment Authorization
+            { id: 'payment-auth-maint', type: 'system', title: 'Payment Authorization', icon: 'stamp', stepId: 'payment' },
+            // Maintenance Complete
+            { id: 'maintenance-complete', type: 'system', title: 'Maintenance Complete', icon: 'circle-check', stepId: 'completion' }
+          ];
+          
+          return maintenanceCards.map((card, idx) => ({ ...card, index: idx }));
         }
         
         const activeSteps = scenarioSteps[scenarioId] || steps;
@@ -5901,6 +6161,461 @@
         `;
       };
 
+      // ===== MAINTENANCE SCENARIO RENDER FUNCTIONS =====
+
+      const renderAssetDetailsCard = (so, card) => {
+        const asset = so.asset;
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-clipboard-list"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Equipment details and service history</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-wrench"></i> Asset Information</h3>
+              
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                  <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1.5rem;">
+                    <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-orange);"><i class="fas fa-info-circle"></i> Equipment Details</div>
+                    <div style="font-size: 0.9rem; line-height: 2;">
+                      <strong>Type:</strong> ${asset.assetType}<br>
+                      <strong>Brand:</strong> ${asset.brand}<br>
+                      <strong>Model:</strong> ${asset.model}<br>
+                      <strong>Serial #:</strong> ${asset.serialNumber}<br>
+                      <strong>Location:</strong> ${asset.location}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem;">
+                    <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-blue);"><i class="fas fa-gauge"></i> Technical Specifications</div>
+                    <div style="font-size: 0.9rem; line-height: 2;">
+                      <strong>Capacity:</strong> ${asset.capacity}<br>
+                      <strong>Power:</strong> ${asset.powerRating}<br>
+                      <strong>Fuel:</strong> ${asset.fuelType}<br>
+                      <strong>Efficiency:</strong> ${asset.efficiency}<br>
+                      <strong>Age:</strong> ${asset.yearsInService} years
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-green);"><i class="fas fa-history"></i> Service History</div>
+                <div style="font-size: 0.9rem;">
+                  ${asset.serviceHistory.map(service => `
+                    <div style="padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 0.5rem;">
+                      <strong>${service.date}:</strong> ${service.type} by ${service.provider}<br>
+                      <span style="color: var(--text-muted); font-size: 0.85rem;">${service.notes} • Cost: €${service.cost}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.08); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <i class="fas fa-shield-alt" style="color: var(--accent-purple);"></i>
+                  <strong> Safety Features:</strong> ${asset.safetyFeatures.join(', ')}
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-lightbulb" style="color: var(--accent-orange);"></i>
+                <strong> Key Point:</strong> No product delivery required - Provider brings all necessary parts and consumables included in service price.
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Proceed to Crew Execution <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderProviderNotificationMaintCard = (so, card) => {
+        const asset = so.asset;
+        const service = so.services[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(251, 191, 36, 0.15); color: var(--accent-orange); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-hard-hat"></i> PROVIDER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${so.provider.name} receives maintenance job</p>
+            </div>
+
+            <div class="mobile-screen" style="max-width: 400px; margin: 0 auto 2rem; background: #000; border-radius: 32px; padding: 1.5rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+              <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="font-size: 1.3rem; font-weight: 700;">YellowGrid Pro</div>
+                <div style="font-size: 0.85rem; color: #999; margin-top: 0.3rem;">Maintenance Service</div>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #fff; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">
+                  <i class="fas fa-wrench"></i> Maintenance Job
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">Job #SRV-${so.orderId.split('-')[2]}</div>
+                <div style="font-size: 0.9rem;">${service.scheduledDate} • ${service.timeSlot} • ${service.duration} min</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-toolbox"></i> Asset Details</div>
+                <div style="font-size: 0.85rem; line-height: 1.8; background: rgba(251, 191, 36, 0.2); padding: 0.8rem; border-radius: 8px;">
+                  <strong>${asset.brand} ${asset.model}</strong><br>
+                  Serial: ${asset.serialNumber}<br>
+                  Type: ${asset.assetType} • ${asset.capacity}<br>
+                  Age: ${asset.yearsInService} years • ${asset.fuelType}<br>
+                  Last Service: ${asset.lastServiceDate}
+                </div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 0.8rem;"><i class="fas fa-clipboard-check"></i> Work Scope</div>
+                <div style="font-size: 0.75rem; line-height: 1.6; max-height: 120px; overflow-y: auto;">
+                  ${service.workScope.slice(0, 8).map(item => `• ${item}<br>`).join('')}
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.15); padding: 1rem; border-radius: 16px;">
+                <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-green);"><i class="fas fa-box"></i> Parts Included</div>
+                <div style="font-size: 0.75rem; color: #ccc;">
+                  ✓ All parts included in service price<br>
+                  ✓ Provider manages own inventory<br>
+                  ✓ ${service.partsIncluded.length} consumables covered
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Provider Accepted <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderCrewExecutionMaintCard = (so, card) => {
+        const asset = so.asset;
+        const service = so.services[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-hard-hat"></i> CREW
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> Crew Mobile App</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Maintenance Engineer - On-Site Service</p>
+            </div>
+
+            <div class="mobile-screen" style="max-width: 400px; margin: 0 auto 2rem; background: #000; border-radius: 32px; padding: 1.5rem 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+              <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="font-size: 1.3rem; font-weight: 700;">YellowGrid Pro</div>
+                <div style="font-size: 0.85rem; color: #999; margin-top: 0.3rem;">Maintenance Execution</div>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #49d493, #38a169); color: #fff; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem;">
+                  <i class="fas fa-check-circle"></i> On-Site Maintenance
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem;">${asset.brand} ${asset.assetType}</div>
+                <div style="font-size: 0.9rem;">Started ${service.timeSlot.split('-')[0]} • Duration: ${service.duration} min</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 16px; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 0.8rem;"><i class="fas fa-list-check"></i> Maintenance Checklist</div>
+                <div style="font-size: 0.8rem; line-height: 1.8; max-height: 180px; overflow-y: auto;">
+                  ${service.workScope.map((item, idx) => `
+                    <div style="padding: 0.4rem; background: rgba(73, 212, 147, 0.1); border-left: 3px solid var(--accent-green); margin-bottom: 0.3rem; border-radius: 4px;">
+                      ✓ ${item}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.15); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem;">
+                <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-orange);"><i class="fas fa-box-open"></i> Parts Used</div>
+                <div style="font-size: 0.75rem; line-height: 1.5;">
+                  ${service.partsIncluded.map(part => `• ${part}<br>`).join('')}
+                  <span style="color: var(--accent-green); font-weight: 600;">✓ All parts included in service price</span>
+                </div>
+              </div>
+
+              <div style="background: rgba(192, 132, 252, 0.15); border-radius: 8px; padding: 0.8rem;">
+                <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);"><i class="fas fa-camera"></i> Documentation</div>
+                <div style="font-size: 0.75rem; color: #ccc;">
+                  📸 Before/during/after photos captured<br>
+                  📝 Service report being generated<br>
+                  ✅ Combustion analysis completed
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-info-circle" style="color: var(--accent-green);"></i>
+                <strong> Maintenance Complete:</strong> All checklist items completed. Equipment tested and running normally. Service report will be generated after customer signs WCF.
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Job Complete <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderServiceReportCard = (so, card) => {
+        const asset = so.asset;
+        const service = so.services[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-file-medical"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Auto-generated maintenance certificate and service report</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 2px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 800px; margin: 0 auto 2rem;">
+              <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Service Completion Certificate</h3>
+                <p style="color: var(--text-muted);">Job #SRV-${so.orderId.split('-')[2]} • ${service.scheduledDate}</p>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 2px solid var(--accent-green); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <i class="fas fa-certificate" style="font-size: 2.5rem; color: var(--accent-green);"></i>
+                  <div style="flex: 1;">
+                    <strong style="font-size: 1.2rem; color: var(--accent-green);">Maintenance Completed Successfully</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">All service items completed per checklist. Equipment tested and operational.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">Equipment</div>
+                  <div style="font-weight: 600;">${asset.brand} ${asset.model}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Serial: ${asset.serialNumber}</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">Service Provider</div>
+                  <div style="font-weight: 600;">${so.provider.name}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">${so.provider.certifications[0]}</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-blue);"><i class="fas fa-clipboard-check"></i> Work Performed</div>
+                <div style="font-size: 0.85rem; line-height: 1.8;">
+                  ${service.deliverables.map(item => `✓ ${item}<br>`).join('')}
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="text-align: center; padding: 1rem; background: rgba(73, 212, 147, 0.08); border-radius: 8px;">
+                  <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-green);">A+</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Efficiency Rating</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(73, 212, 147, 0.08); border-radius: 8px;">
+                  <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-green);">PASS</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Safety Test</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(78, 168, 255, 0.08); border-radius: 8px;">
+                  <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-blue);">12mo</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Next Service</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <i class="fas fa-lightbulb" style="color: var(--accent-orange);"></i>
+                  <strong> Recommendation:</strong> Schedule next annual maintenance in 12 months (Nov 2026). All systems operating within normal parameters.
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-file-pdf" style="color: var(--accent-blue);"></i>
+                <strong> Documents Generated:</strong> Service certificate, Gas safety certificate, Combustion analysis report, Photo documentation - all available in customer portal.
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Authorize Payment <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderPaymentAuthMaintCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-stamp"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Automatic payment processing for maintenance service</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-file-invoice-dollar"></i> Payment Authorization</h3>
+
+              <div style="background: rgba(73, 212, 147, 0.15); border: 2px solid var(--accent-green); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; text-align: center;">
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">TOTAL PAYMENT</div>
+                <div style="font-size: 3rem; font-weight: 700; color: var(--accent-green);">€${so.totals.total.toFixed(2)}</div>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">Annual Boiler Maintenance (All-inclusive)</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem;"><i class="fas fa-robot"></i> Automatic Authorization Triggered</div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  ✅ Service completed successfully<br>
+                  ✅ Work completion form signed by customer<br>
+                  ✅ Service report generated and approved<br>
+                  ✅ All certifications issued<br>
+                  ✅ No issues or complaints reported
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1rem;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Payment Method</div>
+                  <div style="font-weight: 600;">${so.payment.method}</div>
+                  <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 0.5rem;"><i class="fas fa-check-circle"></i> Auto-charged on completion</div>
+                </div>
+                <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem;">
+                  <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Provider Payout</div>
+                  <div style="font-weight: 600;">€${(so.totals.subtotalServices * 0.75).toFixed(2)}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Released in 24-48 hours</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <i class="fas fa-info-circle" style="color: var(--accent-orange);"></i>
+                  <strong> Maintenance Pricing:</strong> All-inclusive service price covers labor, parts, consumables, and certifications. No hidden fees.
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                <i class="fas fa-check"></i> Payment Authorized <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderMaintenanceCompleteCard = (so, card) => {
+        const asset = so.asset;
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-flag-checkered"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Service complete - Equipment maintained and certified</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.2), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 3rem; text-align: center; margin-bottom: 2rem;">
+              <div style="font-size: 5rem; margin-bottom: 1rem;">✅</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Maintenance Successfully Completed</div>
+              <div style="font-size: 1.1rem; color: var(--text-muted);">Asset serviced, certified, and ready for next 12 months</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">€${so.totals.total.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Service Price</div>
+                <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 0.5rem;">All-inclusive</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${so.services[0].duration}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Minutes</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Service duration</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">12mo</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Next Service</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Due Nov 2026</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Maintenance Workflow Summary</h3>
+              <div style="font-size: 0.95rem; line-height: 2;">
+                ✅ <strong>No Products:</strong> Provider brought all parts - no product delivery phase<br>
+                ✅ <strong>No Go Exec:</strong> Jumped directly to execution after contract<br>
+                ✅ <strong>Asset Details:</strong> ${asset.brand} ${asset.model} (${asset.yearsInService} years old)<br>
+                ✅ <strong>Comprehensive Service:</strong> ${so.services[0].workScope.length} checklist items completed<br>
+                ✅ <strong>Certifications:</strong> Service certificate + Gas safety certificate issued<br>
+                ✅ <strong>Service Report:</strong> Generated with findings and recommendations<br>
+                ✅ <strong>Payment:</strong> €${so.totals.total.toFixed(2)} auto-charged to ${so.payment.method}<br>
+                ✅ <strong>Provider:</strong> ${so.provider.name} (Rating: ${so.provider.rating}/5.0)
+              </div>
+            </div>
+
+            <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-key"></i> Key Differentiators - Maintenance vs Installation</h3>
+              <div style="font-size: 0.9rem; line-height: 2;">
+                <strong>Maintenance Flow:</strong> Contract → Provider → <span style="text-decoration: line-through; color: #666;">Product Delivery</span> → <span style="text-decoration: line-through; color: #666;">Go Exec</span> → Asset Info → Execution → WCF → Report → Payment<br>
+                <strong>Installation Flow:</strong> Contract → Provider → Product Delivery → Go Exec → Execution → WCF → Payment<br>
+                <br>
+                <strong style="color: var(--accent-orange);">No Go Exec Gate:</strong> Maintenance doesn't wait for product delivery - provider brings parts<br>
+                <strong style="color: var(--accent-purple);">Asset Focus:</strong> Asset details replace product cards - shows what's being maintained<br>
+                <strong style="color: var(--accent-blue);">Service Report:</strong> Maintenance generates certification and recommendations
+              </div>
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Maintenance Complete! Demonstrated asset-centric service flow with no product dependency.')">
+                <i class="fas fa-flag-checkered"></i> Complete Journey
+              </button>
+              <div style="margin-top: 1rem; color: var(--accent-green);">
+                <i class="fas fa-wrench"></i> <strong>Maintenance Scenario</strong> - Asset servicing with provider-managed inventory
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
       const renderMetroLine = () => {
         const html = allCards.map((card, idx) => {
           const isActive = idx === currentCardIndex;
@@ -6000,6 +6715,18 @@
           html = renderQualityCheckCard(so, card);
         } else if (card.id === 'rework-complete') {
           html = renderReworkCompleteCard(so, card);
+        } else if (card.id === 'asset-details') {
+          html = renderAssetDetailsCard(so, card);
+        } else if (card.id === 'provider-notification-maint') {
+          html = renderProviderNotificationMaintCard(so, card);
+        } else if (card.id === 'crew-execution-maint') {
+          html = renderCrewExecutionMaintCard(so, card);
+        } else if (card.id === 'service-report') {
+          html = renderServiceReportCard(so, card);
+        } else if (card.id === 'payment-auth-maint') {
+          html = renderPaymentAuthMaintCard(so, card);
+        } else if (card.id === 'maintenance-complete') {
+          html = renderMaintenanceCompleteCard(so, card);
         }
 
         document.getElementById('journeyCard').innerHTML = html;
