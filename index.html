@@ -4,6 +4,29 @@
   <meta charset="UTF-8" />
   <title>YellowGrid – Orchestrate Every Installation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    // Device detection and routing - runs immediately before page loads
+    (function() {
+      // Check if user manually wants desktop version (via URL parameter)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('desktop') === 'true') {
+        return; // Stay on current page
+      }
+
+      // Detect mobile device
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSmallScreen = window.innerWidth <= 768;
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      
+      // If mobile detected and trying to access demo, redirect to mobile version
+      const currentPath = window.location.pathname;
+      const isDemoPage = currentPath.includes('demo-interactive.html');
+      
+      if ((isMobile || (isSmallScreen && isTouchDevice)) && isDemoPage) {
+        window.location.replace('demo-interactive-mobile.html');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');

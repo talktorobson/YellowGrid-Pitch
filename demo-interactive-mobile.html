@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YellowGrid Mobile Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --yellow: #ffcb32;
+      --yellow-soft: #ffe9a8;
+      --bg-dark: #070c12;
+      --bg-card: #0f1722;
+      --bg-panel: #111c2a;
+      --border: rgba(255, 255, 255, 0.12);
+      --text-main: #f5f7fb;
+      --text-muted: #8b95a7;
+      --accent-blue: #4ea8ff;
+      --accent-green: #49d493;
+      --accent-red: #ff6b6b;
+      --accent-orange: #fbbf24;
+      --accent-purple: #c084fc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(180deg, #18233a 0%, #05070b 100%);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      touch-action: pan-y;
+    }
+
+    /* Mobile App Shell */
+    .mobile-app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sticky Header */
+    .mobile-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-mobile {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 2px 8px rgba(255, 193, 7, 0.4));
+    }
+
+    .logo-text {
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-soft));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-action {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 203, 50, 0.15);
+      border: 1px solid rgba(255, 203, 50, 0.3);
+      border-radius: 8px;
+      color: var(--yellow);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Scenario Selector */
+    .scenario-bar {
+      background: var(--bg-panel);
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .scenario-bar label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .scenario-bar select {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b95a7' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 12px;
+    }
+
+    /* Progress Stepper (Vertical) */
+    .progress-container {
+      padding: 1rem;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .progress-steps {
+      display: flex;
+      gap: 0.5rem;
+      min-width: min-content;
+      padding-bottom: 0.5rem;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 60px;
+      flex-shrink: 0;
+    }
+
+    .step-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      transition: all 0.3s;
+    }
+
+    .step-dot.completed {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: #000;
+    }
+
+    .step-dot.active {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: #000;
+      box-shadow: 0 0 15px var(--yellow);
+      animation: pulse-mobile 2s infinite;
+    }
+
+    @keyframes pulse-mobile {
+      0%, 100% { box-shadow: 0 0 15px var(--yellow); }
+      50% { box-shadow: 0 0 25px var(--yellow), 0 0 40px rgba(255, 203, 50, 0.5); }
+    }
+
+    .step-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.2;
+      max-width: 60px;
+      word-wrap: break-word;
+    }
+
+    .step-dot.active + .step-label {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    /* Card Content */
+    .card-container {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem;
+    }
+
+    .journey-card-mobile {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header-mobile {
+      margin-bottom: 1.5rem;
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-customer { background: rgba(73, 212, 147, 0.15); color: var(--accent-green); }
+    .badge-provider { background: rgba(251, 191, 36, 0.15); color: var(--accent-orange); }
+    .badge-operator { background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); }
+    .badge-system { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); }
+    .badge-data { background: rgba(255, 107, 107, 0.15); color: var(--accent-red); }
+
+    .card-title-mobile {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Info Sections */
+    .info-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .info-section h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .info-grid-mobile {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .info-item-mobile {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .info-item-mobile label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .info-item-mobile .value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Highlight Boxes */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(255, 203, 50, 0.15), rgba(255, 203, 50, 0.05));
+      border: 1px solid rgba(255, 203, 50, 0.3);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight-box h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      color: var(--yellow);
+    }
+
+    .highlight-box p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      position: sticky;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      padding: 1rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-mobile {
+      flex: 1;
+      padding: 0.875rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 48px; /* Touch target */
+    }
+
+    .btn-primary-mobile {
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-soft));
+      color: #1a1a1a;
+      flex: 2;
+    }
+
+    .btn-primary-mobile:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary-mobile {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary-mobile:active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Metric Cards */
+    .metric-card {
+      background: linear-gradient(135deg, rgba(78, 168, 255, 0.1), rgba(78, 168, 255, 0.05));
+      border: 1px solid rgba(78, 168, 255, 0.3);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+    }
+
+    .metric-icon {
+      font-size: 1.2rem;
+      color: var(--accent-blue);
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .metric-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Desktop View Option */
+    .desktop-link {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid var(--border);
+    }
+
+    .desktop-link a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Loading State */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid var(--yellow);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-ok { background: rgba(73, 212, 147, 0.15); color: var(--accent-green); }
+    .status-pending { background: rgba(251, 191, 36, 0.15); color: var(--accent-orange); }
+    .status-nok { background: rgba(255, 107, 107, 0.15); color: var(--accent-red); }
+  </style>
+</head>
+<body>
+  <div class="mobile-app">
+    <!-- Sticky Header -->
+    <header class="mobile-header">
+      <div class="header-content">
+        <div class="logo-mobile">
+          <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="url(#yellowGrad)"/>
+            <path d="M35 40 L50 25 L65 40 M35 60 L50 45 L65 60" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="yellowGrad" x1="0" y1="0" x2="100" y2="100">
+                <stop offset="0%" style="stop-color:#ffc107"/>
+                <stop offset="100%" style="stop-color:#ff9800"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="logo-text">YellowGrid</span>
+        </div>
+        <a href="index.html" class="header-action">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </div>
+    </header>
+
+    <!-- Scenario Selector -->
+    <div class="scenario-bar">
+      <label for="scenario-select">Select Scenario</label>
+      <select id="scenario-select" onchange="changeScenario(this.value)">
+        <option value="standard">Standard Service</option>
+        <option value="rework">Rework (Quality Recovery)</option>
+        <option value="maintenance">Maintenance</option>
+        <option value="depannage">Dépannage (Urgent Service)</option>
+        <option value="subscription">Subscription</option>
+      </select>
+    </div>
+
+    <!-- Progress Stepper (Horizontal Scroll) -->
+    <div class="progress-container">
+      <div class="progress-steps" id="progress-steps">
+        <!-- Dynamically generated -->
+      </div>
+    </div>
+
+    <!-- Card Content Area -->
+    <div class="card-container" id="card-container">
+      <div class="loading">
+        <div>
+          <div class="spinner"></div>
+          <p>Loading scenario...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button class="btn-mobile btn-secondary-mobile" id="btn-prev" onclick="previousCard()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button class="btn-mobile btn-primary-mobile" id="btn-next" onclick="nextCard()">
+        <span id="btn-next-text">Next</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- Desktop View Link -->
+    <div class="desktop-link">
+      <a href="demo-interactive.html?desktop=true">
+        <i class="fas fa-desktop"></i> Switch to Desktop View
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Load scenario data from main demo file's data structure
+    // For mobile, we'll use simplified versions of each scenario
+    
+    const scenarios = {
+      standard: {
+        name: 'Standard Service',
+        cards: [
+          { id: 'kafka', title: 'Kafka Message', layer: 'data', icon: 'fa-stream' },
+          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
+          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot' },
+          { id: 'operator', title: 'Operator Review', layer: 'operator', icon: 'fa-headset' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie' },
+          { id: 'delivery', title: 'Product Delivery', layer: 'provider', icon: 'fa-truck' },
+          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle' },
+          { id: 'crew', title: 'Crew Execution', layer: 'provider', icon: 'fa-wrench' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+        ]
+      },
+      rework: {
+        name: 'Rework',
+        cards: [
+          { id: 'problem', title: 'Problem Detected', layer: 'customer', icon: 'fa-exclamation-triangle' },
+          { id: 'assessment', title: 'Assessment', layer: 'operator', icon: 'fa-clipboard-check' },
+          { id: 'provider-assign', title: 'Provider Assignment', layer: 'operator', icon: 'fa-user-tie' },
+          { id: 'go-exec', title: 'Go Execution', layer: 'system', icon: 'fa-play-circle' },
+          { id: 'crew', title: 'Rework Execution', layer: 'provider', icon: 'fa-tools' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+        ]
+      },
+      maintenance: {
+        name: 'Maintenance',
+        cards: [
+          { id: 'kafka', title: 'Service Request', layer: 'data', icon: 'fa-stream' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
+          { id: 'contract', title: 'Contract', layer: 'customer', icon: 'fa-file-signature' },
+          { id: 'provider', title: 'Provider Match', layer: 'operator', icon: 'fa-user-tie' },
+          { id: 'crew', title: 'Maintenance Service', layer: 'provider', icon: 'fa-wrench' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
+          { id: 'report', title: 'Service Report', layer: 'system', icon: 'fa-file-alt' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+        ]
+      },
+      depannage: {
+        name: 'Dépannage (Urgent)',
+        cards: [
+          { id: 'kafka', title: 'Urgent Request', layer: 'data', icon: 'fa-bolt' },
+          { id: 'enrichment', title: 'Data Enrichment', layer: 'system', icon: 'fa-database' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
+          { id: 'ai-analysis', title: 'AI Analysis', layer: 'system', icon: 'fa-robot' },
+          { id: 'operator', title: 'Operator Triage', layer: 'operator', icon: 'fa-headset' },
+          { id: 'multi-dispatch', title: 'Multi-Provider Dispatch', layer: 'system', icon: 'fa-users' },
+          { id: 'bidding', title: 'Provider Bidding', layer: 'provider', icon: 'fa-stopwatch' },
+          { id: 'winner', title: 'First Acceptance', layer: 'system', icon: 'fa-trophy' },
+          { id: 'crew', title: 'Urgent Execution', layer: 'provider', icon: 'fa-tools' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
+          { id: 'complete', title: 'Complete', layer: 'system', icon: 'fa-flag-checkered' }
+        ]
+      },
+      subscription: {
+        name: 'Subscription',
+        cards: [
+          { id: 'kafka', title: 'Subscription Purchase', layer: 'data', icon: 'fa-stream' },
+          { id: 'so-creation', title: 'Service Order', layer: 'system', icon: 'fa-file-invoice' },
+          { id: 'reminder', title: 'Service Reminder', layer: 'customer', icon: 'fa-bell' },
+          { id: 'schedule', title: 'Schedule Confirm', layer: 'customer', icon: 'fa-calendar-check' },
+          { id: 'provider', title: 'Provider Assignment', layer: 'operator', icon: 'fa-user-tie' },
+          { id: 'crew', title: 'Service Execution', layer: 'provider', icon: 'fa-wrench' },
+          { id: 'wcf', title: 'Work Complete', layer: 'customer', icon: 'fa-check-circle' },
+          { id: 'report', title: 'Service Report', layer: 'system', icon: 'fa-file-alt' },
+          { id: 'invoice', title: 'Invoice', layer: 'provider', icon: 'fa-file-invoice-dollar' },
+          { id: 'payment', title: 'Payment', layer: 'system', icon: 'fa-credit-card' },
+          { id: 'auto-schedule', title: 'Auto-Schedule Next', layer: 'system', icon: 'fa-calendar-plus' },
+          { id: 'complete', title: 'Subscription Active', layer: 'system', icon: 'fa-rotate' }
+        ]
+      }
+    };
+
+    let currentScenario = 'standard';
+    let currentCardIndex = 0;
+
+    function changeScenario(scenarioKey) {
+      currentScenario = scenarioKey;
+      currentCardIndex = 0;
+      renderProgress();
+      renderCard();
+    }
+
+    function renderProgress() {
+      const scenario = scenarios[currentScenario];
+      const container = document.getElementById('progress-steps');
+      
+      container.innerHTML = scenario.cards.map((card, index) => {
+        let className = 'step-dot';
+        if (index < currentCardIndex) className += ' completed';
+        if (index === currentCardIndex) className += ' active';
+        
+        return `
+          <div class="step-item" onclick="jumpToCard(${index})">
+            <div class="${className}">
+              ${index < currentCardIndex ? '<i class="fas fa-check"></i>' : (index + 1)}
+            </div>
+            <div class="step-label">${card.title}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Scroll active step into view
+      setTimeout(() => {
+        const activeStep = container.querySelector('.step-dot.active')?.parentElement;
+        if (activeStep) {
+          activeStep.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      }, 100);
+    }
+
+    function renderCard() {
+      const scenario = scenarios[currentScenario];
+      const card = scenario.cards[currentCardIndex];
+      const container = document.getElementById('card-container');
+      
+      // Layer-specific badge
+      const layerBadges = {
+        customer: 'badge-customer',
+        provider: 'badge-provider',
+        operator: 'badge-operator',
+        system: 'badge-system',
+        data: 'badge-data'
+      };
+      
+      const badgeClass = layerBadges[card.layer] || 'badge-system';
+      const layerNames = {
+        customer: 'CUSTOMER',
+        provider: 'PROVIDER',
+        operator: 'OPERATOR',
+        system: 'SYSTEM',
+        data: 'DATA'
+      };
+      
+      container.innerHTML = `
+        <div class="journey-card-mobile">
+          <div class="card-header-mobile">
+            <div class="card-badge ${badgeClass}">
+              <i class="fas ${getLayerIcon(card.layer)}"></i> ${layerNames[card.layer]}
+            </div>
+            <h2 class="card-title-mobile">
+              <i class="fas ${card.icon}"></i> ${card.title}
+            </h2>
+            <p class="card-subtitle">Step ${currentCardIndex + 1} of ${scenario.cards.length}</p>
+          </div>
+
+          ${renderCardContent(card, scenario)}
+        </div>
+      `;
+
+      // Update navigation buttons
+      document.getElementById('btn-prev').disabled = currentCardIndex === 0;
+      const nextBtn = document.getElementById('btn-next-text');
+      nextBtn.textContent = currentCardIndex === scenario.cards.length - 1 ? 'Finish' : 'Next';
+      
+      // Scroll to top
+      container.scrollTop = 0;
+    }
+
+    function getLayerIcon(layer) {
+      const icons = {
+        customer: 'fa-user',
+        provider: 'fa-user-tie',
+        operator: 'fa-headset',
+        system: 'fa-cogs',
+        data: 'fa-database'
+      };
+      return icons[layer] || 'fa-circle';
+    }
+
+    function renderCardContent(card, scenario) {
+      // Simplified mobile-friendly content for each card type
+      switch(card.id) {
+        case 'kafka':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-stream"></i> Sales Integration</h4>
+              <p>Kafka message received from retailer sales system. Order data being processed by platform.</p>
+            </div>
+            <div class="info-section">
+              <h3>Message Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Channel</label>
+                  <div class="value">Web Portal</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Order Type</label>
+                  <div class="value">${scenario.name}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Received</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+        
+        case 'operator':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-headset"></i> Control Tower</h4>
+              <p>Service operator reviewing order and validating readiness for execution.</p>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Risk Score</span>
+                <i class="fas fa-shield-check metric-icon"></i>
+              </div>
+              <div class="metric-value">23</div>
+              <div class="metric-note">Low risk - No red flags</div>
+            </div>
+            <div class="info-section">
+              <h3>AI Recommendations</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Operator</label>
+                  <div class="value">Lia Santos</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Approved</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+        
+        case 'multi-dispatch':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-users"></i> Multi-Provider Dispatch</h4>
+              <p><strong>5 providers</strong> contacted simultaneously for urgent service. First to accept wins the assignment.</p>
+            </div>
+            <div class="info-section">
+              <h3>Dispatch Status</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Providers Contacted</label>
+                  <div class="value">5</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Response Window</label>
+                  <div class="value">15 minutes</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-pending"><i class="fas fa-clock"></i> Awaiting</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+        
+        case 'bidding':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-stopwatch"></i> Provider Bidding Race</h4>
+              <p>Real-time responses from providers. First to accept gets the job.</p>
+            </div>
+            <div class="info-section">
+              <h3>Provider Responses</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>EmergencyPlumb 24/7</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-trophy"></i> WINNER</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>QuickFix Plumbing</label>
+                  <div class="value"><span class="status-badge status-pending">Offer Withdrawn</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>HomeService Pro</label>
+                  <div class="value"><span class="status-badge status-nok">Declined</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+        
+        case 'crew':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-wrench"></i> Service Execution</h4>
+              <p>Provider crew performing on-site service work.</p>
+            </div>
+            <div class="info-section">
+              <h3>Execution Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Provider</label>
+                  <div class="value">TechInstall Pro</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Crew Lead</label>
+                  <div class="value">Rui Lopes</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> In Progress</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+        
+        case 'wcf':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-check-circle"></i> Work Completion</h4>
+              <p>Customer reviewing completed work and signing off.</p>
+            </div>
+            <div class="info-section">
+              <h3>Completion Status</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Work Quality</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-star"></i> Excellent</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Customer Signature</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Signed</span></div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>No Reserves</label>
+                  <div class="value">Work accepted as completed</div>
+                </div>
+              </div>
+            </div>
+          `;
+        
+        case 'payment':
+          return `
+            <div class="highlight-box">
+              <h4><i class="fas fa-credit-card"></i> Provider Payment</h4>
+              <p>Platform paying provider after service completion.</p>
+            </div>
+            <div class="info-section">
+              <h3>Payment Details</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Provider Amount</label>
+                  <div class="value">€560.88</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Platform Fee</label>
+                  <div class="value">€140.22 (20%)</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Paid</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-box" style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.15), rgba(73, 212, 147, 0.05)); border-color: rgba(73, 212, 147, 0.3);">
+              <h4 style="color: var(--accent-green);"><i class="fas fa-info-circle"></i> B2B Payment Model</h4>
+              <p>Customer paid retailer at purchase. Platform pays provider after completion. No direct customer-provider payment.</p>
+            </div>
+          `;
+        
+        case 'complete':
+          return `
+            <div style="text-align: center; padding: 2rem 0;">
+              <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+              <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent-green);">
+                ${scenario.name} Complete!
+              </h3>
+              <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                Service successfully delivered and closed
+              </p>
+            </div>
+            <div class="info-section">
+              <h3>Journey Summary</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Total Steps</label>
+                  <div class="value">${scenario.cards.length}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Scenario Type</label>
+                  <div class="value">${scenario.name}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-flag-checkered"></i> Complete</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-box" style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.15), rgba(73, 212, 147, 0.05)); border-color: rgba(73, 212, 147, 0.3);">
+              <h4 style="color: var(--accent-green);"><i class="fas fa-check-circle"></i> Platform Orchestration</h4>
+              <p>Demonstrated complete end-to-end workflow from retail sale to provider payment, showcasing YellowGrid's B2B orchestration capabilities.</p>
+            </div>
+          `;
+        
+        default:
+          return `
+            <div class="info-section">
+              <h3>Step Information</h3>
+              <div class="info-grid-mobile">
+                <div class="info-item-mobile">
+                  <label>Step</label>
+                  <div class="value">${card.title}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Layer</label>
+                  <div class="value">${card.layer.toUpperCase()}</div>
+                </div>
+                <div class="info-item-mobile">
+                  <label>Status</label>
+                  <div class="value"><span class="status-badge status-ok"><i class="fas fa-check"></i> Active</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-box">
+              <h4><i class="fas fa-info-circle"></i> About This Step</h4>
+              <p>This step represents a key stage in the ${scenario.name} workflow, demonstrating platform orchestration capabilities.</p>
+            </div>
+          `;
+      }
+    }
+
+    function previousCard() {
+      if (currentCardIndex > 0) {
+        currentCardIndex--;
+        renderProgress();
+        renderCard();
+      }
+    }
+
+    function nextCard() {
+      const scenario = scenarios[currentScenario];
+      if (currentCardIndex < scenario.cards.length - 1) {
+        currentCardIndex++;
+        renderProgress();
+        renderCard();
+      } else {
+        // At the end, loop back or show completion
+        currentCardIndex = 0;
+        renderProgress();
+        renderCard();
+      }
+    }
+
+    function jumpToCard(index) {
+      currentCardIndex = index;
+      renderProgress();
+      renderCard();
+    }
+
+    // Swipe gestures
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.getElementById('card-container').addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.getElementById('card-container').addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left = next
+          nextCard();
+        } else {
+          // Swipe right = previous
+          previousCard();
+        }
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProgress();
+      renderCard();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') previousCard();
+      if (e.key === 'ArrowRight') nextCard();
+    });
+  </script>
+</body>
+</html>
