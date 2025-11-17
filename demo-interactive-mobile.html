@@ -68,6 +68,17 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .logo-mobile:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo-mobile:hover .logo-icon {
+      filter: drop-shadow(0 4px 12px rgba(255, 193, 7, 0.6));
     }
 
     .logo-icon {
@@ -464,7 +475,7 @@
     <!-- Sticky Header -->
     <header class="mobile-header">
       <div class="header-content">
-        <div class="logo-mobile">
+        <a href="index.html" class="logo-mobile">
           <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="48" fill="url(#yellowGrad)"/>
             <path d="M35 40 L50 25 L65 40 M35 60 L50 45 L65 60" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -476,7 +487,7 @@
             </defs>
           </svg>
           <span class="logo-text">YellowGrid</span>
-        </div>
+        </a>
         <a href="index.html" class="header-action">
           <i class="fas fa-home"></i> Home
         </a>
