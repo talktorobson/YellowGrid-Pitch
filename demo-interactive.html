@@ -896,6 +896,8 @@
           <option value="complex-project">Complex Installation</option>
           <option value="rework">Rework</option>
           <option value="maintenance">Maintenance</option>
+          <option value="depannage">Dépannage (Emergency Service)</option>
+          <option value="subscription">Subscription Service</option>
         </select>
         <button class="btn btn-secondary" onclick="dashboard.nextStep()" id="nextBtn">
           Next Step <i class="fas fa-arrow-right"></i>
@@ -1890,6 +1892,467 @@
             operatorNotes: 'Customer has annual plan. HeatingPro is preferred provider - assign directly. Service straightforward. Generate certificate and report for customer records.',
             priority: 'Normal',
             tags: ['maintenance', 'hvac', 'boiler', 'annual-service', 'recurring', 'no-products', 'premium-customer', 'gas-safe']
+          }
+        },
+        'depannage': {
+          name: 'Dépannage - Emergency Service',
+          description: 'Urgent same-day emergency service. Water heater failure requiring immediate replacement. Premium pricing for urgency, expedited workflow, emergency provider network.',
+          salesOrder: {
+            orderId: 'SO-2025-EMRG-7721',
+            soId: 'SO-2025-EMRG-7721',
+            salesChannel: 'Emergency Hotline',
+            store: 'Emergency Response Center',
+            storeCode: 'EMRG-24/7',
+            orderType: 'emergency',
+            urgencyLevel: 'High',
+            responseWindow: '4 hours',
+            requestTime: '2025-11-16T18:45:00Z',
+            requiredByTime: '2025-11-17T08:00:00Z',
+            orderDate: '2025-11-16T18:48:00Z',
+            confirmationDate: '2025-11-16T18:50:15Z',
+            customer: {
+              customerId: 'CUST-9934',
+              name: 'Maria Santos',
+              firstName: 'Maria',
+              lastName: 'Santos',
+              email: 'maria.santos@email.pt',
+              phone: '+351 913 887 432',
+              alternatePhone: '+351 217 334 221',
+              addressLine1: 'Rua dos Navegantes, 78',
+              addressLine2: '2º Andar, Porta C',
+              address: 'Rua dos Navegantes, 78, 2º Andar, 2750-345 Cascais',
+              city: 'Cascais',
+              postalCode: '2750-345',
+              region: 'Lisboa',
+              country: 'Portugal',
+              customerSince: '2020-05-12',
+              tier: 'Standard',
+              claimHistory: 0,
+              lifetimeValue: 890,
+              preferredContact: 'phone',
+              language: 'pt-PT',
+              propertyType: 'Apartment',
+              familySize: 4,
+              urgentSituation: 'Family with 2 young children - no hot water'
+            },
+            emergency: {
+              issueType: 'Equipment Failure',
+              severity: 'High',
+              impact: 'No hot water for family of 4',
+              reportedTime: '2025-11-16T18:40:00Z',
+              customerDescription: 'Gas water heater completely stopped working. No hot water at all. We have two young kids who need bathing. Tried resetting but nothing works. Need urgent help!',
+              timeOfDay: 'Evening (Weekend)',
+              isWeekend: true,
+              isAfterHours: true,
+              temperature: 'Cold weather (12°C)',
+              customerStress: 'High - family impact'
+            },
+            failedAsset: {
+              assetType: 'Gas Water Heater',
+              brand: 'Junkers',
+              model: 'WR 11-2B',
+              age: '11 years',
+              capacity: '11 liters/min',
+              fuelType: 'Natural Gas',
+              condition: 'Failed - beyond economical repair',
+              issue: 'Complete failure - ignition system dead, multiple faults',
+              lastService: '2022-11-10',
+              repairViable: false,
+              replacementRecommended: true
+            },
+            products: [
+              {
+                lineId: 'LINE-EMRG-001',
+                sku: 'WH-GAS-14L-EMRG',
+                name: 'Gas Instantaneous Water Heater 14L',
+                brand: 'Vaillant',
+                model: 'MAG 14-2/0 XZ',
+                category: 'Water Heaters',
+                quantity: 1,
+                unitPrice: 420,
+                discount: 0,
+                tax: 96.60,
+                totalPrice: 420,
+                emergencyStockPremium: 30,
+                basePrice: 390,
+                supplier: 'Emergency Stock - Provider Inventory',
+                stockStatus: 'Provider Van Stock',
+                deliveryDate: 'Same day - carried by technician',
+                estimatedArrival: '45 minutes',
+                deliveryMethod: 'Emergency Provider Stock',
+                warranty: '24 months manufacturer + 12 months installation',
+                specifications: {
+                  capacity: '14 liters/min',
+                  power: '24 kW',
+                  efficiency: 'A-rated',
+                  fuelType: 'Natural Gas',
+                  dimensions: '580 x 330 x 220 mm',
+                  weight: '12.5 kg'
+                }
+              }
+            ],
+            services: [
+              {
+                lineId: 'LINE-EMRG-002',
+                serviceOrderId: 'SRV-EMRG-7721-01',
+                code: 'EMRG-WH-REPLACE',
+                name: 'Emergency Water Heater Replacement',
+                description: 'Emergency removal of failed unit and installation of new gas instantaneous water heater. Includes gas connection, water connections, testing, and certification.',
+                category: 'Emergency Plumbing',
+                serviceType: 'Emergency Replacement',
+                quantity: 1,
+                unitPrice: 150,
+                discount: 0,
+                tax: 34.50,
+                totalPrice: 150,
+                basePrice: 120,
+                urgencyFee: 30,
+                urgencyPercentage: 25,
+                emergencyCallout: 60,
+                scheduledDate: '2025-11-16',
+                timeSlot: '19:30-22:00',
+                estimatedArrival: '19:30',
+                duration: 120,
+                techniciansRequired: 1,
+                skillLevel: 'Gas Safe Engineer',
+                equipmentNeeded: [
+                  'Gas testing equipment',
+                  'Pipe wrenches',
+                  'Power drill',
+                  'Leak detection fluid',
+                  'Safety equipment',
+                  'Basic plumbing tools'
+                ],
+                safetyRequirements: [
+                  'Gas Safe registered engineer mandatory',
+                  'Gas isolation and testing',
+                  'Carbon monoxide detector',
+                  'Ventilation check',
+                  'Pressure testing required',
+                  'Safety certification issued'
+                ],
+                workScope: [
+                  'Isolate gas supply and water',
+                  'Remove failed water heater',
+                  'Prepare mounting area',
+                  'Install new water heater unit',
+                  'Connect gas pipe (test for leaks)',
+                  'Connect cold water inlet',
+                  'Connect hot water outlet',
+                  'Test all connections',
+                  'Light and adjust burner',
+                  'Test hot water flow all taps',
+                  'Gas pressure and combustion test',
+                  'Issue gas safety certificate',
+                  'Customer instruction and handover'
+                ],
+                emergencyFeatures: [
+                  'Same-day service guarantee',
+                  'Weekend/after-hours availability',
+                  'Provider carries replacement units',
+                  'Fast-track priority dispatch',
+                  'Immediate response commitment'
+                ]
+              }
+            ],
+            totals: {
+              subtotalProducts: 420,
+              subtotalServices: 150,
+              emergencyCallout: 60,
+              subtotal: 630,
+              discounts: 0,
+              taxProducts: 96.60,
+              taxServices: 34.50,
+              taxEmergencyCallout: 13.80,
+              totalTax: 144.90,
+              shippingCost: 0,
+              total: 774.90,
+              currency: 'EUR',
+              breakdown: {
+                waterHeaterUnit: 420,
+                installation: 150,
+                emergencyCallout: 60,
+                urgencyPremium: 30,
+                baseCostEquivalent: 630,
+                emergencyMarkup: 144.90
+              }
+            },
+            payment: {
+              status: 'Pending',
+              method: 'Credit Card',
+              paymentType: 'Immediate - Pay on Completion',
+              preAuthorization: true,
+              preAuthAmount: 800,
+              preAuthTime: '2025-11-16T18:51:00Z',
+              customerOwes: 774.90,
+              paidAmount: 0,
+              paymentTrigger: 'Immediate after work completion',
+              dueDate: '2025-11-16T22:00:00Z',
+              transactionId: null,
+              installments: 1,
+              paymentTerms: 'Immediate payment required for emergency service. Card pre-authorized. Final charge on completion.'
+            },
+            provider: {
+              providerId: 'PRV-EMRG-089',
+              name: 'EmergencyPlumb 24/7',
+              category: 'Emergency Plumbing Specialist',
+              specialization: 'Water Heater Emergency Service',
+              rating: 4.7,
+              completedJobs: 823,
+              emergencyJobs: 412,
+              certifications: ['Gas Safe Registered', 'Emergency Response Certified', 'Vaillant Approved'],
+              responseTime: '< 1 hour',
+              availability: '24/7/365',
+              currentLocation: 'Oeiras (15 min from customer)',
+              estimatedArrival: '19:30',
+              emergencyStock: true,
+              stockItems: ['Water heaters (gas/electric)', 'Boilers', 'Emergency plumbing parts'],
+              vanEquipped: true,
+              languages: ['Portuguese', 'English'],
+              emergencyRating: 4.8,
+              averageResponseTime: '42 minutes'
+            },
+            linkedContracts: [],
+            linkedPreEstimation: null,
+            linkedQuotation: null,
+            emergencyProtocol: 'URGENT-FAMILY-IMPACT',
+            slaCommitment: 'Response within 4 hours',
+            sellerNotes: 'EMERGENCY REQUEST - Family of 4 without hot water on cold weekend evening. Customer stressed. Two young children need bathing. Provider EmergencyPlumb has gas water heater in van - 15 min away. Arrival 19:30. Verbal approval given for €774.90. Card pre-authorized.',
+            internalNotes: 'EMERGENCY WORKFLOW: (1) Urgency triage confirms HIGH priority. (2) Real-time provider availability check. (3) Verbal agreement sufficient - SMS confirmation sent. (4) Provider dispatched immediately with unit in van. (5) On-site assessment confirms replacement needed. (6) Work completed same evening. (7) Immediate payment on completion. (8) NO CONTRACT WAIT - SMS confirmation only.',
+            specialInstructions: 'DÉPANNAGE RULES: (1) Speed is critical - every hour matters. (2) Provider brings product (emergency stock). (3) Minimal contract - SMS confirmation OK. (4) Assessment on-site (fix vs replace). (5) Customer approves solution & price on-site. (6) Immediate execution. (7) Payment on completion. (8) Premium pricing justified by urgency. Building code: 2789. Apartment 2C. Customer waiting at home.',
+            operatorNotes: 'Customer very stressed but relieved when told tech arriving in 45 min. Confirmed price €774.90 verbally. Card pre-auth successful. Provider has Vaillant 14L unit in van. Old unit 11 years - replacement economical choice. Customer understands urgency fee. Kids need bath before bed.',
+            priority: 'URGENT',
+            tags: ['emergency', 'depannage', 'water-heater', 'same-day', 'family-impact', 'weekend', 'after-hours', 'gas-safe', 'urgent', 'premium-pricing']
+          }
+        },
+        'subscription': {
+          name: 'Subscription - Recurring Service Contract',
+          description: 'Quarterly AC maintenance subscription. Customer pays recurring monthly fee for scheduled preventive maintenance. Auto-scheduling, priority service, discount benefits.',
+          salesOrder: {
+            orderId: 'SO-2025-SUB-4421',
+            soId: 'SO-2025-SUB-4421',
+            salesChannel: 'Subscription Portal',
+            store: 'YellowGrid Subscriptions',
+            storeCode: 'SUB-001',
+            orderType: 'subscription',
+            subscriptionId: 'SUB-2025-4421',
+            subscriptionTier: 'Standard',
+            orderDate: '2025-03-01T10:15:00Z',
+            confirmationDate: '2025-03-01T10:18:45Z',
+            serviceVisitNumber: 3,
+            totalVisitsInContract: 4,
+            customer: {
+              customerId: 'CUST-5512',
+              name: 'Pedro Alves',
+              firstName: 'Pedro',
+              lastName: 'Alves',
+              email: 'pedro.alves@company.pt',
+              phone: '+351 918 234 567',
+              alternatePhone: '+351 213 445 678',
+              addressLine1: 'Avenida 25 de Abril, 142',
+              addressLine2: '5º Andar, Apartamento 52',
+              address: 'Avenida 25 de Abril, 142, 5º Andar, 2795-195 Linda-a-Velha',
+              city: 'Linda-a-Velha',
+              postalCode: '2795-195',
+              region: 'Lisboa',
+              country: 'Portugal',
+              customerSince: '2022-06-10',
+              tier: 'Premium',
+              claimHistory: 0,
+              lifetimeValue: 1240,
+              preferredContact: 'email',
+              language: 'pt-PT',
+              propertyType: 'Apartment',
+              propertySize: '110m²',
+              subscriptionMember: true,
+              subscriptionStartDate: '2025-03-01',
+              subscriptionStatus: 'Active',
+              autoRenewal: true
+            },
+            subscription: {
+              subscriptionId: 'SUB-2025-4421',
+              planName: 'Standard AC Maintenance',
+              tier: 'Standard',
+              frequency: 'Quarterly',
+              monthlyFee: 16.99,
+              annualValue: 203.88,
+              billingCycle: 'Monthly',
+              paymentMethod: 'Direct Debit',
+              startDate: '2025-03-01',
+              nextBillingDate: '2025-12-01',
+              renewalDate: '2026-03-01',
+              status: 'Active',
+              servicesPerYear: 4,
+              servicesCompleted: 2,
+              servicesRemaining: 2,
+              nextServiceDue: '2025-12-15',
+              preferredDay: 'Saturday',
+              preferredTime: '09:00-12:00',
+              benefits: [
+                '4 maintenance visits per year (quarterly)',
+                'Priority emergency response',
+                '15% discount on repairs',
+                'Free filter replacements',
+                'Same technician when possible',
+                'Auto-scheduling with reminders',
+                'Service history tracking',
+                'Equipment health monitoring'
+              ],
+              cancellationPolicy: '30-day notice required',
+              priceGuarantee: 'Rate locked until March 2026',
+              contractDuration: '12 months (auto-renew)'
+            },
+            assets: [
+              {
+                assetId: 'ASSET-2022-5512-AC1',
+                assetType: 'Split AC System',
+                category: 'HVAC',
+                brand: 'Daikin',
+                model: 'Sensira FTXF35A',
+                serialNumber: 'DKN-2022-551234',
+                installationDate: '2022-06-15',
+                yearsInService: 3,
+                capacity: '3.5 kW (12,000 BTU)',
+                refrigerant: 'R32',
+                energyRating: 'A++',
+                location: 'Living room',
+                indoorUnits: 1,
+                outdoorUnits: 1,
+                currentStatus: 'Operational',
+                lastServiceDate: '2025-09-15',
+                serviceHistory: [
+                  { date: '2025-09-15', type: 'Quarterly Maintenance', provider: 'ClimaPro', findings: 'All OK', cost: 'Subscription' },
+                  { date: '2025-06-10', type: 'Quarterly Maintenance', provider: 'ClimaPro', findings: 'Filter replaced', cost: 'Subscription' }
+                ],
+                nextServiceDue: '2025-12-15',
+                maintenanceSchedule: 'March, June, September, December',
+                healthScore: 92,
+                conditionTrend: 'Stable',
+                recommendedActions: ['Continue regular maintenance', 'Consider coil deep clean in 2026']
+              }
+            ],
+            products: [],
+            services: [
+              {
+                lineId: 'LINE-SUB-001',
+                serviceOrderId: 'SRV-SUB-4421-Q3',
+                code: 'SUB-AC-QUARTERLY',
+                name: 'Quarterly AC Maintenance (Q4 2025)',
+                description: 'Comprehensive quarterly maintenance service for split AC system. Included in Standard subscription plan.',
+                category: 'HVAC Subscription Maintenance',
+                serviceType: 'Preventive Maintenance - Quarterly',
+                quantity: 1,
+                unitPrice: 0,
+                discount: 0,
+                tax: 0,
+                totalPrice: 0,
+                valueIfNotSubscribed: 60,
+                subscriptionCovered: true,
+                scheduledDate: '2025-12-14',
+                timeSlot: '09:00-11:00',
+                duration: 90,
+                techniciansRequired: 1,
+                skillLevel: 'AC Maintenance Specialist',
+                equipmentNeeded: [
+                  'Vacuum cleaner',
+                  'Coil cleaning solution',
+                  'Pressure gauge',
+                  'Thermometer',
+                  'Multi meter',
+                  'Filters (if needed)',
+                  'Cleaning tools'
+                ],
+                safetyRequirements: [
+                  'Power isolation',
+                  'Ladder safety',
+                  'Chemical handling PPE',
+                  'Refrigerant handling certification'
+                ],
+                workScope: [
+                  'Indoor unit filter inspection and cleaning',
+                  'Evaporator coil inspection',
+                  'Condensate drain check and cleaning',
+                  'Indoor fan motor check',
+                  'Outdoor unit inspection',
+                  'Condenser coil cleaning (external)',
+                  'Compressor operation check',
+                  'Refrigerant pressure check',
+                  'Electrical connections inspection',
+                  'Thermostat calibration check',
+                  'Air flow performance test',
+                  'System efficiency test',
+                  'Filter replacement (if needed)',
+                  'Service record update in system'
+                ],
+                subscriptionFeatures: [
+                  'Service included in monthly fee',
+                  'Same technician (relationship continuity)',
+                  'Service history tracked',
+                  'Proactive scheduling',
+                  'Priority booking',
+                  'Free filter if replacement needed'
+                ],
+                visitNumber: 3,
+                previousVisit: '2025-09-15',
+                nextScheduledVisit: '2026-03-15'
+              }
+            ],
+            totals: {
+              subtotalProducts: 0,
+              subtotalServices: 0,
+              subtotal: 0,
+              discounts: 0,
+              taxProducts: 0,
+              taxServices: 0,
+              totalTax: 0,
+              shippingCost: 0,
+              total: 0,
+              currency: 'EUR',
+              subscriptionNote: 'Service covered by monthly subscription fee (€16.99/month). No additional charge for this visit.'
+            },
+            payment: {
+              status: 'Paid via Subscription',
+              method: 'Subscription Plan',
+              billingMethod: 'Direct Debit',
+              monthlyFee: 16.99,
+              lastChargeDate: '2025-11-01',
+              lastChargeAmount: 16.99,
+              nextChargeDate: '2025-12-01',
+              subscriptionActive: true,
+              serviceIncluded: true,
+              additionalCharges: 0,
+              paymentTerms: 'Covered by active Standard subscription. Monthly fee: €16.99'
+            },
+            provider: {
+              providerId: 'PRV-CLIMA-142',
+              name: 'ClimaPro Services',
+              category: 'HVAC Maintenance Specialist',
+              specialization: 'AC System Maintenance',
+              rating: 4.8,
+              completedJobs: 1156,
+              subscriptionJobs: 487,
+              certifications: ['F-Gas Certified', 'Daikin Approved', 'AC Excellence Partner'],
+              responseTime: '< 48 hours',
+              assignedTechnician: 'Carlos Mendes',
+              technicianRating: 4.9,
+              customerRelationship: 'Established - 2 previous visits',
+              subscriptionSpecialist: true,
+              languages: ['Portuguese', 'English']
+            },
+            linkedContracts: ['SUB-CONTRACT-2025-4421'],
+            linkedPreEstimation: null,
+            linkedQuotation: null,
+            subscriptionContract: 'SUB-CONTRACT-2025-4421',
+            autoScheduled: true,
+            remindersSent: ['2025-11-30 (2 weeks)', '2025-12-11 (3 days)'],
+            customerConfirmed: true,
+            confirmationDate: '2025-12-11T14:22:00Z',
+            sellerNotes: 'Subscription customer - Standard plan active since March 2025. This is 3rd quarterly visit. Customer confirmed preferred Saturday morning slot. Same technician (Carlos) assigned for continuity. Customer very satisfied with service so far.',
+            internalNotes: 'SUBSCRIPTION WORKFLOW: (1) Auto-scheduled 3 months after last visit. (2) Reminder sent 2 weeks before. (3) Customer confirmed date/time. (4) Assigned same technician (Carlos). (5) Service covered by subscription. (6) After service, next visit auto-scheduled for March 2026. (7) Health score and findings tracked for longitudinal insights.',
+            specialInstructions: 'SUBSCRIPTION RULES: (1) Service covered by monthly fee - no payment this visit. (2) Same technician when possible (relationship). (3) Auto-schedule next visit after completion. (4) Track asset health score. (5) If repairs needed, customer gets 15% subscription discount. (6) Service report sent via email + app. (7) Building has elevator. Apartment 52, 5th floor. Customer prefers morning appointments.',
+            operatorNotes: 'Customer very happy with subscription. Mentioned AC running much better since regular maintenance started. Technician Carlos built good relationship. Customer considering upgrading to Premium tier to add 2nd AC unit coverage. Good renewal candidate.',
+            priority: 'Normal',
+            tags: ['subscription', 'recurring', 'hvac', 'ac-maintenance', 'quarterly', 'preventive', 'auto-scheduled', 'relationship', 'premium-customer', 'standard-tier']
           }
         }
       };
@@ -3384,7 +3847,9 @@
           'package-deal': 'custom', // Custom flow for service pack with TV confirmation
           'complex-project': 'custom', // Custom flow for multi-phase project with iterative loops
           'rework': steps,
-          'maintenance': steps
+          'maintenance': steps,
+          'depannage': 'custom', // Custom flow for emergency service with urgency triage
+          'subscription': 'custom' // Custom flow for recurring service with auto-scheduling
         };
         
         // Custom flow for Service Pack scenario with TV confirmation and automatic flow control
@@ -3546,6 +4011,66 @@
           ];
           
           return maintenanceCards.map((card, idx) => ({ ...card, index: idx }));
+        }
+
+        // Custom flow for Dépannage scenario (emergency service - urgency, speed, premium pricing)
+        if (scenarioId === 'depannage') {
+          const depannageCards = [
+            // Emergency Request
+            { id: 'emergency-request', type: 'customer', title: 'Emergency Request', icon: 'phone-volume', stepId: 'emergency-request' },
+            // Urgency Triage (AI analyzes severity & response window)
+            { id: 'urgency-triage', type: 'ai', title: 'Urgency Triage', icon: 'bolt', stepId: 'urgency-triage' },
+            // Emergency Provider Match (real-time availability)
+            { id: 'emergency-provider-match', type: 'system', title: 'Emergency Provider Match', icon: 'siren-on', stepId: 'emergency-provider' },
+            // Provider Emergency Dispatch
+            { id: 'provider-emergency-dispatch', type: 'provider', title: 'Provider Emergency Dispatch', icon: 'mobile-screen-button', stepId: 'provider-dispatch' },
+            // Customer ETA Notification
+            { id: 'customer-eta', type: 'customer', title: 'Customer ETA Notification', icon: 'clock', stepId: 'customer-eta' },
+            // On-Site Assessment (fix vs replace decision)
+            { id: 'onsite-assessment', type: 'crew', title: 'On-Site Assessment', icon: 'clipboard-check', stepId: 'assessment' },
+            // Solution Confirmation (customer approves solution & cost)
+            { id: 'solution-confirmation', type: 'customer', title: 'Solution Confirmation', icon: 'handshake', stepId: 'solution-confirm' },
+            // Emergency Execution (urgent work)
+            { id: 'emergency-execution', type: 'crew', title: 'Emergency Execution', icon: 'wrench', stepId: 'execution' },
+            // WCF (work completion)
+            { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
+            { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
+            // Immediate Payment (charged on completion)
+            { id: 'emergency-payment', type: 'system', title: 'Immediate Payment', icon: 'credit-card', stepId: 'payment' },
+            // Emergency Complete
+            { id: 'emergency-complete', type: 'system', title: 'Emergency Service Complete', icon: 'circle-check', stepId: 'completion' }
+          ];
+          
+          return depannageCards.map((card, idx) => ({ ...card, index: idx }));
+        }
+
+        // Custom flow for Subscription scenario (recurring service with auto-scheduling)
+        if (scenarioId === 'subscription') {
+          const subscriptionCards = [
+            // Service Reminder (auto-sent 2 weeks before)
+            { id: 'service-reminder', type: 'customer', title: 'Service Reminder', icon: 'bell', stepId: 'reminder' },
+            // Schedule Confirmation (customer confirms/reschedules)
+            { id: 'schedule-confirmation', type: 'customer', title: 'Schedule Confirmation', icon: 'calendar-check', stepId: 'confirmation' },
+            // Provider Assignment (preferably same technician)
+            { id: 'provider-assignment-sub', type: 'system', title: 'Provider Assignment', icon: 'user-check', stepId: 'provider-assignment' },
+            // Provider Notification (with asset history)
+            { id: 'provider-notification-sub', type: 'provider', title: 'Provider Job Notification', icon: 'mobile-screen-button', stepId: 'provider-notification' },
+            // Asset History Review (provider sees previous visits)
+            { id: 'asset-history', type: 'system', title: 'Asset Service History', icon: 'history', stepId: 'asset-history' },
+            // Crew Execution (subscription maintenance)
+            { id: 'crew-execution-sub', type: 'crew', title: 'Crew Execution', icon: 'wrench', stepId: 'execution' },
+            // WCF (work completion)
+            { id: 'wcf-notification', type: 'customer', title: 'WCF Email/SMS', icon: 'envelope', stepId: 'wcf' },
+            { id: 'wcf-portal', type: 'customer', title: 'WCF Signature', icon: 'signature', stepId: 'wcf' },
+            // Service Report (health tracking)
+            { id: 'service-report-sub', type: 'system', title: 'Service Report & Health Score', icon: 'file-medical', stepId: 'service-report' },
+            // Next Service Auto-Schedule
+            { id: 'auto-schedule-next', type: 'system', title: 'Auto-Schedule Next Service', icon: 'calendar-plus', stepId: 'auto-schedule' },
+            // Subscription Continue
+            { id: 'subscription-continues', type: 'system', title: 'Subscription Active', icon: 'rotate', stepId: 'subscription-active' }
+          ];
+          
+          return subscriptionCards.map((card, idx) => ({ ...card, index: idx }));
         }
         
         const activeSteps = scenarioSteps[scenarioId] || steps;
@@ -6616,6 +7141,368 @@
         `;
       };
 
+      // ===== DÉPANNAGE SCENARIO RENDER FUNCTIONS =====
+
+      const renderEmergencyRequestCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(239, 68, 68, 0.15); color: #ef4444; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-phone-volume"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Customer emergency: ${so.emergency.issueType}</p>
+            </div>
+
+            <div style="background: rgba(239, 68, 68, 0.08); border: 2px solid #ef4444; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-size: 4rem;">🚨</div>
+                <div>
+                  <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">EMERGENCY: ${so.emergency.severity} Priority</div>
+                  <div style="font-size: 1.1rem;">${so.emergency.impact}</div>
+                </div>
+              </div>
+              
+              <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="font-weight: 700; margin-bottom: 0.8rem;"><i class="fas fa-comment"></i> Customer Description</div>
+                <div style="font-size: 0.95rem; line-height: 1.8; font-style: italic;">"${so.emergency.customerDescription}"</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="text-align: center; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                  <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">${so.urgencyLevel}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Urgency Level</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(251, 191, 36, 0.1); border-radius: 8px;">
+                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">${so.responseWindow}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Response Window</div>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: rgba(78, 168, 255, 0.1); border-radius: 8px;">
+                  <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue);">${so.emergency.timeOfDay}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Time of Day</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-bolt" style="color: var(--accent-orange);"></i>
+                <strong> Emergency Protocol Activated:</strong> ${so.emergency.isAfterHours ? 'After-hours/weekend service' : 'Same-day service'} • Customer: ${so.customer.name} • Family size: ${so.customer.familySize} • ${so.emergency.customerStress}
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Proceed to Urgency Triage <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderUrgencyTriageCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-robot"></i> AI + SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">AI analyzes severity and determines response protocol</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-brain"></i> AI Urgency Analysis</h3>
+              
+              <div style="background: rgba(239, 68, 68, 0.08); border: 2px solid #ef4444; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: #ef4444;"><i class="fas fa-exclamation-triangle"></i> Severity Assessment</div>
+                <div style="font-size: 0.95rem; line-height: 2;">
+                  ✓ <strong>Issue Type:</strong> ${so.emergency.issueType} (${so.failedAsset.assetType})<br>
+                  ✓ <strong>Impact:</strong> ${so.emergency.impact}<br>
+                  ✓ <strong>Time Sensitivity:</strong> ${so.emergency.timeOfDay} ${so.emergency.isWeekend ? '(Weekend)' : ''}<br>
+                  ✓ <strong>Weather:</strong> ${so.emergency.temperature}<br>
+                  ✓ <strong>Family Impact:</strong> ${so.customer.urgentSituation}
+                </div>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="font-weight: 700; margin-bottom: 1rem; color: var(--accent-orange);"><i class="fas fa-gauge-high"></i> AI Decision</div>
+                <div style="font-size: 1.2rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">
+                  URGENCY LEVEL: ${so.urgencyLevel}
+                </div>
+                <div style="font-size: 0.9rem; line-height: 1.8;">
+                  Response Window: <strong>${so.responseWindow}</strong><br>
+                  Protocol: <strong>${so.emergencyProtocol}</strong><br>
+                  SLA Commitment: <strong>${so.slaCommitment}</strong>
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green);">
+                  <i class="fas fa-check-circle"></i> Emergency provider network activated - dispatching nearest available technician with stock
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Match Emergency Provider <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderEmergencyCompleteCard = (so, card) => {
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-flag-checkered"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Emergency resolved - Customer satisfaction restored</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.2), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 3rem; text-align: center; margin-bottom: 2rem;">
+              <div style="font-size: 5rem; margin-bottom: 1rem;">✅</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Emergency Successfully Resolved</div>
+              <div style="font-size: 1.1rem; color: var(--text-muted);">Same-day service completed - Family has hot water restored</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">${so.responseWindow}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Response Time</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${so.services[0].duration}min</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Work Duration</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">€${so.totals.total.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Total Paid</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 0.5rem;">+€${so.totals.breakdown.urgencyPremium}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Urgency Fee</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Emergency Service Summary</h3>
+              <div style="font-size: 0.95rem; line-height: 2;">
+                ⚡ <strong>Issue:</strong> ${so.failedAsset.issue}<br>
+                ⚡ <strong>Solution:</strong> Emergency replacement with ${so.products[0].brand} ${so.products[0].model}<br>
+                ⚡ <strong>Provider:</strong> ${so.provider.name} (${so.provider.currentLocation})<br>
+                ⚡ <strong>Response:</strong> Arrived ${so.provider.estimatedArrival} (${so.provider.averageResponseTime} response time)<br>
+                ⚡ <strong>Work:</strong> ${so.services[0].name} completed in ${so.services[0].duration} minutes<br>
+                ⚡ <strong>Stock:</strong> Provider carried unit in van (emergency stock)<br>
+                ⚡ <strong>Payment:</strong> €${so.totals.total.toFixed(2)} charged immediately on completion<br>
+                ⚡ <strong>Premium:</strong> €${so.totals.breakdown.emergencyCallout} call-out + €${so.totals.breakdown.urgencyPremium} urgency fee
+              </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-key"></i> Dépannage vs Standard Service</h3>
+              <div style="font-size: 0.9rem; line-height: 2;">
+                <strong style="color: var(--accent-orange);">Speed:</strong> ${so.responseWindow} vs 2-3 days standard<br>
+                <strong style="color: #ef4444);">Pricing:</strong> €${so.totals.total.toFixed(2)} vs €${so.totals.breakdown.baseCostEquivalent.toFixed(2)} standard (${((so.totals.breakdown.emergencyMarkup / so.totals.breakdown.baseCostEquivalent) * 100).toFixed(0)}% premium)<br>
+                <strong style="color: var(--accent-blue);">Availability:</strong> ${so.provider.availability} (weekend/after-hours)<br>
+                <strong style="color: var(--accent-purple);">Stock:</strong> Provider carried product (no delivery wait)<br>
+                <strong style="color: var(--accent-green);">Contract:</strong> SMS confirmation (no signed document wait)
+              </div>
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Emergency Complete! Demonstrated urgent same-day service with premium pricing for speed.')">
+                <i class="fas fa-flag-checkered"></i> Complete Journey
+              </button>
+              <div style="margin-top: 1rem; color: var(--accent-green);">
+                <i class="fas fa-bolt"></i> <strong>Dépannage Scenario</strong> - Emergency service with urgency premium
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
+      // ===== GENERIC CARD RENDERER FOR UNMAPPED CARDS =====
+      
+      const renderGenericCard = (so, card) => {
+        const actorColors = {
+          'CUSTOMER': 'rgba(239, 68, 68, 0.15), #ef4444',
+          'PROVIDER': 'rgba(251, 191, 36, 0.15), var(--accent-orange)',
+          'CREW': 'rgba(73, 212, 147, 0.15), var(--accent-green)',
+          'SYSTEM': 'rgba(78, 168, 255, 0.15), var(--accent-blue)',
+          'AI': 'rgba(192, 132, 252, 0.15), var(--accent-purple)'
+        };
+        const [bgColor, textColor] = (actorColors[card.actor] || 'rgba(255,255,255,0.05), var(--text-primary)').split(', ');
+
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: ${bgColor}; color: ${textColor}; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-${card.icon}"></i> ${card.actor}
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">${card.subtitle || 'Processing step in workflow'}</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted);">
+                This step represents: <strong>${card.title}</strong>
+                ${card.subtitle ? `<br><br>${card.subtitle}` : ''}
+                ${so.customer ? `<br><br><strong>Customer:</strong> ${so.customer.name}` : ''}
+                ${so.provider ? `<br><strong>Provider:</strong> ${so.provider.name}` : ''}
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="dashboard.previousCard()" ${currentCardIndex === 0 ? 'disabled' : ''}>
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Next Step <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      // ===== SUBSCRIPTION SCENARIO RENDER FUNCTIONS =====
+
+      const renderServiceReminderCard = (so, card) => {
+        const sub = so.subscription;
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(78, 168, 255, 0.15); color: var(--accent-blue); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-bell"></i> CUSTOMER
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Auto-scheduled subscription service notification</p>
+            </div>
+
+            <div style="background: rgba(78, 168, 255, 0.08); border: 2px solid var(--accent-blue); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
+                <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Quarterly Service Due</div>
+                <div style="font-size: 1.1rem; color: var(--text-muted);">Visit ${so.serviceVisitNumber} of ${so.totalVisitsInContract} in your annual plan</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                  <div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">Subscription Plan</div>
+                    <div style="font-weight: 700;">${sub.planName}</div>
+                    <div style="font-size: 0.9rem; color: var(--accent-blue);">${sub.tier} Tier</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">Monthly Fee</div>
+                    <div style="font-weight: 700;">€${sub.monthlyFee.toFixed(2)}</div>
+                    <div style="font-size: 0.9rem; color: var(--accent-green);">Service included</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: rgba(73, 212, 147, 0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 1rem;">
+                <div style="font-size: 0.9rem;">
+                  <strong><i class="fas fa-calendar-check"></i> Scheduled:</strong> ${so.services[0].scheduledDate} at ${so.services[0].timeSlot}<br>
+                  <strong><i class="fas fa-wrench"></i> Service:</strong> ${so.services[0].name}<br>
+                  <strong><i class="fas fa-user"></i> Technician:</strong> ${so.provider.assignedTechnician} (same as previous visits)
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid var(--accent-orange); border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+              <div style="font-size: 0.9rem;">
+                <i class="fas fa-info-circle" style="color: var(--accent-orange);"></i>
+                <strong> Subscription Benefits Active:</strong> No additional charge for this visit • 15% discount on any repairs needed • Priority emergency response
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+              <button class="btn btn-primary" onclick="dashboard.nextCard()">
+                Confirm Schedule <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      };
+
+      const renderSubscriptionContinuesCard = (so, card) => {
+        const sub = so.subscription;
+        const asset = so.assets[0];
+        return `
+          <div style="padding: 2rem;">
+            <div style="margin-bottom: 2rem;">
+              <div style="display: inline-block; background: rgba(73, 212, 147, 0.15); color: var(--accent-green); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                <i class="fas fa-rotate"></i> SYSTEM
+              </div>
+              <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><i class="fas fa-${card.icon}"></i> ${card.title}</h2>
+              <p style="color: var(--text-muted); font-size: 1.1rem;">Subscription continues - Next service auto-scheduled</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(73, 212, 147, 0.2), rgba(73, 212, 147, 0.05)); border: 2px solid var(--accent-green); border-radius: 12px; padding: 3rem; text-align: center; margin-bottom: 2rem;">
+              <div style="font-size: 5rem; margin-bottom: 1rem;">🔄</div>
+              <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-bottom: 1rem;">Subscription Active & Renewed</div>
+              <div style="font-size: 1.1rem; color: var(--text-muted);">Next service auto-scheduled for ${asset.nextServiceDue}</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">${sub.servicesCompleted}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Services Completed</div>
+                <div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 0.5rem;">Of ${sub.servicesPerYear} per year</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.5rem;">${asset.healthScore}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Health Score</div>
+                <div style="font-size: 0.8rem; color: var(--accent-blue); margin-top: 0.5rem;">${asset.conditionTrend}</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">€${sub.monthlyFee.toFixed(2)}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Monthly Fee</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Auto-renewed</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list-check"></i> Subscription Workflow Summary</h3>
+              <div style="font-size: 0.95rem; line-height: 2;">
+                🔄 <strong>Auto-Scheduled:</strong> Service booked ${sub.frequency.toLowerCase()} without customer action<br>
+                🔄 <strong>Reminder Sent:</strong> 2 weeks notice + 3 days confirmation<br>
+                🔄 <strong>Same Technician:</strong> ${so.provider.assignedTechnician} for relationship continuity<br>
+                🔄 <strong>Service Completed:</strong> ${so.services[0].name} performed on schedule<br>
+                🔄 <strong>No Payment:</strong> Covered by monthly subscription fee (€${sub.monthlyFee})<br>
+                🔄 <strong>Health Tracked:</strong> Asset score: ${asset.healthScore}/100 (${asset.conditionTrend})<br>
+                🔄 <strong>Next Service:</strong> Auto-scheduled for ${asset.nextServiceDue}<br>
+                🔄 <strong>Subscription:</strong> Active until ${sub.renewalDate} (auto-renew enabled)
+              </div>
+            </div>
+
+            <div style="background: rgba(78, 168, 255, 0.08); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fas fa-trophy"></i> Subscription Benefits</h3>
+              <div style="font-size: 0.9rem; line-height: 1.8;">
+                ${sub.benefits.map(benefit => `✓ ${benefit}<br>`).join('')}
+              </div>
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;" onclick="alert('✅ Subscription Active! Demonstrated recurring service model with auto-scheduling and relationship continuity.')">
+                <i class="fas fa-flag-checkered"></i> Complete Journey
+              </button>
+              <div style="margin-top: 1rem; color: var(--accent-green);">
+                <i class="fas fa-rotate"></i> <strong>Subscription Scenario</strong> - Recurring maintenance with auto-renewal
+              </div>
+            </div>
+          </div>
+        `;
+      };
+
       const renderMetroLine = () => {
         const html = allCards.map((card, idx) => {
           const isActive = idx === currentCardIndex;
@@ -6727,6 +7614,19 @@
           html = renderPaymentAuthMaintCard(so, card);
         } else if (card.id === 'maintenance-complete') {
           html = renderMaintenanceCompleteCard(so, card);
+        } else if (card.id === 'emergency-request') {
+          html = renderEmergencyRequestCard(so, card);
+        } else if (card.id === 'urgency-triage') {
+          html = renderUrgencyTriageCard(so, card);
+        } else if (card.id === 'emergency-complete') {
+          html = renderEmergencyCompleteCard(so, card);
+        } else if (card.id === 'service-reminder') {
+          html = renderServiceReminderCard(so, card);
+        } else if (card.id === 'subscription-continues') {
+          html = renderSubscriptionContinuesCard(so, card);
+        } else {
+          // Generic render for unmapped cards (provider assignments, crew execution, etc.)
+          html = renderGenericCard(so, card);
         }
 
         document.getElementById('journeyCard').innerHTML = html;
